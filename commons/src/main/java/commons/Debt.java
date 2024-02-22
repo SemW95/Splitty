@@ -1,11 +1,12 @@
 package commons;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Debt {
     Person payer;
     TotalDebt debt;
-    double paid;
+    BigDecimal paid;
 
     public Debt(Person payer, TotalDebt debt, double paid) {
         // TODO: create Debt
@@ -20,7 +21,7 @@ public class Debt {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Debt debt1 = (Debt) o;
-        return Double.compare(paid, debt1.paid) == 0 && Objects.equals(payer, debt1.payer) && Objects.equals(debt, debt1.debt);
+        return Objects.equals(paid, debt1.paid)  && Objects.equals(payer, debt1.payer) && Objects.equals(debt, debt1.debt);
     }
 
     /** Provides a hash for the current Object
