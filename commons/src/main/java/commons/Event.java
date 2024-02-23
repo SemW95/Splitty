@@ -19,7 +19,8 @@ public class Event {
      * @param description The description of the Event
      */
     public Event(String title, String description) {
-        // TODO: implement Event creation without tags
+        this.title = title;
+        this.description = description;
     }
 
     /** Create an Event with Tag's
@@ -28,7 +29,56 @@ public class Event {
      * @param tags The ArrayList of Tag
      */
     public Event(String title, String description, ArrayList<Tag> tags) {
-        // TODO: implement Event creation with tags
+        this.title = title;
+        this.description = description;
+        this.tags = new ArrayList<Tag>();
+    }
+
+    public Event(String title, String description, ArrayList<Tag> tags, ArrayList<Expense> expenses){
+        this.title = title;
+        this.description = description;
+        this.tags = new ArrayList<Tag>();
+        this.expenses = new ArrayList<Expense>();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public ArrayList<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(ArrayList<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public ArrayList<Expense> getExpenses() {
+        return expenses;
+    }
+
+    public void setExpenses(ArrayList<Expense> expenses) {
+        this.expenses = expenses;
     }
 
     /** Checks if the Object that is provided is equal to this Event object
