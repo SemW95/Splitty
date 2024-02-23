@@ -53,24 +53,26 @@ class EventTest {
 
     @Test
     void getTitle() {
+        assertEquals("Dinner and Drinks", test1.getTitle(), "Incorrect title");
     }
 
     @Test
     void setTitle() {
         String newTitle = "NewTitle";
         test1.setTitle(newTitle);
-        assertEquals(newTitle, test1.getTitle());
+        assertEquals(newTitle, test1.getTitle(), "Setting title failed");
     }
 
     @Test
     void getDescription() {
+        assertEquals("Dinner and drinks with the group", test1.getDescription(), "Incorrect description");
     }
 
     @Test
     void setDescription() {
         String newDescription = "NewDescription";
         test1.setDescription(newDescription);
-        assertEquals(newDescription, test1.getDescription());
+        assertEquals(newDescription, test1.getDescription(), "Setting description failed");
     }
 
     @Test
@@ -79,7 +81,6 @@ class EventTest {
 
     @Test
     void setTags() {
-
     }
 
     @Test
@@ -107,6 +108,6 @@ class EventTest {
 
     @Test
     void testHashCode() {
-        assertEquals(test1.hashCode(),test2.hashCode());
+        assertEquals(test1.hashCode(),test2.hashCode(), "Hash codes should be equal");
     }
 }
