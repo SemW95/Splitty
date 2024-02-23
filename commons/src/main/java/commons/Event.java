@@ -31,7 +31,14 @@ public class Event {
     public Event(String title, String description, ArrayList<Tag> tags) {
         this.title = title;
         this.description = description;
-        this.tags = tags;
+        this.tags = new ArrayList<Tag>();
+    }
+
+    public Event(String title, String description, ArrayList<Tag> tags, ArrayList<Expense> expenses){
+        this.title = title;
+        this.description = description;
+        this.tags = new ArrayList<Tag>();
+        this.expenses = new ArrayList<Expense>();
     }
 
     public String getId() {
