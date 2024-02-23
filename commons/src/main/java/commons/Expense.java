@@ -9,11 +9,38 @@ public class Expense {
     Person receiver;
 
     public Expense(TotalDebt totalDebt, Person receiver) {
-        // TODO: create Expense without a Debt list
+        this.totalDebt = totalDebt;
+        this.receiver = receiver;
     }
 
     public Expense(TotalDebt totalDebt, Person receiver, ArrayList<Debt> debts) {
-        // TODO: create Expense with a Debt list
+        this.totalDebt = totalDebt;
+        this.receiver = receiver;
+        this.debts = new ArrayList<Debt>();
+    }
+
+    public ArrayList<Debt> getDebts() {
+        return debts;
+    }
+
+    public void setDebts(ArrayList<Debt> debts) {
+        this.debts = debts;
+    }
+
+    public TotalDebt getTotalDebt() {
+        return totalDebt;
+    }
+
+    public void setTotalDebt(TotalDebt totalDebt) {
+        this.totalDebt = totalDebt;
+    }
+
+    public Person getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(Person receiver) {
+        this.receiver = receiver;
     }
 
     /**
