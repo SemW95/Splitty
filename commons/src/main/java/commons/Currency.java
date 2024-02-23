@@ -5,11 +5,18 @@ package commons;
  */
 public class Currency {
     String name;
-    // TODO: implement the functions for each currency
 
-    public Currency(/* TODO: determine Currency inputs */) {
-        // TODO: create currency
+    public Currency(String name) {
+        this.name = name;
     }
 
     // TODO: create equals and hash functions once this Object is thought out
+
+
+    @Override
+    public String toString() {
+        return "Currency{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
