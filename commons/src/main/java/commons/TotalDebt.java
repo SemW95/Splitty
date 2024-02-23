@@ -14,13 +14,16 @@ public class TotalDebt {
     int noParticipants; // amount of people to distribute toBePaid over
 
     /**
+     * This is a constructor method for the totaldebt object.
      *
-     * @param toBePaid total amount to be paid to the recipiend
+     * @param toBePaid total amount to be paid to the recipient
      * @param currency in what currency should the recipient be compensated?
      * @param receiver the participant object of the recipient
      * @param noParticipants how many people are sharing the debt to the payer
+     *
      */
-    public TotalDebt(BigDecimal toBePaid, Currency currency, Participant receiver, int noParticipants) {
+    public TotalDebt(BigDecimal toBePaid, Currency currency, Participant receiver,
+                     int noParticipants) {
         this.toBePaid = toBePaid;
         this.currency = currency;
         this.receiver = receiver;
@@ -28,26 +31,36 @@ public class TotalDebt {
     }
 
     /**
+     * This returns a string representation of this object.
      *
      * @return a string representation of the totalDebt class.
      */
     @Override
     public String toString() {
-        return "TotalDebt{" +
-                "toBePaid=" + toBePaid +
-                ", currency=" + currency +
-                ", receiver=" + receiver +
-                ", noParticipants=" + noParticipants +
-                '}';
+        return "TotalDebt{"
+                + "toBePaid="
+                + toBePaid
+                + ", currency="
+                + currency
+                + ", receiver="
+                + receiver
+                + ", noParticipants="
+                + noParticipants
+                + '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        //i dont think that two totaldebts with the same currency, amount, recipient and number of payers should be
+        //i dont think that two totaldebts
+        // with the same currency, amount, recipient and number of payers should be
         //considered equal since it's not necessarily the same scenario
         //it really depends on the reference:
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         return false;
     }
 
