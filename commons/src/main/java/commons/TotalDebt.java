@@ -11,19 +11,28 @@ public class TotalDebt {
         // TODO: create TotalDebt
     }
 
-    /** Checks if the Object that is provided is equal to this TotalDebt object
+    /**
+     * Checks if the Object that is provided is equal to this TotalDebt object.
+     *
      * @param o The Object that has to be compared to this TotalDebt Object
      * @return true if they are equal, false when they are not
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         TotalDebt totalDebt = (TotalDebt) o;
-        return Objects.equals(toBePaid, totalDebt.toBePaid) && Objects.equals(currency, totalDebt.currency);
+        return Objects.equals(toBePaid, totalDebt.toBePaid)
+            && Objects.equals(currency, totalDebt.currency);
     }
 
-    /** Provides a hash for the current Object
+    /**
+     * Provides a hash for the current Object.
+     *
      * @return the hash of this Object
      */
     @Override
