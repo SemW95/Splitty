@@ -16,15 +16,12 @@
 
 package commons;
 
-import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * TODO.
@@ -39,20 +36,29 @@ public class Person {
     public String firstName;
     public String lastName;
 
-    //the following attributes + tostring method are implemented to allow basic functionality in the totaldebttest class
-    // TODO figure out if we want to use the firstname lastname fields from the template projects or our own field below
+    //the following attributes + tostring method are implemented to allow basic functionality
+    // in the totaldebt test class
+    // TODO figure out if we want to use the firstname lastname fields from the template projects
+    // or our own field below
     public String name;
     public String email;
-    public String IBAN;
-    public String BIC;
+    public String iban;
+    public String bic;
 
-    public Person(String name, String email, String IBAN, String BIC) {
+    /**
+     * TODO.
+     *
+     * @param name  todo
+     * @param email todo
+     * @param iban  todo
+     * @param bic   todo
+     */
+    public Person(String name, String email, String iban, String bic) {
         this.name = name;
         this.email = email;
-        this.IBAN = IBAN;
-        this.BIC = BIC;
+        this.iban = iban;
+        this.bic = bic;
     }
-
 
 
     public Person(String firstName, String lastName) {
@@ -78,15 +84,11 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person{" +
-                "name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", IBAN='" + IBAN + '\'' +
-                ", BIC='" + BIC + '\'' +
-                '}';
+        return "Person{" + "name='" + name + '\'' + ", email='" + email + '\'' + ", IBAN='" + iban
+            + '\'' + ", BIC='" + bic + '\'' + '}';
     }
-//    @Override
-//    public String toString() {
-//        return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE);
-//    }
+    //    @Override
+    //    public String toString() {
+    //        return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE);
+    //    }
 }
