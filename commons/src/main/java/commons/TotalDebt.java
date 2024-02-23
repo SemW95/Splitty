@@ -10,7 +10,7 @@ import java.util.Objects;
 public class TotalDebt {
     BigDecimal toBePaid; // total amount to be paid to the irl payer
     Currency currency; // Currency to be paid in
-    Participant receiver; // recipient of toBePaid
+    Person receiver; // recipient of toBePaid
     int noParticipants; // amount of people to distribute toBePaid over
 
     /**
@@ -22,7 +22,7 @@ public class TotalDebt {
      * @param noParticipants how many people are sharing the debt to the payer
      *
      */
-    public TotalDebt(BigDecimal toBePaid, Currency currency, Participant receiver,
+    public TotalDebt(BigDecimal toBePaid, Currency currency, Person receiver,
                      int noParticipants) {
         this.toBePaid = toBePaid;
         this.currency = currency;
@@ -85,11 +85,11 @@ public class TotalDebt {
         this.currency = currency;
     }
 
-    public Participant getReceiver() {
+    public Person getReceiver() {
         return receiver;
     }
 
-    public void setReceiver(Participant receiver) {
+    public void setReceiver(Person receiver) {
         this.receiver = receiver;
     }
 
