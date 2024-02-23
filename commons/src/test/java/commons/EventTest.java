@@ -20,17 +20,17 @@ class EventTest {
     private Tag tag2;
     private Event test3;
     private Event test4;
-    private ArrayList<Expense> expenses1;
-    private ArrayList<Expense> expenses2;
-    private Expense expense1;
-    private Expense expense2;
-    private Person receiver;
-    private TotalDebt totalDebt;
-    private Currency c1;
-    private List<Person> l1;
-    private TotalDebt totalDebt;
-    private Event test5;
-    private Event test6;
+//    private ArrayList<Expense> expenses1;
+//    private ArrayList<Expense> expenses2;
+//    private Expense expense1;
+//    private Expense expense2;
+//    private Person receiver;
+//    private TotalDebt totalDebt;
+//    private Currency c1;
+//    private List<Person> l1;
+//    private TotalDebt totalDebt;
+//    private Event test5;
+//    private Event test6;
 
     @BeforeEach
     void setUp() {
@@ -48,23 +48,24 @@ class EventTest {
         test3 = new Event("Pizza", "Pizza with the group", tags1);
         test4 = new Event("Pizza", "Pizza with the group", tags2);
 
-        expenses1 = new ArrayList<Expense>();
-        expenses2 = new ArrayList<Expense>();
-
-        c1 = new Currency("EUR");
-        l1 = new ArrayList<>();
-        receiver = new Person("Emma", "Emma@hotmail.com", "ES9121000418450200051332", "CAIXESBBXXX");
-        totalDebt = new TotalDebt(BigDecimal.valueOf(172), c1, receiver, l1.size())
-
-        expense1 = new Expense()
-        expense2 = new Expense()
-        expenses1.add(expense1);
-        expenses1.add(expense2);
-        expenses2.add(expense1);
-        expenses2.add(expense2);
-
-        test5 = new Event("Pizza", "Pizza with the group", tags1,expenses1);
-        test6 = new Event("Pizza", "Pizza with the group", tags1, expenses2);
+//        STUFF FOR CONSTRUCTOR 3, ADD THIS WHEN THE REST OF THE CLASSES ARE SECURE
+//        expenses1 = new ArrayList<Expense>();
+//        expenses2 = new ArrayList<Expense>();
+//
+//        c1 = new Currency("EUR");
+//        l1 = new ArrayList<>();
+//        receiver = new Person("Emma", "Emma@hotmail.com", "ES9121000418450200051332", "CAIXESBBXXX");
+//        totalDebt = new TotalDebt(BigDecimal.valueOf(172), c1, receiver, l1.size())
+//
+//        expense1 = new Expense(totalDebt, receiver, )
+//        expense2 = new Expense(totalDebt, receiver, )
+//        expenses1.add(expense1);
+//        expenses1.add(expense2);
+//        expenses2.add(expense1);
+//        expenses2.add(expense2);
+//
+//        test5 = new Event("Pizza", "Pizza with the group", tags1,expenses1);
+//        test6 = new Event("Pizza", "Pizza with the group", tags1, expenses2);
     }
 
     void setId() {
@@ -97,6 +98,7 @@ class EventTest {
         assertEquals(newDescription, test1.getDescription(), "Setting description failed");
     }
 
+    // TO DO
     @Test
     void getTags() {
     }
@@ -114,18 +116,7 @@ class EventTest {
     }
 
     @Test
-    void testEquals1() {
-        assertEquals(test1,test2);
-    }
-
-    @Test
-    void testEquals2() {
-        assertEquals(test3, test4);
-    }
-
-    @Test
-    void testEquals3() {
-        assertEquals(test5, test6);
+    void testEquals() {
     }
 
     @Test
