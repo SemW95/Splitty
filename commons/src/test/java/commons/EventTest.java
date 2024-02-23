@@ -4,7 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Array;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,6 +24,11 @@ class EventTest {
     private ArrayList<Expense> expenses2;
     private Expense expense1;
     private Expense expense2;
+    private Person receiver;
+    private TotalDebt totalDebt;
+    private Currency c1;
+    private List<Person> l1;
+    private TotalDebt totalDebt;
     private Event test5;
     private Event test6;
 
@@ -41,14 +48,29 @@ class EventTest {
         test3 = new Event("Pizza", "Pizza with the group", tags1);
         test4 = new Event("Pizza", "Pizza with the group", tags2);
 
+        expenses1 = new ArrayList<Expense>();
+        expenses2 = new ArrayList<Expense>();
 
-        test5 = new Event("Pizza", "Pizza with the group", tags1,expenses1 );
+        c1 = new Currency("EUR");
+        l1 = new ArrayList<>();
+        receiver = new Person("Emma", "Emma@hotmail.com", "ES9121000418450200051332", "CAIXESBBXXX");
+        totalDebt = new TotalDebt(BigDecimal.valueOf(172), c1, receiver, l1.size())
+
+        expense1 = new Expense()
+        expense2 = new Expense()
+        expenses1.add(expense1);
+        expenses1.add(expense2);
+        expenses2.add(expense1);
+        expenses2.add(expense2);
+
+        test5 = new Event("Pizza", "Pizza with the group", tags1,expenses1);
         test6 = new Event("Pizza", "Pizza with the group", tags1, expenses2);
-
     }
 
-    // TO DO: test the ID setter
     void setId() {
+        String newId = "newId";
+        test1.setTitle(newId);
+        assertEquals(newId, test1.getTitle(), "Setting Id failed");
     }
 
     @Test
