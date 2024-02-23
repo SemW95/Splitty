@@ -13,18 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package client;
 
 import static com.google.inject.Guice.createInjector;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-
-import com.google.inject.Injector;
-
 import client.scenes.AddQuoteCtrl;
 import client.scenes.MainCtrl;
 import client.scenes.QuoteOverviewCtrl;
+import com.google.inject.Injector;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
