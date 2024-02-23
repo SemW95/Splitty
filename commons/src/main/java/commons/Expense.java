@@ -16,20 +16,30 @@ public class Expense {
         // TODO: create Expense with a Debt list
     }
 
-    /** Checks if the Object that is provided is equal to this Expense object
+    /**
+     * Checks if the Object that is provided is equal to this Expense object.
+     *
      * @param o The Object that has to be compared to this Expense Object
      * @return true if they are equal, false when they are not
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Expense expense = (Expense) o;
-        return Objects.equals(debts, expense.debts) && Objects.equals(totalDebt, expense.totalDebt) && Objects.equals(receiver, expense.receiver);
+        return Objects.equals(debts, expense.debts)
+            && Objects.equals(totalDebt, expense.totalDebt)
+            && Objects.equals(receiver, expense.receiver);
     }
 
 
-    /** Provides a hash for the current Object
+    /**
+     * Provides a hash for the current Object.
+     *
      * @return the hash of this Object
      */
     @Override
