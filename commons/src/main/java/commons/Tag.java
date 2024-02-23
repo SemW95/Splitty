@@ -1,5 +1,8 @@
 package commons;
 
+/**
+ * TODO.
+ */
 public class Tag {
     String name;
     // TODO: decide how to store the Tag colour

@@ -3,6 +3,9 @@ package commons;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+/**
+ * TODO.
+ */
 public class Debt {
     Person payer;
     TotalDebt debt;

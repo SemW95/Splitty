@@ -3,6 +3,9 @@ package commons;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+/**
+ * TODO.
+ */
 public class TotalDebt {
     BigDecimal toBePaid;
     Currency currency;

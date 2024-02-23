@@ -1,5 +1,8 @@
 package commons;
 
+/**
+ * TODO.
+ */
 public class Currency {
     String name;
     // TODO: implement the functions for each currency

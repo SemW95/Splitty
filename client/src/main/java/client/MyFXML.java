@@ -28,6 +28,9 @@ import javafx.util.BuilderFactory;
 import javafx.util.Callback;
 import javafx.util.Pair;
 
+/**
+ * The main JavaFX class.
+ */
 @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
 public class MyFXML {
 
@@ -37,6 +40,8 @@ public class MyFXML {
         this.injector = injector;
     }
 
+    // TODO: no clue what this does
+    @SuppressWarnings("checkstyle:MissingJavadocMethod")
     public <T> Pair<T, Parent> load(Class<T> c, String... parts) {
         try {
             var loader = new FXMLLoader(getLocation(parts), null, null, new MyFactory(),
