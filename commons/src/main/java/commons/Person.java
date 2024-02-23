@@ -36,15 +36,31 @@ public class Person {
     public String firstName;
     public String lastName;
 
-    @SuppressWarnings("unused")
-    private Person() {
-        // for object mapper
+    //the following attributes + tostring method are implemented to allow basic functionality in the totaldebttest class
+    // TODO figure out if we want to use the firstname lastname fields from the template projects or our own field below
+    public String name;
+    public String email;
+    public String IBAN;
+    public String BIC;
+
+    public Person(String name, String email, String IBAN, String BIC) {
+        this.name = name;
+        this.email = email;
+        this.IBAN = IBAN;
+        this.BIC = BIC;
     }
+
+
 
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
+    public Person() {
+
+    }
+
 
     @Override
     public boolean equals(Object obj) {
@@ -56,8 +72,18 @@ public class Person {
         return HashCodeBuilder.reflectionHashCode(this);
     }
 
+
     @Override
     public String toString() {
-        return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE);
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", IBAN='" + IBAN + '\'' +
+                ", BIC='" + BIC + '\'' +
+                '}';
     }
+//    @Override
+//    public String toString() {
+//        return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE);
+//    }
 }

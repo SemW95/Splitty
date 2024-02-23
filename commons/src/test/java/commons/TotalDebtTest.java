@@ -10,23 +10,23 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TotalDebtTest {
-    Participant receiver =
-            new Participant("Emma", "Emma@hotmail.com",
+    Person receiver =
+            new Person("Emma", "Emma@hotmail.com",
                     "ES9121000418450200051332", "CAIXESBBXXX");
-    Participant p1 =
-            new Participant("Alice", "Alice@domain.com",
+    Person p1 =
+            new Person("Alice", "Alice@domain.com",
                     "GB33BUKB20201555555555", "ZUOBJEO6XXX");
-    Participant p2 =
-            new Participant("Bob", "Bob@example.com",
+    Person p2 =
+            new Person("Bob", "Bob@example.com",
                     "US12200066123456789001", "BOFAUS3NXXX");
-    Participant p3 =
-            new Participant("Charlie", "Charlie@gmail.com",
+    Person p3 =
+            new Person("Charlie", "Charlie@gmail.com",
                     "DE89370400440532013000", "COBADEFFXXX");
-    Participant p4 =
-            new Participant("David", "David@yahoo.com",
+    Person p4 =
+            new Person("David", "David@yahoo.com",
                     "FR1420041010050500013M02606", "BOUSFRPPXXX");
     Currency c1 = new Currency("EUR");
-    List<Participant> l1 = new ArrayList<>();
+    List<Person> l1 = new ArrayList<>();
     TotalDebt t1;
 
     @BeforeEach
@@ -69,7 +69,7 @@ class TotalDebtTest {
 
     @Test
     void setReceiver() {
-        Participant newReceiver = new Participant("John", "john@example.com", "GB33BUKB20201555555555",
+        Person newReceiver = new Person("John", "john@example.com", "GB33BUKB20201555555555",
                 "ZUOBJEO6XXX");
         t1.setReceiver(newReceiver);
         assertEquals(newReceiver, t1.getReceiver(), "Setting receiver failed");
@@ -88,7 +88,7 @@ class TotalDebtTest {
 
     @Test
     void testEquals() {
-        Participant receiver1= new Participant("Emma", "Emma@hotmail.com",
+        Person receiver1= new Person("Emma", "Emma@hotmail.com",
                 "ES9121000418450200051332", "CAIXESBBXXX");
         TotalDebt t2 = new TotalDebt(new BigDecimal(172), new Currency("EUR"), receiver1, 4);
         assertFalse(t1.equals(t2), "Two totaldebts with the same params should not be equal, " +
@@ -103,9 +103,9 @@ class TotalDebtTest {
 
     @Test
     void testToString() {
-        String expectedString = "TotalDebt{toBePaid=172, currency=Currency{name='null'}, " +
-                "receiver=Participant{name='Emma', email='Emma@hotmail.com', iban='ES9121000418450200051332', " +
-                "bic='CAIXESBBXXX'}, noParticipants=4}";
+        String expectedString = "TotalDebt{toBePaid=172, currency=Currency{name='EUR'}, " +
+                "receiver=Person{name='Emma', " +
+                "email='Emma@hotmail.com', IBAN='ES9121000418450200051332', BIC='CAIXESBBXXX'}, noParticipants=4}";
         assertEquals(expectedString, t1.toString(), "Incorrect toString implementation");
     }
 }
