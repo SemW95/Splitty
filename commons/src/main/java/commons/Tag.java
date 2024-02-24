@@ -7,7 +7,7 @@ public class Tag {
     Colour colourCode;
 
     /**
-     * Create a Tag
+     * Create a Tag.
      *
      * @param name         Name of the Tag
      * @param colourCode   The Colour needed
@@ -18,7 +18,7 @@ public class Tag {
     }
 
     /**
-     * Check if the other Object is equals to a Tag
+     * Check if the other Object is equals to a Tag.
      *
      * @param o The other Object
      * @return  Ture if equal, false otherwise
@@ -31,7 +31,7 @@ public class Tag {
         return Objects.equals(name, tag.name) && Objects.equals(colourCode, tag.colourCode);
     }
     /**
-     * Calculate the hashcode of the Tag
+     * Calculate the hashcode of the Tag.
      *
      * @return The hashcode of the Tag
      */

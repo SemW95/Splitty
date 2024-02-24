@@ -3,7 +3,7 @@ package commons;
 import java.util.Objects;
 
 public class Colour {
-    int id;
+    int id;  // TODO: Decide what to do with the variable id.
     int red;
     int green;
     int blue;
@@ -23,21 +23,20 @@ public class Colour {
     }
 
     /**
-     * Create a Colour with the hexString
+     * Create a Colour with the hexString.
      *
      * @param hexString a String represent colour
      */
     public Colour(String hexString){
         if (hexString.matches("^#[0-9A-Fa-f]{6}$")) { // Check if it matches hexadecimal color format
-            // Change the string to color
+            // Change the string to colour index
             String redPart = hexString.substring(0,1);
             String greenPart = hexString.substring(2,3);
             String bluePart = hexString.substring(4,5);
-
+            // Create a Colour
             this.red = Integer.valueOf(redPart,16);
             this.green = Integer.valueOf(greenPart,16);
             this.blue = Integer.valueOf(bluePart,16);
-
         } else {
             System.out.println("Invalid hexadecimal color string.");
             // Default color
@@ -48,7 +47,7 @@ public class Colour {
     }
 
     /**
-     * Getter of the red index
+     * Getter of the red index.
      *
      * @return  The red index
      */
@@ -56,7 +55,7 @@ public class Colour {
         return red;
     }
     /**
-     * Getter of the green index
+     * Getter of the green index.
      *
      * @return  The green index
      */
@@ -64,7 +63,7 @@ public class Colour {
         return green;
     }
     /**
-     * Getter of the green index
+     * Getter of the green index.
      *
      * @return  The green index
      */
@@ -73,7 +72,7 @@ public class Colour {
     }
 
     /**
-     * Setter of the red index
+     * Setter of the red index.
      *
      * @param red  The new red index
      */
@@ -81,7 +80,7 @@ public class Colour {
         this.red = red;
     }
     /**
-     * Setter of the green index
+     * Setter of the green index.
      *
      * @param green  The new green index
      */
@@ -89,7 +88,7 @@ public class Colour {
         this.green = green;
     }
     /**
-     * Setter of the blue index
+     * Setter of the blue index.
      *
      * @param blue  The new blue index
      */
@@ -98,7 +97,7 @@ public class Colour {
     }
 
     /**
-     * Check if another Colour is equal to the one
+     * Check if another Colour is equal to the one.
      *
      * @param o  The other Colour
      * @return   Ture if equal, false otherwise
@@ -112,7 +111,7 @@ public class Colour {
     }
 
     /**
-     * Calculate the hashcode of the Colour
+     * Calculate the hashcode of the Colour.
      *
      * @return The hashcode of the Colour
      */
