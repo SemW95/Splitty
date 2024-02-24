@@ -13,51 +13,77 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package commons;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
-
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Entity
 public class Person {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	public long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public long id;
 
-	public String firstName;
-	public String lastName;
+    public String firstName;
+    public String lastName;
 
-	@SuppressWarnings("unused")
-	private Person() {
-		// for object mapper
-	}
+    //the following attributes + tostring method are implemented to allow basic functionality in the totaldebttest class
+    // TODO figure out if we want to use the firstname lastname fields from the template projects or our own field below
+    public String name;
+    public String email;
+    public String IBAN;
+    public String BIC;
 
-	public Person(String firstName, String lastName) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-	}
+    public Person(String name, String email, String IBAN, String BIC) {
+        this.name = name;
+        this.email = email;
+        this.IBAN = IBAN;
+        this.BIC = BIC;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj);
-	}
 
-	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this);
-	}
 
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE);
-	}
+    public Person(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public Person() {
+
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
+    }
+
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", IBAN='" + IBAN + '\'' +
+                ", BIC='" + BIC + '\'' +
+                '}';
+    }
+//    @Override
+//    public String toString() {
+//        return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE);
+//    }
 }
