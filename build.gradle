@@ -13,12 +13,11 @@ subprojects {
     apply plugin: 'checkstyle'
     apply plugin: 'jacoco'
 
-
     group = 'oopp'
     version = '0.0.1-SNAPSHOT'
-    sourceCompatibility = '11'
+
     checkstyle {
-        toolVersion "9.2.1"
+        toolVersion = '10.13.0'
 
         ignoreFailures = false
         maxErrors = 0
@@ -30,6 +29,7 @@ subprojects {
         useJUnitPlatform()
         finalizedBy jacocoTestReport
     }
+
     jacocoTestReport {
         reports {
             xml.required = false
@@ -38,11 +38,18 @@ subprojects {
         }
     }
 
-    dependencies {
-        implementation 'org.apache.commons:commons-lang3:3.12.0'
+    // https://github.com/gradle/gradle/issues/27035
+    configurations.checkstyle {
+        resolutionStrategy.capabilitiesResolution.withCapability('com.google.collections:google-collections') {
+            select('com.google.guava:guava:0')
+        }
+    }
 
-        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
-        testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
-        testImplementation 'org.mockito:mockito-core:4.1.0'
+    dependencies {
+        implementation 'org.apache.commons:commons-lang3:3.14.0'
+
+        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
+        testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
+        testImplementation 'org.mockito:mockito-core:5.10.0'
     }
 }
