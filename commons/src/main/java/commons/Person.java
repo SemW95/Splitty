@@ -142,12 +142,12 @@ public class Person {
      * @param email new email for Person
      */
     public void setEmail(String email) {
-        boolean check = Pattern.matches("^(.+)@(\\S+)$", email);
+        boolean check = email.matches("^(.+)@(\\S+)$");
 
         if (check) {
             this.email = email;
         } else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("the provided email is not a valid email");
         }
     }
 
