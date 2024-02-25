@@ -51,12 +51,14 @@ public class Person {
     }
 
 
-
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
+    /**
+     * The JPA required "no-arg" constructor
+     */
     public Person() {
 
     }
@@ -66,6 +68,7 @@ public class Person {
     public boolean equals(Object obj) {
         return EqualsBuilder.reflectionEquals(this, obj);
     }
+
 
     @Override
     public int hashCode() {
