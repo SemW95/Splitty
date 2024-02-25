@@ -3,6 +3,9 @@ package commons;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * TODO.
+ */
 public class Expense {
     ArrayList<Debt> debts;
     TotalDebt totalDebt;
@@ -13,6 +16,13 @@ public class Expense {
         this.receiver = receiver;
     }
 
+    /**
+     * TODO.
+     *
+     * @param totalDebt todo
+     * @param receiver  todo
+     * @param debts     todo
+     */
     public Expense(TotalDebt totalDebt, Person receiver, ArrayList<Debt> debts) {
         this.totalDebt = totalDebt;
         this.receiver = receiver;

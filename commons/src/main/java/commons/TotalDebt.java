@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * Object class for the total debt to be paid relatedt o an expense,
+ * Object class for the total debt to be paid related to an expense,
  * with the amount, currency, recipient person, and participants.
  */
 public class TotalDebt {
@@ -16,11 +16,10 @@ public class TotalDebt {
     /**
      * This is a constructor method for the totaldebt object.
      *
-     * @param toBePaid total amount to be paid to the recipient
-     * @param currency in what currency should the recipient be compensated?
-     * @param receiver the participant object of the recipient
+     * @param toBePaid       total amount to be paid to the recipient
+     * @param currency       in what currency should the recipient be compensated?
+     * @param receiver       the participant object of the recipient
      * @param noParticipants how many people are sharing the debt to the payer
-     *
      */
     public TotalDebt(BigDecimal toBePaid, Currency currency, Person receiver,
                      int noParticipants) {
@@ -38,15 +37,15 @@ public class TotalDebt {
     @Override
     public String toString() {
         return "TotalDebt{"
-                + "toBePaid="
-                + toBePaid
-                + ", currency="
-                + currency
-                + ", receiver="
-                + receiver
-                + ", noParticipants="
-                + noParticipants
-                + '}';
+            + "toBePaid="
+            + toBePaid
+            + ", currency="
+            + currency
+            + ", receiver="
+            + receiver
+            + ", noParticipants="
+            + noParticipants
+            + '}';
     }
 
     @Override

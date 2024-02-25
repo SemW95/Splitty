@@ -38,6 +38,14 @@ public class Event {
         this.tags = new ArrayList<Tag>();
     }
 
+    /**
+     * TODO.
+     *
+     * @param title       todo
+     * @param description todo
+     * @param tags        todo
+     * @param expenses    todo
+     */
     public Event(String title, String description, ArrayList<Tag> tags,
                  ArrayList<Expense> expenses) {
         this.title = title;

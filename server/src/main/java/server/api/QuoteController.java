@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import server.database.QuoteRepository;
 
+@SuppressWarnings("checkstyle:MissingJavadocType")
 @RestController
 @RequestMapping("/api/quotes")
 public class QuoteController {
@@ -49,6 +50,7 @@ public class QuoteController {
         return repo.findAll();
     }
 
+    @SuppressWarnings("checkstyle:MissingJavadocMethod")
     @GetMapping("/{id}")
     public ResponseEntity<Quote> getById(@PathVariable("id") long id) {
         if (id < 0 || !repo.existsById(id)) {
@@ -57,6 +59,7 @@ public class QuoteController {
         return ResponseEntity.ok(repo.findById(id).get());
     }
 
+    @SuppressWarnings("checkstyle:MissingJavadocMethod")
     @PostMapping(path = {"", "/"})
     public ResponseEntity<Quote> add(@RequestBody Quote quote) {
 
@@ -70,6 +73,7 @@ public class QuoteController {
         return ResponseEntity.ok(saved);
     }
 
+    @SuppressWarnings("checkstyle:MissingJavadocMethod")
     @GetMapping("rnd")
     public ResponseEntity<Quote> getRandom() {
         var quotes = repo.findAll();
