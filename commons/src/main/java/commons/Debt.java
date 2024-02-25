@@ -14,10 +14,9 @@ public class Debt {
     /**
      * Constructor for a Debt.
      *
-     * @param payer the person in debt
+     * @param payer     the person in debt
      * @param totalDebt how large is the debt, in what currency, to whom, how many other indebtees
-     * @param paid how much has already been paid
-     *
+     * @param paid      how much has already been paid
      */
     public Debt(Person payer, TotalDebt totalDebt, BigDecimal paid) {
         this.payer = payer;
@@ -37,20 +36,20 @@ public class Debt {
 
         Debt debt1 = (Debt) o;
         return Objects.equals(payer, debt1.payer) && Objects.equals(totalDebt, debt1.totalDebt)
-                && Objects.equals(paid,
-                debt1.paid);
+            && Objects.equals(paid,
+            debt1.paid);
     }
 
     @Override
     public String toString() {
         return "Debt{"
-                + "payer="
-                + payer
-                + ", debt="
-                + totalDebt
-                + ", paid="
-                + paid
-                + '}';
+            + "payer="
+            + payer
+            + ", debt="
+            + totalDebt
+            + ", paid="
+            + paid
+            + '}';
     }
 
     @Override

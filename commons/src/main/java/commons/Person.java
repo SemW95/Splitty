@@ -67,7 +67,7 @@ public class Person {
     }
 
     /**
-     * The JPA required "no-arg" constructor
+     * The JPA required "no-arg" constructor.
      */
     public Person() {
 
