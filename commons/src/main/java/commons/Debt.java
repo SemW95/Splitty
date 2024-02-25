@@ -7,7 +7,7 @@ import java.util.Objects;
  * This class is meant to be used to give each participant an amount yet to pay and an amount paid.
  */
 public class Debt {
-    Participant payer;
+    Person payer;
     TotalDebt totalDebt;
     BigDecimal paid;
 
@@ -19,7 +19,7 @@ public class Debt {
      * @param paid how much has already been paid
      *
      */
-    public Debt(Participant payer, TotalDebt totalDebt, BigDecimal paid) {
+    public Debt(Person payer, TotalDebt totalDebt, BigDecimal paid) {
         this.payer = payer;
         this.totalDebt = totalDebt;
         this.paid = paid;
@@ -58,11 +58,11 @@ public class Debt {
         return Objects.hash(payer, totalDebt, paid);
     }
 
-    public Participant getPayer() {
+    public Person getPayer() {
         return payer;
     }
 
-    public void setPayer(Participant payer) {
+    public void setPayer(Person payer) {
         this.payer = payer;
     }
 
