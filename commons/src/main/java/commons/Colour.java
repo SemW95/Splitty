@@ -14,12 +14,18 @@ public class Colour {
 
     /**
      * Create a Colour with three integers.
+     * All parts have to be in the range [0,255].
      *
      * @param red   red index
      * @param green green index
      * @param blue  blue index
      */
     public Colour(int red, int green, int blue) {
+        // Check if all integers are in the range [0,255]
+        if (red < 0 || red > 255 || green < 0 || green > 255 || blue < 0 || blue > 255) {
+            throw new IllegalArgumentException("All integers should be in the range [0,255]");
+        }
+
         this.red = red;
         this.green = green;
         this.blue = blue;
@@ -28,26 +34,24 @@ public class Colour {
     /**
      * Create a Colour with the hexString.
      *
-     * @param hexString a String represent colour
+     * @param hexString a hexadecimal string representing a colour
      */
     public Colour(String hexString) {
-        if (hexString.matches(
-            "^#[0-9A-Fa-f]{6}$")) { // Check if it matches hexadecimal color format
-            // Change the string to colour index
-            String redPart = hexString.substring(0, 1);
-            String greenPart = hexString.substring(2, 3);
-            String bluePart = hexString.substring(4, 5);
-            // Create a Colour
-            this.red = Integer.valueOf(redPart, 16);
-            this.green = Integer.valueOf(greenPart, 16);
-            this.blue = Integer.valueOf(bluePart, 16);
-        } else {
-            System.out.println("Invalid hexadecimal color string.");
-            // Default color
-            this.red = 0;
-            this.green = 0;
-            this.blue = 0;
+        // Check if it matches the hexadecimal color format
+        if (!hexString.matches("^#[0-9A-Fa-f]{6}$")) {
+            throw new IllegalArgumentException(
+                "The hex string does not match the hexadecimal color format");
         }
+
+        // Change the string to colour index
+        String redPart = hexString.substring(1, 3);
+        String greenPart = hexString.substring(3, 5);
+        String bluePart = hexString.substring(5, 7);
+
+        // Create a Colour
+        this.red = Integer.valueOf(redPart, 16);
+        this.green = Integer.valueOf(greenPart, 16);
+        this.blue = Integer.valueOf(bluePart, 16);
     }
 
     /**
@@ -105,6 +109,16 @@ public class Colour {
     }
 
     /**
+     * Creates a hexadecimal string from the red, green and blue parts.
+     * Note: the letters are lowercase.
+     *
+     * @return a hexadecimal colour string
+     */
+    public String toHexString() {
+        return String.format("#%02x%02x%02x", red, green, blue);
+    }
+
+    /**
      * Check if another Colour is equal to the one.
      *
      * @param o The other Colour
@@ -132,4 +146,8 @@ public class Colour {
         return Objects.hash(red, green, blue);
     }
 
+    @Override
+    public String toString() {
+        return "Colour{" + "red=" + red + ", green=" + green + ", blue=" + blue + '}';
+    }
 }
