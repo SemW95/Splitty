@@ -16,10 +16,98 @@
 
 package commons;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import org.junit.jupiter.api.Test;
+
 /**
- * TODO.
+ * Tests for the person class.
  */
 public class PersonTest {
 
+    @Test
+    void equalTest() {
+        Person p1 =
+            new Person("Alice", "Alice@domain.com",
+                "GB33BUKB20201555555555", "ZUOBJEO6XXX");
+        Person p2 =
+            new Person("Alice", "Alice@domain.com",
+                "GB33BUKB20201555555555", "ZUOBJEO6XXX"); //same as P1
+        Person p3 =
+            new Person("Alice", "Alice@domain.com",
+                "GB33BUKB20201555555556", "ZUOBJEO6XXX"); //changed last digit IBAN
+
+        assertNotEquals(p1, p3);
+
+        assertEquals(p1, p2);
+    }
+
+
+    @Test
+    void hashTest() {
+        Person p1 =
+            new Person("Alice", "Alice@domain.com",
+                "GB33BUKB20201555555555", "ZUOBJEO6XXX");
+        Person p2 =
+            new Person("Alice", "Alice@domain.com",
+                "GB33BUKB20201555555555", "ZUOBJEO6XXX"); //same as P1
+        Person p3 =
+            new Person("Alice", "Alice@domain.com",
+                "GB33BUKB20201555555556", "ZUOBJEO6XXX"); //changed last digit IBAN
+
+        assertNotEquals(p1.hashCode(), p3.hashCode());
+        assertEquals(p1.hashCode(), p2.hashCode());
+
+    }
+
+
+    @Test
+    void toStringTest() {
+        Person p1 =
+            new Person("Alice", "Alice@domain.com",
+                "GB33BUKB20201555555555", "ZUOBJEO6XXX");
+
+        String text = p1.toString();
+        String compare = "Person{name='Alice', email='Alice@domain.com', "
+            + "IBAN='GB33BUKB20201555555555', BIC='ZUOBJEO6XXX'}";
+
+        assertEquals(text, compare);
+    }
+
+    @Test
+    void emailCheck() {
+        Person p1 =
+            new Person("Alice", "Alice@domain.com",
+                "GB33BUKB20201555555555", "ZUOBJEO6XXX");
+        p1.setEmail("Peter@domain.com");
+
+        assertEquals("Peter@domain.com", p1.getEmail());
+
+        p1.setEmail("Invalid#domain.com"); //invalid mail should not be set
+
+        assertEquals("Peter@domain.com", p1.getEmail());
+
+    }
+
+    @Test
+    void ibanCheck() {
+        Person p1 =
+            new Person("Alice", "Alice@domain.com",
+                "GB33BUKB20201555555555", "ZUOBJEO6XXX");
+        p1.setIban("GB33BUKB20201555555556"); //last digit
+
+        assertEquals("GB33BUKB20201555555556", p1.getIban());
+    }
+
+    @Test
+    void bicCheck() {
+        Person p1 =
+            new Person("Alice", "Alice@domain.com",
+                "GB33BUKB20201555555555", "ZUOBJEO6XXX");
+        p1.setBic("ZUOBJEO6XXY");
+
+        assertEquals("ZUOBJEO6XXY", p1.getBic());
+    }
 
 }
