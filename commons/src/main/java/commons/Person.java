@@ -142,15 +142,13 @@ public class Person {
      * @param email new email for Person
      */
     public void setEmail(String email) {
-        String regexPattern = "^(.+)@(\\S+)$";
-        boolean check = Pattern.compile(regexPattern).matcher(email).matches();
+        boolean check = Pattern.matches("^(.+)@(\\S+)$", email);
 
         if (check) {
             this.email = email;
         } else {
-            System.out.println("This is not a correct email");
+            throw new IllegalArgumentException();
         }
-
     }
 
     public String getIban() {
@@ -169,7 +167,6 @@ public class Person {
         } else {
             System.out.println("This is an incorrect IBAN");
         }
-
     }
 
     public String getBic() {
@@ -188,8 +185,6 @@ public class Person {
         } else {
             System.out.println("This is an incorrect BIC");
         }
-
-
     }
 
     //    @Override

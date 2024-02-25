@@ -18,6 +18,7 @@ package commons;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -58,7 +59,6 @@ public class PersonTest {
 
         assertNotEquals(p1.hashCode(), p3.hashCode());
         assertEquals(p1.hashCode(), p2.hashCode());
-
     }
 
 
@@ -84,10 +84,9 @@ public class PersonTest {
 
         assertEquals("Peter@domain.com", p1.getEmail());
 
-        p1.setEmail("Invalid#domain.com"); //invalid mail should not be set
-
-        assertEquals("Peter@domain.com", p1.getEmail());
-
+        assertThrows(IllegalArgumentException.class, () -> {
+            p1.setEmail("Invalid#domain.com");
+        });
     }
 
     @Test
