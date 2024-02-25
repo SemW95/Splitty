@@ -35,8 +35,8 @@ class EventTest {
 
         tags1 = new ArrayList<Tag>();
         tags2 = new ArrayList<Tag>();
-        tag1 = new Tag("Blue", "#0000FF");
-        tag2 = new Tag("Pink", "#FFC0CB");
+        tag1 = new Tag("Blue", new Colour("0000FF"));
+        tag2 = new Tag("Pink", new Colour("FFC0CB"));
         tags1.add(tag1);
         tags1.add(tag2);
         tags2.add(tag1);
