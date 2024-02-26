@@ -20,7 +20,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.util.regex.Pattern;
+import java.math.BigInteger;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -83,14 +83,41 @@ public class Person {
 
 
     /**
-     * TODO: Should use IBAN checker api, to verify IBAN.
+     * Verifies the checksum of iban by moving char 0 to 4 to the end and validating
+     * by mapping numeric values and checking modulo 97.
      *
-     * @param iban takes an iban number
+     * @param iban takes an iban number (needs to be trimmed when stored in database)
      *
      * @return a boolean if it is a correct/existing iban.
      */
     public boolean ibanCheckSum(String iban) {
-        return true;
+
+        //checks if the iban is of valid length
+        if (iban.length() < 15 || iban.length() > 34) {
+            return false;
+        }
+
+        //takes char at index 2 and 3 and moves them to the end
+        String toCheck = iban.substring(4) + iban.substring(0, 4);
+        int checkSum = 0;
+
+        //maps every char to its numeric value
+        for (char character : toCheck.toCharArray()) {
+            int value = Character.getNumericValue(character);
+
+            if (value <= 9) {
+                checkSum = checkSum * 10 + value;
+            } else {
+                checkSum = checkSum * 100 + value;
+            }
+
+            //makes sure it does not overflow
+            if (checkSum > 9999999) {
+                checkSum = checkSum % 97;
+            }
+        }
+
+        return checkSum % 97 == 1;
     }
 
 
@@ -165,7 +192,7 @@ public class Person {
         if (ibanCheckSum(iban)) {
             this.iban = iban;
         } else {
-            System.out.println("This is an incorrect IBAN");
+            throw new IllegalArgumentException("This is not a valid IBAN");
         }
     }
 
