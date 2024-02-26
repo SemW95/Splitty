@@ -1,4 +1,3 @@
-
 |           |                       |
 | --------- |-----------------------|
 | Date:     | 27-2-2024             |
@@ -40,16 +39,17 @@
 
 ## Talking Points (22 min)
 - **Talking Points: (Inform/ brainstorm/ decision-making/ discuss)**
-    - <Agenda -Schema> Schema (7 min)
+    - Schema (7 min)
         - What is our database going to look like?
         - Implementing via JPA
         - Deadline?
-    - <Agenda -UX-Skeleton> UX Skeleton (7 min)
+    - UX Skeleton (7 min)
         - Building the UX (who/when)
         - Deadline?
-    - <Agenda -Basic-Implementation> Basic Implementation (8 min)
+    - Basic Implementations (8 min)
         - What features/classes need to be flashed out?
         - Currency is a difficult subject, what to do?
+        - MR's reviewed by multiple people?
 
 
 **NOTE: anything that was skipped or unclear will be discussed in detail after the TA meeting.**
