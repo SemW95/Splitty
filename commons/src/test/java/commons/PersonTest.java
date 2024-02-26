@@ -96,9 +96,44 @@ public class PersonTest {
         Person p1 =
             new Person("Alice", "Alice@domain.com",
                 "GB33BUKB20201555555555", "ZUOBJEO6XXX");
-        p1.setIban("GB33BUKB20201555555556"); //last digit
 
-        assertEquals("GB33BUKB20201555555556", p1.getIban());
+        //sets proper iban
+        p1.setIban("NL91ABNA0417164300");
+        assertEquals("NL91ABNA0417164300", p1.getIban());
+
+        //different countries
+        p1.setIban("RO49AAAA1B31007593840000");
+        assertEquals("RO49AAAA1B31007593840000", p1.getIban());
+        p1.setIban("MF8420041010050500013M02606");
+        assertEquals("MF8420041010050500013M02606", p1.getIban());
+        p1.setIban("LV80BANK0000435195001");
+        assertEquals("LV80BANK0000435195001", p1.getIban());
+        p1.setIban("JO94CBJO0010000000000131000302");
+        assertEquals("JO94CBJO0010000000000131000302", p1.getIban());
+        p1.setIban("LT121000011101001000");
+        assertEquals("LT121000011101001000", p1.getIban());
+    }
+
+    @Test
+    void ibanCheckIllegal() {
+        Person p1 =
+            new Person("Alice", "Alice@domain.com",
+                "GB33BUKB20201555555555", "ZUOBJEO6XXX");
+
+        //too short
+        assertThrows(IllegalArgumentException.class, () -> {
+            p1.setIban("NL02ABNA01");
+        });
+
+        //too long
+        assertThrows(IllegalArgumentException.class, () -> {
+            p1.setIban("NL02ABNA0100000000000000000000000000000000000000");
+        });
+
+        //incorrect checksum
+        assertThrows(IllegalArgumentException.class, () -> {
+            p1.setIban("NL91ABNA0417164301");
+        });
     }
 
     @Test
