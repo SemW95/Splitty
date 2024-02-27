@@ -4,29 +4,37 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * TODO.
+ * This is the data Object for an Expense.
  */
 public class Expense {
     ArrayList<Debt> debts;
     TotalDebt totalDebt;
     Person receiver;
 
+    /**
+     * Create an Expense without any Debts.
+     *
+     * @param totalDebt The amount the receiver is owed in total.
+     * @param receiver  The person who is owed money and will receive money.
+     */
+
     public Expense(TotalDebt totalDebt, Person receiver) {
         this.totalDebt = totalDebt;
         this.receiver = receiver;
+        this.debts = new ArrayList<Debt>();
     }
 
     /**
-     * TODO.
+     * Create an Expense with Debts.
      *
-     * @param totalDebt todo
-     * @param receiver  todo
-     * @param debts     todo
+     * @param totalDebt The amount the receiver is owed in total.
+     * @param receiver  The person who is owed money and will receive money.
+     * @param debts     The ArrayList of Debts of this expense.
      */
     public Expense(TotalDebt totalDebt, Person receiver, ArrayList<Debt> debts) {
         this.totalDebt = totalDebt;
         this.receiver = receiver;
-        this.debts = new ArrayList<Debt>();
+        this.debts = debts;
     }
 
     public ArrayList<Debt> getDebts() {
