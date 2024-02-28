@@ -19,6 +19,9 @@ package server;
 import java.util.Random;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.web.context.WebApplicationContext;
 
 /**
  * Not sure what this is actually used for. TODO
@@ -28,5 +31,10 @@ public class Config {
     @Bean
     public Random getRandom() {
         return new Random();
+    }
+
+    @Bean
+    public CounterService getCounterService(){
+        return new CounterService();
     }
 }
