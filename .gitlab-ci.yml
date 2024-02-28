@@ -13,7 +13,7 @@ compile:
 checkstyle:
   stage: checkstyle
   script:
-    -./gradlew checkstyle
+    - ./gradlew checkstyle
 
 test:
   stage: test
