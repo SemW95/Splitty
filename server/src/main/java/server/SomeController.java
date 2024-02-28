@@ -12,7 +12,7 @@ public class SomeController {
 
     @GetMapping("/")
     @ResponseBody
-    public String index(){
+    public String index() {
         return "Hello world!";
     }
 }
