@@ -24,8 +24,8 @@ test:
   script:
     - ./gradlew test
     - ./gradlew AggregateJacocoReport
-    - mv test/reports/jacoco/aggregate/html ./coverage
-    - mv test/reports/jacoco/aggregate/jacocoTestReport.xml ./coverage/report.xml
+    - mv build/reports/jacoco/aggregate/html ./coverage
+    - mv build/reports/jacoco/aggregate/jacocoTestReport.xml ./coverage/report.xml
     - echo `cat coverage/index.html | grep -o -E "Total[^%]+?%" | sed -E "s/<.*>//" | sed -E "s/Total/TestCoverage:/"`
   artifacts:
     paths:
