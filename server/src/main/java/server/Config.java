@@ -32,9 +32,4 @@ public class Config {
     public Random getRandom() {
         return new Random();
     }
-
-    @Bean
-    public CounterService getCounterService(){
-        return new CounterService();
-    }
 }
