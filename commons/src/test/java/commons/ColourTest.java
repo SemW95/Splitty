@@ -9,19 +9,19 @@ import org.junit.jupiter.api.Test;
 class ColourTest {
 
     @Test
-    void getRed1() {
+    void getRed() {
         Colour colourTest = new Colour(50, 100, 150);
         assertEquals(50, colourTest.getRed());
     }
 
     @Test
-    void getGreen1() {
+    void getGreen() {
         Colour colourTest = new Colour(50, 100, 150);
         assertEquals(100, colourTest.getGreen());
     }
 
     @Test
-    void getBlue1() {
+    void getBlue() {
         Colour colourTest = new Colour(50, 100, 150);
         assertEquals(150, colourTest.getBlue());
     }
