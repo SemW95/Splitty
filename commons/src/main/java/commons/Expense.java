@@ -21,10 +21,13 @@ public class Expense {
         );
     }
 
-    public Expense(TotalDebt totalDebt, Person receiver, ArrayList<Debt> debts) {
-        this.totalDebt = totalDebt;
-        this.receiver = receiver;
-        this.debts = new ArrayList<Debt>();
+    public void addParticipant(Person payer) {
+        debts.add(new Debt(
+                payer,
+                this.totalDebt,
+                new BigDecimal(0)
+        ));
+        totalDebt.increaseNoParticipants();
     }
 
     public void removeParticipant(Person participant) throws NoSuchElementException {
