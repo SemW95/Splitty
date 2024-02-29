@@ -1,5 +1,7 @@
 package commons;
 
+import java.util.Objects;
+
 /** This is a Tag class.
  */
 public class Tag {
@@ -21,4 +23,38 @@ public class Tag {
     // TODO: create Tag with different colour specification methods
 
     // TODO: create equals and hash function once the storage type of the Tag colour is determined
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Tag tag = (Tag) o;
+        return Objects.equals(name, tag.name) && Objects.equals(colour, tag.colour);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, colour);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Colour getColour() {
+        return colour;
+    }
+
+    public void setColour(Colour colour) {
+        this.colour = colour;
+    }
 }
