@@ -5,17 +5,17 @@ package commons;
 public class Tag {
     String name;
     // TODO: decide how to store the Tag colour
-    String colourCode;
+    Colour colour;
 
     /**
      * Create a Tag.
      *
-     * @param name       Name of the Tag
-     * @param colourCode The Colour needed
+     * @param name Name of the Tag
+     * @param colour The Colour needed
      */
-    public Tag(String name, Colour colourCode) {
+    public Tag(String name, Colour colour) {
         this.name = name;
-        this.colourCode = colourCode;
+        this.colour = colour;
     }
 
     // TODO: create Tag with different colour specification methods
