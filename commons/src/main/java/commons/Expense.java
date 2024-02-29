@@ -1,6 +1,8 @@
 package commons;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class Expense {
@@ -8,9 +10,15 @@ public class Expense {
     TotalDebt totalDebt;
     Person receiver;
 
-    public Expense(TotalDebt totalDebt, Person receiver) {
-        this.totalDebt = totalDebt;
+    public Expense(Person receiver, BigDecimal totalAmount, Currency currency) {
+        this.debts = new ArrayList<Debt>();
         this.receiver = receiver;
+        this.totalDebt = new TotalDebt(
+                totalAmount,
+                currency,
+                receiver,
+                1
+        );
     }
 
     public Expense(TotalDebt totalDebt, Person receiver, ArrayList<Debt> debts) {
@@ -19,12 +27,14 @@ public class Expense {
         this.debts = new ArrayList<Debt>();
     }
 
-    public ArrayList<Debt> getDebts() {
-        return debts;
+    public void removeParticipant(Person participant) throws NoSuchElementException {
+        // TODO: check index of that participant and remove that from the list
+        // TODO: totalDebt.decreaseNoParticipants();
+        // TODO: when participant doesn't exist: throw new NoSuchElementException();
     }
 
-    public void setDebts(ArrayList<Debt> debts) {
-        this.debts = debts;
+    public ArrayList<Debt> getDebts() {
+        return debts;
     }
 
     public TotalDebt getTotalDebt() {
@@ -41,6 +51,7 @@ public class Expense {
 
     public void setReceiver(Person receiver) {
         this.receiver = receiver;
+        totalDebt.setReceiver(receiver);
     }
 
     /**
