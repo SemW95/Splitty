@@ -28,6 +28,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
 import server.database.QuoteRepository;
 
+@SuppressWarnings("checkstyle:MissingJavadocType")
 public class TestQuoteRepository implements QuoteRepository {
 
     public final List<Quote> quotes = new ArrayList<>();
@@ -91,6 +92,7 @@ public class TestQuoteRepository implements QuoteRepository {
 
     }
 
+    @SuppressWarnings("checkstyle:OverloadMethodsDeclarationOrder")
     @Override
     public void deleteAllInBatch() {
         // TODO Auto-generated method stub
@@ -119,6 +121,7 @@ public class TestQuoteRepository implements QuoteRepository {
         return quotes.stream().filter(q -> q.id == id).findFirst();
     }
 
+    @SuppressWarnings("checkstyle:OverloadMethodsDeclarationOrder")
     @Override
     public <S extends Quote> List<S> findAll(Example<S> example) {
         // TODO Auto-generated method stub
@@ -198,12 +201,14 @@ public class TestQuoteRepository implements QuoteRepository {
         return null;
     }
 
+    @SuppressWarnings("checkstyle:OverloadMethodsDeclarationOrder")
     @Override
     public <S extends Quote> Page<S> findAll(Example<S> example, Pageable pageable) {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @SuppressWarnings("checkstyle:OverloadMethodsDeclarationOrder")
     @Override
     public <S extends Quote> long count(Example<S> example) {
         // TODO Auto-generated method stub

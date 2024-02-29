@@ -7,8 +7,15 @@ public class Tag {
     // TODO: decide how to store the Tag colour
     String colourCode;
 
-    public Tag(String name, String colourCode) {
-        // TODO: create Tag with colour code
+    /**
+     * Create a Tag.
+     *
+     * @param name       Name of the Tag
+     * @param colourCode The Colour needed
+     */
+    public Tag(String name, Colour colourCode) {
+        this.name = name;
+        this.colourCode = colourCode;
     }
 
     // TODO: create Tag with different colour specification methods

@@ -28,8 +28,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-/** To be removed.
- */
+@SuppressWarnings("checkstyle:MissingJavadocType")
 @Entity
 public class Quote {
 
@@ -41,16 +40,14 @@ public class Quote {
     public Person person;
     public String quote;
 
-    @SuppressWarnings("unused")
-    public Quote() {
-        // for object mappers
-    }
-
     public Quote(Person person, String quote) {
         this.person = person;
         this.quote = quote;
     }
 
+    public Quote() {
+
+    }
 
     @Override
     public boolean equals(Object obj) {

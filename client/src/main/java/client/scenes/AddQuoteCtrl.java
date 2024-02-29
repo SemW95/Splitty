@@ -27,6 +27,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 
+@SuppressWarnings("checkstyle:MissingJavadocType")
 public class AddQuoteCtrl {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
@@ -40,6 +41,8 @@ public class AddQuoteCtrl {
     @FXML
     private TextField quote;
 
+
+    @SuppressWarnings("checkstyle:MissingJavadocMethod")
     @Inject
     public AddQuoteCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
@@ -52,6 +55,7 @@ public class AddQuoteCtrl {
         mainCtrl.showOverview();
     }
 
+    @SuppressWarnings("checkstyle:MissingJavadocMethod")
     public void ok() {
         try {
             server.addQuote(getQuote());
@@ -80,6 +84,7 @@ public class AddQuoteCtrl {
         quote.clear();
     }
 
+    @SuppressWarnings("checkstyle:MissingJavadocMethod")
     public void keyPressed(KeyEvent e) {
         switch (e.getCode()) {
             case ENTER:

@@ -29,6 +29,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+@SuppressWarnings("checkstyle:MissingJavadocType")
 public class QuoteOverviewCtrl implements Initializable {
 
     private final ServerUtils server;
@@ -64,6 +65,7 @@ public class QuoteOverviewCtrl implements Initializable {
         mainCtrl.showAdd();
     }
 
+    @SuppressWarnings("checkstyle:MissingJavadocMethod")
     public void refresh() {
         var quotes = server.getQuotes();
         data = FXCollections.observableList(quotes);

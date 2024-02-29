@@ -19,5 +19,6 @@ package server.database;
 import commons.Quote;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+@SuppressWarnings("checkstyle:MissingJavadocType")
 public interface QuoteRepository extends JpaRepository<Quote, Long> {
 }

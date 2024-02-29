@@ -1,18 +1,29 @@
-stages:
-  - build
-  - triage
+image: gradle:8.5.0-jdk21-alpine
 
 variables:
   # Disable the Gradle daemon to ensure isolated runs of the CI pipeline.
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
 
-build:
-  image: gradle:8.5.0-jdk21-alpine
-  stage: build
+stages:
+  - compile
+  - checkstyle
+  - test
+
+compile:
+  stage: compile
   script:
-    - ./gradlew build
+    - ./gradlew assemble
+
+checkstyle:
+  stage: checkstyle
+  script:
+    - ./gradlew check
+
+test:
+  stage: test
+  script:
+    - ./gradlew test
     - ./gradlew AggregateJacocoReport
-    # preserve coverage information in an easy-to-reach folder
     - mv build/reports/jacoco/aggregate/html ./coverage
     - mv build/reports/jacoco/aggregate/jacocoTestReport.xml ./coverage/report.xml
     - echo `cat coverage/index.html | grep -o -E "Total[^%]+?%" | sed -E "s/<.*>//" | sed -E "s/Total/TestCoverage:/"`
@@ -20,23 +31,3 @@ build:
     paths:
       - ./coverage
   coverage: /TestCoverage:(\d+)%/
-
-dry-run:triage:
-  image: ruby:3.0
-  stage: triage
-  script:
-    - gem install gitlab-triage
-    - gitlab-triage --help
-    - gitlab-triage --dry-run --token $GITLAB_API_TOKEN --host-url $CI_SERVER_URL --source projects --source-id $CI_PROJECT_PATH
-  when: manual
-  except:
-    - schedules
-
-run:triage:
-  image: ruby:3.0
-  stage: triage
-  script:
-    - gem install gitlab-triage
-    - gitlab-triage --token $GITLAB_API_TOKEN --host-url $CI_SERVER_URL --source projects --source-id $CI_PROJECT_PATH
-  only:
-    - schedules

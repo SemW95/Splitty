@@ -27,6 +27,9 @@ import java.net.URISyntaxException;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+/**
+ * This is the entry point for the client.
+ */
 public class Main extends Application {
 
     private static final Injector INJECTOR = createInjector(new MyModule());
@@ -38,7 +41,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-
         var overview = FXML.load(QuoteOverviewCtrl.class, "client", "scenes", "QuoteOverview.fxml");
         var add = FXML.load(AddQuoteCtrl.class, "client", "scenes", "AddQuote.fxml");
 
