@@ -24,8 +24,6 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /** This is the class that contains all the data that's needed for a person.
- */
-/**
  * Object class of a Person as an entity,
  * with name, email, iban and bic.
  */
