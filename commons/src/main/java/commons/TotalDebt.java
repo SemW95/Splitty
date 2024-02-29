@@ -59,17 +59,10 @@ public class TotalDebt {
 
     @Override
     public boolean equals(Object o) {
-        //i dont think that two totaldebts
-        // with the same currency, amount, recipient and number of payers should be
-        //considered equal since it's not necessarily the same scenario
-        //it really depends on the reference:
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        return false;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TotalDebt totalDebt = (TotalDebt) o;
+        return noParticipants == totalDebt.noParticipants && Objects.equals(toBePaid, totalDebt.toBePaid) && Objects.equals(currency, totalDebt.currency) && Objects.equals(receiver, totalDebt.receiver);
     }
 
     @Override
