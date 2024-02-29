@@ -161,28 +161,56 @@ public class Person {
         return email;
     }
 
+    /**
+     * Checks whether email is of the right format.
+     *
+     * @param email new email for Person
+     */
     public void setEmail(String email) {
-        this.email = email;
+        boolean check = email.matches("^(.+)@(\\S+)$");
+
+        if (check) {
+            this.email = email;
+        } else {
+            throw new IllegalArgumentException("the provided email is not a valid email");
+        }
     }
+
 
     public String getIban() {
         return iban;
     }
 
+    /**
+     * Makes sure the IBAN is correct when setting it.
+     *
+     * @param iban new iban for person
+     */
     public void setIban(String iban) {
-        this.iban = iban;
+
+        if (ibanCheckSum(iban)) {
+            this.iban = iban;
+        } else {
+            throw new IllegalArgumentException("This is not a valid IBAN");
+        }
     }
+
 
     public String getBic() {
         return bic;
     }
 
+    /**
+     * Makes sure the BIC is correct before setting it.
+     *
+     * @param bic new BIC of person.
+     */
     public void setBic(String bic) {
-        this.bic = bic;
-    }
 
-    // @Override
-    // public String toString() {
-    //    return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE);
-    // }
+        if (bicCheckSum(bic)) {
+            this.bic = bic;
+        } else {
+            System.out.println("This is an incorrect BIC");
+        }
+    }
 }
