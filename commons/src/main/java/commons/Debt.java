@@ -8,8 +8,10 @@ public class Debt {
     TotalDebt debt;
     BigDecimal paid;
 
-    public Debt(Person payer, TotalDebt debt, double paid) {
-        // TODO: create Debt
+    public Debt(Person payer, TotalDebt debt, BigDecimal paid) {
+        this.payer = payer;
+        this.debt = debt;
+        this.paid = paid;
     }
 
     /**
@@ -39,5 +41,29 @@ public class Debt {
     @Override
     public int hashCode() {
         return Objects.hash(payer, debt, paid);
+    }
+
+    public Person getPayer() {
+        return payer;
+    }
+
+    public void setPayer(Person payer) {
+        this.payer = payer;
+    }
+
+    public TotalDebt getDebt() {
+        return debt;
+    }
+
+    public void setDebt(TotalDebt debt) {
+        this.debt = debt;
+    }
+
+    public BigDecimal getPaid() {
+        return paid;
+    }
+
+    public void setPaid(BigDecimal paid) {
+        this.paid = paid;
     }
 }
