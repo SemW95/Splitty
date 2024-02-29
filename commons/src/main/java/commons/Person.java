@@ -16,49 +16,120 @@
 
 package commons;
 
-import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.math.BigInteger;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
+/**
+ * Object class of a Person as an entity,
+ * with name, email, iban and bic.
+ */
 @Entity
 public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public long id;
-
     public String firstName;
     public String lastName;
 
-    //the following attributes + tostring method are implemented to allow basic functionality in the totaldebttest class
-    // TODO figure out if we want to use the firstname lastname fields from the template projects or our own field below
+    //the following attributes + toString method are implemented to allow basic functionality
+    // in the totalDebt test class
+    // TODO figure out if we want to use the firstname lastname fields from the template projects
+    // or our own field below
     public String name;
     public String email;
-    public String IBAN;
-    public String BIC;
+    public String iban;
+    public String bic;
 
-    public Person(String name, String email, String IBAN, String BIC) {
+    /**
+     * This is a constructor for the Person class.
+     *
+     * @param name  of person
+     * @param email of person
+     * @param iban  of person
+     * @param bic   of person
+     */
+    public Person(String name, String email, String iban, String bic) {
         this.name = name;
         this.email = email;
-        this.IBAN = IBAN;
-        this.BIC = BIC;
+        this.iban = iban;
+        this.bic = bic;
     }
 
 
-
+    /**
+     * TODO: consider if this is still necessary.
+     *
+     * @param firstName of person
+     * @param lastName of person
+     */
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
+
+    /**
+     * The JPA required "no-arg" constructor.
+     */
     public Person() {
 
+    }
+
+
+    /**
+     * Verifies the checksum of iban by moving char 0 to 4 to the end and validating
+     * by mapping numeric values and checking modulo 97.
+     *
+     * @param iban takes an iban number (needs to be trimmed when stored in database)
+     *
+     * @return a boolean if it is a correct/existing iban.
+     */
+    public boolean ibanCheckSum(String iban) {
+
+        //checks if the iban is of valid length
+        if (iban.length() < 15 || iban.length() > 34) {
+            return false;
+        }
+
+        //takes char at index 2 and 3 and moves them to the end
+        String toCheck = iban.substring(4) + iban.substring(0, 4);
+        int checkSum = 0;
+
+        //maps every char to its numeric value
+        for (char character : toCheck.toCharArray()) {
+            int value = Character.getNumericValue(character);
+
+            if (value <= 9) {
+                checkSum = checkSum * 10 + value;
+            } else {
+                checkSum = checkSum * 100 + value;
+            }
+
+            //makes sure it does not overflow
+            if (checkSum > 9999999) {
+                checkSum = checkSum % 97;
+            }
+        }
+
+        return checkSum % 97 == 1;
+    }
+
+
+    /**
+     *TODO: Should use BIC api, to verify BIC.
+     *
+     * @param bic takes a bic number
+     *
+     * @return a boolean if it is a correct/existing bic.
+     */
+    public boolean bicCheckSum(String bic) {
+        return true;
     }
 
 
@@ -66,6 +137,7 @@ public class Person {
     public boolean equals(Object obj) {
         return EqualsBuilder.reflectionEquals(this, obj);
     }
+
 
     @Override
     public int hashCode() {
@@ -75,15 +147,75 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person{" +
-                "name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", IBAN='" + IBAN + '\'' +
-                ", BIC='" + BIC + '\'' +
-                '}';
+        return "Person{" + "name='" + name + '\'' + ", email='" + email + '\'' + ", IBAN='" + iban
+            + '\'' + ", BIC='" + bic + '\'' + '}';
     }
-//    @Override
-//    public String toString() {
-//        return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE);
-//    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * Checks whether email is of the right format.
+     *
+     * @param email new email for Person
+     */
+    public void setEmail(String email) {
+        boolean check = email.matches("^(.+)@(\\S+)$");
+
+        if (check) {
+            this.email = email;
+        } else {
+            throw new IllegalArgumentException("the provided email is not a valid email");
+        }
+    }
+
+    public String getIban() {
+        return iban;
+    }
+
+    /**
+     * Makes sure the IBAN is correct when setting it.
+     *
+     * @param iban new iban for person
+     */
+    public void setIban(String iban) {
+
+        if (ibanCheckSum(iban)) {
+            this.iban = iban;
+        } else {
+            throw new IllegalArgumentException("This is not a valid IBAN");
+        }
+    }
+
+    public String getBic() {
+        return bic;
+    }
+
+    /**
+     * Makes sure the BIC is correct before setting it.
+     *
+     * @param bic new BIC of person.
+     */
+    public void setBic(String bic) {
+
+        if (bicCheckSum(bic)) {
+            this.bic = bic;
+        } else {
+            System.out.println("This is an incorrect BIC");
+        }
+    }
+
+    //    @Override
+    //    public String toString() {
+    //        return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE);
+    //    }
 }

@@ -1,30 +1,30 @@
 package commons;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class TotalDebtTest {
     Person receiver =
-            new Person("Emma", "Emma@hotmail.com",
-                    "ES9121000418450200051332", "CAIXESBBXXX");
+        new Person("Emma", "Emma@hotmail.com",
+            "ES9121000418450200051332", "CAIXESBBXXX");
     Person p1 =
-            new Person("Alice", "Alice@domain.com",
-                    "GB33BUKB20201555555555", "ZUOBJEO6XXX");
+        new Person("Alice", "Alice@domain.com",
+            "GB33BUKB20201555555555", "ZUOBJEO6XXX");
     Person p2 =
-            new Person("Bob", "Bob@example.com",
-                    "US12200066123456789001", "BOFAUS3NXXX");
+        new Person("Bob", "Bob@example.com",
+            "US12200066123456789001", "BOFAUS3NXXX");
     Person p3 =
-            new Person("Charlie", "Charlie@gmail.com",
-                    "DE89370400440532013000", "COBADEFFXXX");
+        new Person("Charlie", "Charlie@gmail.com",
+            "DE89370400440532013000", "COBADEFFXXX");
     Person p4 =
-            new Person("David", "David@yahoo.com",
-                    "FR1420041010050500013M02606", "BOUSFRPPXXX");
+        new Person("David", "David@yahoo.com",
+            "FR1420041010050500013M02606", "BOUSFRPPXXX");
     Currency c1 = new Currency("EUR");
     List<Person> l1 = new ArrayList<>();
     TotalDebt t1;
@@ -70,7 +70,7 @@ class TotalDebtTest {
     @Test
     void setReceiver() {
         Person newReceiver = new Person("John", "john@example.com", "GB33BUKB20201555555555",
-                "ZUOBJEO6XXX");
+            "ZUOBJEO6XXX");
         t1.setReceiver(newReceiver);
         assertEquals(newReceiver, t1.getReceiver(), "Setting receiver failed");
     }
@@ -88,24 +88,25 @@ class TotalDebtTest {
 
     @Test
     void testEquals() {
-        Person receiver1= new Person("Emma", "Emma@hotmail.com",
-                "ES9121000418450200051332", "CAIXESBBXXX");
+        Person receiver1 = new Person("Emma", "Emma@hotmail.com",
+            "ES9121000418450200051332", "CAIXESBBXXX");
         TotalDebt t2 = new TotalDebt(new BigDecimal(172), new Currency("EUR"), receiver1, 4);
-        assertFalse(t1.equals(t2), "Two totaldebts with the same params should not be equal, " +
-                "the reference is most important");
+        assertFalse(t1.equals(t2), "Two totaldebts with the same params should not be equal, "
+            + "the reference is most important");
     }
 
     @Test
     void testHashCode() {
-        TotalDebt t2 = new TotalDebt(new BigDecimal(172), c1 , receiver, 4);
+        TotalDebt t2 = new TotalDebt(new BigDecimal(172), c1, receiver, 4);
         assertEquals(t1.hashCode(), t2.hashCode(), "Hash codes should be equal");
     }
 
     @Test
     void testToString() {
-        String expectedString = "TotalDebt{toBePaid=172, currency=Currency{name='EUR'}, " +
-                "receiver=Person{name='Emma', " +
-                "email='Emma@hotmail.com', IBAN='ES9121000418450200051332', BIC='CAIXESBBXXX'}, noParticipants=4}";
+        String expectedString = "TotalDebt{toBePaid=172, currency=Currency{name='EUR'}, "
+            + "receiver=Person{name='Emma', "
+            + "email='Emma@hotmail.com', IBAN='ES9121000418450200051332', "
+            + "BIC='CAIXESBBXXX'}, noParticipants=4}";
         assertEquals(expectedString, t1.toString(), "Incorrect toString implementation");
     }
 }

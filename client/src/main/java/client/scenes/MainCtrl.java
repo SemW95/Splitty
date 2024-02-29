@@ -21,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
+@SuppressWarnings("checkstyle:MissingJavadocType")
 public class MainCtrl {
 
     private Stage primaryStage;
@@ -31,6 +32,7 @@ public class MainCtrl {
     private AddQuoteCtrl addCtrl;
     private Scene add;
 
+    @SuppressWarnings("checkstyle:MissingJavadocMethod")
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
                            Pair<AddQuoteCtrl, Parent> add) {
         this.primaryStage = primaryStage;
@@ -44,12 +46,14 @@ public class MainCtrl {
         primaryStage.show();
     }
 
+    @SuppressWarnings("checkstyle:MissingJavadocMethod")
     public void showOverview() {
         primaryStage.setTitle("Quotes: Overview");
         primaryStage.setScene(overview);
         overviewCtrl.refresh();
     }
 
+    @SuppressWarnings("checkstyle:MissingJavadocMethod")
     public void showAdd() {
         primaryStage.setTitle("Quotes: Adding Quote");
         primaryStage.setScene(add);

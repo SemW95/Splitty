@@ -26,6 +26,8 @@ import java.util.Random;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
+@SuppressWarnings("checkstyle:MissingJavadocType")
 public class QuoteControllerTest {
 
     public int nextInt;
@@ -38,6 +40,7 @@ public class QuoteControllerTest {
         return new Quote(new Person(q, q), q);
     }
 
+    @SuppressWarnings("checkstyle:MissingJavadocMethod")
     @BeforeEach
     public void setup() {
         random = new MyRandom();

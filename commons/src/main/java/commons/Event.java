@@ -15,35 +15,49 @@ public class Event {
     ArrayList<Expense> expenses;
 
     /**
-     * Create an Event without any Tag's.
+     * Create an Event without any Tags or Expenses.
      *
      * @param title       The title of the Event
      * @param description The description of the Event
      */
     public Event(String title, String description) {
+        // TODO: create id
         this.title = title;
         this.description = description;
+        this.tags = new ArrayList<Tag>();
+        this.expenses = new ArrayList<Expense>();
     }
 
     /**
-     * Create an Event with Tag's.
+     * Create an Event with Tags, but without Expenses.
      *
      * @param title       The title of the Event
      * @param description The description of the Event
      * @param tags        The ArrayList of Tag
      */
     public Event(String title, String description, ArrayList<Tag> tags) {
+        // TODO: create id
         this.title = title;
         this.description = description;
-        this.tags = new ArrayList<Tag>();
+        this.tags = tags;
+        this.expenses = new ArrayList<Expense>();
     }
 
+    /**
+     * Create an Event with Tags and Expenses.
+     *
+     * @param title       The title of the Event
+     * @param description The description of the Event
+     * @param tags        The ArrayList of Tag
+     * @param expenses    The ArrayList of Expense
+     */
     public Event(String title, String description, ArrayList<Tag> tags,
                  ArrayList<Expense> expenses) {
+        // TODO: create id
         this.title = title;
         this.description = description;
-        this.tags = new ArrayList<Tag>();
-        this.expenses = new ArrayList<Expense>();
+        this.tags = tags;
+        this.expenses = expenses;
     }
 
     public String getId() {

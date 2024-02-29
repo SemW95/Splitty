@@ -30,10 +30,14 @@ import java.net.URISyntaxException;
 import java.util.List;
 import org.glassfish.jersey.client.ClientConfig;
 
+/**
+ * TODO.
+ */
 public class ServerUtils {
 
     private static final String SERVER = "http://localhost:8080/";
 
+    @SuppressWarnings("checkstyle:MissingJavadocMethod")
     public void getQuotesTheHardWay() throws IOException, URISyntaxException {
         var url = new URI("http://localhost:8080/api/quotes").toURL();
         var is = url.openConnection().getInputStream();
@@ -44,6 +48,7 @@ public class ServerUtils {
         }
     }
 
+    @SuppressWarnings("checkstyle:MissingJavadocMethod")
     public List<Quote> getQuotes() {
         return ClientBuilder.newClient(new ClientConfig()) //
             .target(SERVER).path("api/quotes") //
@@ -53,6 +58,7 @@ public class ServerUtils {
             });
     }
 
+    @SuppressWarnings("checkstyle:MissingJavadocMethod")
     public Quote addQuote(Quote quote) {
         return ClientBuilder.newClient(new ClientConfig()) //
             .target(SERVER).path("api/quotes") //
