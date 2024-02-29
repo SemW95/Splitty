@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * Object class for the total debt to be paid relatedt o an expense,
+ * Object class for the total debt to be paid related o an expense,
  * with the amount, currency, recipient person, and participants.
  */
 public class TotalDebt {
@@ -14,7 +14,7 @@ public class TotalDebt {
     int noParticipants; // amount of people to distribute toBePaid over
 
     /**
-     * This is a constructor method for the totaldebt object.
+     * This is a constructor method for the TotalDebt object.
      *
      * @param toBePaid total amount to be paid to the recipient
      * @param currency in what currency should the recipient be compensated?
