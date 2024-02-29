@@ -137,6 +137,18 @@ public class Person {
         return HashCodeBuilder.reflectionHashCode(this);
     }
 
+    @Override
+    public String toString() {
+        return "Person{"
+            + "id=" + id
+            + ", firstName='" + firstName + '\''
+            + ", lastName='" + lastName + '\''
+            + ", email='" + email + '\''
+            + ", iban='" + iban + '\''
+            + ", bic='" + bic + '\''
+            + '}';
+    }
+
     public long getId() {
         return id;
     }

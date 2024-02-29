@@ -70,8 +70,8 @@ public class PersonTest {
                 "GB33BUKB20201555555555", "ZUOBJEO6XXX");
 
         String text = p1.toString();
-        String compare = "Person{name='Alice', email='Alice@domain.com', "
-            + "IBAN='GB33BUKB20201555555555', BIC='ZUOBJEO6XXX'}";
+        String compare = "Person{id=0, firstName='Alice', lastName='needs a surname', "
+            + "email='Alice@domain.com', iban='GB33BUKB20201555555555', bic='ZUOBJEO6XXX'}";
 
         assertEquals(text, compare);
     }
