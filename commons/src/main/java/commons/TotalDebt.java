@@ -49,6 +49,14 @@ public class TotalDebt {
                 + '}';
     }
 
+    public void increaseNoParticipants() {
+        noParticipants += 1;
+    }
+
+    public void decreaseNoParticipants() {
+        noParticipants -= 1;
+    }
+
     @Override
     public boolean equals(Object o) {
         //i dont think that two totaldebts
