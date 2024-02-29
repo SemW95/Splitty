@@ -38,12 +38,50 @@ public class Event {
         this.tags = new ArrayList<Tag>();
     }
 
+    /**
+     * Creates the Event class.
+     *
+     * @param title       The Event title.
+     * @param description The Event description.
+     * @param tags        An ArrayList with all the Tags.
+     * @param expenses    An ArrayList with all the Expenses already.
+     */
     public Event(String title, String description, ArrayList<Tag> tags,
                  ArrayList<Expense> expenses) {
         this.title = title;
         this.description = description;
         this.tags = new ArrayList<Tag>();
         this.expenses = new ArrayList<Expense>();
+    }
+
+    /**
+     * Checks if the Object that is provided is equal to this Event object.
+     *
+     * @param o The Object that has to be compared to this Event Object
+     * @return true if they are equal, false when they are not
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Event event = (Event) o;
+        return Objects.equals(id, event.id) && Objects.equals(title, event.title)
+            && Objects.equals(description, event.description) && Objects.equals(tags, event.tags)
+            && Objects.equals(expenses, event.expenses);
+    }
+
+    /**
+     * Provides a hash for the current Object.
+     *
+     * @return the hash of this Object
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, description, tags, expenses);
     }
 
     public String getId() {
@@ -82,37 +120,7 @@ public class Event {
         return expenses;
     }
 
-    public void setExpenses(ArrayList<Expense> expenses) {
-        this.expenses = expenses;
-    }
-
-    /**
-     * Checks if the Object that is provided is equal to this Event object.
-     *
-     * @param o The Object that has to be compared to this Event Object
-     * @return true if they are equal, false when they are not
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Event event = (Event) o;
-        return Objects.equals(id, event.id) && Objects.equals(title, event.title)
-            && Objects.equals(description, event.description) && Objects.equals(tags, event.tags)
-            && Objects.equals(expenses, event.expenses);
-    }
-
-    /**
-     * Provides a hash for the current Object.
-     *
-     * @return the hash of this Object
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, title, description, tags, expenses);
+    public ArrayList<Payment> getPayments() {
+        return payments;
     }
 }

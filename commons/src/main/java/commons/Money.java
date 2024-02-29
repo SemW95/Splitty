@@ -3,6 +3,8 @@ package commons;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+/** The class that handles the variable needed for money operations.
+ */
 public class Money {
     BigDecimal amount;
     Currency currency;
@@ -19,8 +21,12 @@ public class Money {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Money money = (Money) o;
         return Objects.equals(amount, money.amount) && Objects.equals(currency, money.currency);
     }

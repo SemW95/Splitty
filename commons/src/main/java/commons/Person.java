@@ -16,16 +16,15 @@
 
 package commons;
 
-import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
+/** This is the class that contains all the data that's needed for a person.
+ */
 @Entity
 public class Person {
 
@@ -35,21 +34,25 @@ public class Person {
 
     public String firstName;
     public String lastName;
-
-    //the following attributes + tostring method are implemented to allow basic functionality in the totaldebttest class
-    // TODO figure out if we want to use the firstname lastname fields from the template projects or our own field below
-    public String name;
     public String email;
-    public String IBAN;
-    public String BIC;
+    public String iban;
+    public String bic;
 
-    public Person(String name, String email, String IBAN, String BIC) {
-        this.name = name;
+    /** Makes the Person class.
+     *
+     * @param firstName The first name of a Person.
+     * @param lastName The last name of a Person.
+     * @param email The email of a Person.
+     * @param iban The IBAN of a Persons bank account.
+     * @param bic The IBAN of a Persons bank.
+     */
+    public Person(String firstName, String lastName, String email, String iban, String bic) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
-        this.IBAN = IBAN;
-        this.BIC = BIC;
+        this.iban = iban;
+        this.bic = bic;
     }
-
 
 
     public Person(String firstName, String lastName) {
@@ -72,18 +75,8 @@ public class Person {
         return HashCodeBuilder.reflectionHashCode(this);
     }
 
-
-    @Override
-    public String toString() {
-        return "Person{" +
-                "name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", IBAN='" + IBAN + '\'' +
-                ", BIC='" + BIC + '\'' +
-                '}';
-    }
-//    @Override
-//    public String toString() {
-//        return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE);
-//    }
+    // @Override
+    // public String toString() {
+    //    return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE);
+    // }
 }

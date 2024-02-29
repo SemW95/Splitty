@@ -1,68 +1,46 @@
 package commons;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 
+/** The class that contains all the info for an expense.
+ */
 public class Expense {
     ArrayList<Debt> debts;
     TotalDebt totalDebt;
     Person receiver;
+    Money paid;
 
-    public Expense(Person receiver, BigDecimal totalAmount, Currency currency) {
-        this.debts = new ArrayList<Debt>();
-        this.receiver = receiver;
-        this.totalDebt = new TotalDebt(
-                totalAmount,
-                currency,
-                receiver,
-                1
-        );
-    }
-
-    public void addParticipant(Person payer) {
-        debts.add(new Debt(
-                payer,
-                this.totalDebt,
-                new BigDecimal(0)
-        ));
-        totalDebt.increaseNoParticipants();
-    }
-
-    public void removeParticipant(Person participant) throws NoSuchElementException {
-        // TODO: check index of that participant and remove that from the list
-        // TODO: totalDebt.decreaseNoParticipants();
-        // TODO: when participant doesn't exist: throw new NoSuchElementException();
-    }
-
-    public ArrayList<Debt> getDebts() {
-        return debts;
-    }
-
-    public TotalDebt getTotalDebt() {
-        return totalDebt;
-    }
-
-    public void setTotalDebt(TotalDebt totalDebt) {
-        this.totalDebt = totalDebt;
-    }
-
-    public Person getReceiver() {
-        return receiver;
-    }
-
-    public void setReceiver(Person receiver) {
-        this.receiver = receiver;
-        totalDebt.setReceiver(receiver);
-    }
-
-    /**
-     * Checks if the Object that is provided is equal to this Expense object.
+    /** Creates the Expense class.
      *
-     * @param o The Object that has to be compared to this Expense Object
-     * @return true if they are equal, false when they are not
+     * @param receiver The Person that has paid for the Expense.
+     * @param paid The amount that the Person paid for the Expense.
      */
+    public Expense(Person receiver, Money paid) {
+        this.participants = new ArrayList<Person>();
+        this.receiver = receiver;
+        this.paid = paid;
+    }
+
+    public void addParticipant(Person participant) {
+        participants.add(participant);
+    }
+
+    public void removeParticipant(Person participant) {
+        // TODO: get index of participant
+        // TODO: remove index
+    }
+
+    /** gets the share that should be paid /person.
+     *
+     * @return the share a person needs to pay for this expense;
+     */
+    public Money getShare() {
+        int totalNoParticipants = participants.size() + 1;
+        // TODO: return (Money) paid/totalNoParticipants
+        return null;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -86,5 +64,25 @@ public class Expense {
     @Override
     public int hashCode() {
         return Objects.hash(debts, totalDebt, receiver);
+    }
+
+    public ArrayList<Person> getParticipants() {
+        return participants;
+    }
+
+    public Person getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(Person receiver) {
+        this.receiver = receiver;
+    }
+
+    public Money getPaid() {
+        return paid;
+    }
+
+    public void setPaid(Money paid) {
+        this.paid = paid;
     }
 }

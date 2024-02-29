@@ -1,14 +1,10 @@
 package commons;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.lang.reflect.Array;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class EventTest {
 
@@ -88,7 +84,8 @@ class EventTest {
 
     @Test
     void getDescription() {
-        assertEquals("Dinner and drinks with the group", test1.getDescription(), "Incorrect description");
+        assertEquals("Dinner and drinks with the group", test1.getDescription(),
+            "Incorrect description");
     }
 
     @Test
@@ -121,6 +118,6 @@ class EventTest {
 
     @Test
     void testHashCode() {
-        assertEquals(test1.hashCode(),test2.hashCode(), "Hash codes should be equal");
+        assertEquals(test1.hashCode(), test2.hashCode(), "Hash codes should be equal");
     }
 }

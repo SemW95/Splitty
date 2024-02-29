@@ -28,6 +28,8 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+/** To be removed.
+ */
 @Entity
 public class Quote {
 
@@ -40,7 +42,7 @@ public class Quote {
     public String quote;
 
     @SuppressWarnings("unused")
-    private Quote() {
+    public Quote() {
         // for object mappers
     }
 
@@ -48,6 +50,7 @@ public class Quote {
         this.person = person;
         this.quote = quote;
     }
+
 
     @Override
     public boolean equals(Object obj) {
