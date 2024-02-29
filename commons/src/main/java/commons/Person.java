@@ -31,7 +31,6 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public long id;
-
     public String firstName;
     public String lastName;
     public String email;

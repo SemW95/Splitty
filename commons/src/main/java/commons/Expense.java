@@ -6,8 +6,7 @@ import java.util.Objects;
 /** The class that contains all the info for an expense.
  */
 public class Expense {
-    ArrayList<Debt> debts;
-    TotalDebt totalDebt;
+    ArrayList<Person> participants;
     Person receiver;
     Money paid;
 
@@ -50,20 +49,13 @@ public class Expense {
             return false;
         }
         Expense expense = (Expense) o;
-        return Objects.equals(debts, expense.debts)
-            && Objects.equals(totalDebt, expense.totalDebt)
-            && Objects.equals(receiver, expense.receiver);
+        return Objects.equals(participants, expense.participants)
+            && Objects.equals(receiver, expense.receiver) && Objects.equals(paid, expense.paid);
     }
 
-
-    /**
-     * Provides a hash for the current Object.
-     *
-     * @return the hash of this Object
-     */
     @Override
     public int hashCode() {
-        return Objects.hash(debts, totalDebt, receiver);
+        return Objects.hash(participants, receiver, paid);
     }
 
     public ArrayList<Person> getParticipants() {

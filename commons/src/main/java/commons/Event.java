@@ -13,6 +13,7 @@ public class Event {
     String description;
     ArrayList<Tag> tags;
     ArrayList<Expense> expenses;
+    ArrayList<Payment> payments;
 
     /**
      * Create an Event without any Tag's.
