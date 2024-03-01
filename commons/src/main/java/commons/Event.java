@@ -11,48 +11,49 @@ public class Event {
     String id;
     String title;
     String description;
+    ArrayList<Person> persons;
     ArrayList<Tag> tags;
     ArrayList<Expense> expenses;
     ArrayList<Payment> payments;
 
     /**
-     * Create an Event without any Tag's.
+     * Creates a new Event.
      *
-     * @param title       The title of the Event
-     * @param description The description of the Event
+     * @param title       The title of the Event.
+     * @param description The description of the Event.
      */
-    public Event(String title, String description) {
+    public Event(
+        String title,
+        String description
+    ) {
+        // TODO: generate id
         this.title = title;
         this.description = description;
-    }
-
-    /**
-     * Create an Event with Tag's.
-     *
-     * @param title       The title of the Event
-     * @param description The description of the Event
-     * @param tags        The ArrayList of Tag
-     */
-    public Event(String title, String description, ArrayList<Tag> tags) {
-        this.title = title;
-        this.description = description;
-        this.tags = new ArrayList<Tag>();
-    }
-
-    /**
-     * Creates the Event class.
-     *
-     * @param title       The Event title.
-     * @param description The Event description.
-     * @param tags        An ArrayList with all the Tags.
-     * @param expenses    An ArrayList with all the Expenses already.
-     */
-    public Event(String title, String description, ArrayList<Tag> tags,
-                 ArrayList<Expense> expenses) {
-        this.title = title;
-        this.description = description;
+        this.persons = new ArrayList<Person>();
         this.tags = new ArrayList<Tag>();
         this.expenses = new ArrayList<Expense>();
+        this.payments = new ArrayList<Payment>();
+    }
+
+    /** The Event constructor used for imports.
+     *
+     * @param id The Event id.
+     * @param title The Event title.
+     * @param description The Event description.
+     * @param persons The ArrayList with all Persons in the Event.
+     * @param tags The ArrayList with all the Tags in the Event.
+     * @param expenses The ArrayList with all the Expenses in the Event.
+     * @param payments The ArrayList with all the Payments in the Event.
+     */
+    public Event(String id, String title, String description, ArrayList<Person> persons,
+                 ArrayList<Tag> tags, ArrayList<Expense> expenses, ArrayList<Payment> payments) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.persons = persons;
+        this.tags = tags;
+        this.expenses = expenses;
+        this.payments = payments;
     }
 
     /**
@@ -89,10 +90,6 @@ public class Event {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -107,6 +104,14 @@ public class Event {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public ArrayList<Person> getPersons() {
+        return persons;
+    }
+
+    public void setPersons(ArrayList<Person> persons) {
+        this.persons = persons;
     }
 
     public ArrayList<Tag> getTags() {
