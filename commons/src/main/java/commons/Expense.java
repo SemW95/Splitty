@@ -9,6 +9,7 @@ public class Expense {
     ArrayList<Person> participants;
     Person receiver;
     Money paid;
+    Tag tag;
 
     /** Creates the Expense class.
      *
@@ -49,17 +50,22 @@ public class Expense {
             return false;
         }
         Expense expense = (Expense) o;
-        return Objects.equals(participants, expense.participants)
-            && Objects.equals(receiver, expense.receiver) && Objects.equals(paid, expense.paid);
+        return Objects.equals(participants, expense.participants) &&
+            Objects.equals(receiver, expense.receiver) &&
+            Objects.equals(paid, expense.paid) && Objects.equals(tag, expense.tag);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(participants, receiver, paid);
+        return Objects.hash(participants, receiver, paid, tag);
     }
 
     public ArrayList<Person> getParticipants() {
         return participants;
+    }
+
+    public void setParticipants(ArrayList<Person> participants) {
+        this.participants = participants;
     }
 
     public Person getReceiver() {
@@ -76,5 +82,13 @@ public class Expense {
 
     public void setPaid(Money paid) {
         this.paid = paid;
+    }
+
+    public Tag getTag() {
+        return tag;
+    }
+
+    public void setTag(Tag tag) {
+        this.tag = tag;
     }
 }
