@@ -132,6 +132,6 @@ class ColourTest {
     @Test
     void testToString() {
         Colour colourTest = new Colour(50, 100, 150);
-        assertEquals("Colour{red=50, green=100, blue=150}",colourTest.toString());
+        assertEquals("Colour{red=50, green=100, blue=150}", colourTest.toString());
     }
 }
