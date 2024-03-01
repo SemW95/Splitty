@@ -50,9 +50,9 @@ public class Expense {
             return false;
         }
         Expense expense = (Expense) o;
-        return Objects.equals(participants, expense.participants) &&
-            Objects.equals(receiver, expense.receiver) &&
-            Objects.equals(paid, expense.paid) && Objects.equals(tag, expense.tag);
+        return Objects.equals(participants, expense.participants)
+            && Objects.equals(receiver, expense.receiver)
+            && Objects.equals(paid, expense.paid) && Objects.equals(tag, expense.tag);
     }
 
     @Override
