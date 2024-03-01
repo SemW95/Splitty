@@ -17,7 +17,6 @@ class TagTest {
         Tag tagTest2 = new Tag("tagTest1", colourTest1);
         Tag tagTest3 = new Tag("tagTest3", colourTest1);
         Tag tagTest4 = new Tag("tagTest1", colourTest2);
-        assertTrue(tagTest1.equals(tagTest1));
         assertTrue(tagTest1.equals(tagTest2));
         assertFalse(tagTest1.equals(tagTest3));
         assertFalse(tagTest1.equals(tagTest4));
