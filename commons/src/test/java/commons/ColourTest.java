@@ -128,4 +128,10 @@ class ColourTest {
         Colour colour7 = new Colour("#123456");
         assertEquals("#123456", colour7.toHexString());
     }
+
+    @Test
+    void testToString() {
+        Colour colourTest = new Colour(50, 100, 150);
+        assertEquals("Colour{red=50, green=100, blue=150}", colourTest.toString());
+    }
 }
