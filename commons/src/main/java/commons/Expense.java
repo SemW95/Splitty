@@ -1,5 +1,6 @@
 package commons;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -10,6 +11,7 @@ public class Expense {
     Person receiver;
     Money paid;
     Tag tag;
+    Instant date;   // Can be null
 
     /** Creates the Expense class.
      *
@@ -20,6 +22,18 @@ public class Expense {
         this.participants = new ArrayList<Person>();
         this.receiver = receiver;
         this.paid = paid;
+    }
+
+    /** Creates the Expense class with a date.
+     *
+     * @param receiver The Person that has paid for the Expense.
+     * @param paid The amount that the Person paid for the Expense.
+     */
+    public Expense(Person receiver, Money paid, Instant date) {
+        this.participants = new ArrayList<Person>();
+        this.receiver = receiver;
+        this.paid = paid;
+        this.date = date;
     }
 
     public void addParticipant(Person participant) {
