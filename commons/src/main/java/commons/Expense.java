@@ -1,39 +1,45 @@
 package commons;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Objects;
 
-/** The class that contains all the info for an expense.
+/**
+ * The class that contains all the info for an expense.
  */
 public class Expense {
     ArrayList<Person> participants;
     Person receiver;
-    Money paid;
+    BigDecimal paid;
     Tag tag;
-    Instant date;   // Can be null
+    Instant creationDate; // "Detailed Expenses" extension
 
-    /** Creates the Expense class.
+    /**
+     * Creates the Expense class.
      *
      * @param receiver The Person that has paid for the Expense.
-     * @param paid The amount that the Person paid for the Expense.
+     * @param paid     The amount that the Person paid for the Expense.
      */
-    public Expense(Person receiver, Money paid) {
+    public Expense(Person receiver, BigDecimal paid) {
         this.participants = new ArrayList<Person>();
         this.receiver = receiver;
         this.paid = paid;
+        this.creationDate = Instant.now();
     }
 
-    /** Creates the Expense class with a date.
+    /**
+     * Creates the Expense class with a date.
      *
-     * @param receiver The Person that has paid for the Expense.
-     * @param paid The amount that the Person paid for the Expense.
+     * @param receiver     The Person that has paid for the Expense.
+     * @param paid         The amount that the Person paid for the Expense.
+     * @param creationDate Creation date of the Expense.
      */
-    public Expense(Person receiver, Money paid, Instant date) {
+    public Expense(Person receiver, BigDecimal paid, Instant creationDate) {
         this.participants = new ArrayList<Person>();
         this.receiver = receiver;
         this.paid = paid;
-        this.date = date;
+        this.creationDate = creationDate;
     }
 
     public void addParticipant(Person participant) {
@@ -41,15 +47,15 @@ public class Expense {
     }
 
     public void removeParticipant(Person participant) {
-        // TODO: get index of participant
-        // TODO: remove index
+        participants.remove(participant);
     }
 
-    /** gets the share that should be paid /person.
+    /**
+     * gets the share that should be paid /person.
      *
      * @return the share a person needs to pay for this expense;
      */
-    public Money getShare() {
+    public BigDecimal getShare() {
         int totalNoParticipants = participants.size() + 1;
         // TODO: return (Money) paid/totalNoParticipants
         return null;
@@ -66,12 +72,13 @@ public class Expense {
         Expense expense = (Expense) o;
         return Objects.equals(participants, expense.participants)
             && Objects.equals(receiver, expense.receiver)
-            && Objects.equals(paid, expense.paid) && Objects.equals(tag, expense.tag);
+            && Objects.equals(paid, expense.paid) && Objects.equals(tag, expense.tag)
+            && Objects.equals(creationDate, expense.creationDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(participants, receiver, paid, tag);
+        return Objects.hash(participants, receiver, paid, tag, creationDate);
     }
 
     public ArrayList<Person> getParticipants() {
@@ -90,11 +97,11 @@ public class Expense {
         this.receiver = receiver;
     }
 
-    public Money getPaid() {
+    public BigDecimal getPaid() {
         return paid;
     }
 
-    public void setPaid(Money paid) {
+    public void setPaid(BigDecimal paid) {
         this.paid = paid;
     }
 
@@ -104,5 +111,13 @@ public class Expense {
 
     public void setTag(Tag tag) {
         this.tag = tag;
+    }
+
+    public Instant getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Instant creationDate) {
+        this.creationDate = creationDate;
     }
 }

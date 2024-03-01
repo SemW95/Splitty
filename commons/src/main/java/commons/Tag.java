@@ -2,7 +2,8 @@ package commons;
 
 import java.util.Objects;
 
-/** This is a Tag class.
+/**
+ * This is a Tag class.
  */
 public class Tag {
     String name;
@@ -12,7 +13,7 @@ public class Tag {
     /**
      * Create a Tag.
      *
-     * @param name Name of the Tag
+     * @param name   Name of the Tag
      * @param colour The Colour needed
      */
     public Tag(String name, Colour colour) {

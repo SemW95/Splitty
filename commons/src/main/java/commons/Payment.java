@@ -1,22 +1,25 @@
 package commons;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 
-/** Stores a money transaction.
+/**
+ * Stores a money transaction.
  */
 public class Payment {
     Person payer;
     Person receiver;
-    Money amount;
+    BigDecimal amount;
 
-    /** Creates the Payment class.
+    /**
+     * Creates the Payment class.
      *
-     * @param payer The Person that paid this money.
+     * @param payer    The Person that paid this money.
      * @param receiver The Person that received this money.
-     * @param amount The Money that has been transferred.
+     * @param amount   The Money that has been transferred.
      */
-    public Payment(Person payer, Person receiver, Money amount) {
+    public Payment(Person payer, Person receiver, BigDecimal amount) {
         this.payer = payer;
         this.receiver = receiver;
         this.amount = amount;
@@ -56,11 +59,11 @@ public class Payment {
         this.receiver = receiver;
     }
 
-    public Money getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(Money amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 }

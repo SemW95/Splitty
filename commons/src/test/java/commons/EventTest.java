@@ -2,6 +2,7 @@ package commons;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,8 +31,11 @@ class EventTest {
 
     @BeforeEach
     void setUp() {
-        test1 = new Event("Dinner and Drinks", "Dinner and drinks with the group");
-        test2 = new Event("Dinner and Drinks", "Dinner and drinks with the group");
+        Instant now = Instant.now();
+        test1 = new Event("id", "Dinner and Drinks", "Dinner and drinks with the group",
+            new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), now);
+        test2 = new Event("id", "Dinner and Drinks", "Dinner and drinks with the group",
+            new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), now);
 
         tags1 = new ArrayList<Tag>();
         tags2 = new ArrayList<Tag>();
@@ -41,8 +45,10 @@ class EventTest {
         tags1.add(tag2);
         tags2.add(tag1);
         tags2.add(tag2);
-        test3 = new Event("Pizza", "Pizza with the group", tags1);
-        test4 = new Event("Pizza", "Pizza with the group", tags2);
+        test3 = new Event("id", "Pizza", "Pizza with the group", new ArrayList<>(), tags1,
+            new ArrayList<>(), new ArrayList<>(), Instant.now());
+        test4 = new Event("id", "Pizza", "Pizza with the group", new ArrayList<>(), tags2,
+            new ArrayList<>(), new ArrayList<>(), Instant.now());
 
         // STUFF FOR CONSTRUCTOR 3, ADD THIS WHEN THE REST OF THE CLASSES ARE SECURE
         // expenses1 = new ArrayList<Expense>();

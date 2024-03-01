@@ -6,12 +6,21 @@ import java.util.Objects;
  * Currency class.
  */
 public class Currency {
-    String name;
-    String code;
+    String name; // for example, Dollar
+    String code; // for example, USD
+    char symbol; // for example, $
 
-    public Currency(String name, String code) {
+    /**
+     * Currency constructor.
+     *
+     * @param name   Name of a currency, e.g. Dollar
+     * @param code   Code of a currency, e.g. USD
+     * @param symbol Symbol for a currency, e.g. $
+     */
+    public Currency(String name, String code, char symbol) {
         this.name = name;
         this.code = code;
+        this.symbol = symbol;
     }
 
     /**
@@ -24,6 +33,7 @@ public class Currency {
         // TODO: check if currency.equals(otherCurrency)
         // TODO: create GET request to API from code to otherCurrency.getCode()
         // TODO: should return the conversion rate between currencies.
+        // TODO: should be cached somehow
         // Use api.frankfurter.app (https://www.frankfurter.app/docs/)
         // example: https://api.frankfurter.app/latest?from=GBP&to=USD
         return 0;
@@ -38,12 +48,13 @@ public class Currency {
             return false;
         }
         Currency currency = (Currency) o;
-        return Objects.equals(name, currency.name) && Objects.equals(code, currency.code);
+        return symbol == currency.symbol && Objects.equals(name, currency.name)
+            && Objects.equals(code, currency.code);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, code);
+        return Objects.hash(name, code, symbol);
     }
 
     public String getName() {
@@ -60,5 +71,13 @@ public class Currency {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public char getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(char symbol) {
+        this.symbol = symbol;
     }
 }

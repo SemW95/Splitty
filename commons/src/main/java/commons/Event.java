@@ -1,5 +1,6 @@
 package commons;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -11,10 +12,11 @@ public class Event {
     String id;
     String title;
     String description;
-    ArrayList<Person> persons;
+    ArrayList<Person> people;
     ArrayList<Tag> tags;
     ArrayList<Expense> expenses;
     ArrayList<Payment> payments;
+    Instant creationDate;
 
     /**
      * Creates a new Event.
@@ -29,11 +31,12 @@ public class Event {
         // TODO: generate id
         this.title = title;
         this.description = description;
-        this.persons = new ArrayList<Person>();
+        this.people = new ArrayList<Person>();
         // TODO: add the three standard Tags
         this.tags = new ArrayList<Tag>();
         this.expenses = new ArrayList<Expense>();
         this.payments = new ArrayList<Payment>();
+        this.creationDate = Instant.now();
     }
 
     /**
@@ -51,31 +54,36 @@ public class Event {
         // TODO: generate id
         this.title = title;
         this.description = description;
-        this.persons = new ArrayList<Person>();
+        this.people = new ArrayList<Person>();
         this.tags = tags;
         this.expenses = new ArrayList<Expense>();
         this.payments = new ArrayList<Payment>();
+        this.creationDate = Instant.now();
     }
 
-    /** The Event constructor used for imports.
+    /**
+     * The Event constructor used for imports.
      *
-     * @param id The Event id.
-     * @param title The Event title.
-     * @param description The Event description.
-     * @param persons The ArrayList with all Persons in the Event.
-     * @param tags The ArrayList with all the Tags in the Event.
-     * @param expenses The ArrayList with all the Expenses in the Event.
-     * @param payments The ArrayList with all the Payments in the Event.
+     * @param id           The Event id.
+     * @param title        The Event title.
+     * @param description  The Event description.
+     * @param people       The ArrayList with all Persons in the Event.
+     * @param tags         The ArrayList with all the Tags in the Event.
+     * @param expenses     The ArrayList with all the Expenses in the Event.
+     * @param payments     The ArrayList with all the Payments in the Event.
+     * @param creationDate Creation date of the Event.
      */
-    public Event(String id, String title, String description, ArrayList<Person> persons,
-                 ArrayList<Tag> tags, ArrayList<Expense> expenses, ArrayList<Payment> payments) {
+    public Event(String id, String title, String description, ArrayList<Person> people,
+                 ArrayList<Tag> tags, ArrayList<Expense> expenses, ArrayList<Payment> payments,
+                 Instant creationDate) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.persons = persons;
+        this.people = people;
         this.tags = tags;
         this.expenses = expenses;
         this.payments = payments;
+        this.creationDate = creationDate;
     }
 
     /**
@@ -95,7 +103,9 @@ public class Event {
         Event event = (Event) o;
         return Objects.equals(id, event.id) && Objects.equals(title, event.title)
             && Objects.equals(description, event.description) && Objects.equals(tags, event.tags)
-            && Objects.equals(expenses, event.expenses);
+            && Objects.equals(expenses, event.expenses) && Objects.equals(people, event.people)
+            && Objects.equals(payments, event.payments)
+            && Objects.equals(creationDate, event.creationDate);
     }
 
     /**
@@ -105,7 +115,7 @@ public class Event {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, tags, expenses);
+        return Objects.hash(id, title, description, tags, expenses, payments, creationDate);
     }
 
     public String getId() {
@@ -128,12 +138,12 @@ public class Event {
         this.description = description;
     }
 
-    public ArrayList<Person> getPersons() {
-        return persons;
+    public ArrayList<Person> getPeople() {
+        return people;
     }
 
-    public void setPersons(ArrayList<Person> persons) {
-        this.persons = persons;
+    public void setPeople(ArrayList<Person> people) {
+        this.people = people;
     }
 
     public ArrayList<Tag> getTags() {
@@ -150,5 +160,14 @@ public class Event {
 
     public ArrayList<Payment> getPayments() {
         return payments;
+    }
+
+
+    public Instant getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Instant creationDate) {
+        this.creationDate = creationDate;
     }
 }

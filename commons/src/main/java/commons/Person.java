@@ -23,7 +23,8 @@ import jakarta.persistence.Id;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-/** This is the class that contains all the data that's needed for a person.
+/**
+ * This is the class that contains all the data that's needed for a person.
  * Object class of a Person as an entity,
  * with name, email, iban and bic.
  */
@@ -40,13 +41,14 @@ public class Person {
     public String iban;
     public String bic;
 
-    /** Makes the Person class.
+    /**
+     * Makes the Person class.
      *
      * @param firstName The first name of a Person.
-     * @param lastName The last name of a Person.
-     * @param email The email of a Person.
-     * @param iban The IBAN of a Persons bank account.
-     * @param bic The IBAN of a Persons bank.
+     * @param lastName  The last name of a Person.
+     * @param email     The email of a Person.
+     * @param iban      The IBAN of a Persons bank account.
+     * @param bic       The IBAN of a Persons bank.
      */
     public Person(String firstName, String lastName, String email, String iban, String bic) {
         this.firstName = firstName;
@@ -60,7 +62,7 @@ public class Person {
      * TODO: consider if this is still necessary.
      *
      * @param firstName of person
-     * @param lastName of person
+     * @param lastName  of person
      */
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
@@ -81,11 +83,9 @@ public class Person {
      * by mapping numeric values and checking modulo 97.
      *
      * @param iban takes an iban number (needs to be trimmed when stored in database)
-     *
      * @return a boolean if it is a correct/existing iban.
      */
     public boolean ibanCheckSum(String iban) {
-
         //checks if the iban is of valid length
         if (iban.length() < 15 || iban.length() > 34) {
             return false;
@@ -116,10 +116,9 @@ public class Person {
 
 
     /**
-     *TODO: Should use BIC api, to verify BIC.
+     * TODO: Should use BIC api, to verify BIC.
      *
      * @param bic takes a bic number
-     *
      * @return a boolean if it is a correct/existing bic.
      */
     public boolean bicCheckSum(String bic) {
@@ -184,7 +183,7 @@ public class Person {
         if (check) {
             this.email = email;
         } else {
-            throw new IllegalArgumentException("the provided email is not a valid email");
+            throw new IllegalArgumentException("The provided email is not a valid email");
         }
     }
 
@@ -199,7 +198,6 @@ public class Person {
      * @param iban new iban for person
      */
     public void setIban(String iban) {
-
         if (ibanCheckSum(iban)) {
             this.iban = iban;
         } else {
@@ -218,7 +216,6 @@ public class Person {
      * @param bic new BIC of person.
      */
     public void setBic(String bic) {
-
         if (bicCheckSum(bic)) {
             this.bic = bic;
         } else {
