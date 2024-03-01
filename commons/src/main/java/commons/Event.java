@@ -30,7 +30,29 @@ public class Event {
         this.title = title;
         this.description = description;
         this.persons = new ArrayList<Person>();
+        // TODO: add the three standard Tags
         this.tags = new ArrayList<Tag>();
+        this.expenses = new ArrayList<Expense>();
+        this.payments = new ArrayList<Payment>();
+    }
+
+    /**
+     * Creates a new Event with predefined Tags.
+     *
+     * @param title       The title of the Event.
+     * @param description The description of the Event.
+     * @param tags        The Tags of the Event
+     */
+    public Event(
+        String title,
+        String description,
+        ArrayList<Tag> tags
+    ) {
+        // TODO: generate id
+        this.title = title;
+        this.description = description;
+        this.persons = new ArrayList<Person>();
+        this.tags = tags;
         this.expenses = new ArrayList<Expense>();
         this.payments = new ArrayList<Payment>();
     }
