@@ -58,17 +58,6 @@ public class Person {
         this.bic = bic;
     }
 
-    /**
-     * TODO: consider if this is still necessary.
-     *
-     * @param firstName of person
-     * @param lastName  of person
-     */
-    public Person(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
 
     /**
      * The JPA required "no-arg" constructor.
