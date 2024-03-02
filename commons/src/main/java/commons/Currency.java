@@ -31,8 +31,10 @@ public class Currency {
         this.symbol = symbol;
     }
 
-    protected Currency() {
-
+    /**
+     * Empty constructor for JPA.
+     */
+    private Currency() {
     }
 
     /**
