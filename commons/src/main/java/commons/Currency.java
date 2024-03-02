@@ -34,7 +34,7 @@ public class Currency {
     /**
      * Empty constructor for JPA.
      */
-    private Currency() {
+    protected Currency() {
     }
 
     /**
