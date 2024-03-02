@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.HomeCtrl">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.HomeCtrl">
    <children>
-      <Text layoutX="98.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello world!" textAlignment="CENTER" wrappingWidth="404.7294921875">
-         <font>
-            <Font size="44.0" />
-         </font>
-      </Text>
+      <Label layoutX="252.0" layoutY="200.0" text="HELLO" />
+      <Button layoutX="48.0" layoutY="339.0" mnemonicParsing="false" onAction="#goSettings" text="Settings" />
    </children>
 </AnchorPane>
