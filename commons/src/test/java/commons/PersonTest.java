@@ -19,7 +19,6 @@ package commons;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -31,13 +30,13 @@ public class PersonTest {
     @Test
     void equalTest() {
         Person p1 =
-            new Person("Alice", "Alice@domain.com",
+            new Person("Alice", "needs a surname", "Alice@domain.com",
                 "GB33BUKB20201555555555", "ZUOBJEO6XXX");
         Person p2 =
-            new Person("Alice", "Alice@domain.com",
+            new Person("Alice", "needs a surname", "Alice@domain.com",
                 "GB33BUKB20201555555555", "ZUOBJEO6XXX"); //same as P1
         Person p3 =
-            new Person("Alice", "Alice@domain.com",
+            new Person("Alice", "needs a surname", "Alice@domain.com",
                 "GB33BUKB20201555555556", "ZUOBJEO6XXX"); //changed last digit IBAN
 
         assertNotEquals(p1, p3);
@@ -49,13 +48,13 @@ public class PersonTest {
     @Test
     void hashTest() {
         Person p1 =
-            new Person("Alice", "Alice@domain.com",
+            new Person("Alice", "needs a surname", "Alice@domain.com",
                 "GB33BUKB20201555555555", "ZUOBJEO6XXX");
         Person p2 =
-            new Person("Alice", "Alice@domain.com",
+            new Person("Alice", "needs a surname", "Alice@domain.com",
                 "GB33BUKB20201555555555", "ZUOBJEO6XXX"); //same as P1
         Person p3 =
-            new Person("Alice", "Alice@domain.com",
+            new Person("Alice", "needs a surname", "Alice@domain.com",
                 "GB33BUKB20201555555556", "ZUOBJEO6XXX"); //changed last digit IBAN
 
         assertNotEquals(p1.hashCode(), p3.hashCode());
@@ -66,12 +65,12 @@ public class PersonTest {
     @Test
     void toStringTest() {
         Person p1 =
-            new Person("Alice", "Alice@domain.com",
+            new Person("Alice", "needs a surname", "Alice@domain.com",
                 "GB33BUKB20201555555555", "ZUOBJEO6XXX");
 
         String text = p1.toString();
-        String compare = "Person{name='Alice', email='Alice@domain.com', "
-            + "IBAN='GB33BUKB20201555555555', BIC='ZUOBJEO6XXX'}";
+        String compare = "Person{id=0, firstName='Alice', lastName='needs a surname', "
+            + "email='Alice@domain.com', iban='GB33BUKB20201555555555', bic='ZUOBJEO6XXX'}";
 
         assertEquals(text, compare);
     }
@@ -79,7 +78,7 @@ public class PersonTest {
     @Test
     void emailCheck() {
         Person p1 =
-            new Person("Alice", "Alice@domain.com",
+            new Person("Alice", "needs a surname", "Alice@domain.com",
                 "GB33BUKB20201555555555", "ZUOBJEO6XXX");
         p1.setEmail("Peter@domain.com");
 
@@ -94,7 +93,7 @@ public class PersonTest {
     @Test
     void ibanCheck() {
         Person p1 =
-            new Person("Alice", "Alice@domain.com",
+            new Person("Alice", "needs a surname", "Alice@domain.com",
                 "GB33BUKB20201555555555", "ZUOBJEO6XXX");
 
         //sets proper iban
@@ -117,7 +116,7 @@ public class PersonTest {
     @Test
     void ibanCheckIllegal() {
         Person p1 =
-            new Person("Alice", "Alice@domain.com",
+            new Person("Alice", "needs a surname", "Alice@domain.com",
                 "GB33BUKB20201555555555", "ZUOBJEO6XXX");
 
         //too short
@@ -139,7 +138,7 @@ public class PersonTest {
     @Test
     void bicCheck() {
         Person p1 =
-            new Person("Alice", "Alice@domain.com",
+            new Person("Alice", "needs a surname", "Alice@domain.com",
                 "GB33BUKB20201555555555", "ZUOBJEO6XXX");
         p1.setBic("ZUOBJEO6XXY");
 

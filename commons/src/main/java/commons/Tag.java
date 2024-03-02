@@ -3,29 +3,29 @@ package commons;
 import java.util.Objects;
 
 /**
- * TODO.
+ * This is a Tag class.
  */
 public class Tag {
     String name;
-    Colour colourCode;
+    // TODO: decide how to store the Tag colour
+    Colour colour;
 
     /**
      * Create a Tag.
      *
-     * @param name       Name of the Tag
-     * @param colourCode The Colour needed
+     * @param name   Name of the Tag
+     * @param colour The Colour needed
      */
-    public Tag(String name, Colour colourCode) {
+    public Tag(String name, Colour colour) {
         this.name = name;
-        this.colourCode = colourCode;
+        this.colour = colour;
     }
 
-    /**
-     * Check if the other Object is equals to a Tag.
-     *
-     * @param o The other Object
-     * @return Ture if equal, false otherwise
-     */
+    // TODO: create Tag with different colour specification methods
+
+    // TODO: create equals and hash function once the storage type of the Tag colour is determined
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -35,16 +35,27 @@ public class Tag {
             return false;
         }
         Tag tag = (Tag) o;
-        return Objects.equals(name, tag.name) && Objects.equals(colourCode, tag.colourCode);
+        return Objects.equals(name, tag.name) && Objects.equals(colour, tag.colour);
     }
 
-    /**
-     * Calculate the hashcode of the Tag.
-     *
-     * @return The hashcode of the Tag
-     */
     @Override
     public int hashCode() {
-        return Objects.hash(name, colourCode);
+        return Objects.hash(name, colour);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Colour getColour() {
+        return colour;
+    }
+
+    public void setColour(Colour colour) {
+        this.colour = colour;
     }
 }

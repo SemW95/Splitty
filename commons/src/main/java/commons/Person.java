@@ -20,11 +20,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.math.BigInteger;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
+ * This is the class that contains all the data that's needed for a person.
  * Object class of a Person as an entity,
  * with name, email, iban and bic.
  */
@@ -34,39 +34,35 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public long id;
+
     public String firstName;
     public String lastName;
-
-    //the following attributes + toString method are implemented to allow basic functionality
-    // in the totalDebt test class
-    // TODO figure out if we want to use the firstname lastname fields from the template projects
-    // or our own field below
-    public String name;
     public String email;
     public String iban;
     public String bic;
 
     /**
-     * This is a constructor for the Person class.
+     * Makes the Person class.
      *
-     * @param name  of person
-     * @param email of person
-     * @param iban  of person
-     * @param bic   of person
+     * @param firstName The first name of a Person.
+     * @param lastName  The last name of a Person.
+     * @param email     The email of a Person.
+     * @param iban      The IBAN of a Persons bank account.
+     * @param bic       The IBAN of a Persons bank.
      */
-    public Person(String name, String email, String iban, String bic) {
-        this.name = name;
+    public Person(String firstName, String lastName, String email, String iban, String bic) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.iban = iban;
         this.bic = bic;
     }
 
-
     /**
      * TODO: consider if this is still necessary.
      *
      * @param firstName of person
-     * @param lastName of person
+     * @param lastName  of person
      */
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
@@ -87,11 +83,9 @@ public class Person {
      * by mapping numeric values and checking modulo 97.
      *
      * @param iban takes an iban number (needs to be trimmed when stored in database)
-     *
      * @return a boolean if it is a correct/existing iban.
      */
     public boolean ibanCheckSum(String iban) {
-
         //checks if the iban is of valid length
         if (iban.length() < 15 || iban.length() > 34) {
             return false;
@@ -122,10 +116,9 @@ public class Person {
 
 
     /**
-     *TODO: Should use BIC api, to verify BIC.
+     * TODO: Should use BIC api, to verify BIC.
      *
      * @param bic takes a bic number
-     *
      * @return a boolean if it is a correct/existing bic.
      */
     public boolean bicCheckSum(String bic) {
@@ -138,25 +131,41 @@ public class Person {
         return EqualsBuilder.reflectionEquals(this, obj);
     }
 
-
     @Override
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
     }
 
-
     @Override
     public String toString() {
-        return "Person{" + "name='" + name + '\'' + ", email='" + email + '\'' + ", IBAN='" + iban
-            + '\'' + ", BIC='" + bic + '\'' + '}';
+        return "Person{"
+            + "id=" + id
+            + ", firstName='" + firstName + '\''
+            + ", lastName='" + lastName + '\''
+            + ", email='" + email + '\''
+            + ", iban='" + iban + '\''
+            + ", bic='" + bic + '\''
+            + '}';
     }
 
-    public String getName() {
-        return name;
+    public long getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -174,9 +183,10 @@ public class Person {
         if (check) {
             this.email = email;
         } else {
-            throw new IllegalArgumentException("the provided email is not a valid email");
+            throw new IllegalArgumentException("The provided email is not a valid email");
         }
     }
+
 
     public String getIban() {
         return iban;
@@ -188,13 +198,13 @@ public class Person {
      * @param iban new iban for person
      */
     public void setIban(String iban) {
-
         if (ibanCheckSum(iban)) {
             this.iban = iban;
         } else {
             throw new IllegalArgumentException("This is not a valid IBAN");
         }
     }
+
 
     public String getBic() {
         return bic;
@@ -206,16 +216,10 @@ public class Person {
      * @param bic new BIC of person.
      */
     public void setBic(String bic) {
-
         if (bicCheckSum(bic)) {
             this.bic = bic;
         } else {
             System.out.println("This is an incorrect BIC");
         }
     }
-
-    //    @Override
-    //    public String toString() {
-    //        return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE);
-    //    }
 }
