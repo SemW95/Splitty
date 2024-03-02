@@ -94,4 +94,8 @@ public class Currency {
     public void setSymbol(char symbol) {
         this.symbol = symbol;
     }
+
+    public long getId() {
+        return id;
+    }
 }
