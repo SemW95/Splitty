@@ -26,37 +26,30 @@ public class MainCtrl {
 
     private Stage primaryStage;
 
-    private QuoteOverviewCtrl overviewCtrl;
-    private Scene overview;
+    private HomeCtrl homeCtrl;
+    private Scene home;
 
-    private AddQuoteCtrl addCtrl;
-    private Scene add;
 
-    @SuppressWarnings("checkstyle:MissingJavadocMethod")
-    public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
-                           Pair<AddQuoteCtrl, Parent> add) {
+    /**
+     * Main controller initialization.
+     *
+     * @param primaryStage the primary stage
+     * @param home the loaded Home controller
+     */
+    public void initialize(Stage primaryStage, Pair<HomeCtrl, Parent> home) {
         this.primaryStage = primaryStage;
-        this.overviewCtrl = overview.getKey();
-        this.overview = new Scene(overview.getValue());
+        this.homeCtrl = home.getKey();
+        this.home = new Scene(home.getValue());
 
-        this.addCtrl = add.getKey();
-        this.add = new Scene(add.getValue());
-
-        showOverview();
+        showHome();
         primaryStage.show();
     }
 
-    @SuppressWarnings("checkstyle:MissingJavadocMethod")
-    public void showOverview() {
-        primaryStage.setTitle("Quotes: Overview");
-        primaryStage.setScene(overview);
-        overviewCtrl.refresh();
-    }
-
-    @SuppressWarnings("checkstyle:MissingJavadocMethod")
-    public void showAdd() {
-        primaryStage.setTitle("Quotes: Adding Quote");
-        primaryStage.setScene(add);
-        add.setOnKeyPressed(e -> addCtrl.keyPressed(e));
+    /**
+     * Sets primary stage to the Home scene.
+     */
+    public void showHome() {
+        primaryStage.setTitle("Home");
+        primaryStage.setScene(home);
     }
 }

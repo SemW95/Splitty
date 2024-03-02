@@ -14,11 +14,30 @@
  * limitations under the License.
  */
 
-package server.database;
+package client.scenes;
 
-import commons.Quote;
-import org.springframework.data.jpa.repository.JpaRepository;
+import client.utils.ServerUtils;
+import com.google.inject.Inject;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.Initializable;
 
-@SuppressWarnings("checkstyle:MissingJavadocType")
-public interface QuoteRepository extends JpaRepository<Quote, Long> {
+/**
+ * Home screen.
+ */
+public class HomeCtrl implements Initializable {
+
+    private final ServerUtils server;
+    private final MainCtrl mainCtrl;
+
+    @Inject
+    public HomeCtrl(ServerUtils server, MainCtrl mainCtrl) {
+        this.server = server;
+        this.mainCtrl = mainCtrl;
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
 }
