@@ -77,7 +77,7 @@ public class Person {
      * @param iban takes an iban number (needs to be trimmed when stored in database)
      * @return a boolean if it is a correct/existing iban.
      */
-    static public boolean ibanCheckSum(String iban) {
+    public static boolean ibanCheckSum(String iban) {
         //checks if the iban is of valid length
         if (iban.length() < 15 || iban.length() > 34) {
             return false;
@@ -113,7 +113,7 @@ public class Person {
      * @param bic takes a bic number
      * @return a boolean if it is a correct/existing bic.
      */
-    static public boolean bicCheckSum(String bic) {
+    public static boolean bicCheckSum(String bic) {
         String bicRegex = "^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z]{3})$";
         Pattern pattern = Pattern.compile(bicRegex);
         Matcher bicMatcher = pattern.matcher(bic);

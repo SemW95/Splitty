@@ -161,8 +161,8 @@ public class PersonTest {
         String invalidCharactersInBic = "2BVILT2XXXXX";
         assertFalse(Person.bicCheckSum(invalidCharactersInBic));
 
-        String exampleShortBIC = "ABCDUS33XX";
-        assertFalse(Person.bicCheckSum(exampleShortBIC));
+        String exampleShortBic = "ABCDUS33XX";
+        assertFalse(Person.bicCheckSum(exampleShortBic));
 
         String exampleInvalidCountry = "DEUTDEFF500";
         assertFalse(Person.bicCheckSum(exampleInvalidCountry));
