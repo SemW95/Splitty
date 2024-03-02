@@ -13,7 +13,7 @@ import java.util.Objects;
 public class Colour {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    int id;
+    long id;
     int red;
     int green;
     int blue;
