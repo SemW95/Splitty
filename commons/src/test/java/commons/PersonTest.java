@@ -149,27 +149,36 @@ public class PersonTest {
 
     @Test
     void testBicCheckSum() {
+        //example of valid swift with 11
         String exampleGreat = "HABALT22TIP";
         assertTrue(Person.bicCheckSum(exampleGreat));
 
-        String exampleGood = "CBVILT2XXXX";
+        //example of valid bic with 8
+        String exampleGood = "CBVILT2X";
         assertTrue(Person.bicCheckSum(exampleGood));
 
+
+        //a bic number has 8 or 11 characters, this string has 13
         String exampleTooLong = "CBVILT2XXXXXX";
         assertFalse(Person.bicCheckSum(exampleTooLong));
 
+        //invalid syntax for the bank code, numbers in the banks place 1 through 4
         String invalidCharactersInBic = "2BVILT2XXXXX";
         assertFalse(Person.bicCheckSum(invalidCharactersInBic));
 
+        //a bic number has 8 or 11 characters, this string has 13
         String exampleShortBic = "ABCDUS33XX";
         assertFalse(Person.bicCheckSum(exampleShortBic));
 
-        String exampleInvalidCountry = "DEUTDEFF500";
+        //the 5-6 characters should be letters, invalid country code 99
+        String exampleInvalidCountry = "DEUT99F7XXX";
         assertFalse(Person.bicCheckSum(exampleInvalidCountry));
 
-        String exampleInvalidBranch = "BARCGB22X2X";
+        //in 11-long bic, 9-11 are letters, this violates that with branch code @2@
+        String exampleInvalidBranch = "BARCGB22@2@";
         assertFalse(Person.bicCheckSum(exampleInvalidBranch));
 
+        //this is an invalid length for a bic: 14 long
         String exampleLengthInvalid = "HSBCHKHHXXEEEX";
         assertFalse(Person.bicCheckSum(exampleLengthInvalid));
     }

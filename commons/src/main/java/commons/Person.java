@@ -114,7 +114,8 @@ public class Person {
      * @return a boolean if it is a correct/existing bic.
      */
     public static boolean bicCheckSum(String bic) {
-        String bicRegex = "^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z]{3})$";
+        //https://en.wikipedia.org/wiki/ISO_9362#Structure
+        String bicRegex = "^[A-Za-z]{4}[A-Za-z]{2}[A-Za-z0-9]{2}([A-Za-z0-9]{3})?$";
         Pattern pattern = Pattern.compile(bicRegex);
         Matcher bicMatcher = pattern.matcher(bic);
         return bicMatcher.matches();
