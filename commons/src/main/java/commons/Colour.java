@@ -4,11 +4,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
 import java.util.Objects;
 
 /**
- * Class Colour
+ * Class Colour.
  */
 @Entity
 public class Colour {
@@ -20,7 +19,7 @@ public class Colour {
     int blue;
 
     /**
-     * A default constructor for JPA
+     * A default constructor for JPA.
      */
     public Colour() {
     }
