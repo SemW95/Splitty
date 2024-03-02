@@ -1,11 +1,19 @@
 package commons;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import java.util.Objects;
 
 /**
  * Currency class.
  */
+@Entity
 public class Currency {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    long id;
     String name; // for example, Dollar
     String code; // for example, USD
     char symbol; // for example, $
@@ -21,6 +29,12 @@ public class Currency {
         this.name = name;
         this.code = code;
         this.symbol = symbol;
+    }
+
+    /**
+     * Empty constructor for JPA.
+     */
+    protected Currency() {
     }
 
     /**
