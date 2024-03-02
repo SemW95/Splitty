@@ -1,5 +1,10 @@
 package commons;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -8,8 +13,12 @@ import java.util.Objects;
 /**
  * This is the data Object for an Event.
  */
+@Entity
 public class Event {
-    String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    long id;
+    String code;  //TODO: change constructors!
     String title;
     String description;
     ArrayList<Person> people;
@@ -28,11 +37,11 @@ public class Event {
         String title,
         String description
     ) {
-        // TODO: generate id
+        this.code = code;
         this.title = title;
         this.description = description;
         this.people = new ArrayList<Person>();
-        // TODO: add the three standard Tags
+        // TODO: add the three standard Tags (extended feature)
         this.tags = new ArrayList<Tag>();
         this.expenses = new ArrayList<Expense>();
         this.payments = new ArrayList<Payment>();
@@ -51,7 +60,7 @@ public class Event {
         String description,
         ArrayList<Tag> tags
     ) {
-        // TODO: generate id
+        this.code = code;
         this.title = title;
         this.description = description;
         this.people = new ArrayList<Person>();
@@ -59,6 +68,12 @@ public class Event {
         this.expenses = new ArrayList<Expense>();
         this.payments = new ArrayList<Payment>();
         this.creationDate = Instant.now();
+    }
+
+    /**
+     * Empty constructor for JPA.
+     */
+    protected Event(){
     }
 
     /**
@@ -73,9 +88,10 @@ public class Event {
      * @param payments     The ArrayList with all the Payments in the Event.
      * @param creationDate Creation date of the Event.
      */
-    public Event(String id, String title, String description, ArrayList<Person> people,
+    public Event(String code, long id, String title, String description, ArrayList<Person> people,
                  ArrayList<Tag> tags, ArrayList<Expense> expenses, ArrayList<Payment> payments,
                  Instant creationDate) {
+        this.code = code;
         this.id = id;
         this.title = title;
         this.description = description;
@@ -94,18 +110,20 @@ public class Event {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
         Event event = (Event) o;
-        return Objects.equals(id, event.id) && Objects.equals(title, event.title)
-            && Objects.equals(description, event.description) && Objects.equals(tags, event.tags)
-            && Objects.equals(expenses, event.expenses) && Objects.equals(people, event.people)
-            && Objects.equals(payments, event.payments)
-            && Objects.equals(creationDate, event.creationDate);
+
+        if (id != event.id) return false;
+        if (!Objects.equals(code, event.code)) return false;
+        if (!Objects.equals(title, event.title)) return false;
+        if (!Objects.equals(description, event.description)) return false;
+        if (!Objects.equals(people, event.people)) return false;
+        if (!Objects.equals(tags, event.tags)) return false;
+        if (!Objects.equals(expenses, event.expenses)) return false;
+        if (!Objects.equals(payments, event.payments)) return false;
+        return Objects.equals(creationDate, event.creationDate);
     }
 
     /**
@@ -115,10 +133,10 @@ public class Event {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, tags, expenses, payments, creationDate);
+        return Objects.hash(code, id, title, description, tags, expenses, payments, creationDate);
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
@@ -161,7 +179,6 @@ public class Event {
     public ArrayList<Payment> getPayments() {
         return payments;
     }
-
 
     public Instant getCreationDate() {
         return creationDate;
