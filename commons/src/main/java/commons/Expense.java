@@ -20,29 +20,35 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
-
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Objects;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * The class that contains all the info for an expense.
  */
+@Entity
 public class Expense {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long id;
+    long id;
     String description;
+    @OneToMany
     ArrayList<Person> participants;
+    @OneToOne
     Person receiver;
     BigDecimal paid;
+
     Tag tag;
     Instant creationDate; // "Detailed Expenses" extension
+
+    protected Expense() {
+    }
+
 
     /**
      * Creates the Expense class.
@@ -57,6 +63,7 @@ public class Expense {
         this.creationDate = Instant.now();
     }
 
+
     /**
      * Creates the Expense class with a date.
      *
@@ -70,6 +77,7 @@ public class Expense {
         this.paid = paid;
         this.creationDate = creationDate;
     }
+
 
     public String getDescription() {
         return description;
@@ -99,15 +107,26 @@ public class Expense {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return EqualsBuilder.reflectionEquals(this, obj);
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Expense expense = (Expense) o;
+        return id == expense.id && Objects.equals(description, expense.description)
+            && Objects.equals(participants, expense.participants)
+            && Objects.equals(receiver, expense.receiver)
+            && Objects.equals(paid, expense.paid)
+            && Objects.equals(tag, expense.tag)
+            && Objects.equals(creationDate, expense.creationDate);
     }
 
     @Override
     public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
+        return Objects.hash(id, description, participants, receiver, paid, tag, creationDate);
     }
-
 
     public ArrayList<Person> getParticipants() {
         return participants;
