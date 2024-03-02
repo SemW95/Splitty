@@ -1,14 +1,43 @@
+/*
+ * Copyright 2021 Delft University of Technology
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package commons;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Objects;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * The class that contains all the info for an expense.
  */
 public class Expense {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public long id;
+    String description;
     ArrayList<Person> participants;
     Person receiver;
     BigDecimal paid;
@@ -42,6 +71,14 @@ public class Expense {
         this.creationDate = creationDate;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public void addParticipant(Person participant) {
         participants.add(participant);
     }
@@ -62,24 +99,15 @@ public class Expense {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Expense expense = (Expense) o;
-        return Objects.equals(participants, expense.participants)
-            && Objects.equals(receiver, expense.receiver)
-            && Objects.equals(paid, expense.paid) && Objects.equals(tag, expense.tag)
-            && Objects.equals(creationDate, expense.creationDate);
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(participants, receiver, paid, tag, creationDate);
+        return HashCodeBuilder.reflectionHashCode(this);
     }
+
 
     public ArrayList<Person> getParticipants() {
         return participants;
