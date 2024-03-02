@@ -20,8 +20,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 
 /**
  * This is the class that contains all the data that's needed for a person.
@@ -74,7 +77,7 @@ public class Person {
      * @param iban takes an iban number (needs to be trimmed when stored in database)
      * @return a boolean if it is a correct/existing iban.
      */
-    public boolean ibanCheckSum(String iban) {
+    static public boolean ibanCheckSum(String iban) {
         //checks if the iban is of valid length
         if (iban.length() < 15 || iban.length() > 34) {
             return false;
@@ -110,8 +113,11 @@ public class Person {
      * @param bic takes a bic number
      * @return a boolean if it is a correct/existing bic.
      */
-    public boolean bicCheckSum(String bic) {
-        return true;
+    static public boolean bicCheckSum(String bic) {
+        String bicRegex = "^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z]{3})$";
+        Pattern pattern = Pattern.compile(bicRegex);
+        Matcher bicMatcher = pattern.matcher(bic);
+        return bicMatcher.matches();
     }
 
 
@@ -208,7 +214,7 @@ public class Person {
         if (bicCheckSum(bic)) {
             this.bic = bic;
         } else {
-            System.out.println("This is an incorrect BIC");
+            throw new IllegalArgumentException("This is an incorrect BIC");
         }
     }
 }
