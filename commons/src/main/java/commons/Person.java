@@ -65,7 +65,7 @@ public class Person {
         }
         this.iban = iban;
 
-        if (!bicCheckSum(bic)) {
+        if (!bicCheck(bic)) {
             throw new IllegalArgumentException("invalid bic syntax");
         }
         this.bic = bic;
@@ -123,7 +123,7 @@ public class Person {
      * @param bic takes a bic number
      * @return a boolean if it is a correct/existing bic.
      */
-    public static boolean bicCheckSum(String bic) {
+    public static boolean bicCheck(String bic) {
         //https://en.wikipedia.org/wiki/ISO_9362#Structure
         String bicRegex = "^[A-Za-z]{4}[A-Za-z]{2}[A-Za-z0-9]{2}([A-Za-z0-9]{3})?$";
         Pattern pattern = Pattern.compile(bicRegex);
@@ -191,7 +191,7 @@ public class Person {
      * @param bic new BIC of person.
      */
     public void setBic(String bic) {
-        if (bicCheckSum(bic)) {
+        if (bicCheck(bic)) {
             this.bic = bic;
         } else {
             throw new IllegalArgumentException("This is an incorrect BIC");
