@@ -1,20 +1,37 @@
 package commons;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.UUID;
 
 
 /**
  * This is the data Object for an Event.
  */
+@Entity
 public class Event {
-    String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    long id;
+    @Column(unique = true)
+    String code;
     String title;
     String description;
+    @OneToMany
     ArrayList<Person> people;
+    @ManyToMany
     ArrayList<Tag> tags;
+    @OneToMany
     ArrayList<Expense> expenses;
+    @OneToMany
     ArrayList<Payment> payments;
     Instant creationDate;
 
@@ -28,11 +45,11 @@ public class Event {
         String title,
         String description
     ) {
-        // TODO: generate id
+        this.code = generateInviteCode();
         this.title = title;
         this.description = description;
         this.people = new ArrayList<Person>();
-        // TODO: add the three standard Tags
+        // TODO: add the three standard Tags (extended feature)
         this.tags = new ArrayList<Tag>();
         this.expenses = new ArrayList<Expense>();
         this.payments = new ArrayList<Payment>();
@@ -51,7 +68,7 @@ public class Event {
         String description,
         ArrayList<Tag> tags
     ) {
-        // TODO: generate id
+        this.code = generateInviteCode();
         this.title = title;
         this.description = description;
         this.people = new ArrayList<Person>();
@@ -62,9 +79,14 @@ public class Event {
     }
 
     /**
+     * Empty constructor for JPA.
+     */
+    protected Event() {
+    }
+
+    /**
      * The Event constructor used for imports.
      *
-     * @param id           The Event id.
      * @param title        The Event title.
      * @param description  The Event description.
      * @param people       The ArrayList with all Persons in the Event.
@@ -73,10 +95,10 @@ public class Event {
      * @param payments     The ArrayList with all the Payments in the Event.
      * @param creationDate Creation date of the Event.
      */
-    public Event(String id, String title, String description, ArrayList<Person> people,
+    public Event(String title, String description, ArrayList<Person> people,
                  ArrayList<Tag> tags, ArrayList<Expense> expenses, ArrayList<Payment> payments,
                  Instant creationDate) {
-        this.id = id;
+        this.code = generateInviteCode();
         this.title = title;
         this.description = description;
         this.people = people;
@@ -84,6 +106,13 @@ public class Event {
         this.expenses = expenses;
         this.payments = payments;
         this.creationDate = creationDate;
+    }
+
+    /**
+     * A UUID is not unique, however the chance of having duplicates is minimal.
+     */
+    private static String generateInviteCode() {
+        return UUID.randomUUID().toString();
     }
 
     /**
@@ -100,12 +129,32 @@ public class Event {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
+
         Event event = (Event) o;
-        return Objects.equals(id, event.id) && Objects.equals(title, event.title)
-            && Objects.equals(description, event.description) && Objects.equals(tags, event.tags)
-            && Objects.equals(expenses, event.expenses) && Objects.equals(people, event.people)
-            && Objects.equals(payments, event.payments)
-            && Objects.equals(creationDate, event.creationDate);
+
+        if (!Objects.equals(code, event.code)) {
+            return false;
+        }
+        if (!Objects.equals(title, event.title)) {
+            return false;
+        }
+        if (!Objects.equals(description, event.description)) {
+            return false;
+        }
+        if (!Objects.equals(people,
+            event.people)) {
+            return false;
+        }
+        if (!Objects.equals(tags, event.tags)) {
+            return false;
+        }
+        if (!Objects.equals(expenses, event.expenses)) {
+            return false;
+        }
+        if (!Objects.equals(payments, event.payments)) {
+            return false;
+        }
+        return Objects.equals(creationDate, event.creationDate);
     }
 
     /**
@@ -115,11 +164,19 @@ public class Event {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, tags, expenses, payments, creationDate);
+        return Objects.hash(code, title, description, tags, expenses, payments, creationDate);
     }
 
-    public String getId() {
+    public long getId() {
         return id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getTitle() {
@@ -158,10 +215,17 @@ public class Event {
         return expenses;
     }
 
+    public void setExpenses(ArrayList<Expense> expenses) {
+        this.expenses = expenses;
+    }
+
     public ArrayList<Payment> getPayments() {
         return payments;
     }
 
+    public void setPayments(ArrayList<Payment> payments) {
+        this.payments = payments;
+    }
 
     public Instant getCreationDate() {
         return creationDate;
@@ -170,4 +234,5 @@ public class Event {
     public void setCreationDate(Instant creationDate) {
         this.creationDate = creationDate;
     }
+
 }
