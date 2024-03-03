@@ -29,18 +29,12 @@ class EventTest {
         tags2.add(tag2);
 
         Instant now = Instant.now();
-        test1 = new Event("123", "Dinner and Drinks", "Dinner and drinks with the group",
+        test1 = new Event("Dinner and Drinks", "Dinner and drinks with the group",
             new ArrayList<Person>(), tags1, new ArrayList<Expense>(),
             new ArrayList<Payment>(), now);
-        test2 = new Event("123", "Dinner and Drinks", "Dinner and drinks with the group",
+        test2 = new Event("Dinner and Drinks", "Dinner and drinks with the group",
             new ArrayList<Person>(), tags2, new ArrayList<Expense>(),
             new ArrayList<Payment>(), now);
-    }
-
-    void setId() {
-        String newId = "newId";
-        test1.setTitle(newId);
-        assertEquals(newId, test1.getTitle(), "Setting Id failed");
     }
 
     @Test
