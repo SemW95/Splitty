@@ -56,8 +56,19 @@ public class Person {
     public Person(String firstName, String lastName, String email, String iban, String bic) {
         this.firstName = firstName;
         this.lastName = lastName;
+        if (!emailCheck(email)){
+            throw new IllegalArgumentException("invalid email syntax");
+        }
         this.email = email;
+
+        if (!ibanCheckSum(iban)){
+            throw new IllegalArgumentException("invalid iban syntax");
+        }
         this.iban = iban;
+
+        if (!bicCheckSum(bic)){
+            throw new IllegalArgumentException("invalid bic syntax");
+        }
         this.bic = bic;
     }
 
@@ -121,27 +132,54 @@ public class Person {
         return bicMatcher.matches();
     }
 
-
-    @Override
-    public boolean equals(Object obj) {
-        return EqualsBuilder.reflectionEquals(this, obj);
+    /**
+     * @param email an email to test for validity
+     * @return whether the email is valid,
+     */
+    public static boolean emailCheck(String email) {
+        return email.matches("^(.+)@(\\S+)$");
     }
 
-    @Override
-    public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
-    }
 
     @Override
     public String toString() {
-        return "Person{"
-            + "id=" + id
-            + ", firstName='" + firstName + '\''
-            + ", lastName='" + lastName + '\''
-            + ", email='" + email + '\''
-            + ", iban='" + iban + '\''
-            + ", bic='" + bic + '\''
-            + '}';
+        return "Person{" + "id=" + id + ", firstName='" + firstName + '\'' + ", lastName='" +
+            lastName + '\'' + ", email='" + email + '\'' + ", iban='" + iban + '\'' + ", bic='" +
+            bic + '\'' + '}';
+    }
+
+    public String getIban() {
+        return iban;
+    }
+
+    /**
+     * Makes sure the IBAN is correct when setting it.
+     *
+     * @param iban new iban for person
+     */
+    public void setIban(String iban) {
+        if (ibanCheckSum(iban)) {
+            this.iban = iban;
+        } else {
+            throw new IllegalArgumentException("This is not a valid IBAN");
+        }
+    }
+
+    public String getBic() {
+        return bic;
+    }
+
+    /**
+     * Makes sure the BIC is correct before setting it.
+     *
+     * @param bic new BIC of person.
+     */
+    public void setBic(String bic) {
+        if (bicCheckSum(bic)) {
+            this.bic = bic;
+        } else {
+            throw new IllegalArgumentException("This is an incorrect BIC");
+        }
     }
 
     public long getId() {
@@ -174,8 +212,7 @@ public class Person {
      * @param email new email for Person
      */
     public void setEmail(String email) {
-        boolean check = email.matches("^(.+)@(\\S+)$");
-
+        boolean check = emailCheck(email);
         if (check) {
             this.email = email;
         } else {
@@ -183,39 +220,13 @@ public class Person {
         }
     }
 
-
-    public String getIban() {
-        return iban;
+    @Override
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
     }
 
-    /**
-     * Makes sure the IBAN is correct when setting it.
-     *
-     * @param iban new iban for person
-     */
-    public void setIban(String iban) {
-        if (ibanCheckSum(iban)) {
-            this.iban = iban;
-        } else {
-            throw new IllegalArgumentException("This is not a valid IBAN");
-        }
-    }
-
-
-    public String getBic() {
-        return bic;
-    }
-
-    /**
-     * Makes sure the BIC is correct before setting it.
-     *
-     * @param bic new BIC of person.
-     */
-    public void setBic(String bic) {
-        if (bicCheckSum(bic)) {
-            this.bic = bic;
-        } else {
-            throw new IllegalArgumentException("This is an incorrect BIC");
-        }
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 }
