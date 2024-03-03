@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import server.service.PersonService;
 
+/**
+ * Controller for Person. [CONT -> SERV -> REPO]
+ */
 @RestController
 public class PersonController {
 
@@ -22,36 +25,50 @@ public class PersonController {
         this.personService = personService;
     }
 
-    @GetMapping(path="/person")
+    /**
+     * Returns all persons in the database,
+     * if no people returns empty list.
+     *
+     * @return list of persons
+     */
+    @GetMapping(path = "/person")
     @ResponseBody
     public List<Person> getAllPerson() {
         return personService.getAllPerson();
     }
 
-    @GetMapping(path="/person/{id}")
+    /**
+     * Searches Person on specified id,
+     * throws exception if id doesn't exist.
+     *
+     * @param id that is searched
+     * @return Person with specified id
+     */
+    @GetMapping(path = "/person/{id}")
     @ResponseBody
-    public Person getPersonById(@PathVariable(name="id") Long id) {
+    public Person getPersonById(@PathVariable(name = "id") Long id) {
         return personService.getPersonById(id);
     }
 
-
-    @PostMapping(path="/person")
+    /**
+     * Adds a person object to the database,
+     * throws exception if person already exists.
+     *
+     * @param person that is to be added
+     */
+    @PostMapping(path = "/person")
     public void addPerson(@RequestBody Person person) {
-
         personService.addPerson(person);
-//        try {
-//            personService.addPerson(person);
-//        } catch (IllegalStateException ignored) {
-//            throw new IllegalStateException(
-//                "There is already a person with this id"
-//            );
-//        }
     }
 
-    @DeleteMapping(path="/person/{id}")
-    public void deletePerson(@PathVariable(name="id") Long id) {
+    /**
+     * Deletes person with certain id,
+     * throws exception if person does not exist.
+     *
+     * @param id that is to be deleted
+     */
+    @DeleteMapping(path = "/person/{id}")
+    public void deletePerson(@PathVariable(name = "id") Long id) {
         personService.deletePerson(id);
     }
-
-
 }

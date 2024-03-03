@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import server.database.PersonRepository;
 
 /**
- * thing.
+ * Service for Person. [CONT -> SERV -> REPO]
  */
 @Service
 public class PersonService {
@@ -24,6 +24,13 @@ public class PersonService {
         return personRepository.findAll();
     }
 
+    /**
+     * Searches Person on specified id,
+     * throws exception if id doesn't exist.
+     *
+     * @param id that is searched
+     * @return Person with specified id
+     */
     public Person getPersonById(Long id) {
         Optional<Person> optionalPerson = personRepository
             .findById(id);
@@ -37,6 +44,12 @@ public class PersonService {
         return optionalPerson.get();
     }
 
+    /**
+     * Adds a person object to the database,
+     * throws exception if person already exists.
+     *
+     * @param person that is to be added
+     */
     public void addPerson(Person person) {
         Optional<Person> optionalPerson = personRepository
             .findById(person.getId());
@@ -50,10 +63,12 @@ public class PersonService {
     }
 
     /**
+     * Deletes person with certain id,
+     * throws exception if person does not exist.
      *
-     * @param id
+     * @param id that is to be deleted
      */
-    public void deletePerson(Long id){
+    public void deletePerson(Long id) {
         Optional<Person> optionalPerson = personRepository
             .findById(id);
 
