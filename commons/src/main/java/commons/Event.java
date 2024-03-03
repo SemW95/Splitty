@@ -1,13 +1,11 @@
 package commons;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.UUID;
 
 
 /**
@@ -18,7 +16,7 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
-    String code; // invite code //how is this generated?
+    String code;
     String title;
     String description;
     ArrayList<Person> people;
@@ -103,6 +101,14 @@ public class Event {
     }
 
     /**
+     * UUID are not unique, however the chance of having duplicates is minimal.
+     */
+    @PrePersist
+    private void generateInviteCode(){
+        this.setCode(UUID.randomUUID().toString());
+    }
+
+    /**
      * Checks if the Object that is provided is equal to this Event object.
      *
      * @param o The Object that has to be compared to this Event Object
@@ -142,6 +148,13 @@ public class Event {
 
     public String getCode() {
         return code;
+    }
+
+    /**
+     * The setter is needed so that the generated code in generateInviteCode() can be set.
+     */
+    public void setCode(String string){
+        this.code = code;
     }
 
     public String getTitle() {
