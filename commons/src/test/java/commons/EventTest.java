@@ -30,9 +30,9 @@ class EventTest {
         tags2.add(tag1);
         tags2.add(tag2);
 
-        test1 = new Event("123", 123, "Dinner and Drinks", "Dinner and drinks with the group",
+        test1 = new Event("123", "Dinner and Drinks", "Dinner and drinks with the group",
                 new ArrayList<Person>(), tags1, new ArrayList<Expense>(), new ArrayList<Payment>(), now);
-        test2 = new Event("123", 123, "Dinner and Drinks", "Dinner and drinks with the group",
+        test2 = new Event("123", "Dinner and Drinks", "Dinner and drinks with the group",
                 new ArrayList<Person>(), tags2, new ArrayList<Expense>(), new ArrayList<Payment>(), now);
     }
 
@@ -70,7 +70,6 @@ class EventTest {
     // TO DO
     @Test
     void getTags() {
-        assertEquals();
     }
 
     @Test

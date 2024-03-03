@@ -19,9 +19,13 @@ public class Event {
     String code;
     String title;
     String description;
+    @OneToMany
     ArrayList<Person> people;
+    @ManyToMany
     ArrayList<Tag> tags;
+    @OneToMany
     ArrayList<Expense> expenses;
+    @OneToMany
     ArrayList<Payment> payments;
     Instant creationDate;
 
@@ -77,7 +81,6 @@ public class Event {
     /**
      * The Event constructor used for imports.
      *
-     * @param id           The Event id.
      * @param title        The Event title.
      * @param description  The Event description.
      * @param people       The ArrayList with all Persons in the Event.
@@ -86,11 +89,10 @@ public class Event {
      * @param payments     The ArrayList with all the Payments in the Event.
      * @param creationDate Creation date of the Event.
      */
-    public Event(String code, long id, String title, String description, ArrayList<Person> people,
+    public Event(String code, String title, String description, ArrayList<Person> people,
                  ArrayList<Tag> tags, ArrayList<Expense> expenses, ArrayList<Payment> payments,
                  Instant creationDate) {
         this.code = code;
-        this.id = id;
         this.title = title;
         this.description = description;
         this.people = people;
@@ -101,7 +103,7 @@ public class Event {
     }
 
     /**
-     * UUID are not unique, however the chance of having duplicates is minimal.
+     * A UUID is not unique, however the chance of having duplicates is minimal.
      */
     @PrePersist
     private void generateInviteCode(){
@@ -121,7 +123,6 @@ public class Event {
 
         Event event = (Event) o;
 
-        if (id != event.id) return false;
         if (!Objects.equals(code, event.code)) return false;
         if (!Objects.equals(title, event.title)) return false;
         if (!Objects.equals(description, event.description)) return false;
@@ -139,7 +140,7 @@ public class Event {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(code, id, title, description, tags, expenses, payments, creationDate);
+        return Objects.hash(code, title, description, tags, expenses, payments, creationDate);
     }
 
     public long getId() {
