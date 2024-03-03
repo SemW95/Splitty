@@ -142,9 +142,7 @@ public class Event {
             return false;
         }
         if (!Objects.equals(people,
-            event.people)) {  // <-- problem! This checks if the lists are identical,
-            // but not if their contents are the same, so we have to
-            // iterate over the lists
+            event.people)) {
             return false;
         }
         if (!Objects.equals(tags, event.tags)) {
