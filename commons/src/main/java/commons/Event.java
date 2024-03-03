@@ -1,5 +1,6 @@
 package commons;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,6 +21,7 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
+    @Column(unique = true)
     String code;
     String title;
     String description;
@@ -43,7 +45,7 @@ public class Event {
         String title,
         String description
     ) {
-        this.code = code;
+        this.code = generateInviteCode();
         this.title = title;
         this.description = description;
         this.people = new ArrayList<Person>();
@@ -66,7 +68,7 @@ public class Event {
         String description,
         ArrayList<Tag> tags
     ) {
-        this.code = code;
+        this.code = generateInviteCode();
         this.title = title;
         this.description = description;
         this.people = new ArrayList<Person>();
@@ -96,7 +98,7 @@ public class Event {
     public Event(String title, String description, ArrayList<Person> people,
                  ArrayList<Tag> tags, ArrayList<Expense> expenses, ArrayList<Payment> payments,
                  Instant creationDate) {
-        this.code = code;
+        this.code = generateInviteCode();
         this.title = title;
         this.description = description;
         this.people = people;
