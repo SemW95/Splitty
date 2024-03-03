@@ -17,6 +17,8 @@ class EventTest {
     private ArrayList<Tag> tags2;
     private Tag tag1;
     private Tag tag2;
+    private Instant now;
+    private Instant now2;
 
     @BeforeEach
     void setUp() {
@@ -29,7 +31,8 @@ class EventTest {
         tags2.add(tag1);
         tags2.add(tag2);
 
-        Instant now = Instant.now();
+        now = Instant.now();
+        now2 = Instant.now();
         test1 = new Event("Dinner and Drinks", "Dinner and drinks with the group",
             new ArrayList<Person>(), tags1, new ArrayList<Expense>(),
             new ArrayList<Payment>(), now);
@@ -109,8 +112,7 @@ class EventTest {
 
     @Test
     void getCreationDate() {
-        Instant now = Instant.now();
-        assertEquals(now, test1.getCreationDate(), "Incorrect creation date");
+        assertEquals(now2, test1.getCreationDate(), "Incorrect creation date");
     }
 
     @Test
