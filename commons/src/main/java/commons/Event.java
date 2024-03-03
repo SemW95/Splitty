@@ -1,7 +1,12 @@
 package commons;
 
-import jakarta.persistence.*;
-
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -75,8 +80,9 @@ public class Event {
     /**
      * Empty constructor for JPA.
      */
-    protected Event(){
+    protected Event() {
     }
+
 
     /**
      * The Event constructor used for imports.
@@ -106,7 +112,7 @@ public class Event {
      * A UUID is not unique, however the chance of having duplicates is minimal.
      */
     @PrePersist
-    private void generateInviteCode(){
+    private void generateInviteCode() {
         this.setCode(UUID.randomUUID().toString());
     }
 
@@ -118,18 +124,36 @@ public class Event {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Event event = (Event) o;
 
-        if (!Objects.equals(code, event.code)) return false;
-        if (!Objects.equals(title, event.title)) return false;
-        if (!Objects.equals(description, event.description)) return false;
-        if (!Objects.equals(people, event.people)) return false;
-        if (!Objects.equals(tags, event.tags)) return false;
-        if (!Objects.equals(expenses, event.expenses)) return false;
-        if (!Objects.equals(payments, event.payments)) return false;
+        if (!Objects.equals(code, event.code)) {
+            return false;
+        }
+        if (!Objects.equals(title, event.title)) {
+            return false;
+        }
+        if (!Objects.equals(description, event.description)) {
+            return false;
+        }
+        if (!Objects.equals(people, event.people)) {
+            return false;
+        }
+        if (!Objects.equals(tags, event.tags)) {
+            return false;
+        }
+        if (!Objects.equals(expenses, event.expenses)) {
+            return false;
+        }
+        if (!Objects.equals(payments, event.payments)) {
+            return false;
+        }
         return Objects.equals(creationDate, event.creationDate);
     }
 
@@ -154,7 +178,7 @@ public class Event {
     /**
      * The setter is needed so that the generated code in generateInviteCode() can be set.
      */
-    public void setCode(String string){
+    public void setCode(String string) {
         this.code = code;
     }
 

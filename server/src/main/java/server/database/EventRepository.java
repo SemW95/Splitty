@@ -3,11 +3,10 @@ package server.database;
 import commons.Event;
 import commons.Person;
 import commons.Tag;
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * The repository interface of the Event class.
