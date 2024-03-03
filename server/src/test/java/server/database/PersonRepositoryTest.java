@@ -25,10 +25,11 @@ class PersonRepositoryTest {
     @BeforeEach
     void setUp() {
         // Initialize test data before each test method
-        testPerson1 = new Person("Alice", "Hennessy", "aliceh@domain.name", "NL91ABNA0417164300",
+        testPerson1 = new Person("Alice", "Hennessy", "aliceh@domain.name", "NL02ABNA0123456789",
             "ZUOBJEO6XXX");
-        testPerson2 = new Person("Bobertus", "Fireball", "aliceh@domain.name", "NL22INGB0443244300",
-            "BOOKTP99A3E");
+        testPerson2 =
+            new Person("Bobertus", "Fireball", "aliceh@domain.name", "LT601010012345678901",
+                "BOOKTP99A3E");
         personRepository.save(testPerson1);
         personRepository.save(testPerson2);
     }

@@ -88,10 +88,10 @@ class EventTest {
     void setExpenses() {
         // Create some expenses
         Person receiver1 = new Person("Alice", "needs a surname", "Alice@domain.com",
-            "GB33BUKB20201555555555", "ZUOBJEO6XXX");
+            "AL35202111090000000001234567", "ZUOBJEO6XXX");
         Person receiver2 =
             new Person("Alice", "needs a surname", "Alice@domain.com",
-                "GB33BUKB20201555555556", "ZUOBJEO6XXX"); //changed last digit IBAN
+                "AL35202111090000000001234567", "ZUOBJEO6XXX"); //changed last digit IBAN
         BigDecimal amount1 = new BigDecimal("50");
         BigDecimal amount2 = new BigDecimal("30");
         Expense expense1 = new Expense(receiver1, amount1);
