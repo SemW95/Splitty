@@ -1,16 +1,28 @@
 package commons;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import java.util.Objects;
 
 /**
- * TODO.
+ * Class Colour.
  */
+@Entity
 public class Colour {
-    int id;  // TODO: Decide what to do with the variable id.
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    long id;
     int red;
     int green;
     int blue;
 
+    /**
+     * A default constructor for JPA.
+     */
+    public Colour() {
+    }
 
     /**
      * Create a Colour with three integers.
@@ -40,7 +52,7 @@ public class Colour {
         // Check if it matches the hexadecimal color format
         if (!hexString.matches("^#[0-9A-Fa-f]{6}$")) {
             throw new IllegalArgumentException(
-                "The hex string does not match the hexadecimal color format");
+                    "The hex string does not match the hexadecimal color format");
         }
 
         // Change the string to colour index
