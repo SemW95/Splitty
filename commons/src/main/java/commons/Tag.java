@@ -1,7 +1,5 @@
 package commons;
 
-import jakarta.persistence.Entity;
-
 import java.util.Objects;
 
 /**

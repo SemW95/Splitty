@@ -14,11 +14,9 @@ import java.util.List;
  */
 public interface EventRepository extends JpaRepository<Event, Long> {
 
-    Event findById(long id);
+    List<Event> findByTitleContaining(String title);
 
-    List<Event> findByTitle(String title);
-
-    List<Event> findByPeople(ArrayList<Person> people);
+    List<Event> findByPeopleContaining(ArrayList<Person> people);
 
     List<Event> findByTags(ArrayList<Tag> tags);
 
