@@ -1,10 +1,11 @@
 package commons;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Objects;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,6 +36,8 @@ class EventTest {
         test2 = new Event("Dinner and Drinks", "Dinner and drinks with the group",
             new ArrayList<Person>(), tags2, new ArrayList<Expense>(),
             new ArrayList<Payment>(), now);
+        test1.setCode("123");
+        test2.setCode("123");
     }
 
     @Test
@@ -62,50 +65,64 @@ class EventTest {
         assertEquals(newDescription, test1.getDescription(), "Setting description failed");
     }
 
-    // TO DO
     @Test
     void getTags() {
+        assertEquals(tags1, test1.getTags(), "Incorrect tags");
     }
 
     @Test
     void setTags() {
+        ArrayList<Tag> newTags = new ArrayList<>();
+        newTags.add(new Tag("Green", new Colour("#008000")));
+        test1.setTags(newTags);
+        assertEquals(newTags, test1.getTags(), "Setting tags failed");
     }
 
     @Test
     void getExpenses() {
+        assertEquals(new ArrayList<Expense>(), test1.getExpenses(), "Incorrect expenses");
     }
 
     @Test
     void setExpenses() {
+        // Create some expenses
+        Person receiver1 = new Person("Alice", "needs a surname", "Alice@domain.com",
+            "GB33BUKB20201555555555", "ZUOBJEO6XXX");
+        Person receiver2 =
+            new Person("Alice", "needs a surname", "Alice@domain.com",
+                "GB33BUKB20201555555556", "ZUOBJEO6XXX"); //changed last digit IBAN
+        BigDecimal amount1 = new BigDecimal("50");
+        BigDecimal amount2 = new BigDecimal("30");
+        Expense expense1 = new Expense(receiver1, amount1);
+        Expense expense2 = new Expense(receiver2, amount2);
+
+        // Set expenses for test1
+        ArrayList<Expense> newExpenses = new ArrayList<>();
+        newExpenses.add(expense1);
+        newExpenses.add(expense2);
+        test1.setExpenses(newExpenses);
+
+        assertEquals(2, test1.getExpenses().size(), "Setting expenses failed");
+        assertTrue(test1.getExpenses().contains(expense1), "Expense 1 not found in the list");
+        assertTrue(test1.getExpenses().contains(expense2), "Expense 2 not found in the list");
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+    @Test
+    void getCreationDate() {
+        Instant now = Instant.now();
+        assertEquals(now, test1.getCreationDate(), "Incorrect creation date");
+    }
 
-        EventTest eventTest = (EventTest) o;
+    @Test
+    void setCreationDate() {
+        Instant newDate = Instant.now().minusSeconds(3600);
+        test1.setCreationDate(newDate);
+        assertEquals(newDate, test1.getCreationDate(), "Setting creation date failed");
+    }
 
-        if (!Objects.equals(test1, eventTest.test1)) {
-            return false;
-        }
-        if (!Objects.equals(test2, eventTest.test2)) {
-            return false;
-        }
-        if (!Objects.equals(tags1, eventTest.tags1)) {
-            return false;
-        }
-        if (!Objects.equals(tags2, eventTest.tags2)) {
-            return false;
-        }
-        if (!Objects.equals(tag1, eventTest.tag1)) {
-            return false;
-        }
-        return Objects.equals(tag2, eventTest.tag2);
+    @Test
+    void equals() {
+        assertEquals(test1, test2);
     }
 
     @Test

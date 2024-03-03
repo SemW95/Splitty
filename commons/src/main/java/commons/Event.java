@@ -141,7 +141,10 @@ public class Event {
         if (!Objects.equals(description, event.description)) {
             return false;
         }
-        if (!Objects.equals(people, event.people)) {
+        if (!Objects.equals(people,
+            event.people)) {  // <-- problem! This checks if the lists are identical,
+            // but not if their contents are the same, so we have to
+            // iterate over the lists
             return false;
         }
         if (!Objects.equals(tags, event.tags)) {
@@ -174,7 +177,7 @@ public class Event {
         return code;
     }
 
-    public void setCode(String string) {
+    public void setCode(String code) {
         this.code = code;
     }
 
@@ -233,4 +236,5 @@ public class Event {
     public void setCreationDate(Instant creationDate) {
         this.creationDate = creationDate;
     }
+
 }
