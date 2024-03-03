@@ -4,7 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import java.util.Objects;
 
 /**
@@ -18,7 +18,7 @@ public class Tag {
     String name;
     // TODO: decide how to store the Tag colour
     // Now, colour is stored in Colour.
-    @ManyToOne
+    @OneToOne
     Colour colour;
 
     /**
