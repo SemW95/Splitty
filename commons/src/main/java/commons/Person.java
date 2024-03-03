@@ -20,10 +20,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 
 /**
@@ -56,17 +55,17 @@ public class Person {
     public Person(String firstName, String lastName, String email, String iban, String bic) {
         this.firstName = firstName;
         this.lastName = lastName;
-        if (!emailCheck(email)){
+        if (!emailCheck(email)) {
             throw new IllegalArgumentException("invalid email syntax");
         }
         this.email = email;
 
-        if (!ibanCheckSum(iban)){
+        if (!ibanCheckSum(iban)) {
             throw new IllegalArgumentException("invalid iban syntax");
         }
         this.iban = iban;
 
-        if (!bicCheckSum(bic)){
+        if (!bicCheckSum(bic)) {
             throw new IllegalArgumentException("invalid bic syntax");
         }
         this.bic = bic;
@@ -133,6 +132,8 @@ public class Person {
     }
 
     /**
+     * Checks email validity.
+     *
      * @param email an email to test for validity
      * @return whether the email is valid,
      */
@@ -143,9 +144,24 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person{" + "id=" + id + ", firstName='" + firstName + '\'' + ", lastName='" +
-            lastName + '\'' + ", email='" + email + '\'' + ", iban='" + iban + '\'' + ", bic='" +
-            bic + '\'' + '}';
+        return "Person{"
+            + "id="
+            + id
+            + ", firstName='"
+            + firstName
+            + '\''
+            + ", lastName='"
+            + lastName
+            + '\''
+            + ", email='"
+            + email
+            + '\''
+            + ", iban='"
+            + iban
+            + '\'' + ", bic='"
+            + bic
+            + '\''
+            + '}';
     }
 
     public String getIban() {
@@ -221,12 +237,23 @@ public class Person {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return EqualsBuilder.reflectionEquals(this, obj);
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Person person = (Person) o;
+        return Objects.equals(firstName, person.firstName)
+            && Objects.equals(lastName, person.lastName)
+            && Objects.equals(email, person.email)
+            && Objects.equals(iban, person.iban)
+            && Objects.equals(bic, person.bic);
     }
 
     @Override
     public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
+        return Objects.hash(firstName, lastName, email, iban, bic);
     }
 }

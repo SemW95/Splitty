@@ -32,14 +32,17 @@ public class PersonTest {
     @Test
     void equalTest() {
         Person p1 =
-            new Person("Alice", "needs a surname", "Alice@domain.com", "GB33BUKB20201555555555",
+            new Person("Alice", "needs a surname", "Alice@domain.com",
+                "AL35202111090000000001234567",
                 "ZUOBJEO6XXX");
         Person p2 =
-            new Person("Alice", "needs a surname", "Alice@domain.com", "GB33BUKB20201555555555",
+            new Person("Alice", "needs a surname", "Alice@domain.com",
+                "AL35202111090000000001234567",
                 "ZUOBJEO6XXX"); //same as P1
         Person p3 =
-            new Person("Alice", "needs a surname", "Alice@domain.com", "GB33BUKB20201555555556",
-                "ZUOBJEO6XXX"); //changed last digit IBAN
+            new Person("Alice", "needs a surname", "Alice@domain.com",
+                "AD1400080001001234567890",
+                "ZUOBJEO6XXX"); //different valid iban
 
         assertNotEquals(p1, p3);
 
@@ -50,14 +53,17 @@ public class PersonTest {
     @Test
     void hashTest() {
         Person p1 =
-            new Person("Alice", "needs a surname", "Alice@domain.com", "GB33BUKB20201555555555",
+            new Person("Alice", "needs a surname", "Alice@domain.com",
+                "AL35202111090000000001234567",
                 "ZUOBJEO6XXX");
         Person p2 =
-            new Person("Alice", "needs a surname", "Alice@domain.com", "GB33BUKB20201555555555",
+            new Person("Alice", "needs a surname", "Alice@domain.com",
+                "AL35202111090000000001234567",
                 "ZUOBJEO6XXX"); //same as P1
         Person p3 =
-            new Person("Alice", "needs a surname", "Alice@domain.com", "GB33BUKB20201555555556",
-                "ZUOBJEO6XXX"); //changed last digit IBAN
+            new Person("Alice", "needs a surname", "Alice@domain.com",
+                "AD1400080001001234567890",
+                "ZUOBJEO6XXX"); //different valid iban
 
         assertNotEquals(p1.hashCode(), p3.hashCode());
         assertEquals(p1.hashCode(), p2.hashCode());
