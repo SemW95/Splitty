@@ -1,14 +1,31 @@
 package commons;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import java.util.Objects;
 
 /**
  * This is a Tag class.
  */
+@Entity
 public class Tag {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    long id;
     String name;
     // TODO: decide how to store the Tag colour
+    // Now, colour is stored in Colour.
+    @OneToOne
     Colour colour;
+
+    /**
+     * Empty constructor for JPA.
+     */
+    public Tag() {
+    }
 
     /**
      * Create a Tag.

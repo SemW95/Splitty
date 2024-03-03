@@ -1,9 +1,13 @@
 package commons;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.math.BigDecimal;
+import java.net.URI;
 import java.util.Objects;
 
 /**
@@ -38,19 +42,41 @@ public class Currency {
     }
 
     /**
-     * Gets the conversion rate between two currencies.
+     * Gets the latest conversion rate between two currencies.
+     * Uses the <a href="https://www.frankfurter.app/docs/">Frankfurter</a> api.
      *
      * @param otherCurrency The Currency method that it should be converted to.
      * @return conversion rate
      */
-    public double getConversionRate(Currency otherCurrency) {
-        // TODO: check if currency.equals(otherCurrency)
-        // TODO: create GET request to API from code to otherCurrency.getCode()
-        // TODO: should return the conversion rate between currencies.
-        // TODO: should be cached somehow
-        // Use api.frankfurter.app (https://www.frankfurter.app/docs/)
-        // example: https://api.frankfurter.app/latest?from=GBP&to=USD
-        return 0;
+    public BigDecimal getConversionRate(Currency otherCurrency) {
+        return getConversionRate(otherCurrency, "latest");
+    }
+
+    /**
+     * Gets the conversion rate between two currencies on some specific date.
+     * Uses the <a href="https://www.frankfurter.app/docs/">Frankfurter</a> api.
+     *
+     * @param otherCurrency The Currency method that it should be converted to.
+     * @param date          A date which is of format "YYYY-MM-DD".
+     * @return conversion rate
+     */
+    public BigDecimal getConversionRate(Currency otherCurrency, String date) {
+        if (this.equals(otherCurrency)) {
+            return BigDecimal.ONE;
+        }
+
+        try {
+            URI uri = new URI(
+                "https://api.frankfurter.app/%s?from=%s&to=%s".formatted(date, code,
+                    otherCurrency.code));
+
+            JsonNode root = new ObjectMapper().readTree(uri.toURL());
+
+            return new BigDecimal(root.get("rates").get(otherCurrency.code).asText());
+        } catch (Exception e) {
+            System.err.println("Couldn't get conversion rate from api. Reason: " + e);
+            return null;
+        }
     }
 
     @Override
