@@ -55,7 +55,7 @@ class PersonRepositoryTest {
 
 
         Person p2 = personRepository.findById(testPerson2.getId()).orElse(null);
-        assertNotNull(p1);
+        assertNotNull(p2);
 
         assertEquals(testPerson2.getBic(), p2.getBic());
         assertEquals(testPerson2.getIban(), p2.getIban());
@@ -118,7 +118,7 @@ class PersonRepositoryTest {
         List<Person> p2 =
             personRepository.findPeopleByFirstNameContainingIgnoreCase(realisticSearchString);
         Person firstInList2 = p2.get(0);
-        assertNotNull(p1);
+        assertNotNull(p2);
 
         assertEquals(testPerson2.getClass(), firstInList2.getClass());
         assertEquals(testPerson2.getFirstName(), firstInList2.getFirstName());
