@@ -6,7 +6,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.PrePersist;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -83,7 +82,6 @@ public class Event {
     protected Event() {
     }
 
-
     /**
      * The Event constructor used for imports.
      *
@@ -95,7 +93,7 @@ public class Event {
      * @param payments     The ArrayList with all the Payments in the Event.
      * @param creationDate Creation date of the Event.
      */
-    public Event(String code, String title, String description, ArrayList<Person> people,
+    public Event(String title, String description, ArrayList<Person> people,
                  ArrayList<Tag> tags, ArrayList<Expense> expenses, ArrayList<Payment> payments,
                  Instant creationDate) {
         this.code = code;
@@ -111,9 +109,8 @@ public class Event {
     /**
      * A UUID is not unique, however the chance of having duplicates is minimal.
      */
-    @PrePersist
-    private void generateInviteCode() {
-        this.setCode(UUID.randomUUID().toString());
+    private static String generateInviteCode() {
+        return UUID.randomUUID().toString();
     }
 
     /**
@@ -175,9 +172,6 @@ public class Event {
         return code;
     }
 
-    /**
-     * The setter is needed so that the generated code in generateInviteCode() can be set.
-     */
     public void setCode(String string) {
         this.code = code;
     }
