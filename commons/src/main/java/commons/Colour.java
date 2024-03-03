@@ -162,4 +162,8 @@ public class Colour {
     public String toString() {
         return "Colour{" + "red=" + red + ", green=" + green + ", blue=" + blue + '}';
     }
+
+    public Long getId() {
+        return id;
+    }
 }
