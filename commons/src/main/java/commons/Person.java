@@ -20,8 +20,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 /**
  * This is the class that contains all the data that's needed for a person.
@@ -53,8 +55,19 @@ public class Person {
     public Person(String firstName, String lastName, String email, String iban, String bic) {
         this.firstName = firstName;
         this.lastName = lastName;
+        if (!emailCheck(email)) {
+            throw new IllegalArgumentException("invalid email syntax");
+        }
         this.email = email;
+
+        if (!ibanCheckSum(iban)) {
+            throw new IllegalArgumentException("invalid iban syntax");
+        }
         this.iban = iban;
+
+        if (!bicCheck(bic)) {
+            throw new IllegalArgumentException("invalid bic syntax");
+        }
         this.bic = bic;
     }
 
@@ -74,7 +87,7 @@ public class Person {
      * @param iban takes an iban number (needs to be trimmed when stored in database)
      * @return a boolean if it is a correct/existing iban.
      */
-    public boolean ibanCheckSum(String iban) {
+    public static boolean ibanCheckSum(String iban) {
         //checks if the iban is of valid length
         if (iban.length() < 15 || iban.length() > 34) {
             return false;
@@ -110,31 +123,79 @@ public class Person {
      * @param bic takes a bic number
      * @return a boolean if it is a correct/existing bic.
      */
-    public boolean bicCheckSum(String bic) {
-        return true;
+    public static boolean bicCheck(String bic) {
+        //https://en.wikipedia.org/wiki/ISO_9362#Structure
+        String bicRegex = "^[A-Za-z]{4}[A-Za-z]{2}[A-Za-z0-9]{2}([A-Za-z0-9]{3})?$";
+        Pattern pattern = Pattern.compile(bicRegex);
+        Matcher bicMatcher = pattern.matcher(bic);
+        return bicMatcher.matches();
     }
 
-
-    @Override
-    public boolean equals(Object obj) {
-        return EqualsBuilder.reflectionEquals(this, obj);
+    /**
+     * Checks email validity.
+     *
+     * @param email an email to test for validity
+     * @return whether the email is valid,
+     */
+    public static boolean emailCheck(String email) {
+        return email.matches("^(.+)@(\\S+)$");
     }
 
-    @Override
-    public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
-    }
 
     @Override
     public String toString() {
         return "Person{"
-            + "id=" + id
-            + ", firstName='" + firstName + '\''
-            + ", lastName='" + lastName + '\''
-            + ", email='" + email + '\''
-            + ", iban='" + iban + '\''
-            + ", bic='" + bic + '\''
+            + "id="
+            + id
+            + ", firstName='"
+            + firstName
+            + '\''
+            + ", lastName='"
+            + lastName
+            + '\''
+            + ", email='"
+            + email
+            + '\''
+            + ", iban='"
+            + iban
+            + '\'' + ", bic='"
+            + bic
+            + '\''
             + '}';
+    }
+
+    public String getIban() {
+        return iban;
+    }
+
+    /**
+     * Makes sure the IBAN is correct when setting it.
+     *
+     * @param iban new iban for person
+     */
+    public void setIban(String iban) {
+        if (ibanCheckSum(iban)) {
+            this.iban = iban;
+        } else {
+            throw new IllegalArgumentException("This is not a valid IBAN");
+        }
+    }
+
+    public String getBic() {
+        return bic;
+    }
+
+    /**
+     * Makes sure the BIC is correct before setting it.
+     *
+     * @param bic new BIC of person.
+     */
+    public void setBic(String bic) {
+        if (bicCheck(bic)) {
+            this.bic = bic;
+        } else {
+            throw new IllegalArgumentException("This is an incorrect BIC");
+        }
     }
 
     public long getId() {
@@ -167,8 +228,7 @@ public class Person {
      * @param email new email for Person
      */
     public void setEmail(String email) {
-        boolean check = email.matches("^(.+)@(\\S+)$");
-
+        boolean check = emailCheck(email);
         if (check) {
             this.email = email;
         } else {
@@ -176,39 +236,24 @@ public class Person {
         }
     }
 
-
-    public String getIban() {
-        return iban;
-    }
-
-    /**
-     * Makes sure the IBAN is correct when setting it.
-     *
-     * @param iban new iban for person
-     */
-    public void setIban(String iban) {
-        if (ibanCheckSum(iban)) {
-            this.iban = iban;
-        } else {
-            throw new IllegalArgumentException("This is not a valid IBAN");
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
         }
-    }
-
-
-    public String getBic() {
-        return bic;
-    }
-
-    /**
-     * Makes sure the BIC is correct before setting it.
-     *
-     * @param bic new BIC of person.
-     */
-    public void setBic(String bic) {
-        if (bicCheckSum(bic)) {
-            this.bic = bic;
-        } else {
-            System.out.println("This is an incorrect BIC");
+        if (o == null || getClass() != o.getClass()) {
+            return false;
         }
+        Person person = (Person) o;
+        return Objects.equals(firstName, person.firstName)
+            && Objects.equals(lastName, person.lastName)
+            && Objects.equals(email, person.email)
+            && Objects.equals(iban, person.iban)
+            && Objects.equals(bic, person.bic);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, email, iban, bic);
     }
 }
