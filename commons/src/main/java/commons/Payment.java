@@ -1,5 +1,10 @@
 package commons;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -7,8 +12,14 @@ import java.util.Objects;
 /**
  * Stores a money transaction.
  */
+@Entity
 public class Payment {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    long id;
+    @ManyToOne
     Person payer;
+    @ManyToOne
     Person receiver;
     BigDecimal amount;
 
@@ -23,6 +34,12 @@ public class Payment {
         this.payer = payer;
         this.receiver = receiver;
         this.amount = amount;
+    }
+
+    /**
+     * Empty constructor for JPA.
+     */
+    protected Payment() {
     }
 
     @Override
@@ -65,5 +82,9 @@ public class Payment {
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public long getId() {
+        return id;
     }
 }
