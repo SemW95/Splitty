@@ -18,7 +18,7 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
-    String code;  //TODO: change constructors!
+    String code; // invite code //how is this generated?
     String title;
     String description;
     ArrayList<Person> people;
@@ -140,6 +140,10 @@ public class Event {
         return id;
     }
 
+    public String getCode() {
+        return code;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -176,8 +180,16 @@ public class Event {
         return expenses;
     }
 
+    public void setExpenses(ArrayList<Expense> expenses) {
+        this.expenses = expenses;
+    }
+
     public ArrayList<Payment> getPayments() {
         return payments;
+    }
+
+    public void setPayments(ArrayList<Payment> payments) {
+        this.payments = payments;
     }
 
     public Instant getCreationDate() {
