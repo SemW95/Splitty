@@ -17,6 +17,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+
+/**
+ * Test fot Event repository.
+ */
+
 @DataJpaTest
 class EventRepositoryTest {
 
@@ -33,7 +38,6 @@ class EventRepositoryTest {
 
     @BeforeEach
     void setUp() {
-
         tags1 = new ArrayList<Tag>();
         tags2 = new ArrayList<Tag>();
         tag1 = new Tag("Blue", new Colour("#0000FF"));
@@ -61,7 +65,6 @@ class EventRepositoryTest {
             new ArrayList<Payment>(), now);
         event1.setCode("123");
         event2.setCode("123");
-
         eventRepository.save(event1);
         eventRepository.save(event2);
     }
@@ -76,27 +79,27 @@ class EventRepositoryTest {
         List<Event> eventsContainingTitle =
             eventRepository.findByTitleContaining("Dinner and Drinks");
         assertEquals(2, eventsContainingTitle.size());
-        assertEquals("Dinner and Drinks", eventsContainingTitle.get(0).getTitle());
+        assertEquals("Dinner and Drinks", eventsContainingTitle.getFirst().getTitle());
     }
 
     @Test
     void findByPeopleContaining() {
         List<Event> eventsContainingPeople = eventRepository.findByPeopleContaining(people);
         assertEquals(2, eventsContainingPeople.size());
-        assertEquals("Alice", eventsContainingPeople.get(0).getPeople().get(0).getFirstName());
+        assertEquals("Alice", eventsContainingPeople.getFirst().getPeople().getFirst().getFirstName());
     }
 
     @Test
     void findByTags() {
-        List<Event> eventsFoundByTags = eventRepository.findByTags(tags1);
+        List<Event> eventsFoundByTags = eventRepository.findByTags(tags1).;
         assertEquals(2, eventsFoundByTags.size());
-        assertEquals("Blue", eventsFoundByTags.get(0).getTags().get(0).getColour());
+        assertEquals("Blue", eventsFoundByTags.getFirst().getTags().getFirst().getName());
     }
 
     @Test
     void findByCreationDate() {
         List<Event> eventsFoundByCreationDate = eventRepository.findByCreationDate(now);
         assertEquals(2, eventsFoundByCreationDate.size());
-        assertEquals(now, eventsFoundByCreationDate.get(0).getCreationDate());
+        assertEquals(now, eventsFoundByCreationDate.getFirst().getCreationDate());
     }
 }
