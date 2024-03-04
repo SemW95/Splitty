@@ -17,8 +17,10 @@
 package commons;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -31,13 +33,16 @@ public class PersonTest {
     void equalTest() {
         Person p1 =
             new Person("Alice", "needs a surname", "Alice@domain.com",
-                "GB33BUKB20201555555555", "ZUOBJEO6XXX");
+                "AL35202111090000000001234567",
+                "ZUOBJEO6XXX");
         Person p2 =
             new Person("Alice", "needs a surname", "Alice@domain.com",
-                "GB33BUKB20201555555555", "ZUOBJEO6XXX"); //same as P1
+                "AL35202111090000000001234567",
+                "ZUOBJEO6XXX"); //same as P1
         Person p3 =
             new Person("Alice", "needs a surname", "Alice@domain.com",
-                "GB33BUKB20201555555556", "ZUOBJEO6XXX"); //changed last digit IBAN
+                "AD1400080001001234567890",
+                "ZUOBJEO6XXX"); //different valid iban
 
         assertNotEquals(p1, p3);
 
@@ -49,13 +54,16 @@ public class PersonTest {
     void hashTest() {
         Person p1 =
             new Person("Alice", "needs a surname", "Alice@domain.com",
-                "GB33BUKB20201555555555", "ZUOBJEO6XXX");
+                "AL35202111090000000001234567",
+                "ZUOBJEO6XXX");
         Person p2 =
             new Person("Alice", "needs a surname", "Alice@domain.com",
-                "GB33BUKB20201555555555", "ZUOBJEO6XXX"); //same as P1
+                "AL35202111090000000001234567",
+                "ZUOBJEO6XXX"); //same as P1
         Person p3 =
             new Person("Alice", "needs a surname", "Alice@domain.com",
-                "GB33BUKB20201555555556", "ZUOBJEO6XXX"); //changed last digit IBAN
+                "AD1400080001001234567890",
+                "ZUOBJEO6XXX"); //different valid iban
 
         assertNotEquals(p1.hashCode(), p3.hashCode());
         assertEquals(p1.hashCode(), p2.hashCode());
@@ -65,8 +73,8 @@ public class PersonTest {
     @Test
     void toStringTest() {
         Person p1 =
-            new Person("Alice", "needs a surname", "Alice@domain.com",
-                "GB33BUKB20201555555555", "ZUOBJEO6XXX");
+            new Person("Alice", "needs a surname", "Alice@domain.com", "GB33BUKB20201555555555",
+                "ZUOBJEO6XXX");
 
         String text = p1.toString();
         String compare = "Person{id=0, firstName='Alice', lastName='needs a surname', "
@@ -78,8 +86,8 @@ public class PersonTest {
     @Test
     void emailCheck() {
         Person p1 =
-            new Person("Alice", "needs a surname", "Alice@domain.com",
-                "GB33BUKB20201555555555", "ZUOBJEO6XXX");
+            new Person("Alice", "needs a surname", "Alice@domain.com", "GB33BUKB20201555555555",
+                "ZUOBJEO6XXX");
         p1.setEmail("Peter@domain.com");
 
         assertEquals("Peter@domain.com", p1.getEmail());
@@ -93,8 +101,8 @@ public class PersonTest {
     @Test
     void ibanCheck() {
         Person p1 =
-            new Person("Alice", "needs a surname", "Alice@domain.com",
-                "GB33BUKB20201555555555", "ZUOBJEO6XXX");
+            new Person("Alice", "needs a surname", "Alice@domain.com", "GB33BUKB20201555555555",
+                "ZUOBJEO6XXX");
 
         //sets proper iban
         p1.setIban("NL91ABNA0417164300");
@@ -116,8 +124,8 @@ public class PersonTest {
     @Test
     void ibanCheckIllegal() {
         Person p1 =
-            new Person("Alice", "needs a surname", "Alice@domain.com",
-                "GB33BUKB20201555555555", "ZUOBJEO6XXX");
+            new Person("Alice", "needs a surname", "Alice@domain.com", "GB33BUKB20201555555555",
+                "ZUOBJEO6XXX");
 
         //too short
         assertThrows(IllegalArgumentException.class, () -> {
@@ -138,11 +146,66 @@ public class PersonTest {
     @Test
     void bicCheck() {
         Person p1 =
-            new Person("Alice", "needs a surname", "Alice@domain.com",
-                "GB33BUKB20201555555555", "ZUOBJEO6XXX");
+            new Person("Alice", "needs a surname", "Alice@domain.com", "GB33BUKB20201555555555",
+                "ZUOBJEO6XXX");
         p1.setBic("ZUOBJEO6XXY");
 
         assertEquals("ZUOBJEO6XXY", p1.getBic());
     }
 
+    @Test
+    void testBicCheck() {
+        //example of valid swift with 11
+        String exampleGreat = "HABALT22TIP";
+        assertTrue(Person.bicCheck(exampleGreat));
+
+        //example of valid bic with 8
+        String exampleGood = "CBVILT2X";
+        assertTrue(Person.bicCheck(exampleGood));
+
+
+        //a bic number has 8 or 11 characters, this string has 13
+        String exampleTooLong = "CBVILT2XXXXXX";
+        assertFalse(Person.bicCheck(exampleTooLong));
+
+        //invalid syntax for the bank code, numbers in the banks place 1 through 4
+        String invalidCharactersInBic = "2BVILT2XXXXX";
+        assertFalse(Person.bicCheck(invalidCharactersInBic));
+
+        //a bic number has 8 or 11 characters, this string has 13
+        String exampleShortBic = "ABCDUS33XX";
+        assertFalse(Person.bicCheck(exampleShortBic));
+
+        //the 5-6 characters should be letters, invalid country code 99
+        String exampleInvalidCountry = "DEUT99F7XXX";
+        assertFalse(Person.bicCheck(exampleInvalidCountry));
+
+        //in 11-long bic, 9-11 are letters, this violates that with branch code @2@
+        String exampleInvalidBranch = "BARCGB22@2@";
+        assertFalse(Person.bicCheck(exampleInvalidBranch));
+
+        //this is an invalid length for a bic: 14 long
+        String exampleLengthInvalid = "HSBCHKHHXXEEEX";
+        assertFalse(Person.bicCheck(exampleLengthInvalid));
+    }
+
+    @Test
+    void testBicCheckIllegal() {
+        Person p1 =
+            new Person("Alice", "needs a surname", "Alice@domain.com", "GB33BUKB20201555555555",
+                "ZUOBJEO6XXX");
+        //too short
+        assertThrows(IllegalArgumentException.class, () -> {
+            p1.setBic("CBVILT2XXX");
+        });
+        //too long
+        assertThrows(IllegalArgumentException.class, () -> {
+            p1.setBic("CBVILT2XXXXX");
+        });
+        //incorrect reg ex
+        assertThrows(IllegalArgumentException.class, () -> {
+            p1.setBic("3BVILT2XXXX");
+        });
+    }
 }
+

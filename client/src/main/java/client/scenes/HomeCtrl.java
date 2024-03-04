@@ -40,4 +40,8 @@ public class HomeCtrl implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
     }
+
+    public void goSettings() {
+        System.out.println("Settings pressed");
+    }
 }
