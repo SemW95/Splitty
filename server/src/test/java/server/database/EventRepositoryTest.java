@@ -11,11 +11,16 @@ import commons.Tag;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+@DataJpaTest
 class EventRepositoryTest {
 
+    @Autowired
     private EventRepository eventRepository;
     private Event event1;
     private Event event2;
@@ -61,9 +66,15 @@ class EventRepositoryTest {
         eventRepository.save(event2);
     }
 
+    @AfterEach
+    void tearDown() {
+        eventRepository.delete(event1);
+        eventRepository.delete(event2);
+    }
     @Test
     void findByTitleContaining() {
-        List<Event> eventsContainingTitle = eventRepository.findByTitleContaining("Dinner and Drinks");
+        List<Event> eventsContainingTitle =
+            eventRepository.findByTitleContaining("Dinner and Drinks");
         assertEquals(2, eventsContainingTitle.size());
         assertEquals("Dinner and Drinks", eventsContainingTitle.get(0).getTitle());
     }
@@ -84,7 +95,7 @@ class EventRepositoryTest {
 
     @Test
     void findByCreationDate() {
-        List<Event> eventsFoundByCreationDate =  eventRepository.findByCreationDate(now);
+        List<Event> eventsFoundByCreationDate = eventRepository.findByCreationDate(now);
         assertEquals(2, eventsFoundByCreationDate.size());
         assertEquals(now, eventsFoundByCreationDate.get(0).getCreationDate());
     }
