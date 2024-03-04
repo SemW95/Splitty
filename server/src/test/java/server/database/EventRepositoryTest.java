@@ -8,7 +8,6 @@ import commons.Expense;
 import commons.Payment;
 import commons.Person;
 import commons.Tag;
-import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +28,7 @@ class EventRepositoryTest {
 
     @BeforeEach
     void setUp() {
+
         tags1 = new ArrayList<Tag>();
         tags2 = new ArrayList<Tag>();
         tag1 = new Tag("Blue", new Colour("#0000FF"));
@@ -84,6 +84,8 @@ class EventRepositoryTest {
 
     @Test
     void findByCreationDate() {
-
+        List<Event> eventsFoundByCreationDate =  eventRepository.findByCreationDate(now);
+        assertEquals(2, eventsFoundByCreationDate.size());
+        assertEquals(now, eventsFoundByCreationDate.get(0).getCreationDate());
     }
 }
