@@ -7,11 +7,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
-import java.time.Instant;
+import jakarta.persistence.OneToOne;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
-
 
 /**
  * This is the data Object for an Event.
@@ -26,14 +27,15 @@ public class Event {
     String title;
     String description;
     @OneToMany
-    ArrayList<Person> people;
+    List<Person> people;
     @ManyToMany
-    ArrayList<Tag> tags;
+    List<Tag> tags;
     @OneToMany
-    ArrayList<Expense> expenses;
+    List<Expense> expenses;
     @OneToMany
-    ArrayList<Payment> payments;
-    Instant creationDate;
+    List<Payment> payments;
+    @Column(columnDefinition = "TIMESTAMP")
+    LocalDateTime creationDate;
 
     /**
      * Creates a new Event.
@@ -53,7 +55,6 @@ public class Event {
         this.tags = new ArrayList<Tag>();
         this.expenses = new ArrayList<Expense>();
         this.payments = new ArrayList<Payment>();
-        this.creationDate = Instant.now();
     }
 
     /**
@@ -75,7 +76,6 @@ public class Event {
         this.tags = tags;
         this.expenses = new ArrayList<Expense>();
         this.payments = new ArrayList<Payment>();
-        this.creationDate = Instant.now();
     }
 
     /**
@@ -95,9 +95,9 @@ public class Event {
      * @param payments     The ArrayList with all the Payments in the Event.
      * @param creationDate Creation date of the Event.
      */
-    public Event(String title, String description, ArrayList<Person> people,
-                 ArrayList<Tag> tags, ArrayList<Expense> expenses, ArrayList<Payment> payments,
-                 Instant creationDate) {
+    public Event(String title, String description, List<Person> people,
+                 List<Tag> tags, List<Expense> expenses, List<Payment> payments,
+                 LocalDateTime creationDate) {
         this.code = generateInviteCode();
         this.title = title;
         this.description = description;
@@ -195,43 +195,43 @@ public class Event {
         this.description = description;
     }
 
-    public ArrayList<Person> getPeople() {
+    public List<Person> getPeople() {
         return people;
     }
 
-    public void setPeople(ArrayList<Person> people) {
+    public void setPeople(List<Person> people) {
         this.people = people;
     }
 
-    public ArrayList<Tag> getTags() {
+    public List<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(ArrayList<Tag> tags) {
+    public void setTags(List<Tag> tags) {
         this.tags = tags;
     }
 
-    public ArrayList<Expense> getExpenses() {
+    public List<Expense> getExpenses() {
         return expenses;
     }
 
-    public void setExpenses(ArrayList<Expense> expenses) {
+    public void setExpenses(List<Expense> expenses) {
         this.expenses = expenses;
     }
 
-    public ArrayList<Payment> getPayments() {
+    public List<Payment> getPayments() {
         return payments;
     }
 
-    public void setPayments(ArrayList<Payment> payments) {
+    public void setPayments(List<Payment> payments) {
         this.payments = payments;
     }
 
-    public Instant getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Instant creationDate) {
+    public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
 
