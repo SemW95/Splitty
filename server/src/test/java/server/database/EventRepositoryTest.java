@@ -79,8 +79,8 @@ class EventRepositoryTest {
         event1 =
             eventRepository.save(
                 new Event("Dinner and Drinks", "Dinner and drinks with the group",
-                new ArrayList<>(), tags1, new ArrayList<Expense>(),
-                new ArrayList<Payment>(), now)
+                    new ArrayList<>(), tags1, new ArrayList<Expense>(),
+                    new ArrayList<Payment>(), now)
             );
         event2 = eventRepository.save(new Event("Uber drive", "Uber drive with friends",
             new ArrayList<>(), tags2, new ArrayList<Expense>(),
