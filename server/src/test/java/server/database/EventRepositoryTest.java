@@ -8,11 +8,9 @@ import commons.Expense;
 import commons.Payment;
 import commons.Person;
 import commons.Tag;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,7 +38,8 @@ class EventRepositoryTest {
     private List<Tag> tags2;
     private Tag tag1;
     private Tag tag2;
-
+    private Person receiver1;
+    private Person receiver2;
     private List<Person> people2;
     private List<Person> people1;
     private LocalDateTime now;
@@ -50,13 +49,13 @@ class EventRepositoryTest {
         tags1 = new ArrayList<Tag>();
         tags2 = new ArrayList<Tag>();
 
-        // Saving colors to the repo such that the database is not burning in the eternal flame
+        // Saving colors to the repo
         var col1 = colorRepository.save(new Colour("#0000FF"));
         var col2 = colorRepository.save(new Colour("#FFC0CB"));
         tag1 = new Tag("Food", col1);
         tag2 = new Tag("Drive", col2);
 
-        // Save tags such that the objects are persistent, otherwise the database will scream in pain..
+        // Save tags such that the objects are persistent
         tag1 = tagRepository.save(tag1);
         tag2 = tagRepository.save(tag2);
 
@@ -66,10 +65,10 @@ class EventRepositoryTest {
 
         people1 = new ArrayList<Person>();
         people2 = new ArrayList<Person>();
-        Person receiver1 =
+        receiver1 =
             personRepository.save(new Person("Alice", "needs a surname", "Alice@domain.com",
                 "AL35202111090000000001234567", "ZUOBJEO6XXX"));
-        Person receiver2 =
+        receiver2 =
             personRepository.save(new Person("John", "needs a surname", "john@domain.com",
                 "AD1400080001001234567890", "ZUOBJEO6XXX")); //different valid ibn
         people1.add(receiver1);
@@ -92,14 +91,15 @@ class EventRepositoryTest {
         tags1.add(tagRepository.save(new Tag()));
     }
 
-//    @AfterEach
-//    void tearDown() {
-//        eventRepository.delete(event1);
-//        eventRepository.delete(event2);
-//        tagRepository.delete(tag1);
-//        tagRepository.delete(tag2);
-//        // TODO: delete others
-//    }
+    @AfterEach
+    void tearDown() {
+        eventRepository.delete(event1);
+        eventRepository.delete(event2);
+        tagRepository.delete(tag1);
+        tagRepository.delete(tag2);
+        personRepository.delete(receiver1);
+        personRepository.delete(receiver2);
+    }
 
     @Test
     void findByTitleContaining() {
