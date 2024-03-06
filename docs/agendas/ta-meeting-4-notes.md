@@ -1,17 +1,17 @@
-|              |                       |
-| ------------ | --------------------- |
-| Date:        | 2024-03-05            |
+|              |                      |
+| ------------ | -------------------- |
+| Date:        | 2024-03-05           |
 | Time:        | 13:45 - 14:30 (45min) |
-| Location:    | Drebbelweg-PC Hall 1  |
-|              | Cubicle nr. 7         |
-| Chair        | Lukas Milieška        |
-| Minute Taker | Xiaoyu Du             |
-| Attendees:   | Sem van der Weijden   |
-|              | Wing Wong             |
-|              | Xiaoyu Du             |
-|              | Rens Pols             |
-|              | Eva Miesen            |
-|              | Lukas Millieška       |
+| Location:    | Drebbelweg-PC Hall 1 |
+|              | Cubicle nr. 7        |
+| Chair        | Lukas Milieška       |
+| Minute Taker | Xiaoyu Du            |
+| Attendees:   | Sem van der Weijden  |
+|              | Wing Wong            |
+|              | Xiaoyu Du            |
+|              | Rens Pols            |
+|              | Eva Miesen           |
+|              | Lukas Milieška       |
 
 ## START
 
@@ -23,7 +23,7 @@
   - Fix class structure (Everyone): Some members are confused on the class structure about debts and how to pay. This week we fixed the problems and built a new class structure.
   - Delete old template files (Lukas)
   - Convert most classes to JPA entities and add repositories for them (Everyone): Members added entities and relations to the classes and added the corresponding repository and interface method, like findPeopleByFirstNameContainingIgnoreCase() created by Wing.
-  - Currency conversion rate (Lukas): He created some function of currency using Frankfurt Api.
+  - Currency conversion rate (Lukas): He created some function of currency using Frankfurter Api (https://www.frankfurter.app/).
   - Person controller, service (Sem): He completed the controller of Person and the corresponding server and repository.
   - Tests for classes and repositories (Everyone)
   - Seeder class (Lukas): It is used to populate initial data into the database.
@@ -46,7 +46,7 @@
     - We need some symbols, like language buttons and go back button/go home button.
   - Reminder (things that can be considered later):
     - Invite code and invite button.
-    - Add the tags later, as if is a feature.
+    - Add the tags later, as it is a feature.
     - Something need to be learnt: Popup and the new screen.
 
 ## Wrapping Up
