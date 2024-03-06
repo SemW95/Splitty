@@ -41,7 +41,11 @@ public class HomeCtrl implements Initializable {
 
     }
 
-    public void goSettings() {
-        System.out.println("Settings pressed");
+    public void clickLanguage() {
+        System.out.println("Pressed language");
+    }
+
+    public void clickCurrency() {
+        System.out.println("Pressed currency.");
     }
 }

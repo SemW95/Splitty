@@ -21,14 +21,28 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
-@SuppressWarnings("checkstyle:MissingJavadocType")
+
+/**
+ * How to insert a new page, you can use home as reference.
+ * Make sure you created a controller and your Page.fxml links:"client.scenes.PageCtrl"
+ * Fields:
+ * Step 1: Initialize 2 fields, "PageCtrl pageCtrl" and "Scene page"
+ * Constructor:
+ * Step 2: add a "Pair [PageController, Parent] page" ( [] = <>) parameter.
+ * Step 3: this.pageCtrl = page.getKey() + this.page = new Scene(page.getValue()).
+ * Step 4: Create a function showPage() for handling transition. setScene + setTitle.
+ * MyModule:
+ * Step 5: add controller to MyModule "binder.bind(PageCtrl.class).in(Scopes.SINGLETON);"
+ * Main
+ * Step 6: add "var page = FXML.load(PageCtrl.class, "client", "scenes", "Home.fxml");"
+ */
 public class MainCtrl {
 
     private Stage primaryStage;
 
     private HomeCtrl homeCtrl;
     private Scene home;
-
+    //step 1 below.
 
     /**
      * Main controller initialization.
@@ -40,6 +54,7 @@ public class MainCtrl {
         this.primaryStage = primaryStage;
         this.homeCtrl = home.getKey();
         this.home = new Scene(home.getValue());
+        //add step 2 and 3 below.
 
         showHome();
         primaryStage.show();
@@ -52,4 +67,6 @@ public class MainCtrl {
         primaryStage.setTitle("Home");
         primaryStage.setScene(home);
     }
+
+    //add step 4 here.
 }
