@@ -29,6 +29,7 @@ public class HomeCtrl implements Initializable {
 
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
+    private ResourceBundle resources;
 
     @Inject
     public HomeCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -38,10 +39,19 @@ public class HomeCtrl implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        this.resources = resources;
     }
 
+    /**
+     * This is called when the settings button is pressed.
+     */
     public void goSettings() {
-        System.out.println("Settings pressed");
+        System.out.println(resources.getString("home.greeting"));
+
+        if (mainCtrl.getCurrentLanguage().equals("en")) {
+            mainCtrl.changeLanguage("lt");
+        } else {
+            mainCtrl.changeLanguage("en");
+        }
     }
 }

@@ -16,30 +16,37 @@
 
 package client.scenes;
 
+import client.MyFXML;
+import java.util.Locale;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
-@SuppressWarnings("checkstyle:MissingJavadocType")
+/**
+ * This is the main controller, which holds references to all controllers and scenes.
+ */
 public class MainCtrl {
 
     private Stage primaryStage;
 
     private HomeCtrl homeCtrl;
     private Scene home;
-
+    private MyFXML fxml;
 
     /**
      * Main controller initialization.
      *
      * @param primaryStage the primary stage
-     * @param home the loaded Home controller
+     * @param fxml         the loaded Home controller
+     * @param homePair     a pair of the home controller and node
      */
-    public void initialize(Stage primaryStage, Pair<HomeCtrl, Parent> home) {
+    public void initialize(Stage primaryStage, MyFXML fxml, Pair<HomeCtrl, Parent> homePair) {
         this.primaryStage = primaryStage;
-        this.homeCtrl = home.getKey();
-        this.home = new Scene(home.getValue());
+        this.fxml = fxml;
+
+        this.homeCtrl = homePair.getKey();
+        this.home = new Scene(homePair.getValue());
 
         showHome();
         primaryStage.show();
@@ -49,7 +56,32 @@ public class MainCtrl {
      * Sets primary stage to the Home scene.
      */
     public void showHome() {
-        primaryStage.setTitle("Home");
+        primaryStage.setTitle(fxml.getBundle().getString("home.title"));
         primaryStage.setScene(home);
+    }
+
+    /**
+     * Changes the current language and refreshes everything.
+     *
+     * @param language a new language (example: "en", "lt")
+     */
+    public void changeLanguage(String language) {
+        Locale locale = Locale.of(language);
+        fxml.changeLocale(locale);
+
+        refresh();
+    }
+
+    public String getCurrentLanguage() {
+        return fxml.getCurrentLocale().toLanguageTag();
+    }
+
+    private void refresh() {
+        var homePair = fxml.load(HomeCtrl.class, "client", "scenes", "Home.fxml");
+
+        this.homeCtrl = homePair.getKey();
+        this.home = new Scene(homePair.getValue());
+
+        showHome();
     }
 }
