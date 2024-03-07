@@ -1,6 +1,7 @@
 package server.database;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import commons.Colour;
 import commons.Event;
@@ -120,6 +121,8 @@ class EventRepositoryTest {
     void findByCreationDate() {
         List<Event> eventsFoundByCreationDate = eventRepository.findByCreationDate(now);
         assertEquals(1, eventsFoundByCreationDate.size());
-        assertEquals(now, eventsFoundByCreationDate.getFirst().getCreationDate());
+        for (Event event : eventsFoundByCreationDate) {
+            assertEquals(now, event.getCreationDate());
+        }
     }
 }
