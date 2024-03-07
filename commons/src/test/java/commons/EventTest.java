@@ -23,8 +23,8 @@ class EventTest {
     void setUp() {
         tags1 = new ArrayList<Tag>();
         tags2 = new ArrayList<Tag>();
-        tag1 = new Tag("Blue", new Colour("#0000FF"));
-        tag2 = new Tag("Pink", new Colour("#FFC0CB"));
+        tag1 = new Tag("Food", new Colour("#0000FF"));
+        tag2 = new Tag("Drink", new Colour("#FFC0CB"));
         tags1.add(tag1);
         tags1.add(tag2);
         tags2.add(tag1);
@@ -74,7 +74,7 @@ class EventTest {
     @Test
     void setTags() {
         ArrayList<Tag> newTags = new ArrayList<>();
-        newTags.add(new Tag("Green", new Colour("#008000")));
+        newTags.add(new Tag("Travel", new Colour("#008000")));
         test1.setTags(newTags);
         assertEquals(newTags, test1.getTags(), "Setting tags failed");
     }
