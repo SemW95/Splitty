@@ -1,5 +1,6 @@
 package commons;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,7 +29,8 @@ public class Expense {
     BigDecimal paid;
     @ManyToOne
     Tag tag;
-    Instant creationDate; // "Detailed Expenses" extension
+    @Column(columnDefinition = "TIMESTAMP")
+    Instant paymentDateTime; // "Detailed Expenses" extension
 
     protected Expense() {
     }
@@ -41,10 +43,14 @@ public class Expense {
      * @param paid     The amount that the Person paid for the Expense.
      */
     public Expense(Person receiver, BigDecimal paid) {
-        this.participants = new ArrayList<Person>();
-        this.receiver = receiver;
-        this.paid = paid;
-        this.creationDate = Instant.now();
+        this(
+            "",
+            new ArrayList<Person>(),
+            receiver,
+            paid,
+            null,
+            Instant.now()
+        );
     }
 
 
@@ -53,13 +59,42 @@ public class Expense {
      *
      * @param receiver     The Person that has paid for the Expense.
      * @param paid         The amount that the Person paid for the Expense.
-     * @param creationDate Creation date of the Expense.
+     * @param paymentDateTime Creation date of the Expense.
      */
-    public Expense(Person receiver, BigDecimal paid, Instant creationDate) {
-        this.participants = new ArrayList<Person>();
+    public Expense(Person receiver, BigDecimal paid, Instant paymentDateTime) {
+        this(
+            "",
+            new ArrayList<Person>(),
+            receiver,
+            paid,
+            null,
+            paymentDateTime
+        );
+    }
+
+    /** The Expense constructor used for imports.
+     *
+     * @param description The description of this Expense
+     * @param participants The list of participants (excluding receiver)
+     * @param receiver The person that paid for this and should be compensated
+     * @param paid The amount that was paid
+     * @param tag The tag on this Expense
+     * @param paymentDateTime The DateTime for when this was paid
+     */
+    public Expense(
+        String description,
+        ArrayList<Person> participants,
+        Person receiver,
+        BigDecimal paid,
+        Tag tag,
+        Instant paymentDateTime
+    ) {
+        this.description = description;
+        this.participants = participants;
         this.receiver = receiver;
         this.paid = paid;
-        this.creationDate = creationDate;
+        this.tag = tag;
+        this.paymentDateTime = paymentDateTime;
     }
 
 
@@ -104,12 +139,12 @@ public class Expense {
             && Objects.equals(receiver, expense.receiver)
             && Objects.equals(paid, expense.paid)
             && Objects.equals(tag, expense.tag)
-            && Objects.equals(creationDate, expense.creationDate);
+            && Objects.equals(paymentDateTime, expense.paymentDateTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, description, participants, receiver, paid, tag, creationDate);
+        return Objects.hash(id, description, participants, receiver, paid, tag, paymentDateTime);
     }
 
     public ArrayList<Person> getParticipants() {
@@ -144,11 +179,11 @@ public class Expense {
         this.tag = tag;
     }
 
-    public Instant getCreationDate() {
-        return creationDate;
+    public Instant getPaymentDateTime() {
+        return paymentDateTime;
     }
 
-    public void setCreationDate(Instant creationDate) {
-        this.creationDate = creationDate;
+    public void setPaymentDateTime(Instant creationDate) {
+        this.paymentDateTime = creationDate;
     }
 }
