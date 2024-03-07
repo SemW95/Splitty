@@ -11,7 +11,7 @@ resource_rules:
             - state::completed
             - state::aborted
             - state::blocked
-        action:
+        actions:
           labels:
             - state::idea
 
@@ -22,7 +22,7 @@ resource_rules:
             - priority::normal
             - priority::high
             - priority::urgent
-        action:
+        actions:
           labels:
             - priority::normal
 
@@ -32,14 +32,14 @@ resource_rules:
           forbidden_labels:
             - state::completed
             - state::aborted
-        action:
+        actions:
           labels:
             - state::completed
 
       - name: Ensure locked issues will have a state::blocked label
         conditions:
           state: locked
-        action:
+        actions:
           labels:
             - state::blocked
 
