@@ -2,7 +2,7 @@ package server.database;
 
 import commons.Event;
 import commons.Tag;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -15,5 +15,5 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     List<Event> findByTagsIn(List<Tag> tags);
 
-    List<Event> findByCreationDate(LocalDateTime creationDate);
+    List<Event> findByCreationDate(Instant creationDate);
 }

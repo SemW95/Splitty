@@ -7,7 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -34,7 +34,7 @@ public class Event {
     @OneToMany
     List<Payment> payments;
     @Column(columnDefinition = "TIMESTAMP")
-    LocalDateTime creationDate;
+    Instant creationDate;
 
     /**
      * Creates a new Event.
@@ -96,7 +96,7 @@ public class Event {
      */
     public Event(String title, String description, List<Person> people,
                  List<Tag> tags, List<Expense> expenses, List<Payment> payments,
-                 LocalDateTime creationDate) {
+                 Instant creationDate) {
         this.code = generateInviteCode();
         this.title = title;
         this.description = description;
@@ -226,11 +226,11 @@ public class Event {
         this.payments = payments;
     }
 
-    public LocalDateTime getCreationDate() {
+    public Instant getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDateTime creationDate) {
+    public void setCreationDate(Instant creationDate) {
         this.creationDate = creationDate;
     }
 

@@ -8,7 +8,7 @@ import commons.Expense;
 import commons.Payment;
 import commons.Person;
 import commons.Tag;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
@@ -42,7 +42,7 @@ class EventRepositoryTest {
     private Person receiver2;
     private List<Person> people2;
     private List<Person> people1;
-    private LocalDateTime now;
+    private Instant now;
 
     @BeforeEach
     void setUp() {
@@ -74,7 +74,7 @@ class EventRepositoryTest {
         people1.add(receiver1);
         people2.add(receiver2);
 
-        now = LocalDateTime.now();
+        now = Instant.now();
         event1 =
             eventRepository.save(
                 new Event("Dinner and Drinks", "Dinner and drinks with the group",

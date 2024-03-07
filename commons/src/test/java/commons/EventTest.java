@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,7 @@ class EventTest {
     private ArrayList<Tag> tags2;
     private Tag tag1;
     private Tag tag2;
-    private LocalDateTime now;
+    private Instant now;
 
     @BeforeEach
     void setUp() {
@@ -30,7 +30,7 @@ class EventTest {
         tags2.add(tag1);
         tags2.add(tag2);
 
-        now = LocalDateTime.now();
+        now = Instant.now();
         test1 = new Event("Dinner and Drinks", "Dinner and drinks with the group",
             new ArrayList<Person>(), tags1, new ArrayList<Expense>(),
             new ArrayList<Payment>(), now);
@@ -115,7 +115,7 @@ class EventTest {
 
     @Test
     void setCreationDate() {
-        LocalDateTime newDate = LocalDateTime.now().minusSeconds(3600);
+        Instant newDate = Instant.now().minusSeconds(3600);
         test1.setCreationDate(newDate);
         assertEquals(newDate, test1.getCreationDate(), "Setting creation date failed");
     }
