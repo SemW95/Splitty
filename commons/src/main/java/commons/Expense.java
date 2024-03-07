@@ -1,56 +1,123 @@
 package commons;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * This is the data Object for an Expense.
+ * The class that contains all the info for an expense.
  */
+@Entity
 public class Expense {
-    ArrayList<Debt> debts;
-    TotalDebt totalDebt;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    long id;
+    String description;
+    @ManyToMany
+    ArrayList<Person> participants;
+    @ManyToOne
     Person receiver;
+    BigDecimal paid;
+    @ManyToOne
+    Tag tag;
+    Instant creationDate; // "Detailed Expenses" extension
+
+    protected Expense() {
+    }
+
 
     /**
-     * Create an Expense without any Debts.
+     * Creates the Expense class.
      *
-     * @param totalDebt The amount the receiver is owed in total.
-     * @param receiver  The person who is owed money and will receive money.
+     * @param receiver The Person that has paid for the Expense.
+     * @param paid     The amount that the Person paid for the Expense.
      */
-
-    public Expense(TotalDebt totalDebt, Person receiver) {
-        this.totalDebt = totalDebt;
+    public Expense(Person receiver, BigDecimal paid) {
+        this.participants = new ArrayList<Person>();
         this.receiver = receiver;
-        this.debts = new ArrayList<Debt>();
+        this.paid = paid;
+        this.creationDate = Instant.now();
+    }
+
+
+    /**
+     * Creates the Expense class with a date.
+     *
+     * @param receiver     The Person that has paid for the Expense.
+     * @param paid         The amount that the Person paid for the Expense.
+     * @param creationDate Creation date of the Expense.
+     */
+    public Expense(Person receiver, BigDecimal paid, Instant creationDate) {
+        this.participants = new ArrayList<Person>();
+        this.receiver = receiver;
+        this.paid = paid;
+        this.creationDate = creationDate;
+    }
+
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void addParticipant(Person participant) {
+        participants.add(participant);
+    }
+
+    public void removeParticipant(Person participant) {
+        participants.remove(participant);
     }
 
     /**
-     * Create an Expense with Debts.
+     * gets the share that should be paid /person.
      *
-     * @param totalDebt The amount the receiver is owed in total.
-     * @param receiver  The person who is owed money and will receive money.
-     * @param debts     The ArrayList of Debts of this expense.
+     * @return the share a person needs to pay for this expense;
      */
-    public Expense(TotalDebt totalDebt, Person receiver, ArrayList<Debt> debts) {
-        this.totalDebt = totalDebt;
-        this.receiver = receiver;
-        this.debts = debts;
+    public BigDecimal getShare() {
+        int totalNoParticipants = participants.size() + 1;
+        // TODO: return (Money) paid/totalNoParticipants
+        return null;
     }
 
-    public ArrayList<Debt> getDebts() {
-        return debts;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Expense expense = (Expense) o;
+        return id == expense.id && Objects.equals(description, expense.description)
+            && Objects.equals(participants, expense.participants)
+            && Objects.equals(receiver, expense.receiver)
+            && Objects.equals(paid, expense.paid)
+            && Objects.equals(tag, expense.tag)
+            && Objects.equals(creationDate, expense.creationDate);
     }
 
-    public void setDebts(ArrayList<Debt> debts) {
-        this.debts = debts;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, description, participants, receiver, paid, tag, creationDate);
     }
 
-    public TotalDebt getTotalDebt() {
-        return totalDebt;
+    public ArrayList<Person> getParticipants() {
+        return participants;
     }
 
-    public void setTotalDebt(TotalDebt totalDebt) {
-        this.totalDebt = totalDebt;
+    public void setParticipants(ArrayList<Person> participants) {
+        this.participants = participants;
     }
 
     public Person getReceiver() {
@@ -61,34 +128,27 @@ public class Expense {
         this.receiver = receiver;
     }
 
-    /**
-     * Checks if the Object that is provided is equal to this Expense object.
-     *
-     * @param o The Object that has to be compared to this Expense Object
-     * @return true if they are equal, false when they are not
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Expense expense = (Expense) o;
-        return Objects.equals(debts, expense.debts)
-            && Objects.equals(totalDebt, expense.totalDebt)
-            && Objects.equals(receiver, expense.receiver);
+    public BigDecimal getPaid() {
+        return paid;
     }
 
+    public void setPaid(BigDecimal paid) {
+        this.paid = paid;
+    }
 
-    /**
-     * Provides a hash for the current Object.
-     *
-     * @return the hash of this Object
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(debts, totalDebt, receiver);
+    public Tag getTag() {
+        return tag;
+    }
+
+    public void setTag(Tag tag) {
+        this.tag = tag;
+    }
+
+    public Instant getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Instant creationDate) {
+        this.creationDate = creationDate;
     }
 }

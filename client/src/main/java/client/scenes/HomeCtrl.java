@@ -14,22 +14,34 @@
  * limitations under the License.
  */
 
-package client;
+package client.scenes;
 
-import client.scenes.HomeCtrl;
-import client.scenes.MainCtrl;
-import com.google.inject.Binder;
-import com.google.inject.Module;
-import com.google.inject.Scopes;
+import client.utils.ServerUtils;
+import com.google.inject.Inject;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.Initializable;
 
 /**
- * Controller should be added here.
+ * Home screen.
  */
-public class MyModule implements Module {
+public class HomeCtrl implements Initializable {
+
+    private final ServerUtils server;
+    private final MainCtrl mainCtrl;
+
+    @Inject
+    public HomeCtrl(ServerUtils server, MainCtrl mainCtrl) {
+        this.server = server;
+        this.mainCtrl = mainCtrl;
+    }
 
     @Override
-    public void configure(Binder binder) {
-        binder.bind(MainCtrl.class).in(Scopes.SINGLETON);
-        binder.bind(HomeCtrl.class).in(Scopes.SINGLETON);
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
+
+    public void goSettings() {
+        System.out.println("Settings pressed");
     }
 }

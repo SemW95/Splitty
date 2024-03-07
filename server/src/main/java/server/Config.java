@@ -21,7 +21,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Not sure what this is actually used for. TODO
+ * Here you can define services (singletons).
  */
 @Configuration
 public class Config {
