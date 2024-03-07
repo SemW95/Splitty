@@ -4,24 +4,24 @@ resource_rules:
       - name: Ensure new issues have a state label
         conditions:
           forbidden_labels:
-            - state:idea
-            - state:preparation
-            - state:in-process
-            - state:feedback
-            - state:completed
-            - state:aborted
-            - state:blocked
+            - state::idea
+            - state::preparation
+            - state::in-process
+            - state::feedback
+            - state::completed
+            - state::aborted
+            - state::blocked
         actions:
           labels:
-            - state:idea
+            - state::idea
 
       - name: Ensure new issues have a priority label
         conditions:
           forbidden_labels:
-            - priority:low
-            - priority:normal
-            - priority:high
-            - priority:urgent
+            - priority::low
+            - priority::normal
+            - priority::high
+            - priority::urgent
         actions:
           labels:
             - priority:normal
@@ -30,18 +30,18 @@ resource_rules:
         conditions:
           state: closed
           forbidden_labels:
-            - state:completed
-            - state:aborted
+            - state::completed
+            - state::aborted
         actions:
           labels:
-            - state:completed
+            - state::completed
 
       - name: Ensure locked issues will have a state::blocked label
         conditions:
           state: locked
         actions:
           labels:
-            - state:blocked
+            - state::blocked
 
   merge_requests:
     rules:
