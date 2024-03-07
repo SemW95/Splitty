@@ -102,7 +102,7 @@ class EventRepositoryTest {
     }
 
     @Test
-    void findByTitleContaining() {
+    void findByTitleContainingIgnoreCase() {
         List<Event> drinkEvents =
             eventRepository.findByTitleContainingIgnoreCase("drinks");
         assertEquals(1, drinkEvents.size());
@@ -110,7 +110,7 @@ class EventRepositoryTest {
     }
 
     @Test
-    void findByTags() {
+    void findByTagsIn() {
         List<Event> eventsFoundByTags = eventRepository.findByTagsIn(tags1);
         assertEquals(1, eventsFoundByTags.size());
         assertEquals("Food", eventsFoundByTags.getFirst().getTags().getFirst().getName());
