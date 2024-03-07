@@ -32,10 +32,6 @@ public class Expense {
     @Column(columnDefinition = "TIMESTAMP")
     Instant paymentDateTime; // "Detailed Expenses" extension
 
-    protected Expense() {
-    }
-
-
     /**
      * Creates the Expense class.
      *
@@ -95,6 +91,12 @@ public class Expense {
         this.paid = paid;
         this.tag = tag;
         this.paymentDateTime = paymentDateTime;
+    }
+
+    /**
+     * Empty constructor for JPA.
+     */
+    protected Expense() {
     }
 
 
