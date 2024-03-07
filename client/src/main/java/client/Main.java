@@ -28,7 +28,6 @@ import javafx.stage.Stage;
 
 /**
  * This is the entry point for the client.
- * Add new pages in the start method.
  */
 public class Main extends Application {
 
