@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,26 +18,31 @@ class EventTest {
     private ArrayList<Tag> tags2;
     private Tag tag1;
     private Tag tag2;
+    private LocalDate startNow;
+    private LocalDate endNow;
     private Instant now;
 
     @BeforeEach
     void setUp() {
         tags1 = new ArrayList<Tag>();
         tags2 = new ArrayList<Tag>();
-        tag1 = new Tag("Blue", new Colour("#0000FF"));
-        tag2 = new Tag("Pink", new Colour("#FFC0CB"));
+        tag1 = new Tag("Food", new Colour("#0000FF"));
+        tag2 = new Tag("Drink", new Colour("#FFC0CB"));
         tags1.add(tag1);
         tags1.add(tag2);
         tags2.add(tag1);
         tags2.add(tag2);
 
         now = Instant.now();
+        startNow = LocalDate.now();
+        endNow = LocalDate.now();
+
         test1 = new Event("Dinner and Drinks", "Dinner and drinks with the group",
             new ArrayList<Person>(), tags1, new ArrayList<Expense>(),
-            new ArrayList<Payment>(), now);
+            new ArrayList<Payment>(), startNow, endNow, now);
         test2 = new Event("Dinner and Drinks", "Dinner and drinks with the group",
             new ArrayList<Person>(), tags2, new ArrayList<Expense>(),
-            new ArrayList<Payment>(), now);
+            new ArrayList<Payment>(), startNow, endNow, now);
         test1.setCode("123");
         test2.setCode("123");
     }
@@ -74,7 +80,7 @@ class EventTest {
     @Test
     void setTags() {
         ArrayList<Tag> newTags = new ArrayList<>();
-        newTags.add(new Tag("Green", new Colour("#008000")));
+        newTags.add(new Tag("Travel", new Colour("#008000")));
         test1.setTags(newTags);
         assertEquals(newTags, test1.getTags(), "Setting tags failed");
     }
@@ -110,14 +116,14 @@ class EventTest {
 
     @Test
     void getCreationDate() {
-        assertEquals(now, test1.getCreationDate(), "Incorrect creation date");
+        assertEquals(now, test1.getLastModifiedDateTime(), "Incorrect creation date");
     }
 
     @Test
     void setCreationDate() {
         Instant newDate = Instant.now().minusSeconds(3600);
-        test1.setCreationDate(newDate);
-        assertEquals(newDate, test1.getCreationDate(), "Setting creation date failed");
+        test1.setLastModifiedDateTime(newDate);
+        assertEquals(newDate, test1.getLastModifiedDateTime(), "Setting creation date failed");
     }
 
     @Test

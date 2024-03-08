@@ -43,15 +43,23 @@ public class HomeCtrl implements Initializable {
     }
 
     /**
-     * This is called when the settings button is pressed.
+     * Testing
      */
-    public void goSettings() {
-        System.out.println(resources.getString("home.greeting"));
+    public void testing() {
+        System.out.println(resources.getString("home.currency"));
 
         if (mainCtrl.getCurrentLanguage().equals("en")) {
             mainCtrl.changeLanguage("lt");
         } else {
             mainCtrl.changeLanguage("en");
         }
+    }
+    public void clickLanguage() {
+        System.out.println("Pressed language");
+        testing();
+    }
+
+    public void clickCurrency() {
+        System.out.println("Pressed currency.");
     }
 }

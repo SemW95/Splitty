@@ -39,6 +39,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         var home = FXML.load(HomeCtrl.class, "client", "scenes", "Home.fxml");
+        //step 6 add new page here
 
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         mainCtrl.initialize(primaryStage, FXML, home);
