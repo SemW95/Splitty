@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,8 @@ class EventTest {
     private ArrayList<Tag> tags2;
     private Tag tag1;
     private Tag tag2;
+    private LocalDate startNow;
+    private LocalDate endNow;
     private Instant now;
 
     @BeforeEach
@@ -31,12 +34,15 @@ class EventTest {
         tags2.add(tag2);
 
         now = Instant.now();
+        startNow = LocalDate.now();
+        endNow = LocalDate.now();
+
         test1 = new Event("Dinner and Drinks", "Dinner and drinks with the group",
             new ArrayList<Person>(), tags1, new ArrayList<Expense>(),
-            new ArrayList<Payment>(), now);
+            new ArrayList<Payment>(), startNow, endNow, now);
         test2 = new Event("Dinner and Drinks", "Dinner and drinks with the group",
             new ArrayList<Person>(), tags2, new ArrayList<Expense>(),
-            new ArrayList<Payment>(), now);
+            new ArrayList<Payment>(), startNow, endNow, now);
         test1.setCode("123");
         test2.setCode("123");
     }
@@ -110,14 +116,14 @@ class EventTest {
 
     @Test
     void getCreationDate() {
-        assertEquals(now, test1.getCreationDate(), "Incorrect creation date");
+        assertEquals(now, test1.getLastModifiedDateTime(), "Incorrect creation date");
     }
 
     @Test
     void setCreationDate() {
         Instant newDate = Instant.now().minusSeconds(3600);
-        test1.setCreationDate(newDate);
-        assertEquals(newDate, test1.getCreationDate(), "Setting creation date failed");
+        test1.setLastModifiedDateTime(newDate);
+        assertEquals(newDate, test1.getLastModifiedDateTime(), "Setting creation date failed");
     }
 
     @Test

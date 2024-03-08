@@ -23,7 +23,7 @@ import com.google.inject.Module;
 import com.google.inject.Scopes;
 
 /**
- * Controller should be added here.
+ * Controllers should be added in configure.
  */
 public class MyModule implements Module {
 
@@ -31,5 +31,6 @@ public class MyModule implements Module {
     public void configure(Binder binder) {
         binder.bind(MainCtrl.class).in(Scopes.SINGLETON);
         binder.bind(HomeCtrl.class).in(Scopes.SINGLETON);
+        //Step 5 add new page here
     }
 }

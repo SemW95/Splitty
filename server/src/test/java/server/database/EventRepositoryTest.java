@@ -9,6 +9,7 @@ import commons.Payment;
 import commons.Person;
 import commons.Tag;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
@@ -42,6 +43,8 @@ class EventRepositoryTest {
     private Person receiver2;
     private List<Person> people2;
     private List<Person> people1;
+    private LocalDate startNow;
+    private LocalDate endNow;
     private Instant now;
 
     @BeforeEach
@@ -75,15 +78,18 @@ class EventRepositoryTest {
         people2.add(receiver2);
 
         now = Instant.now();
+        startNow = LocalDate.now();
+        endNow = LocalDate.now();
+
         event1 =
             eventRepository.save(
                 new Event("Dinner and Drinks", "Dinner and drinks with the group",
                     new ArrayList<>(), tags1, new ArrayList<Expense>(),
-                    new ArrayList<Payment>(), now)
+                    new ArrayList<Payment>(), startNow, endNow, now)
             );
         event2 = eventRepository.save(new Event("Uber drive", "Uber drive with friends",
             new ArrayList<>(), tags2, new ArrayList<Expense>(),
-            new ArrayList<Payment>(), now.minusSeconds(10)));
+            new ArrayList<Payment>(), startNow, endNow, now.minusSeconds(10)));
 
         event1.setPeople(people1);
         event1.setPeople(people2);
