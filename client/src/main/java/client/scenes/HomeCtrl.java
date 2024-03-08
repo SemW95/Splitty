@@ -29,6 +29,7 @@ public class HomeCtrl implements Initializable {
 
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
+    private ResourceBundle resources;
 
     @Inject
     public HomeCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -38,11 +39,25 @@ public class HomeCtrl implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        this.resources = resources;
+    }
 
+    /**
+     * Testing.
+     */
+    public void testing() {
+        System.out.println(resources.getString("home.currency"));
+
+        if (mainCtrl.getCurrentLanguage().equals("en")) {
+            mainCtrl.changeLanguage("lt");
+        } else {
+            mainCtrl.changeLanguage("en");
+        }
     }
 
     public void clickLanguage() {
         System.out.println("Pressed language");
+        testing();
     }
 
     public void clickCurrency() {
