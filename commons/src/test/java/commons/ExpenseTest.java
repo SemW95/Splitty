@@ -1,6 +1,6 @@
 package commons;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -18,6 +18,7 @@ class ExpenseTest {
     private Tag tag2;
     private ArrayList<Person> participants;
     private Instant now = Instant.now();
+
     @BeforeEach
     void setUp() {
         person1 = new Person("Alice", "needs a surname", "Alice@domain.com",
@@ -34,7 +35,8 @@ class ExpenseTest {
         participants.add(person1);
 
         expense1 = new Expense("Food", participants, person1, new BigDecimal(14.00), tag1, now);
-        expense2 = new Expense("Food", participants, person1, new BigDecimal(14.00), tag1, now); // The same as expense1
+        expense2 = new Expense("Food", participants, person1, new BigDecimal(14.00), tag1,
+            now); // The same as expense1
     }
 
     @Test
@@ -52,13 +54,13 @@ class ExpenseTest {
     @Test
     void addParticipant() {
         expense1.addParticipant(person2);
-        assertEquals(2,expense1.getParticipants().size());
+        assertEquals(2, expense1.getParticipants().size());
     }
 
     @Test
     void removeParticipant() {
         expense1.removeParticipant(person2);
-        assertEquals(1,expense1.getParticipants().size());
+        assertEquals(1, expense1.getParticipants().size());
     }
 
     // TODO when GetShare() has been made
@@ -125,7 +127,8 @@ class ExpenseTest {
     void setPaymentDateTime() {
         Instant newDateTime = Instant.now().minusSeconds(3600);
         expense1.setPaymentDateTime(newDateTime);
-        assertEquals(newDateTime, expense1.getPaymentDateTime(), "Setting payment date and time failed");
+        assertEquals(newDateTime, expense1.getPaymentDateTime(),
+            "Setting payment date and time failed");
     }
 
     @Test
