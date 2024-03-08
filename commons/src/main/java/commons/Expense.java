@@ -53,8 +53,8 @@ public class Expense {
     /**
      * Creates the Expense class with a date.
      *
-     * @param receiver     The Person that has paid for the Expense.
-     * @param paid         The amount that the Person paid for the Expense.
+     * @param receiver        The Person that has paid for the Expense.
+     * @param paid            The amount that the Person paid for the Expense.
      * @param paymentDateTime Creation date of the Expense.
      */
     public Expense(Person receiver, BigDecimal paid, Instant paymentDateTime) {
@@ -68,13 +68,14 @@ public class Expense {
         );
     }
 
-    /** The Expense constructor used for imports.
+    /**
+     * The Expense constructor used for imports.
      *
-     * @param description The description of this Expense
-     * @param participants The list of participants (excluding receiver)
-     * @param receiver The person that paid for this and should be compensated
-     * @param paid The amount that was paid
-     * @param tag The tag on this Expense
+     * @param description     The description of this Expense
+     * @param participants    The list of participants (excluding receiver)
+     * @param receiver        The person that paid for this and should be compensated
+     * @param paid            The amount that was paid
+     * @param tag             The tag on this Expense
      * @param paymentDateTime The DateTime for when this was paid
      */
     public Expense(
