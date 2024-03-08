@@ -16,6 +16,7 @@ class ExpenseTest {
     private Person person2;
     private Tag tag1;
     private Tag tag2;
+    private ArrayList<Person> participants;
     private Instant now = Instant.now();
     @BeforeEach
     void setUp() {
@@ -29,8 +30,11 @@ class ExpenseTest {
         tag1 = new Tag("Food", new Colour("#0000FF"));
         tag2 = new Tag("Drinks", new Colour("#FFC0CB"));
 
-        expense1 = new Expense("Food", new ArrayList<Person>(), person1, new BigDecimal(14.00), tag1, now);
-        expense2 = new Expense("Drinks", new ArrayList<Person>(), person2, new BigDecimal(20.00), tag2, now);
+        participants = new ArrayList<>();
+        participants.add(person1);
+
+        expense1 = new Expense("Food", participants, person1, new BigDecimal(14.00), tag1, now);
+        expense2 = new Expense("Food", participants, person1, new BigDecimal(14.00), tag1, now); // The same as expense1
     }
 
     @Test
@@ -47,22 +51,31 @@ class ExpenseTest {
 
     @Test
     void addParticipant() {
+        expense1.addParticipant(person2);
+        assertEquals(2,expense1.getParticipants().size());
     }
 
     @Test
     void removeParticipant() {
+        expense1.removeParticipant(person2);
+        assertEquals(1,expense1.getParticipants().size());
     }
 
+    // TODO when GetShare() has been made
     @Test
     void getShare() {
     }
 
     @Test
     void getParticipants() {
+        assertEquals(participants, expense1.getParticipants(), "Incorrect list of participants");
     }
 
     @Test
     void setParticipants() {
+        ArrayList<Person> participantsTest = new ArrayList<>();
+        expense1.setParticipants(participantsTest);
+        assertEquals(participantsTest, expense1.getParticipants(), "Setting participants failed");
     }
 
     @Test
@@ -76,12 +89,12 @@ class ExpenseTest {
             "AD1400080001001234567890",
             "ZUOBJEO6XXX");
         expense1.setReceiver(person3);
-        assertEquals(person3, expense1.getReceiver());
+        assertEquals(person3, expense1.getReceiver(), "Setting receiver failed");
     }
 
     @Test
     void getPaid() {
-        assertEquals(new BigDecimal(14.00), expense1.getPaid());
+        assertEquals(new BigDecimal(14.00), expense1.getPaid(), "Incorrect paid amount");
     }
 
     @Test
@@ -100,12 +113,12 @@ class ExpenseTest {
     void setTag() {
         Tag newTag = new Tag("Travel", new Colour("#008000"));
         expense1.setTag(newTag);
-        assertEquals(newTag, expense1.getTag());
+        assertEquals(newTag, expense1.getTag(), "Setting tag failed");
     }
 
     @Test
     void getPaymentDateTime() {
-        assertEquals(now, expense1.getPaymentDateTime());
+        assertEquals(now, expense1.getPaymentDateTime(), "Incorrect payment date and time");
     }
 
     @Test
@@ -113,5 +126,15 @@ class ExpenseTest {
         Instant newDateTime = Instant.now().minusSeconds(3600);
         expense1.setPaymentDateTime(newDateTime);
         assertEquals(newDateTime, expense1.getPaymentDateTime(), "Setting payment date and time failed");
+    }
+
+    @Test
+    void testEquals() {
+        assertEquals(expense1, expense2);
+    }
+
+    @Test
+    void testHashCode() {
+        assertEquals(expense1.hashCode(), expense2.hashCode(), "Hash codes should be equal");
     }
 }
