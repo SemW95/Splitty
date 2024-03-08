@@ -43,7 +43,7 @@ public class HomeCtrl implements Initializable {
     }
 
     /**
-     * Testing
+     * Testing.
      */
     public void testing() {
         System.out.println(resources.getString("home.currency"));
@@ -54,6 +54,7 @@ public class HomeCtrl implements Initializable {
             mainCtrl.changeLanguage("en");
         }
     }
+
     public void clickLanguage() {
         System.out.println("Pressed language");
         testing();
