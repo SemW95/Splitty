@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.HomeCtrl">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.HomeCtrl">
    <children>
-      <Label layoutX="252.0" layoutY="200.0" text="HELLO" />
-      <Button layoutX="48.0" layoutY="339.0" mnemonicParsing="false" onAction="#goSettings" text="Settings" />
+      <Label layoutX="25.0" layoutY="25.0" style="-fx-font-weight: bold; -fx-font-size: 25;" text="SPLITY: Going Dutch">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ListView fixedCellSize="6.0" layoutY="123.0" prefHeight="277.0" prefWidth="600.0" />
+      <Button layoutX="518.0" layoutY="25.0" mnemonicParsing="false" onAction="#clickLanguage" text="%home.language" />
+      <Button layoutX="520.0" layoutY="61.0" mnemonicParsing="false" onAction="#clickCurrency" text="%home.currency" />
    </children>
-</AnchorPane>
+</Pane>

@@ -21,8 +21,6 @@ import static com.google.inject.Guice.createInjector;
 import client.scenes.HomeCtrl;
 import client.scenes.MainCtrl;
 import com.google.inject.Injector;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -34,15 +32,16 @@ public class Main extends Application {
     private static final Injector INJECTOR = createInjector(new MyModule());
     private static final MyFXML FXML = new MyFXML(INJECTOR);
 
-    public static void main(String[] args) throws URISyntaxException, IOException {
+    public static void main(String[] args) {
         launch();
     }
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) {
         var home = FXML.load(HomeCtrl.class, "client", "scenes", "Home.fxml");
+        //step 6 add new page here
 
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, home);
+        mainCtrl.initialize(primaryStage, FXML, home);
     }
 }

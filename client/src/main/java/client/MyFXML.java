@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.util.Builder;
@@ -29,22 +31,37 @@ import javafx.util.Callback;
 import javafx.util.Pair;
 
 /**
- * The main JavaFX class.
+ * JavaFX/FXML helper class which loads scenes and injects stuff into controllers.
  */
 @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
 public class MyFXML {
 
-    private Injector injector;
+    private final Injector injector;
+    private ResourceBundle bundle;
 
+    /**
+     * Constructor for a FXML helper class, which injects stuff into controllers.
+     *
+     * @param injector some injector
+     */
     public MyFXML(Injector injector) {
         this.injector = injector;
+        // TODO: get the default locale from the config file
+        Locale locale = Locale.of("en");
+        this.bundle = ResourceBundle.getBundle("client.bundles.Bundle", locale);
     }
 
-    // TODO: no clue what this does
-    @SuppressWarnings("checkstyle:MissingJavadocMethod")
+    /**
+     * Loads a scene and its controller. Also injects the controller
+     *
+     * @param c     controller class (only used for the type)
+     * @param parts a parameter list pointing to the FXML file
+     * @param <T>   type of the controller class, I think
+     * @return a pair of a controller and scene
+     */
     public <T> Pair<T, Parent> load(Class<T> c, String... parts) {
         try {
-            var loader = new FXMLLoader(getLocation(parts), null, null, new MyFactory(),
+            var loader = new FXMLLoader(getLocation(parts), bundle, null, new MyFactory(),
                 StandardCharsets.UTF_8);
             Parent parent = loader.load();
             T ctrl = loader.getController();
@@ -57,6 +74,18 @@ public class MyFXML {
     private URL getLocation(String... parts) {
         var path = Path.of("", parts).toString();
         return MyFXML.class.getClassLoader().getResource(path);
+    }
+
+    public void changeLocale(Locale locale) {
+        this.bundle = ResourceBundle.getBundle("client.bundles.Bundle", locale);
+    }
+
+    public Locale getCurrentLocale() {
+        return this.bundle.getLocale();
+    }
+
+    public ResourceBundle getBundle() {
+        return bundle;
     }
 
     private class MyFactory implements BuilderFactory, Callback<Class<?>, Object> {

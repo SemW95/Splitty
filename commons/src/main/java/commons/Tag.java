@@ -16,8 +16,6 @@ public class Tag {
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
     String name;
-    // TODO: decide how to store the Tag colour
-    // Now, colour is stored in Colour.
     @OneToOne
     Colour colour;
 
@@ -62,6 +60,10 @@ public class Tag {
 
     public String getName() {
         return name;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public void setName(String name) {
