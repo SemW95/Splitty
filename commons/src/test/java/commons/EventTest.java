@@ -27,7 +27,7 @@ class EventTest {
         tags1 = new ArrayList<Tag>();
         tags2 = new ArrayList<Tag>();
         tag1 = new Tag("Food", new Colour("#0000FF"));
-        tag2 = new Tag("Drink", new Colour("#FFC0CB"));
+        tag2 = new Tag("Drinks", new Colour("#FFC0CB"));
         tags1.add(tag1);
         tags1.add(tag2);
         tags2.add(tag1);
