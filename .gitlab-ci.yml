@@ -5,10 +5,10 @@ variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
 
 stages:
+  - triage
   - compile
   - checkstyle
   - test
-  - triage
 
 compile:
   stage: compile
