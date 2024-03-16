@@ -20,6 +20,8 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 /**
@@ -62,5 +64,10 @@ public class HomeCtrl implements Initializable {
 
     public void clickCurrency() {
         System.out.println("Pressed currency.");
+    }
+
+    @FXML
+    private void clickAdminView(ActionEvent actionEvent) {
+        mainCtrl.showAdminCredentialsPopup();
     }
 }
