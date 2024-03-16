@@ -24,7 +24,7 @@ resource_rules:
             - priority::urgent
         actions:
           labels:
-            - priority:normal
+            - priority::normal
 
       - name: Ensure closed issues that don't have a state::aborted/completed label will get the state::completed label
         conditions:
