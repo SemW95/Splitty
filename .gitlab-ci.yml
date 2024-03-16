@@ -15,16 +15,23 @@ compile:
   script:
     - ./gradlew assemble
 
+#checkstyle:
+#  stage: checkstyle
+#  parallel: 2
+#  script:
+#    - ./gradlew checkstyleMain
+#    - ./gradlew checkstyleTest
+
 checkstyle:
   stage: checkstyle
-  parallel: 2
   script:
-    - ./gradlew checkstyleMain
-    - ./gradlew checkstyleTest
+    - ./gradlew $CHECKSTYLE
+  parallel:
+    matrix:
+      - CHECKSTYLE: ['checkstyleMain', 'checkstyleTest']
 
 test:
   stage: test
-  parallel: 4
   script:
     - ./gradlew test
     - ./gradlew AggregateJacocoReport
