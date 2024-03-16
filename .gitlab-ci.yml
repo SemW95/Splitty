@@ -17,12 +17,14 @@ compile:
 
 checkstyle:
   stage: checkstyle
+  parallel: 2
   script:
     - ./gradlew checkstyleMain
     - ./gradlew checkstyleTest
 
 test:
   stage: test
+  parallel: 4
   script:
     - ./gradlew test
     - ./gradlew AggregateJacocoReport
