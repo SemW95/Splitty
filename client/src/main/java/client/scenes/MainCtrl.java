@@ -73,6 +73,7 @@ public class MainCtrl {
      */
     public void showHome() {
         primaryStage.setTitle(fxml.getBundle().getString("home.title"));
+        homeCtrl.getData();
         primaryStage.setScene(home);
     }
 
