@@ -16,14 +16,15 @@
 
 package client.scenes;
 
+import client.MyFXML;
+import java.util.Locale;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
-
 /**
- * Main controller for scenes.
+ * This is the main controller, which holds references to all controllers and scenes.
  */
 public class MainCtrl {
     /*
@@ -39,24 +40,29 @@ public class MainCtrl {
     Step 5: add controller to MyModule "binder.bind(PageCtrl.class).in(Scopes.SINGLETON);"
     Main
     Step 6: add "var page = FXML.load(PageCtrl.class, "client", "scenes", "Home.fxml");"
+    Step 7: add the same to the refresh method. Also add more stuff there too. Kind of TODO
     */
     private Stage primaryStage;
 
     private HomeCtrl homeCtrl;
     private Scene home;
+    private MyFXML fxml;
     //step 1 below.
 
     /**
      * Main controller initialization.
      *
      * @param primaryStage the primary stage
-     * @param home the loaded Home controller
+     * @param fxml         the loaded Home controller
+     * @param homePair     a pair of the home controller and node
      */
-    public void initialize(Stage primaryStage, Pair<HomeCtrl, Parent> home) {
+    public void initialize(Stage primaryStage, MyFXML fxml, Pair<HomeCtrl, Parent> homePair) {
         this.primaryStage = primaryStage;
-        this.homeCtrl = home.getKey();
-        this.home = new Scene(home.getValue());
+        this.fxml = fxml;
+
         //add step 2 and 3 below.
+        this.homeCtrl = homePair.getKey();
+        this.home = new Scene(homePair.getValue());
 
         showHome();
         primaryStage.show();
@@ -66,9 +72,35 @@ public class MainCtrl {
      * Sets primary stage to the Home scene.
      */
     public void showHome() {
-        primaryStage.setTitle("Home");
+        primaryStage.setTitle(fxml.getBundle().getString("home.title"));
         primaryStage.setScene(home);
     }
 
+    /**
+     * Changes the current language and refreshes everything.
+     *
+     * @param language a new language (example: "en", "lt")
+     */
+    public void changeLanguage(String language) {
+        Locale locale = Locale.of(language);
+        fxml.changeLocale(locale);
+
+        refresh();
+    }
+
+    public String getCurrentLanguage() {
+        return fxml.getCurrentLocale().toLanguageTag();
+    }
+
+    private void refresh() {
+        // STEP 7
+        // TODO: maybe find a way to remove the code duplication
+        var homePair = fxml.load(HomeCtrl.class, "client", "scenes", "Home.fxml");
+
+        this.homeCtrl = homePair.getKey();
+        this.home = new Scene(homePair.getValue());
+
+        showHome();
+    }
     //add step 4 here.
 }
