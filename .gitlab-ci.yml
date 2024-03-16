@@ -8,6 +8,7 @@ stages:
   - compile
   - checkstyle
   - test
+  - report
   - triage
 
 compile:
@@ -30,11 +31,21 @@ checkstyle:
     matrix:
       - CHECKSTYLE: ['checkstyleMain', 'checkstyleTest']
 
-test:
+gradle:test:
   stage: test
   script:
-    - ./gradlew test
-    - ./gradlew AggregateJacocoReport
+    - ./gradlew $GRADLE
+  artifacts:
+    paths:
+      - ./coverage
+  coverage: /TestCoverage:(\d+)%/
+  parallel:
+    matrix:
+      - GRADLE: ['test', 'AggregateJacocoReport']
+
+report:
+  stage: report
+  script:
     - mv build/reports/jacoco/aggregate/html ./coverage
     - mv build/reports/jacoco/aggregate/jacocoTestReport.xml ./coverage/report.xml
     - echo `cat coverage/index.html | grep -o -E "Total[^%]+?%" | sed -E "s/<.*>//" | sed -E "s/Total/TestCoverage:/"`
