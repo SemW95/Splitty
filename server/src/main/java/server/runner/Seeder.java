@@ -1,4 +1,4 @@
-package server;
+package server.runner;
 
 import commons.Currency;
 import org.springframework.boot.CommandLineRunner;
