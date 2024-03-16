@@ -36,13 +36,6 @@ resource_rules:
           labels:
             - state::completed
 
-      - name: Ensure locked issues will have a state::blocked label
-        conditions:
-          state: locked
-        actions:
-          labels:
-            - state::blocked
-
   merge_requests:
     rules:
       []
