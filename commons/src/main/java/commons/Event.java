@@ -330,4 +330,13 @@ public class Event {
         this.lastModifiedDateTime = creationDate;
     }
 
+    @Override
+    public String toString() {
+        return "Event{"
+            + "title='" + title + '\''
+            + ", description='" + description + '\''
+            + ", tags=" + tags
+            + ", lastModifiedDateTime=" + lastModifiedDateTime
+            + '}';
+    }
 }

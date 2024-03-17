@@ -19,6 +19,9 @@ java {
 dependencies {
     implementation project(":commons")
 
+    //dependency for supporting timestamp
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+
     implementation group: 'org.glassfish.jersey.core', name: 'jersey-client', version: '3.1.5'
     implementation group: 'org.glassfish.jersey.inject', name: 'jersey-hk2', version: '3.1.5'
     implementation group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version: '3.1.5'

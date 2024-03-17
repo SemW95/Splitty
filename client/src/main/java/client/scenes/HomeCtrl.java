@@ -16,11 +16,20 @@
 
 package client.scenes;
 
+
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
+import commons.Event;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
+
 
 /**
  * Home screen.
@@ -31,6 +40,13 @@ public class HomeCtrl implements Initializable {
     private final MainCtrl mainCtrl;
     private ResourceBundle resources;
 
+    @FXML
+    private ListView<Event> listView;
+    private List<Event> eventList;
+
+    @FXML
+    private ComboBox<String> dropDown;
+
     @Inject
     public HomeCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.server = server;
@@ -40,14 +56,32 @@ public class HomeCtrl implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
+
+        /*
+        Makes options for the dropdown menu
+        TODO should call actual servers and handle these options
+        */
+        ObservableList<String> options = FXCollections.observableArrayList(
+            "Server 1",
+            "Server 2",
+            "Server 3"
+        );
+        dropDown.setValue("Server 1");
+        dropDown.setItems(options);
     }
 
     /**
-     * Testing.
+     * Gets called on showHome to request data.
+     */
+    public void getData() {
+        eventList = server.getEvents();
+        listView.getItems().addAll(eventList);
+    }
+
+    /**
+     * Testing function for language switch.
      */
     public void testing() {
-        System.out.println(resources.getString("home.currency"));
-
         if (mainCtrl.getCurrentLanguage().equals("en")) {
             mainCtrl.changeLanguage("lt");
         } else {
@@ -55,12 +89,39 @@ public class HomeCtrl implements Initializable {
         }
     }
 
+    /**
+     * Logic for the "language" button on home.
+     */
     public void clickLanguage() {
         System.out.println("Pressed language");
         testing();
     }
 
+    /**
+     * Logic for the "currency" button on home.
+     */
     public void clickCurrency() {
         System.out.println("Pressed currency.");
+    }
+
+    /**
+     * Logic for the home title.
+     */
+    public void clickHome() {
+        System.out.println("Pressed home.");
+    }
+
+    /**
+     * Logic for the "settings" button.
+     */
+    public void clickSettings() {
+        System.out.println("Pressed settings.");
+    }
+
+    /**
+     * Logic for the "add event" button.
+     */
+    public void addEvent() {
+        System.out.println("Pressed add event");
     }
 }
