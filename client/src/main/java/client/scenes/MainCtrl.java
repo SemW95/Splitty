@@ -17,13 +17,13 @@
 package client.scenes;
 
 import client.MyFXML;
-import commons.Colour;
-import commons.Expense;
-import commons.Person;
-import commons.Tag;
-import java.math.BigDecimal;
-import java.time.Instant;
-import java.util.ArrayList;
+//import commons.Colour;
+//import commons.Expense;
+//import commons.Person;
+//import commons.Tag;
+//import java.math.BigDecimal;
+//import java.time.Instant;
+//import java.util.ArrayList;
 import java.util.Locale;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -80,38 +80,33 @@ public class MainCtrl {
         showHome();
         primaryStage.show();
 
-//        Wing debug dummy expense scene
+        //        Wing debug dummy expense scene
 
-        primaryStage.setScene(expenseOverview);
-
-        Expense expense1;
-        Person person1;
-        Person person2;
-        Person person3;
-        Tag tag1;
-        ArrayList<Person> participants;
-        Instant now = Instant.now();
-
-        person1 = new Person("Alice", "needs a surname", "Alice@domain.com",
-            "AL35202111090000000001234567",
-            "ZUOBJEO6XXX");
-        person2 = new Person("John", "needs a surname", "Alice@domain.com",
-            "AD1400080001001234567890",
-            "ZUOBJEO6XXX");
-        person3 = new Person("Henry", "needs a surname", "henry@domain.com",
-            "AD1400080001001234567890",
-            "ZUOBJEO9XXX");
-
-        tag1 = new Tag("Food", new Colour("#0000FF"));
-
-        participants = new ArrayList<>();
-        participants.add(person1);
-        participants.add(person2);
-        participants.add(person3);
-
-        expense1 = new Expense("Food", participants, person1, new BigDecimal(14.00), tag1, now);
-        expenseOverviewCtrl.setExpense(expense1);
-        expenseOverviewCtrl.populate();
+        //        primaryStage.setScene(expenseOverview);
+        //
+        //        Instant now = Instant.now();
+        //
+        //        Person person1 = new Person("Alice", "needs a surname", "Alice@domain.com",
+        //            "AL35202111090000000001234567",
+        //            "ZUOBJEO6XXX");
+        //        Person person2 = new Person("John", "needs a surname", "Alice@domain.com",
+        //            "AD1400080001001234567890",
+        //            "ZUOBJEO6XXX");
+        //        Person person3 = new Person("Henry", "needs a surname", "henry@domain.com",
+        //            "AD1400080001001234567890",
+        //            "ZUOBJEO9XXX");
+        //
+        //        Tag tag1 = new Tag("Food", new Colour("#0000FF"));
+        //
+        //        ArrayList<Person> participants = new ArrayList<>();
+        //        participants.add(person1);
+        //        participants.add(person2);
+        //        participants.add(person3);
+        //
+        //        Expense expense1 =
+        //            new Expense("Food", participants, person1, new BigDecimal(14.00), tag1, now);
+        //        expenseOverviewCtrl.setExpense(expense1);
+        //        expenseOverviewCtrl.populate();
     }
 
     /**

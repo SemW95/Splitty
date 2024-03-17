@@ -67,7 +67,8 @@ public class ExpenseOverviewCtrl implements Initializable {
         var oldFills = tagLabel.getBackground().getFills();
         var newFills = new ArrayList<>(oldFills);
         newFills.add(new BackgroundFill(Color.web(tag.getColour().toHexString()), null, null));
-        //TODO make sure the background radius property from the css in expenseoverview fxml is not overwritten by this background set call
+        //TODO make sure the background radius property from the css in expenseoverview fxml
+        // is not overwritten by this background set call
 
         tagLabel.setBackground(new Background(newFills, null));
 
@@ -91,8 +92,10 @@ public class ExpenseOverviewCtrl implements Initializable {
 
     /**
      * Creates a new Participant card for the dynamically scaled FlowPane.
-     * @param participant
-     * @return
+     *
+     * @param participant The participant
+     *
+     * @return An anchor pane
      */
     private AnchorPane createParticipantCard(Person participant) {
         AnchorPane card = new AnchorPane();

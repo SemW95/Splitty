@@ -42,7 +42,8 @@ public class Main extends Application {
         var home = FXML.load(HomeCtrl.class, "client", "scenes", "Home.fxml");
         //step 6 add new page here
 
-        var expenseOverview = FXML.load(ExpenseOverviewCtrl.class, "client", "scenes", "ExpenseOverview.fxml");
+        var expenseOverview = FXML.load(ExpenseOverviewCtrl.class, "client", "scenes",
+            "ExpenseOverview.fxml");
 
 
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
