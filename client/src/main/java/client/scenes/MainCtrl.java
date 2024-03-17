@@ -142,17 +142,16 @@ public class MainCtrl {
         // STEP 7
         // TODO: maybe find a way to remove the code duplication
         var homePair = fxml.load(HomeCtrl.class, "client", "scenes", "Home.fxml");
-        var adminCredentialsPair =
-            fxml.load(AdminCredentialsCtrl.class, "client", "scenes", "AdminCredentials.fxml");
-        var expenseOverviewPair =
-            fxml.load(ExpenseOverviewCtrl.class, "client", "scenes", "ExpenseOverview.fxml");
-
         this.homeCtrl = homePair.getKey();
         this.home = new Scene(homePair.getValue());
 
+        var adminCredentialsPair =
+            fxml.load(AdminCredentialsCtrl.class, "client", "scenes", "AdminCredentials.fxml");
         this.adminCredentialsCtrl = adminCredentialsPair.getKey();
         this.adminCredentials = new Scene(adminCredentialsPair.getValue());
 
+        var expenseOverviewPair =
+            fxml.load(ExpenseOverviewCtrl.class, "client", "scenes", "ExpenseOverview.fxml");
         this.expenseOverviewCtrl = expenseOverviewPair.getKey();
         this.expenseOverview = new Scene(expenseOverviewPair.getValue());
 
