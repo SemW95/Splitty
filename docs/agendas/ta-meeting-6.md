@@ -38,7 +38,7 @@
     - Issue JPA Repository and JPA test for the Payment class
 - **Approval of the agenda - Does anyone have any additions? (1 min)**
 - **Approval of last minutes - Did everyone read the minutes from the previous meeting? (1 min)**
-    - All clear, any feedback?
+    - All clear? Any feedback?
 - **Announcements by the TA (2 min)**
 - **Presentation of the current app to TA (3 min)**
 
@@ -59,6 +59,6 @@
 
 ## Wrapping Up (8 min)
 - **Summarize action points: Who , what , when? (2 min)**
-- Feedback round: What went well and what can be improved next time? (3 min)
+- **Feedback round: What went well and what can be improved next time? (3 min)**
 - **Any Questions?: Does anyone have anything to add before the meeting closes? (2 min)**
 - **Closure (1 min)**
