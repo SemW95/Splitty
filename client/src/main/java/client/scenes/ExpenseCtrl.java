@@ -3,7 +3,6 @@ package client.scenes;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.event.ActionEvent;
 
 public class ExpenseCtrl {
 
@@ -17,39 +16,22 @@ public class ExpenseCtrl {
     private Label participantsCountLabel;
 
     @FXML
-    private Button addButton;
+    private Button addParticipantButton;
 
     @FXML
     private Button manageButton;
 
+    // Method to handle adding a participant
     @FXML
-    private Button closeButton;
-
-    // This method will be invoked when the add participant button is clicked
-    @FXML
-    private void onAddParticipantButtonClick(ActionEvent event) {
-        // Implement functionality to handle add participant button click
-        System.out.println("Add Participant button clicked!");
+    private void onAddParticipantButtonClick() {
+        // Implement functionality to add participant
+        System.out.println("Add participant button clicked!");
     }
 
-    // This method will be invoked when the manage button is clicked
+    // Method to handle managing participants
     @FXML
-    private void onManageButtonClick(ActionEvent event) {
-        // Implement functionality to handle manage button click
+    private void onManageButtonClick() {
+        // Implement functionality to manage participants
         System.out.println("Manage button clicked!");
-    }
-
-    // This method will be invoked when the close button is clicked
-    @FXML
-    private void onCloseButtonClick(ActionEvent event) {
-        // Implement functionality to handle close button click
-        System.out.println("Close button clicked!");
-    }
-
-    // Method to update the UI with expense details
-    public void updateExpenseDetails(String name, String amount, int participantsCount) {
-        expenseNameLabel.setText(name);
-        paidAmountLabel.setText(amount);
-        participantsCountLabel.setText(Integer.toString(participantsCount));
     }
 }
