@@ -46,6 +46,8 @@ public class MainCtrl {
 
     private HomeCtrl homeCtrl;
     private Scene home;
+//    private ParticipantCtrl participantCtrl;
+//    private Scene participant;
     private MyFXML fxml;
     //step 1 below.
 
