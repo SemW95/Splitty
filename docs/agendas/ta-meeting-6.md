@@ -32,6 +32,7 @@
     - Enable GitLab triageBot (Rens Pols)
     - Working first draft of UI Home (Sem van der Weijden)
     - BASIC UI Admin Credentials (Lukas Millieška)
+    - BASIC UI Expense (Wing Wong)
 - **Issues from the previous sprint which haven't been done (2 min)**
     - Most of the Basic UI issues
     - Issue JPA test Expense class
