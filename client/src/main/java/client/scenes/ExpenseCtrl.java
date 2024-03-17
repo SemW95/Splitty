@@ -1,45 +1,55 @@
 package client.scenes;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
+import javafx.event.ActionEvent;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-public class ExpenseCtrl implements Initializable {
-
-    @FXML
-    private AnchorPane anchorPane;
+public class ExpenseCtrl {
 
     @FXML
     private Label expenseNameLabel;
 
     @FXML
-    private Label amountLabel;
+    private Label paidAmountLabel;
+
+    @FXML
+    private Label participantsCountLabel;
+
+    @FXML
+    private Button addButton;
+
+    @FXML
+    private Button manageButton;
 
     @FXML
     private Button closeButton;
 
-    // You can add more FXML-injected components here
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        // Initialize your controller here
-        // You can access FXML components and perform any necessary setup
-        // For example:
-        expenseNameLabel.setText("Expense Name");
-        amountLabel.setText("$ 230,15");
-
-        // You can also attach event handlers to components here
-        closeButton.setOnAction(event -> handleCloseButtonClicked());
+    // This method will be invoked when the add participant button is clicked
+    @FXML
+    private void onAddParticipantButtonClick(ActionEvent event) {
+        // Implement functionality to handle add participant button click
+        System.out.println("Add Participant button clicked!");
     }
 
-    // Event handler for the close button
-    private void handleCloseButtonClicked() {
-        // Implement what should happen when the close button is clicked
+    // This method will be invoked when the manage button is clicked
+    @FXML
+    private void onManageButtonClick(ActionEvent event) {
+        // Implement functionality to handle manage button click
+        System.out.println("Manage button clicked!");
+    }
+
+    // This method will be invoked when the close button is clicked
+    @FXML
+    private void onCloseButtonClick(ActionEvent event) {
+        // Implement functionality to handle close button click
         System.out.println("Close button clicked!");
+    }
+
+    // Method to update the UI with expense details
+    public void updateExpenseDetails(String name, String amount, int participantsCount) {
+        expenseNameLabel.setText(name);
+        paidAmountLabel.setText(amount);
+        participantsCountLabel.setText(Integer.toString(participantsCount));
     }
 }

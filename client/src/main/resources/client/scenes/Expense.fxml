@@ -20,15 +20,7 @@
             <Font size="32.0" />
          </font>
       </Label>
-      <Button layoutX="541.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: #ffea00; -fx-padding: 4px 8px; -fx-text-fill: #837800; -fx-border-radius: 12px; -fx-background-radius: 12px;">
-         <graphic>
-            <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-               <image>
-                  <Image url="@../icons/close.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
+      <Button layoutX="541.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: transparent;" />
       <Button layoutX="308.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="277.0" style="-fx-background-color: #c4fffe; -fx-padding: 4px 8px; -fx-text-fill: #769e9d; -fx-border-radius: 12px; -fx-background-radius: 12px;" text="ADD PARTICIPANT" textFill="#769e9d" />
       <Button layoutX="14.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="277.0" style="-fx-background-color: ffde83; -fx-padding: 4px 8px; -fx-text-fill: #867544; -fx-border-radius: 12px; -fx-background-radius: 12px;" text="MANAGE" textFill="#867544" />
       <Label contentDisplay="RIGHT" layoutX="545.0" layoutY="65.0" text="5">
@@ -97,5 +89,10 @@
             </AnchorPane>
          </children>
       </FlowPane>
+      <ImageView fitHeight="30.0" fitWidth="21.0" layoutX="562.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+         <image>
+            <Image url="@../icons/close.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
