@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootAnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.ExpenseOverviewCtrl">
+   <children>
+      <Label fx:id="expenseNameLabel" layoutX="14.0" layoutY="14.0" text="Expense Name">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="expenseAmountLabel" layoutX="14.0" layoutY="59.0" text="\$ 230,15">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Label>
+      <Button layoutX="541.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: transparent;" />
+      <Button fx:id="addParticipantButton" layoutX="308.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="277.0" style="-fx-background-color: #c4fffe; -fx-padding: 4px 8px; -fx-text-fill: #769e9d; -fx-border-radius: 12px; -fx-background-radius: 12px;" text="ADD PARTICIPANT" textFill="#769e9d" />
+      <Button fx:id="manageButton" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="277.0" style="-fx-background-color: ffde83; -fx-padding: 4px 8px; -fx-text-fill: #867544; -fx-border-radius: 12px; -fx-background-radius: 12px;" text="MANAGE" textFill="#867544" />
+      <Label fx:id="participantCountLabel" contentDisplay="RIGHT" layoutX="545.0" layoutY="65.0" text="5">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/users.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Label>
+      <Label fx:id="tagLabel" layoutX="198.0" layoutY="23.0" style="-fx-background-color: ff7d7d; -fx-padding: 4px 8px; -fx-text-fill: #864444; -fx-border-radius: 12px; -fx-background-radius: 12px;" text="Food" textFill="#864444">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <ScrollPane layoutX="10.0" layoutY="110.0" prefHeight="250.0" prefWidth="580.0" style="-fx-vbar-policy: NEVER; -fx-hbar-policy: never;">
+         <content>
+            <FlowPane fx:id="participantsFlowPane" layoutX="10.0" layoutY="110.0" prefHeight="250.0" prefWidth="580.0">
+<!--                        Originally, there were 5 participant cards here to realise the design in scenebuilder. the flowpane needs dynamic sizing for whatever size the expense participant list is-->
+<!--                        so now they are no longer hardcoded here, and instead generated in the object controller-->
+
+
+<!--                        <children>-->
+<!--                           <AnchorPane prefHeight="50.0" prefWidth="290.0" style="-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;">-->
+<!--                              <children>-->
+<!--                                 <Label layoutX="14.0" layoutY="8.0" text="\@participant1">-->
+<!--                                    <font>-->
+<!--                                       <Font name="System Bold" size="24.0" />-->
+<!--                                    </font>-->
+<!--                                 </Label>-->
+<!--                              </children>-->
+<!--                           </AnchorPane>-->
+<!--                           <AnchorPane prefHeight="50.0" prefWidth="290.0" style="-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;">-->
+<!--                              <children>-->
+<!--                                 <Label layoutX="14.0" layoutY="8.0" text="\@participant1">-->
+<!--                                    <font>-->
+<!--                                       <Font name="System Bold" size="24.0" />-->
+<!--                                    </font>-->
+<!--                                 </Label>-->
+<!--                              </children>-->
+<!--                           </AnchorPane>-->
+<!--                           <AnchorPane prefHeight="50.0" prefWidth="290.0" style="-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;">-->
+<!--                              <children>-->
+<!--                                 <Label layoutX="14.0" layoutY="8.0" text="\@participant1">-->
+<!--                                    <font>-->
+<!--                                       <Font name="System Bold" size="24.0" />-->
+<!--                                    </font>-->
+<!--                                 </Label>-->
+<!--                              </children>-->
+<!--                           </AnchorPane>-->
+<!--                           <AnchorPane prefHeight="50.0" prefWidth="290.0" style="-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;">-->
+<!--                              <children>-->
+<!--                                 <Label layoutX="14.0" layoutY="8.0" text="\@participant1">-->
+<!--                                    <font>-->
+<!--                                       <Font name="System Bold" size="24.0" />-->
+<!--                                    </font>-->
+<!--                                 </Label>-->
+<!--                              </children>-->
+<!--                           </AnchorPane>-->
+<!--                           <AnchorPane prefHeight="50.0" prefWidth="290.0" style="-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;">-->
+<!--                              <children>-->
+<!--                                 <Label layoutX="14.0" layoutY="8.0" text="\@participant1">-->
+<!--                                    <font>-->
+<!--                                       <Font name="System Bold" size="24.0" />-->
+<!--                                    </font>-->
+<!--                                 </Label>-->
+<!--                              </children>-->
+<!--                           </AnchorPane>-->
+<!--                        </children>-->
+            </FlowPane>
+         </content>
+      </ScrollPane>
+      <ImageView fitHeight="30.0" fitWidth="21.0" layoutX="562.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+         <image>
+            <Image url="@../icons/close.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

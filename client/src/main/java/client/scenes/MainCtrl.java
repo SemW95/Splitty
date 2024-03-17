@@ -45,11 +45,12 @@ public class MainCtrl {
     */
     private Stage primaryStage;
     private Stage adminCredentialsPopup;
-
     private HomeCtrl homeCtrl;
     private Scene home;
     private AdminCredentialsCtrl adminCredentialsCtrl;
     private Scene adminCredentials;
+    private ExpenseOverviewCtrl expenseOverviewCtrl;
+    private Scene expenseOverview;
     //private ParticipantCtrl participantCtrl;
     //private Scene participant;
     private MyFXML fxml;
@@ -62,9 +63,11 @@ public class MainCtrl {
      * @param fxml                 MyFXML class
      * @param homePair             a pair of the home controller and node
      * @param adminCredentialsPair a pair of the admin credentials controller and node
+     * @param expenseOverviewPair  a pair of the expense overview controller and node
      */
     public void initialize(Stage primaryStage, MyFXML fxml, Pair<HomeCtrl, Parent> homePair,
-                           Pair<AdminCredentialsCtrl, Parent> adminCredentialsPair) {
+                           Pair<AdminCredentialsCtrl, Parent> adminCredentialsPair,
+                           Pair<ExpenseOverviewCtrl, Parent> expenseOverviewPair) {
         this.primaryStage = primaryStage;
         this.fxml = fxml;
 
@@ -75,8 +78,39 @@ public class MainCtrl {
         this.adminCredentialsCtrl = adminCredentialsPair.getKey();
         this.adminCredentials = new Scene(adminCredentialsPair.getValue());
 
+        this.expenseOverviewCtrl = expenseOverviewPair.getKey();
+        this.expenseOverview = new Scene(expenseOverviewPair.getValue());
+
         showHome();
         primaryStage.show();
+
+        //        Wing debug dummy expense scene
+
+        //        primaryStage.setScene(expenseOverview);
+        //
+        //        Instant now = Instant.now();
+        //
+        //        Person person1 = new Person("Alice", "needs a surname", "Alice@domain.com",
+        //            "AL35202111090000000001234567",
+        //            "ZUOBJEO6XXX");
+        //        Person person2 = new Person("John", "needs a surname", "Alice@domain.com",
+        //            "AD1400080001001234567890",
+        //            "ZUOBJEO6XXX");
+        //        Person person3 = new Person("Henry", "needs a surname", "henry@domain.com",
+        //            "AD1400080001001234567890",
+        //            "ZUOBJEO9XXX");
+        //
+        //        Tag tag1 = new Tag("Food", new Colour("#0000FF"));
+        //
+        //        ArrayList<Person> participants = new ArrayList<>();
+        //        participants.add(person1);
+        //        participants.add(person2);
+        //        participants.add(person3);
+        //
+        //        Expense expense1 =
+        //            new Expense("Food", participants, person1, new BigDecimal(14.00), tag1, now);
+        //        expenseOverviewCtrl.setExpense(expense1);
+        //        expenseOverviewCtrl.populate();
     }
 
     /**
@@ -108,14 +142,18 @@ public class MainCtrl {
         // STEP 7
         // TODO: maybe find a way to remove the code duplication
         var homePair = fxml.load(HomeCtrl.class, "client", "scenes", "Home.fxml");
-        var adminCredentialsPair =
-            fxml.load(AdminCredentialsCtrl.class, "client", "scenes", "AdminCredentials.fxml");
-
         this.homeCtrl = homePair.getKey();
         this.home = new Scene(homePair.getValue());
 
+        var adminCredentialsPair =
+            fxml.load(AdminCredentialsCtrl.class, "client", "scenes", "AdminCredentials.fxml");
         this.adminCredentialsCtrl = adminCredentialsPair.getKey();
         this.adminCredentials = new Scene(adminCredentialsPair.getValue());
+
+        var expenseOverviewPair =
+            fxml.load(ExpenseOverviewCtrl.class, "client", "scenes", "ExpenseOverview.fxml");
+        this.expenseOverviewCtrl = expenseOverviewPair.getKey();
+        this.expenseOverview = new Scene(expenseOverviewPair.getValue());
 
         showHome();
     }
