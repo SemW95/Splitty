@@ -28,7 +28,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
 /**
- * Home screen.
+ * Participant screen.
  */
 public class ParticipantCtrl implements Initializable {
 
