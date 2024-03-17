@@ -24,6 +24,15 @@ class ExpenseRepositoryTest {
     @Autowired
     private ExpenseRepository expenseRepository;
 
+    @Autowired
+    private PersonRepository personRepository;
+
+    @Autowired
+    private TagRepository tagRepository;
+
+    @Autowired
+    private ColourRepository colourRepository;
+
     private Expense testExpense1;
 
 
@@ -40,9 +49,18 @@ class ExpenseRepositoryTest {
         participants1.add(testPerson3);
         participants1.add(testPerson4);
         participants1.add(testPerson5);
+        personRepository.saveAll(List.of(testPerson1, testPerson2, testPerson3, testPerson4, testPerson5));
 
         BigDecimal paid1 = BigDecimal.valueOf(250);
-        Tag tag1 = new Tag("Faint Sunshine", new Colour("#FDFD96"));
+
+        Colour faintSunshine = new Colour("#FDFD96");
+        colourRepository.saveAll(List.of(faintSunshine));
+
+
+        Tag tag1 = new Tag("Faint Sunshine", faintSunshine );
+        tagRepository.saveAll(List.of(tag1));
+
+
         Instant paymentDateTime1 = Instant.ofEpochMilli(712000712);
 
         testExpense1 = new Expense("pay for drinks", participants1, testPerson2, paid1, tag1, paymentDateTime1);
@@ -67,18 +85,6 @@ class ExpenseRepositoryTest {
         assertEquals(testExpense1.getParticipants(), e1.getParticipants());
         assertEquals(testExpense1.getDescription(), e1.getDescription());
         assertEquals(testExpense1.getPaymentDateTime(), e1.getPaymentDateTime());
-
-
-
-        Expense e2 = expenseRepository.findById(testExpense1.getId()).orElse(null);
-        assertNotNull(e2);
-
-        assertEquals(testExpense1.getDescription(), e2.getDescription());
-        assertEquals(testExpense1.getPaid(), e2.getPaid());
-        assertEquals(testExpense1.getReceiver(), e2.getReceiver());
-        assertEquals(testExpense1.getParticipants(), e2.getParticipants());
-        assertEquals(testExpense1.getDescription(), e2.getDescription());
-        assertEquals(testExpense1.getPaymentDateTime(), e2.getPaymentDateTime());
     }
 
     @Test
@@ -94,18 +100,5 @@ class ExpenseRepositoryTest {
         assertEquals(testExpense1.getParticipants(), e1.getParticipants());
         assertEquals(testExpense1.getDescription(), e1.getDescription());
         assertEquals(testExpense1.getPaymentDateTime(), e1.getPaymentDateTime());
-
-
-
-        List<Expense> elist2 = expenseRepository.findByDescriptionContainingIgnoreCase(testExpense1.getDescription());
-        Expense e2 = elist2.get(0);
-        assertNotNull(e2);
-
-        assertEquals(testExpense1.getDescription(), e2.getDescription());
-        assertEquals(testExpense1.getPaid(), e2.getPaid());
-        assertEquals(testExpense1.getReceiver(), e2.getReceiver());
-        assertEquals(testExpense1.getParticipants(), e2.getParticipants());
-        assertEquals(testExpense1.getDescription(), e2.getDescription());
-        assertEquals(testExpense1.getPaymentDateTime(), e2.getPaymentDateTime());
     }
 }
