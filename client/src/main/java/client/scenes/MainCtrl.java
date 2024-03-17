@@ -50,6 +50,8 @@ public class MainCtrl {
     private Scene home;
     private AdminCredentialsCtrl adminCredentialsCtrl;
     private Scene adminCredentials;
+    //private ParticipantCtrl participantCtrl;
+    //private Scene participant;
     private MyFXML fxml;
     //step 1 below.
 
@@ -82,6 +84,7 @@ public class MainCtrl {
      */
     public void showHome() {
         primaryStage.setTitle(fxml.getBundle().getString("home.title"));
+        homeCtrl.getData();
         primaryStage.setScene(home);
     }
 

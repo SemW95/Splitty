@@ -1,19 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.HomeCtrl">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.HomeCtrl">
    <children>
-      <Label layoutX="25.0" layoutY="25.0" style="-fx-font-weight: bold; -fx-font-size: 25;" text="SPLITY: Going Dutch">
-         <font>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="83.0" layoutX="-5.0" layoutY="-4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="611.0">
+         <effect>
+            <DropShadow height="26.93" radius="6.2325" width="0.0" />
+         </effect>
+      </Rectangle>
+      <Text layoutX="20.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 15; -fx-font-weight: bold;" text="Event Overview" />
+      <Button layoutX="435.0" layoutY="27.0" mnemonicParsing="false" onAction="#clickLanguage" prefHeight="25.0" prefWidth="65.0" text="%home.language" />
+      <Button layoutX="515.0" layoutY="27.0" mnemonicParsing="false" onAction="#clickCurrency" prefHeight="25.0" prefWidth="59.0" text="%home.currency" />
+      <Button layoutX="406.0" layoutY="370.0" mnemonicParsing="false" onAction="#clickAdminView" text="Admin view" />
+      <Button layoutX="515.0" layoutY="369.0" mnemonicParsing="false" onAction="#clickSettings" prefHeight="25.0" prefWidth="65.0" text="Settings" />
+      <Button layoutX="-28.0" layoutY="17.0" mnemonicParsing="false" onAction="#clickHome" prefHeight="44.0" prefWidth="281.0" style="-fx-background-color: transparent; -fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 20;" text="SPLITY: Going Dutch">
+          <font>
             <Font size="14.0" />
          </font>
-      </Label>
-      <ListView fixedCellSize="6.0" layoutY="123.0" prefHeight="277.0" prefWidth="600.0" />
-      <Button layoutX="518.0" layoutY="25.0" mnemonicParsing="false" onAction="#clickLanguage" text="%home.language" />
-      <Button layoutX="520.0" layoutY="61.0" mnemonicParsing="false" onAction="#clickCurrency" text="%home.currency" />
-      <Button layoutX="405.0" layoutY="25.0" mnemonicParsing="false" onAction="#clickAdminView" text="Admin view" />
+      </Button>
+      <Button layoutX="480.0" layoutY="85.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="25.0" prefWidth="94.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="Add Event" />
+      <ListView fx:id="listView" layoutY="116.0" prefHeight="246.0" prefWidth="600.0" style="-fx-border-width: 0;" />
+      <ComboBox fx:id="dropDown" layoutX="242.0" layoutY="27.0" prefWidth="150.0" style="-fx-background-color: white;">
+         <effect>
+            <DropShadow color="#00000068" height="22.24" radius="10.25" width="20.76" />
+         </effect>
+      </ComboBox>
    </children>
 </Pane>
