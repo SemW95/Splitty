@@ -45,14 +45,14 @@
 
 ## Talking Points (20 min)
 - **Talking Points: (Inform/ brainstorm/ decision-making/ discuss)**
-    - Behind schedule (compared to the planning on Brightspace) (inform):
+    - Behind schedule (compared to the planning on Brightspace) (*inform*):
         - Look at the assessment part of the Technology assignment
         - Focus on project completion over lines of code
-    - Plan of action for the coming weeks (discuss and decision-making)
-    - Divide UI issues and deadline (decision-making and discuss)
+    - Plan of action for the coming weeks (*discuss and decision-making*)
+    - Divide UI issues and deadline (*decision-making and discuss*)
     - Formative deadlines on 24-03-2004 (Sunday): HCI/Usability, Testing:
-        - Read the corresponding assignments on Brightspace after the meeting (inform)
-    - Code of Conduct: improve based on feedback from the TA and make changes if needed to ensure alignment with the reality (discuss)
+        - Read the corresponding assignments on Brightspace after the meeting (*inform*)
+    - Code of Conduct: improve based on feedback from the TA and make changes if needed to ensure alignment with the reality (*discuss*)
 
 
 **NOTE: anything that was skipped or unclear will be discussed in detail after the TA meeting.**
