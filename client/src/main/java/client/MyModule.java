@@ -16,6 +16,7 @@
 
 package client;
 
+import client.scenes.AdminCredentialsCtrl;
 import client.scenes.HomeCtrl;
 import client.scenes.MainCtrl;
 import com.google.inject.Binder;
@@ -31,6 +32,7 @@ public class MyModule implements Module {
     public void configure(Binder binder) {
         binder.bind(MainCtrl.class).in(Scopes.SINGLETON);
         binder.bind(HomeCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(AdminCredentialsCtrl.class).in(Scopes.SINGLETON);
         //Step 5 add new page here
     }
 }

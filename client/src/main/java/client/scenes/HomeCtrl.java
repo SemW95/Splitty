@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -123,5 +124,10 @@ public class HomeCtrl implements Initializable {
      */
     public void addEvent() {
         System.out.println("Pressed add event");
+    }
+
+    @FXML
+    private void clickAdminView(ActionEvent actionEvent) {
+        mainCtrl.showAdminCredentialsPopup();
     }
 }
