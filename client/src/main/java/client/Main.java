@@ -18,6 +18,7 @@ package client;
 
 import static com.google.inject.Guice.createInjector;
 
+import client.scenes.ExpenseOverviewCtrl;
 import client.scenes.HomeCtrl;
 import client.scenes.MainCtrl;
 import com.google.inject.Injector;
@@ -41,7 +42,12 @@ public class Main extends Application {
         var home = FXML.load(HomeCtrl.class, "client", "scenes", "Home.fxml");
         //step 6 add new page here
 
+        var expenseOverview = FXML.load(ExpenseOverviewCtrl.class, "client", "scenes", "ExpenseOverview.fxml");
+
+
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, FXML, home);
+        mainCtrl.initialize(primaryStage, FXML, home, expenseOverview);
+
+
     }
 }

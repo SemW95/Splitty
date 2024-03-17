@@ -3,10 +3,14 @@ package client.scenes;
 import commons.Expense;
 import commons.Person;
 import commons.Tag;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -14,9 +18,9 @@ import javafx.scene.text.Font;
 /**
  * Controller class for the Expense Overview FXML UI.
  */
-public class ExpenseOverviewCtrl {
+public class ExpenseOverviewCtrl implements Initializable {
 
-    Tag tag;
+
     @FXML
     private AnchorPane rootAnchorPane;
     @FXML
@@ -34,11 +38,19 @@ public class ExpenseOverviewCtrl {
     @FXML
     private FlowPane participantsFlowPane;
     private Expense expense;
+    private Tag tag;
+    private ResourceBundle resources;
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        this.resources = resources;
+    }
 
     /**
-     * Initialises the UI with appropiate data from the expense object.
+     * populates the UI with appropiate data from the expense object.
      */
-    public void initialize() {
+    public void populate() {
         // Initialize UI with expense data
         expenseNameLabel.setText(expense.getDescription());
         expenseAmountLabel.setText("€ " + expense.getPaid().toString());
@@ -47,15 +59,19 @@ public class ExpenseOverviewCtrl {
         // tag and its style
         tag = expense.getTag();
         tagLabel.setText(tag.getName());
+
         // background color
-        String backgroundColor = tag.getColour().toHexString();
-        rootAnchorPane.setStyle("-fx-background-color: " + backgroundColor + ";");
+        tagLabel.setBackground(Background.fill(Color.web(tag.getColour().toHexString())));
+
         // text color with 50% brightness
-        int red = tag.getColour().getRed() / 2;
-        int green = tag.getColour().getGreen() / 2;
-        int blue = tag.getColour().getBlue() / 2;
-        Color textColor = Color.valueOf(String.format("#%02x%02x%02x", red, green, blue));
-        tagLabel.setTextFill(textColor);
+        int red = tag.getColour().getRed();
+        int green = tag.getColour().getGreen();
+        int blue = tag.getColour().getBlue();
+        if (red * 0.299 + green * 0.587 + blue * 0.114 > 186) {
+            tagLabel.setTextFill(Color.web("#000000"));
+        } else {
+            tagLabel.setTextFill(Color.web("#ffffff"));
+        }
 
 
         // Populate participants
@@ -65,6 +81,11 @@ public class ExpenseOverviewCtrl {
         }
     }
 
+    /**
+     * Creates a new Participant card for the dynamically scaled FlowPane.
+     * @param participant
+     * @return
+     */
     private AnchorPane createParticipantCard(Person participant) {
         AnchorPane card = new AnchorPane();
         card.setPrefSize(290, 50);
@@ -87,17 +108,15 @@ public class ExpenseOverviewCtrl {
 
     @FXML
     private void onAddParticipantClicked() {
-        // Handle add participant button click
-        // Implementation as per your requirements
+        // TODO go to add participant UI
+        System.out.println("Pressed add participant button.");
     }
 
     @FXML
     private void onManageClicked() {
-        // Handle manage button click
-        // Implementation as per your requirements
+        // TODO go to EDIT expense UI
+        System.out.println("Pressed currency.");
     }
-
-    // Other methods and event handlers as needed
 
     public void setExpense(Expense expense) {
         this.expense = expense;

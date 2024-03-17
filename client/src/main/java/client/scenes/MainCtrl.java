@@ -17,6 +17,13 @@
 package client.scenes;
 
 import client.MyFXML;
+import commons.Colour;
+import commons.Expense;
+import commons.Person;
+import commons.Tag;
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Locale;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -46,6 +53,8 @@ public class MainCtrl {
 
     private HomeCtrl homeCtrl;
     private Scene home;
+    private ExpenseOverviewCtrl expenseOverviewCtrl;
+    private Scene expenseOverview;
     private MyFXML fxml;
     //step 1 below.
 
@@ -56,7 +65,8 @@ public class MainCtrl {
      * @param fxml         the loaded Home controller
      * @param homePair     a pair of the home controller and node
      */
-    public void initialize(Stage primaryStage, MyFXML fxml, Pair<HomeCtrl, Parent> homePair) {
+    public void initialize(Stage primaryStage, MyFXML fxml, Pair<HomeCtrl, Parent> homePair,
+                           Pair<ExpenseOverviewCtrl, Parent> expenseOverviewPair) {
         this.primaryStage = primaryStage;
         this.fxml = fxml;
 
@@ -64,8 +74,41 @@ public class MainCtrl {
         this.homeCtrl = homePair.getKey();
         this.home = new Scene(homePair.getValue());
 
+        this.expenseOverviewCtrl = expenseOverviewPair.getKey();
+        this.expenseOverview = new Scene(expenseOverviewPair.getValue());
+
         showHome();
         primaryStage.show();
+
+        primaryStage.setScene(expenseOverview);
+
+        Expense expense1;
+        Expense expense2;
+        Person person1;
+        Person person2;
+        Tag tag1;
+        Tag tag2;
+        ArrayList<Person> participants;
+        Instant now = Instant.now();
+
+        person1 = new Person("Alice", "needs a surname", "Alice@domain.com",
+            "AL35202111090000000001234567",
+            "ZUOBJEO6XXX");
+        person2 = new Person("John", "needs a surname", "Alice@domain.com",
+            "AD1400080001001234567890",
+            "ZUOBJEO6XXX");
+
+        tag1 = new Tag("Food", new Colour("#0000FF"));
+        tag2 = new Tag("Drinks", new Colour("#FFC0CB"));
+
+        participants = new ArrayList<>();
+        participants.add(person1);
+
+        expense1 = new Expense("Food", participants, person1, new BigDecimal(14.00), tag1, now);
+        expense2 = new Expense("Food", participants, person1, new BigDecimal(14.00), tag1,
+            now);
+        expenseOverviewCtrl.setExpense(expense1);
+        expenseOverviewCtrl.populate();
     }
 
     /**
@@ -96,9 +139,14 @@ public class MainCtrl {
         // STEP 7
         // TODO: maybe find a way to remove the code duplication
         var homePair = fxml.load(HomeCtrl.class, "client", "scenes", "Home.fxml");
+        var expenseOverviewPair =
+            fxml.load(ExpenseOverviewCtrl.class, "client", "scenes", "ExpenseOverview.fxml");
 
         this.homeCtrl = homePair.getKey();
         this.home = new Scene(homePair.getValue());
+
+        this.expenseOverviewCtrl = expenseOverviewPair.getKey();
+        this.expenseOverview = new Scene(expenseOverviewPair.getValue());
 
         showHome();
     }
