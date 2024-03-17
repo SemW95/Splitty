@@ -7,10 +7,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -24,7 +24,7 @@ public class Expense {
     long id;
     String description;
     @ManyToMany
-    ArrayList<Person> participants;
+    List<Person> participants;
     @ManyToOne
     Person receiver;
     BigDecimal paid;
@@ -81,7 +81,7 @@ public class Expense {
      */
     public Expense(
         String description,
-        ArrayList<Person> participants,
+        List<Person> participants,
         Person receiver,
         BigDecimal paid,
         Tag tag,
@@ -146,16 +146,12 @@ public class Expense {
             && Objects.equals(paymentDateTime, expense.paymentDateTime);
     }
 
-    public long getId() {
-        return id;
-    }
-
     @Override
     public int hashCode() {
         return Objects.hash(id, description, participants, receiver, paid, tag, paymentDateTime);
     }
 
-    public ArrayList<Person> getParticipants() {
+    public List<Person> getParticipants() {
         return participants;
     }
 
@@ -195,4 +191,7 @@ public class Expense {
         this.paymentDateTime = creationDate;
     }
 
+    public long getId() {
+        return id;
+    }
 }

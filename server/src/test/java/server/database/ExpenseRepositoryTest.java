@@ -25,45 +25,35 @@ class ExpenseRepositoryTest {
     private ExpenseRepository expenseRepository;
 
     private Expense testExpense1;
-    private Expense testExpense2;
 
 
     @BeforeEach
     void setUp() {
-        // Initialize test data before each test method
         Person testPerson1 = new Person("Alice", "Hennessy", "aliceh@domain.name", "NL80RABO3330533676", "ABNANL2A");
         Person testPerson2 = new Person("Bobertus", "Fireball", "bobf@domain.name", "NL92RABO4452759149", "AGBLLT2X");
         Person testPerson3 = new Person("Charlie", "Smith", "charlies@domain.name", "GB94BARC10201530093459", "BOFAUS3N");
         Person testPerson4 = new Person("David", "Brown", "davidb@domain.name", "NL18ABNA2262368678", "DEUTDEFF");
         Person testPerson5 = new Person("Eve", "Johnson", "evej@domain.name", "NL24RABO8487376045", "BNPAFRPP");
 
-        //expense 1; alice paid 120
-        testExpense1 = new Expense(testPerson1, BigDecimal.valueOf(120));
-
-
-
-        String description1;
-        ArrayList<Person> participants1 = new ArrayList<>();
+        List<Person> participants1 = new ArrayList<>();
         participants1.add(testPerson1);
         participants1.add(testPerson3);
         participants1.add(testPerson4);
         participants1.add(testPerson5);
-        Person receiver1 = testPerson2;
+
         BigDecimal paid1 = BigDecimal.valueOf(250);
         Tag tag1 = new Tag("Faint Sunshine", new Colour("#FDFD96"));
         Instant paymentDateTime1 = Instant.ofEpochMilli(712000712);
-        //4 people should pay Bobertus for paying for drinks
-        testExpense2 = new Expense("pay for drinks", participants1, receiver1, paid1, tag1, paymentDateTime1);
+
+        testExpense1 = new Expense("pay for drinks", participants1, testPerson2, paid1, tag1, paymentDateTime1);
 
         expenseRepository.save(testExpense1);
-        expenseRepository.save(testExpense2);
     }
+
 
     @AfterEach
     void tearDown() {
-        // Release test data after each test method
         expenseRepository.delete(testExpense1);
-        expenseRepository.delete(testExpense2);
     }
 
     @Test
@@ -74,7 +64,7 @@ class ExpenseRepositoryTest {
         assertEquals(testExpense1.getDescription(), e1.getDescription());
         assertEquals(testExpense1.getPaid(), e1.getPaid());
         assertEquals(testExpense1.getReceiver(), e1.getReceiver());
-//        assertEquals(testExpense1.getParticipants(), e1.getParticipants());
+        assertEquals(testExpense1.getParticipants(), e1.getParticipants());
         assertEquals(testExpense1.getDescription(), e1.getDescription());
         assertEquals(testExpense1.getPaymentDateTime(), e1.getPaymentDateTime());
 
@@ -86,14 +76,14 @@ class ExpenseRepositoryTest {
         assertEquals(testExpense1.getDescription(), e2.getDescription());
         assertEquals(testExpense1.getPaid(), e2.getPaid());
         assertEquals(testExpense1.getReceiver(), e2.getReceiver());
-//        assertEquals(testExpense1.getParticipants(), e2.getParticipants());
+        assertEquals(testExpense1.getParticipants(), e2.getParticipants());
         assertEquals(testExpense1.getDescription(), e2.getDescription());
         assertEquals(testExpense1.getPaymentDateTime(), e2.getPaymentDateTime());
     }
 
     @Test
     void testFindByDescription() {
-        List<Expense> elist1 = expenseRepository.findByDescription(testExpense1.getDescription().substring(3,10));
+        List<Expense> elist1 = expenseRepository.findByDescriptionContainingIgnoreCase(testExpense1.getDescription());
 
         Expense e1 = elist1.get(0);
         assertNotNull(e1);
@@ -101,20 +91,20 @@ class ExpenseRepositoryTest {
         assertEquals(testExpense1.getDescription(), e1.getDescription());
         assertEquals(testExpense1.getPaid(), e1.getPaid());
         assertEquals(testExpense1.getReceiver(), e1.getReceiver());
-//        assertEquals(testExpense1.getParticipants(), e1.getParticipants());
+        assertEquals(testExpense1.getParticipants(), e1.getParticipants());
         assertEquals(testExpense1.getDescription(), e1.getDescription());
         assertEquals(testExpense1.getPaymentDateTime(), e1.getPaymentDateTime());
 
 
 
-        List<Expense> elist2 = expenseRepository.findByDescription(testExpense1.getDescription().substring(2,7));
+        List<Expense> elist2 = expenseRepository.findByDescriptionContainingIgnoreCase(testExpense1.getDescription());
         Expense e2 = elist2.get(0);
         assertNotNull(e2);
 
         assertEquals(testExpense1.getDescription(), e2.getDescription());
         assertEquals(testExpense1.getPaid(), e2.getPaid());
         assertEquals(testExpense1.getReceiver(), e2.getReceiver());
-//        assertEquals(testExpense1.getParticipants(), e2.getParticipants());
+        assertEquals(testExpense1.getParticipants(), e2.getParticipants());
         assertEquals(testExpense1.getDescription(), e2.getDescription());
         assertEquals(testExpense1.getPaymentDateTime(), e2.getPaymentDateTime());
     }
