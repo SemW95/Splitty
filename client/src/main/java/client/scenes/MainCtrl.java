@@ -17,16 +17,10 @@
 package client.scenes;
 
 import client.MyFXML;
-//import commons.Colour;
-//import commons.Expense;
-//import commons.Person;
-//import commons.Tag;
-//import java.math.BigDecimal;
-//import java.time.Instant;
-//import java.util.ArrayList;
 import java.util.Locale;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
@@ -50,22 +44,29 @@ public class MainCtrl {
     Step 7: add the same to the refresh method. Also add more stuff there too. Kind of TODO
     */
     private Stage primaryStage;
-
+    private Stage adminCredentialsPopup;
     private HomeCtrl homeCtrl;
     private Scene home;
+    private AdminCredentialsCtrl adminCredentialsCtrl;
+    private Scene adminCredentials;
     private ExpenseOverviewCtrl expenseOverviewCtrl;
     private Scene expenseOverview;
+    //private ParticipantCtrl participantCtrl;
+    //private Scene participant;
     private MyFXML fxml;
     //step 1 below.
 
     /**
      * Main controller initialization.
      *
-     * @param primaryStage the primary stage
-     * @param fxml         the loaded Home controller
-     * @param homePair     a pair of the home controller and node
+     * @param primaryStage         the primary stage
+     * @param fxml                 MyFXML class
+     * @param homePair             a pair of the home controller and node
+     * @param adminCredentialsPair a pair of the admin credentials controller and node
+     * @param expenseOverviewPair  a pair of the expense overview controller and node
      */
     public void initialize(Stage primaryStage, MyFXML fxml, Pair<HomeCtrl, Parent> homePair,
+                           Pair<AdminCredentialsCtrl, Parent> adminCredentialsPair,
                            Pair<ExpenseOverviewCtrl, Parent> expenseOverviewPair) {
         this.primaryStage = primaryStage;
         this.fxml = fxml;
@@ -73,6 +74,9 @@ public class MainCtrl {
         //add step 2 and 3 below.
         this.homeCtrl = homePair.getKey();
         this.home = new Scene(homePair.getValue());
+
+        this.adminCredentialsCtrl = adminCredentialsPair.getKey();
+        this.adminCredentials = new Scene(adminCredentialsPair.getValue());
 
         this.expenseOverviewCtrl = expenseOverviewPair.getKey();
         this.expenseOverview = new Scene(expenseOverviewPair.getValue());
@@ -114,6 +118,7 @@ public class MainCtrl {
      */
     public void showHome() {
         primaryStage.setTitle(fxml.getBundle().getString("home.title"));
+        homeCtrl.getData();
         primaryStage.setScene(home);
     }
 
@@ -137,16 +142,58 @@ public class MainCtrl {
         // STEP 7
         // TODO: maybe find a way to remove the code duplication
         var homePair = fxml.load(HomeCtrl.class, "client", "scenes", "Home.fxml");
+        var adminCredentialsPair =
+            fxml.load(AdminCredentialsCtrl.class, "client", "scenes", "AdminCredentials.fxml");
         var expenseOverviewPair =
             fxml.load(ExpenseOverviewCtrl.class, "client", "scenes", "ExpenseOverview.fxml");
 
         this.homeCtrl = homePair.getKey();
         this.home = new Scene(homePair.getValue());
 
+        this.adminCredentialsCtrl = adminCredentialsPair.getKey();
+        this.adminCredentials = new Scene(adminCredentialsPair.getValue());
+
         this.expenseOverviewCtrl = expenseOverviewPair.getKey();
         this.expenseOverview = new Scene(expenseOverviewPair.getValue());
 
         showHome();
+    }
+
+    /**
+     * Creates an admin credential popup (dialog window) that blocks other windows.
+     * Should never be called twice before closing one of the popups.
+     */
+    public void showAdminCredentialsPopup() {
+        adminCredentialsPopup = new Stage();
+        // Set it to block other windows (you can only click on this popup)
+        adminCredentialsPopup.initModality(Modality.APPLICATION_MODAL);
+        adminCredentialsPopup.initOwner(primaryStage);
+        adminCredentialsPopup.setTitle("Admin credentials");
+        adminCredentialsPopup.setScene(adminCredentials);
+        // Making it not resizable also sets it to the size specified in the .fxml file
+        // This was the only way I found that fixed that problem
+        // (Except the .setMaximized(true), which makes the window flash when it appears)
+        // Also, this might be a linux issue only
+        adminCredentialsPopup.setResizable(false);
+        adminCredentialsPopup.show();
+    }
+
+    /**
+     * Closes the admin credentials popup.
+     * Should never be called if the popup window is not shown.
+     */
+    public void closeAdminCredentialsPopup() {
+        adminCredentialsPopup.close();
+        adminCredentialsPopup = null;
+    }
+
+    /**
+     * Shows the admin view.
+     * This method should only be called after entering the correct admin password.
+     */
+    public void showAdminView() {
+        // TODO:
+        System.out.println("Show admin view");
     }
     //add step 4 here.
 }
