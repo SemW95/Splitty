@@ -48,53 +48,53 @@
 <!--                        so now they are no longer hardcoded here, and instead generated in the object controller-->
 
 
-                        <children>
-                           <AnchorPane prefHeight="50.0" prefWidth="290.0" style="-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;">
-                              <children>
-                                 <Label layoutX="14.0" layoutY="8.0" text="\@participant1">
-                                    <font>
-                                       <Font name="System Bold" size="24.0" />
-                                    </font>
-                                 </Label>
-                              </children>
-                           </AnchorPane>
-                           <AnchorPane prefHeight="50.0" prefWidth="290.0" style="-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;">
-                              <children>
-                                 <Label layoutX="14.0" layoutY="8.0" text="\@participant1">
-                                    <font>
-                                       <Font name="System Bold" size="24.0" />
-                                    </font>
-                                 </Label>
-                              </children>
-                           </AnchorPane>
-                           <AnchorPane prefHeight="50.0" prefWidth="290.0" style="-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;">
-                              <children>
-                                 <Label layoutX="14.0" layoutY="8.0" text="\@participant1">
-                                    <font>
-                                       <Font name="System Bold" size="24.0" />
-                                    </font>
-                                 </Label>
-                              </children>
-                           </AnchorPane>
-                           <AnchorPane prefHeight="50.0" prefWidth="290.0" style="-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;">
-                              <children>
-                                 <Label layoutX="14.0" layoutY="8.0" text="\@participant1">
-                                    <font>
-                                       <Font name="System Bold" size="24.0" />
-                                    </font>
-                                 </Label>
-                              </children>
-                           </AnchorPane>
-                           <AnchorPane prefHeight="50.0" prefWidth="290.0" style="-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;">
-                              <children>
-                                 <Label layoutX="14.0" layoutY="8.0" text="\@participant1">
-                                    <font>
-                                       <Font name="System Bold" size="24.0" />
-                                    </font>
-                                 </Label>
-                              </children>
-                           </AnchorPane>
-                        </children>
+<!--                        <children>-->
+<!--                           <AnchorPane prefHeight="50.0" prefWidth="290.0" style="-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;">-->
+<!--                              <children>-->
+<!--                                 <Label layoutX="14.0" layoutY="8.0" text="\@participant1">-->
+<!--                                    <font>-->
+<!--                                       <Font name="System Bold" size="24.0" />-->
+<!--                                    </font>-->
+<!--                                 </Label>-->
+<!--                              </children>-->
+<!--                           </AnchorPane>-->
+<!--                           <AnchorPane prefHeight="50.0" prefWidth="290.0" style="-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;">-->
+<!--                              <children>-->
+<!--                                 <Label layoutX="14.0" layoutY="8.0" text="\@participant1">-->
+<!--                                    <font>-->
+<!--                                       <Font name="System Bold" size="24.0" />-->
+<!--                                    </font>-->
+<!--                                 </Label>-->
+<!--                              </children>-->
+<!--                           </AnchorPane>-->
+<!--                           <AnchorPane prefHeight="50.0" prefWidth="290.0" style="-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;">-->
+<!--                              <children>-->
+<!--                                 <Label layoutX="14.0" layoutY="8.0" text="\@participant1">-->
+<!--                                    <font>-->
+<!--                                       <Font name="System Bold" size="24.0" />-->
+<!--                                    </font>-->
+<!--                                 </Label>-->
+<!--                              </children>-->
+<!--                           </AnchorPane>-->
+<!--                           <AnchorPane prefHeight="50.0" prefWidth="290.0" style="-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;">-->
+<!--                              <children>-->
+<!--                                 <Label layoutX="14.0" layoutY="8.0" text="\@participant1">-->
+<!--                                    <font>-->
+<!--                                       <Font name="System Bold" size="24.0" />-->
+<!--                                    </font>-->
+<!--                                 </Label>-->
+<!--                              </children>-->
+<!--                           </AnchorPane>-->
+<!--                           <AnchorPane prefHeight="50.0" prefWidth="290.0" style="-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;">-->
+<!--                              <children>-->
+<!--                                 <Label layoutX="14.0" layoutY="8.0" text="\@participant1">-->
+<!--                                    <font>-->
+<!--                                       <Font name="System Bold" size="24.0" />-->
+<!--                                    </font>-->
+<!--                                 </Label>-->
+<!--                              </children>-->
+<!--                           </AnchorPane>-->
+<!--                        </children>-->
             </FlowPane>
          </content>
       </ScrollPane>

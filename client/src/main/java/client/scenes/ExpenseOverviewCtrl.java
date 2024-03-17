@@ -4,6 +4,7 @@ import commons.Expense;
 import commons.Person;
 import commons.Tag;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -60,8 +62,14 @@ public class ExpenseOverviewCtrl implements Initializable {
         tag = expense.getTag();
         tagLabel.setText(tag.getName());
 
-        // background color
-        tagLabel.setBackground(Background.fill(Color.web(tag.getColour().toHexString())));
+
+        // new background version
+        var oldFills = tagLabel.getBackground().getFills();
+        var newFills = new ArrayList<>(oldFills);
+        newFills.add(new BackgroundFill(Color.web(tag.getColour().toHexString()), null, null));
+        //TODO make sure the background radius property from the css in expenseoverview fxml is not overwritten by this background set call
+
+        tagLabel.setBackground(new Background(newFills, null));
 
         // text color with 50% brightness
         int red = tag.getColour().getRed();

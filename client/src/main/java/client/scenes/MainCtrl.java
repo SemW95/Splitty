@@ -80,14 +80,15 @@ public class MainCtrl {
         showHome();
         primaryStage.show();
 
+//        Wing debug dummy expense scene
+
         primaryStage.setScene(expenseOverview);
 
         Expense expense1;
-        Expense expense2;
         Person person1;
         Person person2;
+        Person person3;
         Tag tag1;
-        Tag tag2;
         ArrayList<Person> participants;
         Instant now = Instant.now();
 
@@ -97,16 +98,18 @@ public class MainCtrl {
         person2 = new Person("John", "needs a surname", "Alice@domain.com",
             "AD1400080001001234567890",
             "ZUOBJEO6XXX");
+        person3 = new Person("Henry", "needs a surname", "henry@domain.com",
+            "AD1400080001001234567890",
+            "ZUOBJEO9XXX");
 
         tag1 = new Tag("Food", new Colour("#0000FF"));
-        tag2 = new Tag("Drinks", new Colour("#FFC0CB"));
 
         participants = new ArrayList<>();
         participants.add(person1);
+        participants.add(person2);
+        participants.add(person3);
 
         expense1 = new Expense("Food", participants, person1, new BigDecimal(14.00), tag1, now);
-        expense2 = new Expense("Food", participants, person1, new BigDecimal(14.00), tag1,
-            now);
         expenseOverviewCtrl.setExpense(expense1);
         expenseOverviewCtrl.populate();
     }
