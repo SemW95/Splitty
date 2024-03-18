@@ -47,40 +47,40 @@ class PaymentTest {
 
     @Test
     void testHashCode() {
-        assertEquals(payment1.hashCode(), payment1.hashCode());
+        assertEquals(payment1.hashCode(), payment1.hashCode(), "Hash codes should be equal");
     }
 
     @Test
     void getPayer() {
-        assertEquals(payer1, payment1.getPayer());
+        assertEquals(payer1, payment1.getPayer(), "Incorrect payer");
     }
 
     @Test
     void setPayer() {
         payment1.setPayer(payer2);
-        assertEquals(payer2, payment1.getPayer());
+        assertEquals(payer2, payment1.getPayer(), "Setting payer failed");
     }
 
     @Test
     void getReceiver() {
-        assertEquals(receiver2, payment1.getReceiver());
+        assertEquals(receiver2, payment1.getReceiver(), "Incorrect receiver");
     }
 
     @Test
     void setReceiver() {
         payment1.setReceiver(receiver1);
-        assertEquals(receiver1, payment1.getReceiver());
+        assertEquals(receiver1, payment1.getReceiver(), "Setting receiver failed");
     }
 
     @Test
     void getAmount() {
-        assertEquals(amount1, payment1.getAmount());
+        assertEquals(amount1, payment1.getAmount(), "Incorrect amount");
     }
 
     @Test
     void setAmount() {
         payment1.setAmount(amount2);
-        assertEquals(amount2, payment1.getAmount());
+        assertEquals(amount2, payment1.getAmount(), "Setting amount failed");
     }
 
 }
