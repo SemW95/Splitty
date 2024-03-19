@@ -188,9 +188,10 @@ class ExpenseRepositoryTest {
     @Test
     void findExpensesByParticipantFirstNameOrLastNameIgnoreCaseLastName() {
         //Alice Hennessy is testPerson 1
-        String shortLastName = "ennesy";
+        String shortLastName = "ennessy";
         List<Expense> eList1 =
             expenseRepository.findExpensesByParticipantFirstNameOrLastNameIgnoreCase(shortLastName);
+        assertTrue(eList1.size() > 0);
         Expense e1 = eList1.get(0);
 
         assertEquals(testExpense1.getDescription(), e1.getDescription());
