@@ -2,6 +2,7 @@ package server.database;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import commons.Colour;
 import commons.Expense;
@@ -83,7 +84,12 @@ class ExpenseRepositoryTest {
 
     @AfterEach
     void tearDown() {
-        expenseRepository.delete(testExpense1);
+
+        expenseRepository.deleteAll(expenseRepository.findAll());
+        personRepository.deleteAll(personRepository.findAll());
+        colourRepository.deleteAll(colourRepository.findAll());
+        tagRepository.deleteAll(tagRepository.findAll());
+
     }
 
     @Test
@@ -143,5 +149,56 @@ class ExpenseRepositoryTest {
         assertEquals(testExpense1.getParticipants(), e2.getParticipants());
         assertEquals(testExpense1.getDescription(), e2.getDescription());
         assertEquals(testExpense1.getPaymentDateTime(), e2.getPaymentDateTime());
+    }
+
+    @Test
+    void findExpensesByPaidContains() {
+        BigDecimal searchPaid = BigDecimal.valueOf(250);
+        Expense e1 = expenseRepository.findExpensesByPaid(searchPaid).orElse(null);
+        assertNotNull(e1);
+        assertEquals(testExpense1.getDescription(), e1.getDescription());
+        assertEquals(testExpense1.getPaid(), e1.getPaid());
+        assertEquals(testExpense1.getReceiver(), e1.getReceiver());
+        assertEquals(testExpense1.getParticipants(), e1.getParticipants());
+        assertEquals(testExpense1.getDescription(), e1.getDescription());
+        assertEquals(testExpense1.getPaymentDateTime(), e1.getPaymentDateTime());
+    }
+
+    @Test
+    void findExpensesByParticipantFirstNameOrLastNameIgnoreCaseFirstName() {
+        //Charlie Smith is testPerson 3
+        String shortFirstName = "harli";
+
+        List<Expense> eList1 =
+            expenseRepository.findExpensesByParticipantFirstNameOrLastNameIgnoreCase(
+                shortFirstName);
+        assertTrue(eList1.size() > 0);
+        Expense e1 = eList1.get(0);
+
+        assertEquals(testExpense1.getDescription(), e1.getDescription());
+        assertEquals(testExpense1.getPaid(), e1.getPaid());
+        assertEquals(testExpense1.getReceiver(), e1.getReceiver());
+        assertEquals(testExpense1.getParticipants(), e1.getParticipants());
+        assertEquals(testExpense1.getDescription(), e1.getDescription());
+        assertEquals(testExpense1.getPaymentDateTime(), e1.getPaymentDateTime());
+
+
+    }
+
+    @Test
+    void findExpensesByParticipantFirstNameOrLastNameIgnoreCaseLastName() {
+        //Alice Hennessy is testPerson 1
+        String shortLastName = "ennesy";
+        List<Expense> eList1 =
+            expenseRepository.findExpensesByParticipantFirstNameOrLastNameIgnoreCase(shortLastName);
+        Expense e1 = eList1.get(0);
+
+        assertEquals(testExpense1.getDescription(), e1.getDescription());
+        assertEquals(testExpense1.getPaid(), e1.getPaid());
+        assertEquals(testExpense1.getReceiver(), e1.getReceiver());
+        assertEquals(testExpense1.getParticipants(), e1.getParticipants());
+        assertEquals(testExpense1.getDescription(), e1.getDescription());
+        assertEquals(testExpense1.getPaymentDateTime(), e1.getPaymentDateTime());
+
     }
 }
