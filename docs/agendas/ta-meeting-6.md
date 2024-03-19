@@ -23,7 +23,8 @@
     - Nearly finished all tests for the JPA Repository classes:
         - JPA tests for the EventRepository class (Eva Miesen)
         - JPA tests for the TagRepository class (Xiaoyu Du)
-    - Tests for the Event and Currency class (Eva Miesen)
+        - JPA tests for the PaymentRepository class (and PaymentRepository class made aswell) (Eva Miesen)
+    - Tests for the Event, Currency and Payment class (Eva Miesen)
     - Changed the date storage for the Event and Expense class (Rens Pols): 
         - Event class: LocalDate startDate, LocalDate endDate, Instant lastModifiedDateTime
         - Expense class: Instant paymentDateTime
@@ -36,7 +37,6 @@
 - **Issues from the previous sprint which haven't been done (2 min)**
     - Most of the Basic UI issues
     - Issue JPA test Expense class
-    - Issue JPA Repository and JPA test for the Payment class
 - **Approval of the agenda - Does anyone have any additions? (1 min)**
 - **Approval of last minutes - Did everyone read the minutes from the previous meeting? (1 min)**
     - All clear? Any feedback?
