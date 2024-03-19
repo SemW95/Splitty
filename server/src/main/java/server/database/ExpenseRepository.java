@@ -2,7 +2,6 @@ package server.database;
 
 
 import commons.Expense;
-import commons.Person;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +17,12 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
     List<Expense> findByDescriptionContainingIgnoreCase(String description);
 
     Optional<Expense> findExpensesByPaid(BigDecimal paid);
-    @Query("SELECT e FROM Expense e JOIN e.participants p WHERE LOWER(p.firstName) LIKE LOWER(CONCAT('%', :name, '%')) OR LOWER(p.lastName) LIKE LOWER(CONCAT('%', :name, '%'))")
+
+    @Query("SELECT e FROM Expense e JOIN e.participants p WHERE LOWER(p.firstName) "
+        +
+        "LIKE LOWER(CONCAT('%', :name, '%')) OR LOWER(p.lastName) "
+        +
+        "LIKE LOWER(CONCAT('%', :name, '%'))")
     List<Expense> findExpensesByParticipantFirstNameOrLastNameIgnoreCase(String name);
 
 }

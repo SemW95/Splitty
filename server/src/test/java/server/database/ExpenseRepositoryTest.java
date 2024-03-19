@@ -169,11 +169,11 @@ class ExpenseRepositoryTest {
         //Charlie Smith is testPerson 3
         String shortFirstName = "harli";
 
-        List<Expense> eList1 =
+        List<Expense> expenseList1 =
             expenseRepository.findExpensesByParticipantFirstNameOrLastNameIgnoreCase(
                 shortFirstName);
-        assertTrue(eList1.size() > 0);
-        Expense e1 = eList1.get(0);
+        assertTrue(expenseList1.size() > 0);
+        Expense e1 = expenseList1.get(0);
 
         assertEquals(testExpense1.getDescription(), e1.getDescription());
         assertEquals(testExpense1.getPaid(), e1.getPaid());
@@ -189,10 +189,10 @@ class ExpenseRepositoryTest {
     void findExpensesByParticipantFirstNameOrLastNameIgnoreCaseLastName() {
         //Alice Hennessy is testPerson 1
         String shortLastName = "ennessy";
-        List<Expense> eList1 =
+        List<Expense> expenseList1 =
             expenseRepository.findExpensesByParticipantFirstNameOrLastNameIgnoreCase(shortLastName);
-        assertTrue(eList1.size() > 0);
-        Expense e1 = eList1.get(0);
+        assertTrue(expenseList1.size() > 0);
+        Expense e1 = expenseList1.get(0);
 
         assertEquals(testExpense1.getDescription(), e1.getDescription());
         assertEquals(testExpense1.getPaid(), e1.getPaid());
