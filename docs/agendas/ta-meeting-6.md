@@ -8,7 +8,7 @@
 | Attendees: | Wing Wong |
 |            | Xiaoyu Du |
 |            | Rens Pols |
-|            | Lukas Millieška |
+|            | Lukas Milieška |
 |            | Sem van der Weijden |
 |            | Eva Miesen |
 
@@ -19,7 +19,7 @@
     - All tasks felt manageable?
 - **Announcements by the team (2 min)**
 - **Summary of last weeks sprint (3 min)**
-    - Updated JPA to 3.2.0-M1 (Lukas Millieška): This update was needed since we use 'Instant' and we started experiencing problems with the database.
+    - Updated JPA to 3.2.0-M1 (Lukas Milieška): This update was needed since we use 'Instant' and we started experiencing problems with the database.
     - Nearly finished all tests for the JPA Repository classes:
         - JPA tests for the EventRepository class (Eva Miesen)
         - JPA tests for the TagRepository class (Xiaoyu Du)
@@ -28,10 +28,10 @@
         - Event class: LocalDate startDate, LocalDate endDate, Instant lastModifiedDateTime
         - Expense class: Instant paymentDateTime
     - Initialized home screen (Sem van der Weijden)
-    - JFX internationalisation (Lukas Millieška)
+    - JFX internationalisation (Lukas Milieška)
     - Enable GitLab triageBot (Rens Pols)
     - Working first draft of UI Home (Sem van der Weijden)
-    - BASIC UI Admin Credentials (Lukas Millieška)
+    - BASIC UI Admin Credentials (Lukas Milieška)
     - BASIC UI Expense (Wing Wong)
 - **Issues from the previous sprint which haven't been done (2 min)**
     - Most of the Basic UI issues

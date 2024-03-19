@@ -11,7 +11,7 @@
 |              | Xiaoyu Du             |
 |              | Rens Pols             |
 |              | Eva Miesen            |
-|              | Lukas Millieška       |
+|              | Lukas Milieška       |
 
 ## START (15 min)
 - **Opening by chair (1 min)**
