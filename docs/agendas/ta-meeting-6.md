@@ -50,7 +50,7 @@
         - Focus on project completion over lines of code
     - Plan of action for the coming weeks (*discuss and decision-making*)
     - Divide UI issues and deadline (*decision-making and discuss*)
-    - Formative deadlines on 24-03-2024 (Sunday): HCI/Usability, Testing:
+    - Formative deadlines on 22-03-2024 (Friday): HCI/Usability, Testing:
         - Read the corresponding assignments on Brightspace after the meeting (*inform*)
     - Code of Conduct: improve based on feedback from the TA and make changes if needed to ensure alignment with the reality (*discuss*)
 
