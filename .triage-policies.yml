@@ -1,0 +1,41 @@
+resource_rules:
+  issues:
+    rules:
+      - name: Ensure new issues have a state label
+        conditions:
+          forbidden_labels:
+            - state::idea
+            - state::preparation
+            - state::in-process
+            - state::feedback
+            - state::completed
+            - state::aborted
+            - state::blocked
+        actions:
+          labels:
+            - state::idea
+
+      - name: Ensure new issues have a priority label
+        conditions:
+          forbidden_labels:
+            - priority::low
+            - priority::normal
+            - priority::high
+            - priority::urgent
+        actions:
+          labels:
+            - priority::normal
+
+      - name: Ensure closed issues that don't have a state::aborted/completed label will get the state::completed label
+        conditions:
+          state: closed
+          forbidden_labels:
+            - state::completed
+            - state::aborted
+        actions:
+          labels:
+            - state::completed
+
+  merge_requests:
+    rules:
+      []

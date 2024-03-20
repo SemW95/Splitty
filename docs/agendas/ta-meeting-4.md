@@ -11,7 +11,7 @@
 |              | Xiaoyu Du             |
 |              | Rens Pols             |
 |              | Eva Miesen            |
-|              | Lukas Millieška       |
+|              | Lukas Milieška       |
 
 ## START (25 min)
 
