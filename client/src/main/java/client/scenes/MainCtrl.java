@@ -45,14 +45,16 @@ public class MainCtrl {
     */
     private Stage primaryStage;
     private Stage adminCredentialsPopup;
+    private Stage addParticipantPopup;
     private HomeCtrl homeCtrl;
     private Scene home;
     private AdminCredentialsCtrl adminCredentialsCtrl;
     private Scene adminCredentials;
     private ExpenseOverviewCtrl expenseOverviewCtrl;
     private Scene expenseOverview;
-    //private ParticipantCtrl participantCtrl;
-    //private Scene participant;
+    private AddParticipantCtrl addParticipantCtrl;
+    private Scene addParticipant;
+
     private MyFXML fxml;
     //step 1 below.
 
@@ -67,7 +69,8 @@ public class MainCtrl {
      */
     public void initialize(Stage primaryStage, MyFXML fxml, Pair<HomeCtrl, Parent> homePair,
                            Pair<AdminCredentialsCtrl, Parent> adminCredentialsPair,
-                           Pair<ExpenseOverviewCtrl, Parent> expenseOverviewPair) {
+                           Pair<ExpenseOverviewCtrl, Parent> expenseOverviewPair,
+                           Pair<AddParticipantCtrl, Parent> addParticipantPair) {
         this.primaryStage = primaryStage;
         this.fxml = fxml;
 
@@ -81,7 +84,11 @@ public class MainCtrl {
         this.expenseOverviewCtrl = expenseOverviewPair.getKey();
         this.expenseOverview = new Scene(expenseOverviewPair.getValue());
 
+        this.addParticipantCtrl = addParticipantPair.getKey();
+        this.addParticipant = new Scene(addParticipantPair.getValue());
+
         showHome();
+        // showAddParticipantPopup(); --just for self testing
         primaryStage.show();
 
         //        Wing debug dummy expense scene
@@ -193,6 +200,18 @@ public class MainCtrl {
     public void showAdminView() {
         // TODO:
         System.out.println("Show admin view");
+    }
+
+    public void showAddParticipantPopup(){
+        addParticipantPopup = new Stage();
+        // Set it to block other windows (you can only click on this popup)
+        addParticipantPopup.initModality(Modality.APPLICATION_MODAL);
+        addParticipantPopup.initOwner(primaryStage);
+        addParticipantPopup.setTitle("Add Participant");
+        addParticipantPopup.setScene(addParticipant);
+        addParticipantPopup.setResizable(false);
+        addParticipantPopup.show();
+        // Not quiet sure about the lines above.
     }
     //add step 4 here.
 }
