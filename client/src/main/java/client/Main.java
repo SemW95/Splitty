@@ -20,8 +20,12 @@ import static com.google.inject.Guice.createInjector;
 
 import client.scenes.AddParticipantCtrl;
 import client.scenes.AdminCredentialsCtrl;
+import client.scenes.DeleteParticipantConfirmationCtrl;
+import client.scenes.EditParticipantCtrl;
 import client.scenes.ExpenseOverviewCtrl;
 import client.scenes.HomeCtrl;
+import client.scenes.MainCtrl;
+import client.scenes.ManageParticipantsCtrl;
 import com.google.inject.Injector;
 import javafx.application.Application;
 import javafx.stage.Stage;
