@@ -45,14 +45,25 @@ public class MainCtrl {
     */
     private Stage primaryStage;
     private Stage adminCredentialsPopup;
+    private Stage addParticipantPopup;
+    private Stage manageParticipantsScreen;
+    private Stage editParticipantPopup;
+    private Stage deleteParticipantConfirmationPopup;
     private HomeCtrl homeCtrl;
     private Scene home;
     private AdminCredentialsCtrl adminCredentialsCtrl;
     private Scene adminCredentials;
     private ExpenseOverviewCtrl expenseOverviewCtrl;
     private Scene expenseOverview;
-    //private ParticipantCtrl participantCtrl;
-    //private Scene participant;
+    private AddParticipantCtrl addParticipantCtrl;
+    private Scene addParticipant;
+    private ManageParticipantsCtrl manageParticipantsCtrl;
+    private Scene manageParticipants;
+    private EditParticipantCtrl editParticipantCtrl;
+    private Scene editParticipant;
+    private DeleteParticipantConfirmationCtrl deleteParticipantConfirmationCtrl;
+    private Scene deleteParticipantConfirmation;
+
     private MyFXML fxml;
     //step 1 below.
 
@@ -67,7 +78,12 @@ public class MainCtrl {
      */
     public void initialize(Stage primaryStage, MyFXML fxml, Pair<HomeCtrl, Parent> homePair,
                            Pair<AdminCredentialsCtrl, Parent> adminCredentialsPair,
-                           Pair<ExpenseOverviewCtrl, Parent> expenseOverviewPair) {
+                           Pair<ExpenseOverviewCtrl, Parent> expenseOverviewPair,
+                           Pair<AddParticipantCtrl, Parent> addParticipantPair,
+                           Pair<ManageParticipantsCtrl, Parent> manageParticipantsPair,
+                           Pair<EditParticipantCtrl, Parent> editParticipantPair,
+                           Pair<DeleteParticipantConfirmationCtrl, Parent>
+                                   deleteParticipantConfirmationCtrlParentPair) {
         this.primaryStage = primaryStage;
         this.fxml = fxml;
 
@@ -80,6 +96,20 @@ public class MainCtrl {
 
         this.expenseOverviewCtrl = expenseOverviewPair.getKey();
         this.expenseOverview = new Scene(expenseOverviewPair.getValue());
+
+        this.addParticipantCtrl = addParticipantPair.getKey();
+        this.addParticipant = new Scene(addParticipantPair.getValue());
+
+        this.manageParticipantsCtrl = manageParticipantsPair.getKey();
+        this.manageParticipants = new Scene(manageParticipantsPair.getValue());
+
+        this.editParticipantCtrl = editParticipantPair.getKey();
+        this.editParticipant = new Scene(editParticipantPair.getValue());
+
+        this.deleteParticipantConfirmationCtrl =
+                deleteParticipantConfirmationCtrlParentPair.getKey();
+        this.deleteParticipantConfirmation = new Scene(
+                deleteParticipantConfirmationCtrlParentPair.getValue());
 
         showHome();
         primaryStage.show();
@@ -112,6 +142,12 @@ public class MainCtrl {
         //            new Expense("Food", participants, person1, new BigDecimal(14.00), tag1, now);
         //        expenseOverviewCtrl.setExpense(expense1);
         //        expenseOverviewCtrl.populate();
+
+        // For testing the following four scenes:
+        // showAddParticipantPopup();
+        // showManageParticipantsScreen();
+        // showEditParticipantPopup();
+        // showDeleteParticipantConfirmationPopup();
     }
 
     /**
@@ -194,6 +230,81 @@ public class MainCtrl {
     public void showAdminView() {
         // TODO:
         System.out.println("Show admin view");
+    }
+
+    /**
+     * Show the AddParticipant popup.
+     */
+    public void showAddParticipantPopup() {
+        addParticipantPopup = new Stage();
+        addParticipantPopup.setTitle("Add Participant");
+        addParticipantPopup.setScene(addParticipant);
+        addParticipantPopup.show();
+    }
+
+    /**
+     * Close the AddParticipant popup.
+     */
+    public void closeAddParticipantPopup() {
+        addParticipantPopup.close();
+        addParticipantPopup = null;
+    }
+
+    /**
+     * Show the ManageParticipants screen.
+     */
+    public void showManageParticipantsScreen() {
+        manageParticipantsScreen = new Stage();
+        manageParticipantsScreen.setTitle("Manage Participants");
+        manageParticipantsScreen.setScene(manageParticipants);
+        manageParticipantsScreen.show();
+        manageParticipantsScreen.setResizable(false);
+    }
+
+    /**
+     * Close the ManageParticipants screen.
+     */
+    public void closeManageParticipantsScreen() {
+        manageParticipantsScreen.close();
+        manageParticipantsScreen = null;
+    }
+
+    /**
+     * Show the EditParticipant popup.
+     */
+    public void showEditParticipantPopup() {
+        editParticipantPopup = new Stage();
+        editParticipantPopup.setTitle("Edit Participant");
+        editParticipantPopup.setScene(editParticipant);
+        editParticipantPopup.show();
+        editParticipantPopup.setResizable(false);
+    }
+
+    /**
+     * Close the EditParticipants popup.
+     */
+    public void closeEditParticipantsPopup() {
+        editParticipantPopup.close();
+        editParticipantPopup = null;
+    }
+
+    /**
+     * Show the DeleteParticipantConfirmation popup.
+     */
+    public void showDeleteParticipantConfirmationPopup() {
+        deleteParticipantConfirmationPopup = new Stage();
+        deleteParticipantConfirmationPopup.setTitle("Delete Participant Confirmation");
+        deleteParticipantConfirmationPopup.setScene(deleteParticipantConfirmation);
+        deleteParticipantConfirmationPopup.show();
+        deleteParticipantConfirmationPopup.setResizable(false);
+    }
+
+    /**
+     * Close the DeleteParticipantConfirmation popup.
+     */
+    public void closeDeleteParticipantConfirmationPopup() {
+        deleteParticipantConfirmationPopup.close();
+        deleteParticipantConfirmationPopup = null;
     }
     //add step 4 here.
 }
