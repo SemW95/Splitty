@@ -84,6 +84,7 @@ public class MainCtrl {
         showHome();
         primaryStage.show();
 
+        //        TODO Make the expense control fetch data from database and delete this!
         //        Wing debug dummy expense scene
 
         //        primaryStage.setScene(expenseOverview);
