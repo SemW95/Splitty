@@ -2,7 +2,6 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
-import commons.Person;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -31,22 +30,22 @@ public class AddParticipantCtrl {
     }
 
     @FXML
+    private TextField bicTextField;
+
+    @FXML
     private Button cross;
-
-    @FXML
-    private TextField firstNameTextField;
-
-    @FXML
-    private TextField lastNameTextField;
 
     @FXML
     private TextField emailTextField;
 
     @FXML
+    private TextField firstNameTextField;
+
+    @FXML
     private TextField ibanTextField;
 
     @FXML
-    private TextField bicTextField;
+    private Label invalidBicMessage;
 
     @FXML
     private Label invalidEmailMessage;
@@ -55,10 +54,11 @@ public class AddParticipantCtrl {
     private Label invalidIbanMessage;
 
     @FXML
-    private Label invalidBicMessage;
+    private TextField lastNameTextField;
 
     @FXML
     private Button save;
+
     private String firstName;
     private String lastName;
     private String email;
@@ -73,17 +73,25 @@ public class AddParticipantCtrl {
         email = emailTextField.getText();
         // TODO: Check if the email address is valid.
 
-        if (Person.ibanCheckSum(ibanTextField.getText())) {
-            iban = ibanTextField.getText();
-        } else {
-            invalidIbanMessage.setVisible(!invalidIbanMessage.isVisible());
-        }
+        iban = ibanTextField.getText();
+        // TODO: Check if the IBAN is valid.
 
-        if (Person.bicCheck(bicTextField.getText())) {
-            bic = bicTextField.getText();
-        } else {
-            invalidBicMessage.setVisible(!invalidBicMessage.isVisible());
-        }
+        bic = bicTextField.getText();
+        // TODO: Check if the BIC is valid.
+
+        //        if (Person.ibanCheckSum(ibanTextField.getText())) {
+        //            iban = ibanTextField.getText();
+        //            invalidEmailMessage.setVisible(false);
+        //        } else {
+        //            invalidIbanMessage.setVisible(true);
+        //        }
+
+        //        if (Person.bicCheck(bicTextField.getText())) {
+        //            bic = bicTextField.getText();
+        //            invalidBicMessage.setVisible(false);
+        //        } else {
+        //            invalidBicMessage.setVisible(true);
+        //        }
 
         if (!invalidEmailMessage.isVisible()
                 && !invalidIbanMessage.isVisible()
@@ -98,22 +106,6 @@ public class AddParticipantCtrl {
     private void cross(){
         // TODO: Go back to the Event Overview scene.
     }
-
-    //    @FXML
-    //    private void handleSaveButtonAction() {
-    //        String inputData = inputTextField.getText();
-    //
-    //        try (Connection conn = DriverManager.getConnection(
-    //        "jdbc:mysql://localhost:3306/your_database", "username", "password")) {
-    //            String sql = "INSERT INTO your_table_name (column_name) VALUES (?)";
-    //            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-    //                pstmt.setString(1, inputData);
-    //                pstmt.executeUpdate();
-    //            }
-    //        } catch (SQLException e) {
-    //            e.printStackTrace();
-    //        }
-    //    }
 
 }
 

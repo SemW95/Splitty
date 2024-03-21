@@ -33,12 +33,12 @@ public class DeleteParticipantConfirmationCtrl {
     private Button goBackToManageScene;
 
     @FXML
-    private void deleteParticipant(){
+    private void deleteParticipant() {
         // TODO: Delete the participant that is chosen.
     }
 
     @FXML
-    private void goBackToManageScene(){
+    private void goBackToManageScene() {
         // TODO: Go back to the ManageParticipant scene.
     }
 

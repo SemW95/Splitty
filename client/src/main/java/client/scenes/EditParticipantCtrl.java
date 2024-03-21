@@ -2,7 +2,6 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
-import commons.Person;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -28,9 +27,6 @@ public class EditParticipantCtrl {
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
     }
-
-    @FXML
-    private Button save;
 
     @FXML
     private Label bicLabel;
@@ -75,11 +71,6 @@ public class EditParticipantCtrl {
     private TextField ibanTextField;
 
     @FXML
-    private Label lastNameLabel;
-
-    @FXML
-    private TextField lastNameTextField;
-    @FXML
     private Label invalidBicMessage;
 
     @FXML
@@ -88,18 +79,26 @@ public class EditParticipantCtrl {
     @FXML
     private Label invalidIbanMessage;
 
-    private String firstName = firstNameLabel.getText();
-    private String lastName = lastNameLabel.getText();
-    private String email = emailLabel.getText();
-    private String iban = ibanLabel.getText();
-    private String bic = bicLabel.getText();
+    @FXML
+    private Label lastNameLabel;
+
+    @FXML
+    private TextField lastNameTextField;
+
+    @FXML
+    private Button save;
+
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String iban;
+    private String bic;
 
     @FXML
     private void editFirstName() {
         System.out.println("Edit First Name.");
         firstNameLabel.setVisible(false); // Hide the Label
         firstNameTextField.setVisible(true); // Show the TextField
-        firstNameTextField.setText(firstNameLabel.getText()); // Set text from Label to TextField
         firstNameTextField.requestFocus(); // Set focus to TextField
     }
 
@@ -108,7 +107,6 @@ public class EditParticipantCtrl {
         System.out.println("Edit Last Name.");
         lastNameLabel.setVisible(false); // Hide the Label
         lastNameTextField.setVisible(true); // Show the TextField
-        lastNameTextField.setText(lastNameLabel.getText()); // Set the text from Label to TextField
         lastNameTextField.requestFocus(); // Set focus to TextField
 
     }
@@ -118,7 +116,6 @@ public class EditParticipantCtrl {
         System.out.println("Edit Email.");
         emailLabel.setVisible(false); // Hide the Label
         emailTextField.setVisible(true); // Show the TextField
-        emailTextField.setText(emailLabel.getText()); // Set the text from Label to TextField
         emailTextField.requestFocus(); // Set focus to TextField
     }
 
@@ -127,7 +124,6 @@ public class EditParticipantCtrl {
         System.out.println("Edit IBAN.");
         ibanLabel.setVisible(false); // Hide the Label
         ibanTextField.setVisible(true); // Show the TextField
-        ibanTextField.setText(ibanLabel.getText()); // Set the text from Label to TextField
         ibanTextField.requestFocus(); // Set focus to TextField
     }
 
@@ -136,7 +132,6 @@ public class EditParticipantCtrl {
         System.out.println("Edit BIC.");
         bicLabel.setVisible(false); // Hide the Label
         bicTextField.setVisible(true); // Show the TextField
-        bicTextField.setText(bicLabel.getText()); // Set the text from Label to TextField
         bicTextField.requestFocus(); // Set focus to TextField
     }
 
@@ -155,21 +150,29 @@ public class EditParticipantCtrl {
             email = emailTextField.getText();
         }
         if (ibanTextField.isVisible()) {
-            if (Person.ibanCheckSum(ibanTextField.getText())) {
-                iban = ibanTextField.getText();
-                invalidIbanMessage.setVisible(false);
-            } else {
-                invalidIbanMessage.setVisible(true);
-            }
+            // TODO: Check if the IBAN is valid.
+            iban = ibanTextField.getText();
         }
         if (bicTextField.isVisible()) {
-            if (Person.bicCheck(bicTextField.getText())) {
-                bic = bicTextField.getText();
-                invalidBicMessage.setVisible(false);
-            } else {
-                invalidBicMessage.setVisible(true);
-            }
+            // TODO: Check if the BIC is valid.
+            bic = bicTextField.getText();
         }
+        //        if (ibanTextField.isVisible()) {
+        //            if (Person.ibanCheckSum(ibanTextField.getText())) {
+        //                iban = ibanTextField.getText();
+        //                invalidIbanMessage.setVisible(false);
+        //            } else {
+        //                invalidIbanMessage.setVisible(true);
+        //            }
+        //        }
+        //        if (bicTextField.isVisible()) {
+        //            if (Person.bicCheck(bicTextField.getText())) {
+        //                bic = bicTextField.getText();
+        //                invalidBicMessage.setVisible(false);
+        //            } else {
+        //                invalidBicMessage.setVisible(true);
+        //            }
+        //        }
         if (!invalidEmailMessage.isVisible()
                 && !invalidIbanMessage.isVisible()
                 && !invalidBicMessage.isVisible()) {
@@ -179,7 +182,7 @@ public class EditParticipantCtrl {
     }
 
     @FXML
-    private void cross(){
+    private void cross() {
         // TODO: Go back to the ManageParticipants scene.
     }
 

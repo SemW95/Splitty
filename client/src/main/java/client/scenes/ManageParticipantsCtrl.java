@@ -40,7 +40,22 @@ public class ManageParticipantsCtrl {
     private Button save;
 
     @FXML
-    private void cross(){
+    private void editParticipant() {
+        // TODO: Popup EditParticipant.
+    }
+
+    @FXML
+    private void deleteParticipant() {
+        // TODO: Popup DeleteParticipantConfirmation.
+    }
+
+    @FXML
+    private void save() {
+        // TODO: save the current information
+    }
+
+    @FXML
+    private void cross() {
         // TODO: Go back to the Event Overview scene.
     }
 
