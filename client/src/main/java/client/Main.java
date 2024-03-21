@@ -18,7 +18,10 @@ package client;
 
 import static com.google.inject.Guice.createInjector;
 
-import client.scenes.*;
+import client.scenes.AddParticipantCtrl;
+import client.scenes.AdminCredentialsCtrl;
+import client.scenes.ExpenseOverviewCtrl;
+import client.scenes.HomeCtrl;
 import com.google.inject.Injector;
 import javafx.application.Application;
 import javafx.stage.Stage;
