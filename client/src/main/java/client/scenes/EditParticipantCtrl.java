@@ -2,8 +2,11 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
+import commons.Person;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -146,33 +149,30 @@ public class EditParticipantCtrl {
             lastName = lastNameTextField.getText();
         }
         if (emailTextField.isVisible()) {
-            // TODO: Check if the email address is valid
-            email = emailTextField.getText();
+            if (isValidEmail(emailTextField.getText())) {
+                email = emailTextField.getText();
+                invalidEmailMessage.setVisible(false);
+            } else {
+                invalidEmailMessage.setVisible(true);
+            }
         }
         if (ibanTextField.isVisible()) {
-            // TODO: Check if the IBAN is valid.
-            iban = ibanTextField.getText();
+            if (Person.ibanCheckSum(ibanTextField.getText())) {
+                iban = ibanTextField.getText();
+                invalidIbanMessage.setVisible(false);
+            } else {
+                invalidIbanMessage.setVisible(true);
+            }
         }
         if (bicTextField.isVisible()) {
-            // TODO: Check if the BIC is valid.
-            bic = bicTextField.getText();
+            if (Person.bicCheck(bicTextField.getText())) {
+                bic = bicTextField.getText();
+                invalidBicMessage.setVisible(false);
+            } else {
+                invalidBicMessage.setVisible(true);
+            }
         }
-        //        if (ibanTextField.isVisible()) {
-        //            if (Person.ibanCheckSum(ibanTextField.getText())) {
-        //                iban = ibanTextField.getText();
-        //                invalidIbanMessage.setVisible(false);
-        //            } else {
-        //                invalidIbanMessage.setVisible(true);
-        //            }
-        //        }
-        //        if (bicTextField.isVisible()) {
-        //            if (Person.bicCheck(bicTextField.getText())) {
-        //                bic = bicTextField.getText();
-        //                invalidBicMessage.setVisible(false);
-        //            } else {
-        //                invalidBicMessage.setVisible(true);
-        //            }
-        //        }
+
         if (!invalidEmailMessage.isVisible()
                 && !invalidIbanMessage.isVisible()
                 && !invalidBicMessage.isVisible()) {
@@ -184,6 +184,20 @@ public class EditParticipantCtrl {
     @FXML
     private void cross() {
         // TODO: Go back to the ManageParticipants scene.
+    }
+
+    /**
+     * Check if the email address is valid.
+     *
+     * @param email The email address that need to checked.
+     * @return True if it is valid, false otherwise.
+     */
+    public static boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]"
+                + "+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 
 }
