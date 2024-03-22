@@ -1,5 +1,6 @@
 package commons;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,12 +11,16 @@ import jakarta.persistence.ManyToOne;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
  * The class that contains all the info for an expense.
  */
 @Entity
+/*Had to add this because JSON parser found a field "share" and broke, but share is
+not initialized anywhere. This ignores unknown fields.*/
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Expense {
 
     @Id
@@ -23,7 +28,7 @@ public class Expense {
     long id;
     String description;
     @ManyToMany
-    ArrayList<Person> participants;
+    List<Person> participants;
     @ManyToOne
     Person receiver;
     BigDecimal paid;
@@ -80,7 +85,7 @@ public class Expense {
      */
     public Expense(
         String description,
-        ArrayList<Person> participants,
+        List<Person> participants,
         Person receiver,
         BigDecimal paid,
         Tag tag,
@@ -150,7 +155,7 @@ public class Expense {
         return Objects.hash(id, description, participants, receiver, paid, tag, paymentDateTime);
     }
 
-    public ArrayList<Person> getParticipants() {
+    public List<Person> getParticipants() {
         return participants;
     }
 
@@ -190,4 +195,7 @@ public class Expense {
         this.paymentDateTime = creationDate;
     }
 
+    public long getId() {
+        return id;
+    }
 }
