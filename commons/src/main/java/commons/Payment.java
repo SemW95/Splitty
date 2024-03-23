@@ -43,6 +43,11 @@ public class Payment {
     }
 
     @Override
+    public String toString() {
+        return "Payment{%s --(%s)-> %s}".formatted(payer, amount, receiver);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

@@ -7,6 +7,8 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -134,5 +136,47 @@ class EventTest {
     @Test
     void testHashCode() {
         assertEquals(test1.hashCode(), test2.hashCode(), "Hash codes should be equal");
+    }
+
+    @Test
+    void debt() {
+        List<Expense> expenses = new ArrayList<>();
+
+        Person a =
+            new Person("A", "", "email@email.com", "AD1400080001001234567890", "ZUOBJEO6XXX");
+        Person b =
+            new Person("B", "", "email@email.com", "AD1400080001001234567890", "ZUOBJEO6XXX");
+        Person c =
+            new Person("C", "", "email@email.com", "AD1400080001001234567890", "ZUOBJEO6XXX");
+        Person d =
+            new Person("D", "", "email@email.com", "AD1400080001001234567890", "ZUOBJEO6XXX");
+        Person e =
+            new Person("E", "", "email@email.com", "AD1400080001001234567890", "ZUOBJEO6XXX");
+
+        expenses.add(new Expense("", Arrays.asList(a, b, c), d, new BigDecimal("40"), null, null));
+        expenses.add(new Expense("", Arrays.asList(a, c), b, new BigDecimal("21"), null, null));
+        expenses.add(new Expense("", Arrays.asList(d, e), a, new BigDecimal("15"), null, null));
+        expenses.add(
+            new Expense("", Arrays.asList(a, b, c, d), e, new BigDecimal("15"), null, null));
+
+        List<Payment> payments = new ArrayList<>();
+
+        payments.add(new Payment(a, b, new BigDecimal("3")));
+        payments.add(new Payment(b, d, new BigDecimal("1")));
+        payments.add(new Payment(c, d, new BigDecimal("13")));
+
+        Event event = new Event("", "",
+            Arrays.asList(a, b, c, d, e), new ArrayList<>(), expenses,
+            payments, LocalDate.now(), LocalDate.now(), Instant.now());
+
+
+        System.out.println(event.calculateSettlements());
+
+        System.out.println(event.calculateDebt(a));
+        System.out.println(event.calculateDebt(b));
+        System.out.println(event.calculateDebt(c));
+        System.out.println(event.calculateDebt(d));
+        System.out.println(event.calculateDebt(e));
+
     }
 }
