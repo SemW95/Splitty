@@ -221,6 +221,7 @@ public class Event {
 
     public void updateLastModifiedDateTime() {
         // TODO: update the lastModifiedDateTime variable
+        this.lastModifiedDateTime = Instant.now();
     }
 
     /**
