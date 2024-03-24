@@ -32,6 +32,12 @@ import org.glassfish.jersey.client.ClientConfig;
 public class ServerUtils {
     private static final String SERVER = "http://localhost:8080/";
 
+    /**
+     * Validates an admin password.
+     *
+     * @param password the admin password to check
+     * @return whether the admin password is correct
+     */
     public boolean validateAdminPassword(String password) {
         return ClientBuilder.newClient(new ClientConfig())
             .target(SERVER).path("/admin/validate/" + password)
@@ -61,6 +67,7 @@ public class ServerUtils {
 
     /**
      * Gets all events in the system.
+     * Note: should only be used by an admin.
      *
      * @return list of events
      */
@@ -73,6 +80,13 @@ public class ServerUtils {
             });
     }
 
+    /**
+     * Deletes an event.
+     * Note: should only be used by an admin
+     *
+     * @param event         the event to delete
+     * @param adminPassword the admin password
+     */
     public void deleteEvent(Event event, String adminPassword) {
         ClientBuilder.newClient(new ClientConfig())
             .target(SERVER).path("/admin/event/" + event.getId())
@@ -82,7 +96,13 @@ public class ServerUtils {
             .delete();
     }
 
+    /**
+     * Tries to create an event.
+     *
+     * @param event the event to be created.
+     */
     public void createEvent(Event event) {
+        // TODO: maybe it should return a boolean
         ClientBuilder.newClient(new ClientConfig())
             .target(SERVER).path("/event")
             .request(APPLICATION_JSON)

@@ -254,12 +254,23 @@ public class MainCtrl {
         adminOverviewCtrl.populate();
     }
 
+    /**
+     * Opens a file chooser dialog which creates a file.
+     *
+     * @param initialFileName the suggested file name of the file
+     * @return the created file. Can be null
+     */
     public File createSaveFile(String initialFileName) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialFileName(initialFileName);
         return fileChooser.showSaveDialog(primaryStage);
     }
 
+    /**
+     * Opens a file chooser dialog which opens a file.
+     *
+     * @return the opened file. Can be null
+     */
     public File openSavedFile() {
         FileChooser fileChooser = new FileChooser();
         return fileChooser.showOpenDialog(primaryStage);

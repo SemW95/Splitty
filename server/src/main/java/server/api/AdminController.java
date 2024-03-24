@@ -34,10 +34,10 @@ public class AdminController {
     // All routes for admin operations should ask for the password
 
     /**
-     * TODO.
+     * Deletes an event with the provided id. Requires the admin password
      *
-     * @param id
-     * @param password
+     * @param id       the id of the event to be deleted
+     * @param password the admin password
      */
     @DeleteMapping(path = "/admin/event/{id}")
     public void deleteEvent(@PathVariable long id, @RequestParam String password) {

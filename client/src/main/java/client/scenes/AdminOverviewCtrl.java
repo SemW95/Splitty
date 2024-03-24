@@ -65,6 +65,10 @@ public class AdminOverviewCtrl implements Initializable {
         mainCtrl.showHome();
     }
 
+    /**
+     * Fetches all events from the database, orders them by the specified order and direction.
+     * Then creates a Pane for each event and adds them to the event list vbox.
+     */
     public void populate() {
         List<Event> events = server.getEvents();
 

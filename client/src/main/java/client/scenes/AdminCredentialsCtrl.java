@@ -40,8 +40,6 @@ public class AdminCredentialsCtrl implements Initializable {
         passwordField.clear();
         incorrectPassword.setText("");
 
-        // TODO: make a get request to /admin/validate/{password}
-
         if (server.validateAdminPassword(password)) {
             mainCtrl.setSavedAdminPassword(password);
             mainCtrl.closeCurrentPopup();
@@ -52,6 +50,11 @@ public class AdminCredentialsCtrl implements Initializable {
         }
     }
 
+    /**
+     * Checks if the saved admin password is correct.
+     *
+     * @return whether the saved password is correct
+     */
     public boolean savedPasswordIsCorrect() {
         if (mainCtrl.getSavedAdminPassword() == null) {
             return false;
