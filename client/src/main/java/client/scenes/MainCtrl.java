@@ -17,6 +17,11 @@
 package client.scenes;
 
 import client.MyFXML;
+import commons.Colour;
+import commons.Person;
+import commons.Tag;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Locale;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -83,7 +88,7 @@ public class MainCtrl {
                            Pair<ManageParticipantsCtrl, Parent> manageParticipantsPair,
                            Pair<EditParticipantCtrl, Parent> editParticipantPair,
                            Pair<DeleteParticipantConfirmationCtrl, Parent>
-                                   deleteParticipantConfirmationCtrlParentPair) {
+                               deleteParticipantConfirmationCtrlParentPair) {
         this.primaryStage = primaryStage;
         this.fxml = fxml;
 
@@ -107,41 +112,18 @@ public class MainCtrl {
         this.editParticipant = new Scene(editParticipantPair.getValue());
 
         this.deleteParticipantConfirmationCtrl =
-                deleteParticipantConfirmationCtrlParentPair.getKey();
+            deleteParticipantConfirmationCtrlParentPair.getKey();
         this.deleteParticipantConfirmation = new Scene(
-                deleteParticipantConfirmationCtrlParentPair.getValue());
+            deleteParticipantConfirmationCtrlParentPair.getValue());
 
         showHome();
         primaryStage.show();
 
         //        TODO Make the expense control fetch data from database and delete this!
-        //        Wing debug dummy expense scene
 
-        //        primaryStage.setScene(expenseOverview);
-        //
-        //        Instant now = Instant.now();
-        //
-        //        Person person1 = new Person("Alice", "needs a surname", "Alice@domain.com",
-        //            "AL35202111090000000001234567",
-        //            "ZUOBJEO6XXX");
-        //        Person person2 = new Person("John", "needs a surname", "Alice@domain.com",
-        //            "AD1400080001001234567890",
-        //            "ZUOBJEO6XXX");
-        //        Person person3 = new Person("Henry", "needs a surname", "henry@domain.com",
-        //            "AD1400080001001234567890",
-        //            "ZUOBJEO9XXX");
-        //
-        //        Tag tag1 = new Tag("Food", new Colour("#0000FF"));
-        //
-        //        ArrayList<Person> participants = new ArrayList<>();
-        //        participants.add(person1);
-        //        participants.add(person2);
-        //        participants.add(person3);
-        //
-        //        Expense expense1 =
-        //            new Expense("Food", participants, person1, new BigDecimal(14.00), tag1, now);
-        //        expenseOverviewCtrl.setExpense(expense1);
-        //        expenseOverviewCtrl.populate();
+        primaryStage.setScene(expenseOverview);
+        expenseOverviewCtrl.populate();
+
 
         // For testing the following four scenes:
         // showAddParticipantPopup();

@@ -22,7 +22,7 @@ import javafx.scene.text.Font;
 /**
  * Controller class for the Expense Overview FXML UI.
  */
-public class ExpenseOverviewCtrl implements Initializable {
+public class ManageExpenseCtrl implements Initializable {
 
 
     private final ServerUtils server;
