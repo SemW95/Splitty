@@ -20,7 +20,17 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.http.HttpClient;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -117,18 +127,62 @@ public class Person {
     }
 
 
-    /**
-     * TODO: Should use BIC api, to verify BIC.
+    /** Validates a given BIC and only uses the API when the api is available
      *
      * @param bic takes a bic number
      * @return a boolean if it is a correct/existing bic.
      */
     public static boolean bicCheck(String bic) {
-        //https://en.wikipedia.org/wiki/ISO_9362#Structure
-        String bicRegex = "^[A-Za-z]{4}[A-Za-z]{2}[A-Za-z0-9]{2}([A-Za-z0-9]{3})?$";
-        Pattern pattern = Pattern.compile(bicRegex);
-        Matcher bicMatcher = pattern.matcher(bic);
-        return bicMatcher.matches();
+        return bicCheck(bic, false);
+    }
+
+
+    /** Validates a given BIC
+     * TODO: Should use BIC api, to verify BIC.
+     *
+     * @param bic takes a bic number
+     * @param req_api throws an error if the API cannot be reached
+     * @return a boolean if it is a correct/existing bic.
+     */
+    public static boolean bicCheck(String bic, boolean req_api) {
+        String YOUR_TOKEN = "0b410729c58bc9485ff66701376d7ecab989b125";
+        String urlString = "https://aaapis.com/api/v1/validate/bic/";
+        String jsonInputString = "{\"bic_number\": \"" + bic + "\"}";
+
+        try {
+            HttpURLConnection con = getHttpURLConnection(urlString, YOUR_TOKEN, jsonInputString);
+
+            try(Scanner scanner = new Scanner(con.getInputStream())) {
+                String jsonResponse = scanner.useDelimiter("\\A").next();
+                return jsonResponse.contains("\"valid\":true");
+            }
+        } catch (Exception e) {
+            if (req_api) {
+                throw new RuntimeException();
+            }
+            // https://en.wikipedia.org/wiki/ISO_9362#Structure
+            String bicRegex = "^[A-Za-z]{4}[A-Za-z]{2}[A-Za-z0-9]{2}([A-Za-z0-9]{3})?$";
+            Pattern pattern = Pattern.compile(bicRegex);
+            Matcher bicMatcher = pattern.matcher(bic);
+            return bicMatcher.matches();
+        }
+    }
+
+    private static HttpURLConnection getHttpURLConnection(String urlString, String YOUR_TOKEN,
+                                                          String jsonInputString)
+        throws URISyntaxException, IOException {
+        URL url = new URI(urlString).toURL();
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("POST");
+        con.setRequestProperty("Authorization", "Token " + YOUR_TOKEN);
+        con.setRequestProperty("Content-Type", "application/json");
+        con.setDoOutput(true);
+
+        try(OutputStream os = con.getOutputStream()) {
+            byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
+            os.write(input, 0, input.length);
+        }
+        return con;
     }
 
     /**
