@@ -138,7 +138,6 @@ public class Person {
 
 
     /** Validates a given BIC
-     * TODO: Should use BIC api, to verify BIC.
      *
      * @param bic takes a bic number
      * @param req_api throws an error if the API cannot be reached
