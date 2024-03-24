@@ -58,12 +58,12 @@ public class Tag {
         return Objects.hash(name, colour);
     }
 
-    public String getName() {
-        return name;
-    }
-
     public long getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
