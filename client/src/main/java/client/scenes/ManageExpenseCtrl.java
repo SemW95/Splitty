@@ -7,6 +7,7 @@ import commons.Expense;
 import commons.Person;
 import commons.Tag;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -64,16 +65,14 @@ public class ManageExpenseCtrl implements Initializable {
     public void populate() {
         Event event = server.getEvents().getFirst();
         this.expense = event.getExpenses().getFirst();
-
+        List<Tag> allTags = server.getTags();
         // Initialize UI with expense data
         expenseNameLabel.setText(expense.getDescription());
         expenseAmountLabel.setText("€ " + expense.getPaid().toString());
-        tagMenu.getItems().setAll(event.getTags());
-        System.out.println(event.getTags().size());
+        tagMenu.getItems().setAll(allTags);
         tagMenu.setCellFactory(p -> {
             return new ListCell<Tag>() {
                 protected void updateItem(Tag t1, boolean empty) {
-                    System.out.println(t1);
                     super.updateItem(t1, empty);
                     if (t1 != null){
                         setText(t1.getName());
