@@ -25,8 +25,7 @@ compile:
 
 checkstyle:
   stage: checkstyle
-  needs:
-    - compile
+  needs: []
   script:
     - ./gradlew $CHECKSTYLE
   parallel:
