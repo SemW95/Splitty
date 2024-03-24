@@ -103,6 +103,7 @@ public class AdminOverviewCtrl implements Initializable {
         eventName.setPrefWidth(300);
         eventName.setFont(Font.font(18));
 
+        // TODO: add functionality for going to the clicked event
 
         Label eventCode = new Label(event.getCode());
         eventCode.setLayoutX(341);
@@ -121,20 +122,22 @@ public class AdminOverviewCtrl implements Initializable {
 
         tagsBox.getChildren().setAll(event.getTags().stream().map(this::createTagItem).toList());
 
-        Label eventDate = new Label(event.getLastModifiedDateTime().toString().substring(0, 10));
-        eventDate.setLayoutX(494);
-        eventDate.setLayoutY(12);
-        eventDate.setPrefHeight(21);
-        eventDate.setPrefWidth(150);
-        eventDate.setFont(Font.font(18));
-        eventDate.setAlignment(Pos.CENTER_RIGHT);
+        Label lastModified = new Label(event.getLastModifiedDateTime().toString().substring(0, 10));
+        lastModified.setLayoutX(494);
+        lastModified.setLayoutY(12);
+        lastModified.setPrefHeight(21);
+        lastModified.setPrefWidth(150);
+        lastModified.setFont(Font.font(18));
+        lastModified.setAlignment(Pos.CENTER_RIGHT);
 
-        // TODO
+        // TODO: change users icon to date icon
         ImageView dateIcon = new ImageView(new Image("client/icons/users.png"));
         dateIcon.setLayoutX(647);
         dateIcon.setLayoutY(13);
         dateIcon.setFitHeight(24);
         dateIcon.setFitWidth(24);
+
+        // TODO: add a label and icon for creation date
 
         Label usersCount = new Label(String.valueOf(event.getPeople().size()));
         usersCount.setLayoutX(614);
@@ -178,7 +181,7 @@ public class AdminOverviewCtrl implements Initializable {
         downloadIcon.setOnMouseClicked((e) -> handleDownloadEvent(event));
 
         pane.getChildren()
-            .addAll(eventName, eventCode, tagsBox, eventDate, dateIcon, usersCount, usersIcon,
+            .addAll(eventName, eventCode, tagsBox, lastModified, dateIcon, usersCount, usersIcon,
                 eventDescription, trashIcon, downloadIcon);
 
         return pane;

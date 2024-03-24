@@ -46,8 +46,11 @@ public class MainCtrl {
     Step 7: add the same to the refresh method. Also add more stuff there too. Kind of TODO
     */
     private Stage primaryStage;
-    private Stage currentPopup;
-    private Stage manageParticipantsScreen;
+    private Stage primaryPopup;
+    /**
+     * Usually used for confirmation popups.
+     */
+    private Stage secondaryPopup;
     private HomeCtrl homeCtrl;
     private Scene home;
     private AdminCredentialsCtrl adminCredentialsCtrl;
@@ -221,27 +224,36 @@ public class MainCtrl {
             return;
         }
 
-        currentPopup = new Stage();
+        primaryPopup = new Stage();
         // Set it to block other windows (you can only click on this popup)
-        currentPopup.initModality(Modality.APPLICATION_MODAL);
-        currentPopup.initOwner(primaryStage);
-        currentPopup.setTitle("Admin credentials");
-        currentPopup.setScene(adminCredentials);
+        primaryPopup.initModality(Modality.APPLICATION_MODAL);
+        primaryPopup.initOwner(primaryStage);
+        primaryPopup.setTitle("Admin credentials");
+        primaryPopup.setScene(adminCredentials);
         // Making it not resizable also sets it to the size specified in the .fxml file
         // This was the only way I found that fixed that problem
         // (Except the .setMaximized(true), which makes the window flash when it appears)
         // Also, this might be a linux issue only
-        currentPopup.setResizable(false);
-        currentPopup.show();
+        primaryPopup.setResizable(false);
+        primaryPopup.show();
     }
 
     /**
-     * Closes the admin credentials popup.
-     * Should never be called if the popup window is not shown.
+     * Closes the primary popup.
+     * Should never be called if the primary popup window is not shown.
      */
-    public void closeCurrentPopup() {
-        currentPopup.close();
-        currentPopup = null;
+    public void closePrimaryPopup() {
+        primaryPopup.close();
+        primaryPopup = null;
+    }
+
+    /**
+     * Closes the secondary popup.
+     * Should never be called if the secondary popup window is not shown.
+     */
+    public void closeSecondaryPopup() {
+        secondaryPopup.close();
+        secondaryPopup = null;
     }
 
     /**
@@ -280,10 +292,10 @@ public class MainCtrl {
      * Show the AddParticipant popup.
      */
     public void showAddParticipantPopup() {
-        currentPopup = new Stage();
-        currentPopup.setTitle("Add Participant");
-        currentPopup.setScene(addParticipant);
-        currentPopup.show();
+        primaryPopup = new Stage();
+        primaryPopup.setTitle("Add Participant");
+        primaryPopup.setScene(addParticipant);
+        primaryPopup.show();
     }
 
 
@@ -291,45 +303,44 @@ public class MainCtrl {
      * Show the ManageParticipants screen.
      */
     public void showManageParticipantsScreen() {
-        manageParticipantsScreen = new Stage();
-        manageParticipantsScreen.setTitle("Manage Participants");
-        manageParticipantsScreen.setScene(manageParticipants);
-        manageParticipantsScreen.show();
-        manageParticipantsScreen.setResizable(false);
+        primaryStage.setTitle("Manage Participants");
+        primaryStage.setScene(manageParticipants);
     }
 
     /**
      * Show the EditParticipant popup.
      */
     public void showEditParticipantPopup() {
-        currentPopup = new Stage();
-        currentPopup.setTitle("Edit Participant");
-        currentPopup.setScene(editParticipant);
-        currentPopup.show();
-        currentPopup.setResizable(false);
+        primaryPopup = new Stage();
+        primaryPopup.setTitle("Edit Participant");
+        primaryPopup.setScene(editParticipant);
+        primaryPopup.show();
+        primaryPopup.setResizable(false);
     }
 
     /**
      * Show the DeleteParticipantConfirmation popup.
      */
     public void showDeleteParticipantConfirmationPopup() {
-        currentPopup = new Stage();
-        currentPopup.setTitle("Delete Participant Confirmation");
-        currentPopup.setScene(deleteParticipantConfirmation);
-        currentPopup.show();
-        currentPopup.setResizable(false);
+        secondaryPopup = new Stage();
+        secondaryPopup.setTitle("Delete Participant Confirmation");
+        secondaryPopup.setScene(deleteParticipantConfirmation);
+        secondaryPopup.show();
+        secondaryPopup.setResizable(false);
     }
 
     /**
-     * Show the DeleteParticipantConfirmation popup.
+     * Show the DeleteEventConfirmation popup.
+     *
+     * @param deleteCallback the function to be called if the user confirms their action
      */
     public void showDeleteEventConfirmationPopup(Runnable deleteCallback) {
-        currentPopup = new Stage();
-        currentPopup.initModality(Modality.APPLICATION_MODAL);
-        currentPopup.setTitle("Delete Event Confirmation");
-        currentPopup.setScene(deleteEventConfirmation);
-        currentPopup.show();
-        currentPopup.setResizable(false);
+        primaryPopup = new Stage();
+        primaryPopup.initModality(Modality.APPLICATION_MODAL);
+        primaryPopup.setTitle("Delete Event Confirmation");
+        primaryPopup.setScene(deleteEventConfirmation);
+        primaryPopup.show();
+        primaryPopup.setResizable(false);
         deleteEventConfirmationCtrl.setCallback(deleteCallback);
     }
 

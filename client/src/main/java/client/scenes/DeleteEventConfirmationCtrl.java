@@ -32,12 +32,12 @@ public class DeleteEventConfirmationCtrl implements Initializable {
         if (deleteCallback != null) {
             deleteCallback.run();
         }
-        mainCtrl.closeCurrentPopup();
+        mainCtrl.closePrimaryPopup();
     }
 
     @FXML
     private void handleNo() {
-        mainCtrl.closeCurrentPopup();
+        mainCtrl.closePrimaryPopup();
     }
 
     public void setCallback(Runnable deleteCallback) {
