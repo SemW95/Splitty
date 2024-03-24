@@ -435,3 +435,6 @@ VALUES ('500','code','2024-03-16 14:30:00','party','Project X','2024-03-16 14:30
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
 	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-03-24 18:24:04.104275+01:00 jdbc[54]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]COLOUR_ID"; expected "COMMIT, CREATE, CALL, CHECKPOINT, COMMENT"; SQL statement:
+COLOUR_ID [42001-224]

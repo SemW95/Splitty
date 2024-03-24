@@ -19,7 +19,9 @@ package client.utils;
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 import commons.Event;
+import commons.Expense;
 import commons.Person;
+import commons.Tag;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
@@ -58,6 +60,21 @@ public class ServerUtils {
          */
         return ClientBuilder.newClient(new ClientConfig())
             .target(SERVER).path("/person")
+            .request(APPLICATION_JSON)
+            .accept(APPLICATION_JSON)
+            .get(new GenericType<>() {
+            });
+
+    }
+
+    /**
+     * Gets all tags in the system.
+     *
+     * @return list of tags
+     */
+    public List<Tag> getTags() {
+        return ClientBuilder.newClient(new ClientConfig())
+            .target(SERVER).path("/tag")
             .request(APPLICATION_JSON)
             .accept(APPLICATION_JSON)
             .get(new GenericType<>() {
@@ -109,4 +126,17 @@ public class ServerUtils {
             .accept(APPLICATION_JSON)
             .post(Entity.json(event));
     }
+
+    /**
+     * This updates the database expense (persistence).
+     *
+     * @param expense the expense to update
+     */
+    public void updateExpense(Expense expense) {
+        ClientBuilder.newClient(new ClientConfig())
+            .target(SERVER).path("/expense")
+            .request(APPLICATION_JSON)
+            .put(Entity.json(expense));
+    }
+
 }

@@ -56,6 +56,8 @@ public class MainCtrl {
     private AdminCredentialsCtrl adminCredentialsCtrl;
     private Scene adminCredentials;
     private ExpenseOverviewCtrl expenseOverviewCtrl;
+    private Scene manageExpense;
+    private ManageExpenseCtrl manageExpenseCtrl;
     private Scene expenseOverview;
     private AddParticipantCtrl addParticipantCtrl;
     private Scene addParticipant;
@@ -87,6 +89,7 @@ public class MainCtrl {
     public void initialize(Stage primaryStage, MyFXML fxml, Pair<HomeCtrl, Parent> homePair,
                            Pair<AdminCredentialsCtrl, Parent> adminCredentialsPair,
                            Pair<ExpenseOverviewCtrl, Parent> expenseOverviewPair,
+                           Pair<ManageExpenseCtrl, Parent> manageExpensePair,
                            Pair<AddParticipantCtrl, Parent> addParticipantPair,
                            Pair<ManageParticipantsCtrl, Parent> manageParticipantsPair,
                            Pair<EditParticipantCtrl, Parent> editParticipantPair,
@@ -107,6 +110,9 @@ public class MainCtrl {
         this.expenseOverviewCtrl = expenseOverviewPair.getKey();
         this.expenseOverview = new Scene(expenseOverviewPair.getValue());
 
+        this.manageExpenseCtrl = manageExpensePair.getKey();
+        this.manageExpense = new Scene(manageExpensePair.getValue());
+
         this.addParticipantCtrl = addParticipantPair.getKey();
         this.addParticipant = new Scene(addParticipantPair.getValue());
 
@@ -118,48 +124,24 @@ public class MainCtrl {
 
         this.deleteParticipantConfirmationCtrl =
             deleteParticipantConfirmationCtrlParentPair.getKey();
-        this.deleteParticipantConfirmation = new Scene(
-            deleteParticipantConfirmationCtrlParentPair.getValue());
+        this.deleteParticipantConfirmation =
+            new Scene(deleteParticipantConfirmationCtrlParentPair.getValue());
 
         this.adminOverviewCtrl = adminOverviewPair.getKey();
         this.adminOverview = new Scene(adminOverviewPair.getValue());
 
-        this.deleteEventConfirmationCtrl =
-            deleteEventConfirmationPair.getKey();
-        this.deleteEventConfirmation = new Scene(
-            deleteEventConfirmationPair.getValue());
-
+        this.deleteEventConfirmationCtrl = deleteEventConfirmationPair.getKey();
+        this.deleteEventConfirmation = new Scene(deleteEventConfirmationPair.getValue());
         showHome();
         primaryStage.show();
 
         //        TODO Make the expense control fetch data from database and delete this!
-        //        Wing debug dummy expense scene
 
         //        primaryStage.setScene(expenseOverview);
-        //
-        //        Instant now = Instant.now();
-        //
-        //        Person person1 = new Person("Alice", "needs a surname", "Alice@domain.com",
-        //            "AL35202111090000000001234567",
-        //            "ZUOBJEO6XXX");
-        //        Person person2 = new Person("John", "needs a surname", "Alice@domain.com",
-        //            "AD1400080001001234567890",
-        //            "ZUOBJEO6XXX");
-        //        Person person3 = new Person("Henry", "needs a surname", "henry@domain.com",
-        //            "AD1400080001001234567890",
-        //            "ZUOBJEO9XXX");
-        //
-        //        Tag tag1 = new Tag("Food", new Colour("#0000FF"));
-        //
-        //        ArrayList<Person> participants = new ArrayList<>();
-        //        participants.add(person1);
-        //        participants.add(person2);
-        //        participants.add(person3);
-        //
-        //        Expense expense1 =
-        //            new Expense("Food", participants, person1, new BigDecimal(14.00), tag1, now);
-        //        expenseOverviewCtrl.setExpense(expense1);
         //        expenseOverviewCtrl.populate();
+        primaryStage.setScene(manageExpense);
+        manageExpenseCtrl.populate();
+
 
         // For testing the following four scenes:
         // showAddParticipantPopup();
@@ -209,6 +191,11 @@ public class MainCtrl {
             fxml.load(ExpenseOverviewCtrl.class, "client", "scenes", "ExpenseOverview.fxml");
         this.expenseOverviewCtrl = expenseOverviewPair.getKey();
         this.expenseOverview = new Scene(expenseOverviewPair.getValue());
+
+        var manageExpensePair =
+            fxml.load(ManageExpenseCtrl.class, "client", "scenes", "ManageExpense.fxml");
+        this.manageExpenseCtrl = manageExpensePair.getKey();
+        this.manageExpense = new Scene(manageExpensePair.getValue());
 
         showHome();
     }
