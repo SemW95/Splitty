@@ -81,7 +81,9 @@ server:test:
 coverageReport:
   stage: coverageReport
   needs:
-    - test
+    - commons:test
+    - client:test
+    - server:test
   script:
     - ./gradlew AggregateJacocoReport
     - mv build/reports/jacoco/aggregate/html ./coverage
