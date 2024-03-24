@@ -155,7 +155,7 @@ public class EditParticipantCtrl {
             }
         }
         if (ibanTextField.isVisible()) {
-            if (ibanTextField.getText() == null || Person.ibanCheckSum(ibanTextField.getText())) {
+            if (ibanTextField.getText().isEmpty() || Person.ibanCheckSum(ibanTextField.getText())) {
                 iban = ibanTextField.getText();
                 invalidIbanMessage.setVisible(false);
             } else {
@@ -163,7 +163,7 @@ public class EditParticipantCtrl {
             }
         }
         if (bicTextField.isVisible()) {
-            if (bicTextField.getText() == null || Person.bicCheck(bicTextField.getText())) {
+            if (bicTextField.getText().isEmpty() || Person.bicCheck(bicTextField.getText())) {
                 bic = bicTextField.getText();
                 invalidBicMessage.setVisible(false);
             } else {
