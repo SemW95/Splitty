@@ -93,7 +93,8 @@ public class MainCtrl {
                            Pair<AddParticipantCtrl, Parent> addParticipantPair,
                            Pair<ManageParticipantsCtrl, Parent> manageParticipantsPair,
                            Pair<EditParticipantCtrl, Parent> editParticipantPair,
-                           Pair<DeleteParticipantConfirmationCtrl, Parent> deleteParticipantConfirmationCtrlParentPair,
+                           Pair<DeleteParticipantConfirmationCtrl, Parent>
+                               deleteParticipantConfirmationCtrlParentPair,
                            Pair<AdminOverviewCtrl, Parent> adminOverviewPair,
                            Pair<DeleteEventConfirmationCtrl, Parent> deleteEventConfirmationPair) {
         this.primaryStage = primaryStage;
@@ -136,8 +137,8 @@ public class MainCtrl {
 
         //        TODO Make the expense control fetch data from database and delete this!
 
-//        primaryStage.setScene(expenseOverview);
-//        expenseOverviewCtrl.populate();
+        //        primaryStage.setScene(expenseOverview);
+        //        expenseOverviewCtrl.populate();
         primaryStage.setScene(manageExpense);
         manageExpenseCtrl.populate();
 

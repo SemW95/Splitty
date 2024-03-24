@@ -19,6 +19,7 @@ package client.utils;
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 import commons.Event;
+import commons.Expense;
 import commons.Person;
 import commons.Tag;
 import jakarta.ws.rs.client.ClientBuilder;
@@ -125,4 +126,12 @@ public class ServerUtils {
             .accept(APPLICATION_JSON)
             .post(Entity.json(event));
     }
+
+    public void updateExpense(Expense expense) {
+        ClientBuilder.newClient(new ClientConfig())
+            .target(SERVER).path("/expense")
+            .request(APPLICATION_JSON)
+            .put(Entity.json(expense));
+    }
+
 }

@@ -191,8 +191,8 @@ public class Expense {
         return paymentDateTime;
     }
 
-    public void setPaymentDateTime(Instant creationDate) {
-        this.paymentDateTime = creationDate;
+    public void setPaymentDateTime(Instant dateOfPayment) {
+        this.paymentDateTime = dateOfPayment;
     }
 
     public long getId() {
