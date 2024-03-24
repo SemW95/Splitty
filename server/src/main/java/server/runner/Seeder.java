@@ -117,14 +117,14 @@ public class Seeder implements CommandLineRunner {
 
         //setting up people
         Person alanTuring = new Person("Alan", "Turing", "alan@domain.com",
-                    "AL35202111090000000001234567",
-                    "ZUOBJEO6XXX");
+            "AL35202111090000000001234567",
+            "ZUOBJEO6XXX");
         Person graceHopper = new Person("Grace", "Hopper", "grace@domain.com",
-                    "AD1400080001001234567890",
-                    "HABALT22TIP");
+            "AD1400080001001234567890",
+            "HABALT22TIP");
         Person johnNeumann = new Person("John", "von Neumann", "john@domain.com",
-                    "NL91ABNA0417164300",
-                    "CBVILT2X");
+            "NL91ABNA0417164300",
+            "CBVILT2X");
         List<Person> participants = List.of(alanTuring, graceHopper, johnNeumann);
         personRepository.save(alanTuring);
         personRepository.save(graceHopper);
@@ -140,11 +140,17 @@ public class Seeder implements CommandLineRunner {
         //setting event
         LocalDate start = LocalDate.now();
         LocalDate end = LocalDate.now().plusDays(1);
-        List<Tag> tags = List.of(tag);
+        List<Tag> tags = List.of(tag, tagRepository.findTagByName("entrance fees").get());
         List<Expense> expenses = List.of(expense);
         Event dinner = new Event("Celebration Dinner", "Dinner and drinks with the group",
             participants, tags, expenses,
             new ArrayList<Payment>(), start, end, now);
         eventRepository.save(dinner);
+
+        Event ride = new Event("Uber ride", "We took an uber to get to a restaurant",
+            new ArrayList<>(), List.of(tagRepository.findTagByName("travel").get()),
+            new ArrayList<>(),
+            new ArrayList<>(), start, end, now.minusSeconds(60 * 60 * 24 * 5));
+        eventRepository.save(ride);
     }
 }
