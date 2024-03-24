@@ -5,8 +5,6 @@ import com.google.inject.Inject;
 import commons.Person;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -149,7 +147,7 @@ public class EditParticipantCtrl {
             lastName = lastNameTextField.getText();
         }
         if (emailTextField.isVisible()) {
-            if (isValidEmail(emailTextField.getText())) {
+            if (Person.emailCheck(emailTextField.getText())) {
                 email = emailTextField.getText();
                 invalidEmailMessage.setVisible(false);
             } else {
@@ -184,20 +182,6 @@ public class EditParticipantCtrl {
     @FXML
     private void cross() {
         // TODO: Go back to the ManageParticipants scene.
-    }
-
-    /**
-     * Check if the email address is valid.
-     *
-     * @param email The email address that need to checked.
-     * @return True if it is valid, false otherwise.
-     */
-    public static boolean isValidEmail(String email) {
-        String emailRegex = "^[a-zA-Z0-9_+&*-]"
-                + "+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-        Pattern pattern = Pattern.compile(emailRegex);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
     }
 
 }
