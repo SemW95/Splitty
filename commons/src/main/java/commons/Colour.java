@@ -49,6 +49,9 @@ public class Colour {
      * @param hexString a hexadecimal string representing a colour
      */
     public Colour(String hexString) {
+        if (!hexString.startsWith("#")) {
+            hexString = "#" + hexString;
+        }
         // Check if it matches the hexadecimal color format
         if (!hexString.matches("^#[0-9A-Fa-f]{6}$")) {
             throw new IllegalArgumentException(

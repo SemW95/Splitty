@@ -2,6 +2,7 @@ package commons;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,12 +24,19 @@ class CurrencyTest {
 
     @Test
     void testGetConversionRate() {
+        try {
+            BigDecimal eurToUsd = euro.getConversionRate(dollar, "2024-01-01");
+            assertEquals(new BigDecimal("1.105"), eurToUsd);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
-        BigDecimal eurToUsd = euro.getConversionRate(dollar, "2024-01-01");
-        assertEquals(new BigDecimal("1.105"), eurToUsd);
-
-        BigDecimal usdToSwiss = dollar.getConversionRate(swiss, "2024-01-01");
-        assertEquals(new BigDecimal("0.83801"), usdToSwiss);
+        try {
+            BigDecimal usdToSwiss = dollar.getConversionRate(swiss, "2024-01-01");
+            assertEquals(new BigDecimal("0.83801"), usdToSwiss);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
