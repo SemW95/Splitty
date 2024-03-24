@@ -42,12 +42,20 @@ public class AdminCredentialsCtrl implements Initializable {
 
         // TODO: make a get request to /admin/validate/{password}
 
-        if ("test".equals(password)) {
-            mainCtrl.closeAdminCredentialsPopup();
-            mainCtrl.showAdminView();
+        if (server.validateAdminPassword(password)) {
+            mainCtrl.setSavedAdminPassword(password);
+            mainCtrl.closeCurrentPopup();
+            mainCtrl.showAdminOverview();
         } else {
             // Show a warning to the user that the password was incorrect
             incorrectPassword.setText("Password incorrect");
         }
+    }
+
+    public boolean savedPasswordIsCorrect() {
+        if (mainCtrl.getSavedAdminPassword() == null) {
+            return false;
+        }
+        return server.validateAdminPassword(mainCtrl.getSavedAdminPassword());
     }
 }

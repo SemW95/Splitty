@@ -17,9 +17,11 @@
 package client.scenes;
 
 import client.MyFXML;
+import java.io.File;
 import java.util.Locale;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Pair;
@@ -44,11 +46,8 @@ public class MainCtrl {
     Step 7: add the same to the refresh method. Also add more stuff there too. Kind of TODO
     */
     private Stage primaryStage;
-    private Stage adminCredentialsPopup;
-    private Stage addParticipantPopup;
+    private Stage currentPopup;
     private Stage manageParticipantsScreen;
-    private Stage editParticipantPopup;
-    private Stage deleteParticipantConfirmationPopup;
     private HomeCtrl homeCtrl;
     private Scene home;
     private AdminCredentialsCtrl adminCredentialsCtrl;
@@ -63,8 +62,13 @@ public class MainCtrl {
     private Scene editParticipant;
     private DeleteParticipantConfirmationCtrl deleteParticipantConfirmationCtrl;
     private Scene deleteParticipantConfirmation;
+    private AdminOverviewCtrl adminOverviewCtrl;
+    private Scene adminOverview;
+    private DeleteEventConfirmationCtrl deleteEventConfirmationCtrl;
+    private Scene deleteEventConfirmation;
 
     private MyFXML fxml;
+    private String savedAdminPassword;
     //step 1 below.
 
     /**
@@ -75,6 +79,7 @@ public class MainCtrl {
      * @param homePair             a pair of the home controller and node
      * @param adminCredentialsPair a pair of the admin credentials controller and node
      * @param expenseOverviewPair  a pair of the expense overview controller and node
+     * @param adminOverviewPair    a pair of the admin overview controller and node
      */
     public void initialize(Stage primaryStage, MyFXML fxml, Pair<HomeCtrl, Parent> homePair,
                            Pair<AdminCredentialsCtrl, Parent> adminCredentialsPair,
@@ -83,7 +88,9 @@ public class MainCtrl {
                            Pair<ManageParticipantsCtrl, Parent> manageParticipantsPair,
                            Pair<EditParticipantCtrl, Parent> editParticipantPair,
                            Pair<DeleteParticipantConfirmationCtrl, Parent>
-                                   deleteParticipantConfirmationCtrlParentPair) {
+                               deleteParticipantConfirmationCtrlParentPair,
+                           Pair<AdminOverviewCtrl, Parent> adminOverviewPair,
+                           Pair<DeleteEventConfirmationCtrl, Parent> deleteEventConfirmationPair) {
         this.primaryStage = primaryStage;
         this.fxml = fxml;
 
@@ -107,9 +114,17 @@ public class MainCtrl {
         this.editParticipant = new Scene(editParticipantPair.getValue());
 
         this.deleteParticipantConfirmationCtrl =
-                deleteParticipantConfirmationCtrlParentPair.getKey();
+            deleteParticipantConfirmationCtrlParentPair.getKey();
         this.deleteParticipantConfirmation = new Scene(
-                deleteParticipantConfirmationCtrlParentPair.getValue());
+            deleteParticipantConfirmationCtrlParentPair.getValue());
+
+        this.adminOverviewCtrl = adminOverviewPair.getKey();
+        this.adminOverview = new Scene(adminOverviewPair.getValue());
+
+        this.deleteEventConfirmationCtrl =
+            deleteEventConfirmationPair.getKey();
+        this.deleteEventConfirmation = new Scene(
+            deleteEventConfirmationPair.getValue());
 
         showHome();
         primaryStage.show();
@@ -200,55 +215,66 @@ public class MainCtrl {
      * Should never be called twice before closing one of the popups.
      */
     public void showAdminCredentialsPopup() {
-        adminCredentialsPopup = new Stage();
+        // If the user already entered the password, it should directly open the admin overview
+        if (adminCredentialsCtrl.savedPasswordIsCorrect()) {
+            showAdminOverview();
+            return;
+        }
+
+        currentPopup = new Stage();
         // Set it to block other windows (you can only click on this popup)
-        adminCredentialsPopup.initModality(Modality.APPLICATION_MODAL);
-        adminCredentialsPopup.initOwner(primaryStage);
-        adminCredentialsPopup.setTitle("Admin credentials");
-        adminCredentialsPopup.setScene(adminCredentials);
+        currentPopup.initModality(Modality.APPLICATION_MODAL);
+        currentPopup.initOwner(primaryStage);
+        currentPopup.setTitle("Admin credentials");
+        currentPopup.setScene(adminCredentials);
         // Making it not resizable also sets it to the size specified in the .fxml file
         // This was the only way I found that fixed that problem
         // (Except the .setMaximized(true), which makes the window flash when it appears)
         // Also, this might be a linux issue only
-        adminCredentialsPopup.setResizable(false);
-        adminCredentialsPopup.show();
+        currentPopup.setResizable(false);
+        currentPopup.show();
     }
 
     /**
      * Closes the admin credentials popup.
      * Should never be called if the popup window is not shown.
      */
-    public void closeAdminCredentialsPopup() {
-        adminCredentialsPopup.close();
-        adminCredentialsPopup = null;
+    public void closeCurrentPopup() {
+        currentPopup.close();
+        currentPopup = null;
     }
 
     /**
      * Shows the admin view.
      * This method should only be called after entering the correct admin password.
      */
-    public void showAdminView() {
-        // TODO:
-        System.out.println("Show admin view");
+    public void showAdminOverview() {
+        primaryStage.setScene(adminOverview);
+        primaryStage.setTitle("Admin Overview");
+        adminOverviewCtrl.populate();
+    }
+
+    public File createSaveFile(String initialFileName) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialFileName(initialFileName);
+        return fileChooser.showSaveDialog(primaryStage);
+    }
+
+    public File openSavedFile() {
+        FileChooser fileChooser = new FileChooser();
+        return fileChooser.showOpenDialog(primaryStage);
     }
 
     /**
      * Show the AddParticipant popup.
      */
     public void showAddParticipantPopup() {
-        addParticipantPopup = new Stage();
-        addParticipantPopup.setTitle("Add Participant");
-        addParticipantPopup.setScene(addParticipant);
-        addParticipantPopup.show();
+        currentPopup = new Stage();
+        currentPopup.setTitle("Add Participant");
+        currentPopup.setScene(addParticipant);
+        currentPopup.show();
     }
 
-    /**
-     * Close the AddParticipant popup.
-     */
-    public void closeAddParticipantPopup() {
-        addParticipantPopup.close();
-        addParticipantPopup = null;
-    }
 
     /**
      * Show the ManageParticipants screen.
@@ -262,49 +288,47 @@ public class MainCtrl {
     }
 
     /**
-     * Close the ManageParticipants screen.
-     */
-    public void closeManageParticipantsScreen() {
-        manageParticipantsScreen.close();
-        manageParticipantsScreen = null;
-    }
-
-    /**
      * Show the EditParticipant popup.
      */
     public void showEditParticipantPopup() {
-        editParticipantPopup = new Stage();
-        editParticipantPopup.setTitle("Edit Participant");
-        editParticipantPopup.setScene(editParticipant);
-        editParticipantPopup.show();
-        editParticipantPopup.setResizable(false);
-    }
-
-    /**
-     * Close the EditParticipants popup.
-     */
-    public void closeEditParticipantsPopup() {
-        editParticipantPopup.close();
-        editParticipantPopup = null;
+        currentPopup = new Stage();
+        currentPopup.setTitle("Edit Participant");
+        currentPopup.setScene(editParticipant);
+        currentPopup.show();
+        currentPopup.setResizable(false);
     }
 
     /**
      * Show the DeleteParticipantConfirmation popup.
      */
     public void showDeleteParticipantConfirmationPopup() {
-        deleteParticipantConfirmationPopup = new Stage();
-        deleteParticipantConfirmationPopup.setTitle("Delete Participant Confirmation");
-        deleteParticipantConfirmationPopup.setScene(deleteParticipantConfirmation);
-        deleteParticipantConfirmationPopup.show();
-        deleteParticipantConfirmationPopup.setResizable(false);
+        currentPopup = new Stage();
+        currentPopup.setTitle("Delete Participant Confirmation");
+        currentPopup.setScene(deleteParticipantConfirmation);
+        currentPopup.show();
+        currentPopup.setResizable(false);
     }
 
     /**
-     * Close the DeleteParticipantConfirmation popup.
+     * Show the DeleteParticipantConfirmation popup.
      */
-    public void closeDeleteParticipantConfirmationPopup() {
-        deleteParticipantConfirmationPopup.close();
-        deleteParticipantConfirmationPopup = null;
+    public void showDeleteEventConfirmationPopup(Runnable deleteCallback) {
+        currentPopup = new Stage();
+        currentPopup.initModality(Modality.APPLICATION_MODAL);
+        currentPopup.setTitle("Delete Event Confirmation");
+        currentPopup.setScene(deleteEventConfirmation);
+        currentPopup.show();
+        currentPopup.setResizable(false);
+        deleteEventConfirmationCtrl.setCallback(deleteCallback);
     }
+
     //add step 4 here.
+
+    public String getSavedAdminPassword() {
+        return savedAdminPassword;
+    }
+
+    public void setSavedAdminPassword(String savedAdminPassword) {
+        this.savedAdminPassword = savedAdminPassword;
+    }
 }

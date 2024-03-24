@@ -22,4 +22,14 @@ public class EventService {
     public List<Event> getAllEvent() {
         return eventRepository.findAll();
     }
+
+    public void deleteEvent(long id) {
+        eventRepository.deleteById(id);
+    }
+
+    public void createEvent(Event event) {
+        if (eventRepository.findById(event.getId()).isEmpty()) {
+            eventRepository.save(event);
+        }
+    }
 }
