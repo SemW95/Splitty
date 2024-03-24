@@ -109,6 +109,7 @@ dry-run:triage:
 run:triage:
   image: ruby:3.0
   stage: triage
+  needs: []
   script:
     - gem install gitlab-triage
     - gitlab-triage --token j4Sr_UUUmsJ96xkkbs4y --host-url $CI_SERVER_URL --source projects --source-id $CI_PROJECT_PATH
