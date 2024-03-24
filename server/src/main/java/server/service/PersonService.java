@@ -32,15 +32,13 @@ public class PersonService {
      * @return Person with specified id
      */
     public Person getPersonById(Long id) {
-        Optional<Person> optionalPerson = personRepository
-            .findById(id);
+        Optional<Person> optionalPerson = personRepository.findById(id);
 
         if (optionalPerson.isEmpty()) {
             throw new IllegalStateException(
                 "There is no person with this id"
             );
         }
-
         return optionalPerson.get();
     }
 
@@ -77,8 +75,6 @@ public class PersonService {
                 "There is no person with this id"
             );
         }
-
         personRepository.deleteById(id);
     }
-
 }
