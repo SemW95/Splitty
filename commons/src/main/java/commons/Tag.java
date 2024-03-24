@@ -38,7 +38,7 @@ public class Tag {
         this.colour = colour;
     }
 
-    /** Create a Tag with red, green & blue colour values
+    /** Create a Tag with red, green & blue colour values.
      *
      * @param name  Name of the Tag
      * @param red   red index
@@ -57,6 +57,12 @@ public class Tag {
         );
     }
 
+
+    /** Create a Tag a hexString colour value.
+     *
+     * @param name  Name of the Tag
+     * @param hexString hexString of the colour
+     */
     public Tag(
         String name,
         String hexString
