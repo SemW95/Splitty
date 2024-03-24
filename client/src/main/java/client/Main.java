@@ -20,6 +20,8 @@ import static com.google.inject.Guice.createInjector;
 
 import client.scenes.AddParticipantCtrl;
 import client.scenes.AdminCredentialsCtrl;
+import client.scenes.AdminOverviewCtrl;
+import client.scenes.DeleteEventConfirmationCtrl;
 import client.scenes.DeleteParticipantConfirmationCtrl;
 import client.scenes.EditParticipantCtrl;
 import client.scenes.ExpenseOverviewCtrl;
@@ -50,19 +52,23 @@ public class Main extends Application {
         var expenseOverview = FXML.load(ExpenseOverviewCtrl.class, "client", "scenes",
             "ExpenseOverview.fxml");
         var addParticipant = FXML.load(AddParticipantCtrl.class,
-                "client", "scenes", "AddParticipant.fxml");
+            "client", "scenes", "AddParticipant.fxml");
         var manageParticipants = FXML.load(ManageParticipantsCtrl.class,
-                "client", "scenes", "ManageParticipants.fxml");
+            "client", "scenes", "ManageParticipants.fxml");
         var editParticipant = FXML.load(EditParticipantCtrl.class,
-                "client", "scenes", "EditParticipant.fxml");
+            "client", "scenes", "EditParticipant.fxml");
         var deleteParticipantConfirmation = FXML.load(DeleteParticipantConfirmationCtrl.class,
-                "client", "scenes", "DeleteParticipantConfirmation.fxml");
+            "client", "scenes", "DeleteParticipantConfirmation.fxml");
+        var adminOverview = FXML.load(AdminOverviewCtrl.class,
+            "client", "scenes", "AdminOverview.fxml");
+        var deleteEventConfirmation = FXML.load(DeleteEventConfirmationCtrl.class,
+            "client", "scenes", "DeleteEventConfirmation.fxml");
         //step 6 add new page here
 
 
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         mainCtrl.initialize(primaryStage, FXML, home, adminCredentials, expenseOverview,
-                addParticipant, manageParticipants, editParticipant,
-                deleteParticipantConfirmation);
+            addParticipant, manageParticipants, editParticipant,
+            deleteParticipantConfirmation, adminOverview, deleteEventConfirmation);
     }
 }
