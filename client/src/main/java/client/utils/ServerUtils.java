@@ -127,6 +127,11 @@ public class ServerUtils {
             .post(Entity.json(event));
     }
 
+    /**
+     * This updates the database expense (persistence).
+     *
+     * @param expense the expense to update
+     */
     public void updateExpense(Expense expense) {
         ClientBuilder.newClient(new ClientConfig())
             .target(SERVER).path("/expense")
