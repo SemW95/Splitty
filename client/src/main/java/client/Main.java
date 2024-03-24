@@ -27,10 +27,13 @@ import client.scenes.EditParticipantCtrl;
 import client.scenes.ExpenseOverviewCtrl;
 import client.scenes.HomeCtrl;
 import client.scenes.MainCtrl;
+import client.scenes.ManageExpenseCtrl;
 import client.scenes.ManageParticipantsCtrl;
 import com.google.inject.Injector;
 import javafx.application.Application;
+import javafx.scene.Parent;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 /**
  * This is the entry point for the client.
@@ -51,6 +54,7 @@ public class Main extends Application {
             FXML.load(AdminCredentialsCtrl.class, "client", "scenes", "AdminCredentials.fxml");
         var expenseOverview = FXML.load(ExpenseOverviewCtrl.class, "client", "scenes",
             "ExpenseOverview.fxml");
+        var manageExpense = FXML.load(ManageExpenseCtrl.class, "client", "scenes", "ManageExpense.fxml");
         var addParticipant = FXML.load(AddParticipantCtrl.class,
             "client", "scenes", "AddParticipant.fxml");
         var manageParticipants = FXML.load(ManageParticipantsCtrl.class,
@@ -67,7 +71,7 @@ public class Main extends Application {
 
 
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, FXML, home, adminCredentials, expenseOverview,
+        mainCtrl.initialize(primaryStage, FXML, home, adminCredentials, expenseOverview, manageExpense,
             addParticipant, manageParticipants, editParticipant,
             deleteParticipantConfirmation, adminOverview, deleteEventConfirmation);
     }

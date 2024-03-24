@@ -56,6 +56,8 @@ public class MainCtrl {
     private AdminCredentialsCtrl adminCredentialsCtrl;
     private Scene adminCredentials;
     private ExpenseOverviewCtrl expenseOverviewCtrl;
+    private Scene manageExpense;
+    private ManageExpenseCtrl manageExpenseCtrl;
     private Scene expenseOverview;
     private AddParticipantCtrl addParticipantCtrl;
     private Scene addParticipant;
@@ -87,6 +89,7 @@ public class MainCtrl {
     public void initialize(Stage primaryStage, MyFXML fxml, Pair<HomeCtrl, Parent> homePair,
                            Pair<AdminCredentialsCtrl, Parent> adminCredentialsPair,
                            Pair<ExpenseOverviewCtrl, Parent> expenseOverviewPair,
+                           Pair<ManageExpenseCtrl, Parent> manageExpensePair,
                            Pair<AddParticipantCtrl, Parent> addParticipantPair,
                            Pair<ManageParticipantsCtrl, Parent> manageParticipantsPair,
                            Pair<EditParticipantCtrl, Parent> editParticipantPair,
@@ -105,6 +108,9 @@ public class MainCtrl {
 
         this.expenseOverviewCtrl = expenseOverviewPair.getKey();
         this.expenseOverview = new Scene(expenseOverviewPair.getValue());
+
+        this.manageExpenseCtrl = manageExpensePair.getKey();
+        this.manageExpense = new Scene(manageExpensePair.getValue());
 
         this.addParticipantCtrl = addParticipantPair.getKey();
         this.addParticipant = new Scene(addParticipantPair.getValue());
@@ -130,8 +136,10 @@ public class MainCtrl {
 
         //        TODO Make the expense control fetch data from database and delete this!
 
-        primaryStage.setScene(expenseOverview);
-        expenseOverviewCtrl.populate();
+//        primaryStage.setScene(expenseOverview);
+//        expenseOverviewCtrl.populate();
+        primaryStage.setScene(manageExpense);
+        manageExpenseCtrl.populate();
 
 
         // For testing the following four scenes:
@@ -182,6 +190,11 @@ public class MainCtrl {
             fxml.load(ExpenseOverviewCtrl.class, "client", "scenes", "ExpenseOverview.fxml");
         this.expenseOverviewCtrl = expenseOverviewPair.getKey();
         this.expenseOverview = new Scene(expenseOverviewPair.getValue());
+
+        var manageExpensePair =
+            fxml.load(ManageExpenseCtrl.class, "client", "scenes", "ManageExpense.fxml");
+        this.manageExpenseCtrl = manageExpensePair.getKey();
+        this.manageExpense = new Scene(manageExpensePair.getValue());
 
         showHome();
     }

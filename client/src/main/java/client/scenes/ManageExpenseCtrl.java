@@ -10,8 +10,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -19,36 +20,35 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-/**
- * Controller class for the Expense Overview FXML UI.
- */
 public class ManageExpenseCtrl implements Initializable {
-
 
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
     @FXML
-    private AnchorPane rootAnchorPane;
+    private Label expenseAmountLabel;
+
+    @FXML
+    private Label expenseDate;
+
     @FXML
     private Label expenseNameLabel;
+
     @FXML
-    private Label expenseAmountLabel;
-    @FXML
-    private Button addParticipantButton;
-    @FXML
-    private Button manageButton;
-    @FXML
-    private Label participantCountLabel;
-    @FXML
-    private Label tagLabel;
+    private Label expenseRecipient;
+
     @FXML
     private FlowPane participantsFlowPane;
-    private Expense expense;
-    private Tag tag;
+
+    @FXML
+    private AnchorPane rootAnchorPane;
+
+    @FXML
+    private ComboBox<Tag> tagMenu;
     private ResourceBundle resources;
+    private Expense expense;
 
     @Inject
-    public ExpenseOverviewCtrl(ServerUtils server, MainCtrl mainCtrl) {
+    public ManageExpenseCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.server = server;
         this.mainCtrl = mainCtrl;
     }
@@ -68,26 +68,23 @@ public class ManageExpenseCtrl implements Initializable {
         // Initialize UI with expense data
         expenseNameLabel.setText(expense.getDescription());
         expenseAmountLabel.setText("€ " + expense.getPaid().toString());
-        participantCountLabel.setText(Integer.toString(expense.getParticipants().size()));
+        tagMenu.getItems().setAll(event.getTags());
+        System.out.println(event.getTags().size());
+        tagMenu.setCellFactory(p -> {
+            return new ListCell<Tag>() {
+                protected void updateItem(Tag t1, boolean empty) {
+                    System.out.println(t1);
+                    super.updateItem(t1, empty);
+                    if (t1 != null){
+                        setText(t1.getName());
+                    } else {
+                        setText(null);
+                    }
 
-        // tag and its style
-        tag = expense.getTag();
-        tagLabel.setText(tag.getName());
+                }
+            };
+        });
 
-        var oldFill = tagLabel.getBackground().getFills().getFirst();
-        tagLabel.setBackground(new Background(
-            new BackgroundFill(Color.web(tag.getColour().toHexString()), oldFill.getRadii(),
-                oldFill.getInsets())));
-
-        // calculate what colour the text should be depending on the background
-        int red = tag.getColour().getRed();
-        int green = tag.getColour().getGreen();
-        int blue = tag.getColour().getBlue();
-        if (red * 0.299 + green * 0.587 + blue * 0.114 > 186) {
-            tagLabel.setTextFill(Color.web("#000000"));
-        } else {
-            tagLabel.setTextFill(Color.web("#ffffff"));
-        }
 
         // Populate participants
         for (Person participant : expense.getParticipants()) {
@@ -124,20 +121,8 @@ public class ManageExpenseCtrl implements Initializable {
         return card;
     }
 
-
-    @FXML
-    private void onAddParticipantClicked() {
-        // TODO go to add participant UI
-        System.out.println("Pressed add participant button.");
-    }
-
-    @FXML
-    private void onManageClicked() {
-        // TODO go to EDIT expense UI
-        System.out.println("Pressed currency.");
-    }
-
     public void setExpense(Expense expense) {
         this.expense = expense;
     }
+
 }
