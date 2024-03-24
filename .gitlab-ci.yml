@@ -8,6 +8,7 @@ stages:
   - compile
   - checkstyle
   - test
+  - coverageReport
   - triage
 
 compile:
@@ -24,16 +25,64 @@ compile:
 
 checkstyle:
   stage: checkstyle
+  needs:
+    - compile
   script:
     - ./gradlew $CHECKSTYLE
   parallel:
     matrix:
       - CHECKSTYLE: ['checkstyleMain', 'checkstyleTest']
 
-test:
+commons:test:
   stage: test
+  needs:
+    - compile
   script:
-    - ./gradlew test
+    - ./gradlew :commons:test --tests commons.$TEST_CLASS
+  parallel:
+    matrix:
+      - TEST_CLASS:
+        - "ColourTest"
+        - "CurrencyTest"
+        - "EventTest"
+        - "ExpenseTest"
+        - "PaymentTest"
+        - "PersonTest"
+        - "TagTest"
+
+client:test:
+  stage: test
+  needs:
+    - compile
+  script:
+    - ./gradlew :client:test --tests client.scenes.$TEST_CLASS
+  parallel:
+    matrix:
+      - TEST_CLASS:
+          - "MainCtrlTest"
+
+server:test:
+  stage: test
+  needs:
+    - compile
+  script:
+    - ./gradlew :server:test --tests server.database.$TEST_CLASS
+  parallel:
+    matrix:
+      - TEST_CLASS:
+          - "ColourRepositoryTest"
+          - "CurrencyRepositoryTest"
+          - "EventRepositoryTest"
+          - "ExpenseRepositoryTest"
+          - "PaymentRepositoryTest"
+          - "PersonRepositoryTest"
+          - "TagRepositoryTest"
+
+coverageReport:
+  stage: coverageReport
+  needs:
+    - test
+  script:
     - ./gradlew AggregateJacocoReport
     - mv build/reports/jacoco/aggregate/html ./coverage
     - mv build/reports/jacoco/aggregate/jacocoTestReport.xml ./coverage/report.xml
@@ -46,6 +95,7 @@ test:
 dry-run:triage:
   image: ruby:3.0
   stage: triage
+  needs: []
   script:
     - gem install gitlab-triage
     - gitlab-triage --help
