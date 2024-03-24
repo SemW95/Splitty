@@ -73,9 +73,10 @@ public class ServerUtils {
             });
     }
 
-    public void deleteEvent(Event event) {
+    public void deleteEvent(Event event, String adminPassword) {
         ClientBuilder.newClient(new ClientConfig())
-            .target(SERVER).path("/event/" + event.getId())
+            .target(SERVER).path("/admin/event/" + event.getId())
+            .queryParam("password", adminPassword)
             .request(APPLICATION_JSON)
             .accept(APPLICATION_JSON)
             .delete();

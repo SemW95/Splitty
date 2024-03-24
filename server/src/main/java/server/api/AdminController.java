@@ -1,10 +1,13 @@
 package server.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import server.service.AdminService;
+import server.service.EventService;
 
 /**
  * Controller for Admin.
@@ -12,10 +15,12 @@ import server.service.AdminService;
 @RestController
 public class AdminController {
     private final AdminService adminService;
+    private final EventService eventService;
 
     @Autowired
-    public AdminController(AdminService adminService) {
+    public AdminController(AdminService adminService, EventService eventService) {
         this.adminService = adminService;
+        this.eventService = eventService;
     }
 
     /**
@@ -26,6 +31,19 @@ public class AdminController {
         return adminService.validatePassword(password);
     }
 
-    // TODO: all other routes for admin operations should also ask for the password
-    // and check if it's correct.
+    // All routes for admin operations should ask for the password
+
+    /**
+     * TODO.
+     *
+     * @param id
+     * @param password
+     */
+    @DeleteMapping(path = "/admin/event/{id}")
+    public void deleteEvent(@PathVariable long id, @RequestParam String password) {
+        if (!adminService.validatePassword(password)) {
+            return;
+        }
+        eventService.deleteEvent(id);
+    }
 }
