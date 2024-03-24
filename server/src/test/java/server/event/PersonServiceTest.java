@@ -34,9 +34,11 @@ public class PersonServiceTest {
 
         // Initialize the DOC and return values for the Mocked item
         personService = new PersonService(personRepository);
-        insertPerson = new Person("Bobertus", "Fireball", "aliceh@domain.name", "LT601010012345678901",
+        insertPerson = new Person("Bobertus", "Fireball", "aliceh@domain.name",
+            "LT601010012345678901",
             "BOOKTP99A3E");
-        returnPerson = new Person("Bobertus", "Fireball", "aliceh@domain.name", "LT601010012345678901",
+        returnPerson = new Person("Bobertus", "Fireball", "aliceh@domain.name",
+            "LT601010012345678901",
             "BOOKTP99A3E");
     }
 
