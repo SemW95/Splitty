@@ -184,15 +184,18 @@ public class Person {
     }
 
     /**
-     * Checks email validity.
+     * Check if the email address is valid.
      *
-     * @param email an email to test for validity
-     * @return whether the email is valid,
+     * @param email The email address that need to checked.
+     * @return True if it is valid, false otherwise.
      */
     public static boolean emailCheck(String email) {
-        return email.matches("^(.+)@(\\S+)$");
+        String emailRegex = "^[a-zA-Z0-9_+&*-]"
+                + "+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
-
 
     @Override
     public String toString() {
