@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.ManageParticipantsCtrl">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.ManageParticipantsCtrl">
    <children>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="24.0">
          <children>
@@ -17,7 +17,7 @@
                   <Font size="35.0" />
                </font>
             </Label>
-            <Button fx:id="cross" layoutX="523.0" layoutY="2.0" mnemonicParsing="false" onAction="#cross" prefHeight="24.0" prefWidth="16.0">
+            <Button fx:id="cross" layoutX="904.0" layoutY="7.0" mnemonicParsing="false" onAction="#cross" prefHeight="24.0" prefWidth="16.0">
                <graphic>
                   <ImageView fitHeight="17.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -28,18 +28,18 @@
             </Button>
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="54.0">
+      <AnchorPane prefHeight="800.0" prefWidth="1100.0" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="54.0">
          <children>
             <ListView layoutY="1.0" prefHeight="340.0" prefWidth="600.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="50.0" />
-            <Button fx:id="editParticipant" layoutX="1332.0" layoutY="882.0" mnemonicParsing="false" onAction="#editParticipant" prefHeight="50.0" prefWidth="90.0" text="Edit">
+            <Button fx:id="editParticipant" layoutX="753.0" layoutY="271.0" mnemonicParsing="false" onAction="#editParticipant" prefHeight="50.0" prefWidth="90.0" text="Edit">
                <font>
                   <Font size="24.0" />
                </font></Button>
-            <Button fx:id="deleteParticipant" layoutX="1475.0" layoutY="880.0" mnemonicParsing="false" onAction="#deleteParticipant" prefHeight="50.0" prefWidth="120.0" text="Delete">
+            <Button fx:id="deleteParticipant" layoutX="734.0" layoutY="347.0" mnemonicParsing="false" onAction="#deleteParticipant" prefHeight="50.0" prefWidth="120.0" text="Delete">
                <font>
                   <Font size="24.0" />
                </font></Button>
-            <Button fx:id="save" layoutX="1646.0" layoutY="880.0" mnemonicParsing="false" onAction="#save" prefHeight="50.0" prefWidth="90.0" text="Save">
+            <Button fx:id="save" layoutX="753.0" layoutY="425.0" mnemonicParsing="false" onAction="#save" prefHeight="50.0" prefWidth="90.0" text="Save">
                <font>
                   <Font size="24.0" />
                </font></Button>

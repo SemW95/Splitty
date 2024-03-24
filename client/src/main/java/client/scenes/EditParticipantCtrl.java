@@ -2,6 +2,7 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
+import commons.Person;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -146,33 +147,30 @@ public class EditParticipantCtrl {
             lastName = lastNameTextField.getText();
         }
         if (emailTextField.isVisible()) {
-            // TODO: Check if the email address is valid
-            email = emailTextField.getText();
+            if (Person.emailCheck(emailTextField.getText())) {
+                email = emailTextField.getText();
+                invalidEmailMessage.setVisible(false);
+            } else {
+                invalidEmailMessage.setVisible(true);
+            }
         }
         if (ibanTextField.isVisible()) {
-            // TODO: Check if the IBAN is valid.
-            iban = ibanTextField.getText();
+            if (ibanTextField.getText().isEmpty() || Person.ibanCheckSum(ibanTextField.getText())) {
+                iban = ibanTextField.getText();
+                invalidIbanMessage.setVisible(false);
+            } else {
+                invalidIbanMessage.setVisible(true);
+            }
         }
         if (bicTextField.isVisible()) {
-            // TODO: Check if the BIC is valid.
-            bic = bicTextField.getText();
+            if (bicTextField.getText().isEmpty() || Person.bicCheck(bicTextField.getText())) {
+                bic = bicTextField.getText();
+                invalidBicMessage.setVisible(false);
+            } else {
+                invalidBicMessage.setVisible(true);
+            }
         }
-        //        if (ibanTextField.isVisible()) {
-        //            if (Person.ibanCheckSum(ibanTextField.getText())) {
-        //                iban = ibanTextField.getText();
-        //                invalidIbanMessage.setVisible(false);
-        //            } else {
-        //                invalidIbanMessage.setVisible(true);
-        //            }
-        //        }
-        //        if (bicTextField.isVisible()) {
-        //            if (Person.bicCheck(bicTextField.getText())) {
-        //                bic = bicTextField.getText();
-        //                invalidBicMessage.setVisible(false);
-        //            } else {
-        //                invalidBicMessage.setVisible(true);
-        //            }
-        //        }
+
         if (!invalidEmailMessage.isVisible()
                 && !invalidIbanMessage.isVisible()
                 && !invalidBicMessage.isVisible()) {
