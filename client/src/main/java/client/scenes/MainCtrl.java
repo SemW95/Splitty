@@ -135,12 +135,12 @@ public class MainCtrl {
         showHome();
         primaryStage.show();
 
-        //        TODO Make the expense control fetch data from database and delete this!
+        // TODO Make the expense control fetch data from database and delete this!
 
-        //        primaryStage.setScene(expenseOverview);
-        //        expenseOverviewCtrl.populate();
-//        primaryStage.setScene(manageExpense);
-//        manageExpenseCtrl.populate();
+        // primaryStage.setScene(expenseOverview);
+        // expenseOverviewCtrl.populate();
+        // primaryStage.setScene(manageExpense);
+        // manageExpenseCtrl.populate();
 
 
         // For testing the following four scenes:
