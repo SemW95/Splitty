@@ -60,8 +60,8 @@
     - Write business logic code & Connect UI to backend code
 - **Code of Conduct (*discuss*)(3 min)**
     - Does anyone have any advice on the Code of Conduct? `
-`
-**NOTE: anything that was skipped or unclear will be discussed in detail after the TA meeting.**
+
+- **NOTE: anything that was skipped or unclear will be discussed in detail after the TA meeting.**
 
 
 ## Wrapping Up (5 min)
