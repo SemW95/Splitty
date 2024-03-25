@@ -46,13 +46,9 @@
     - Usability
         - Color Contrast (*discuss*)
         - Keyboard Shortcuts (*discuss*)
-        - Multi-modal Visualization
-        - Logical Navigation
         - Keyboard Navigation (*discuss*)
         - Supporting Undo Actions (*discuss*)
-        - Error Messages
-        - Informative Feedback
-        - Confirmation for Key Actions
+        - Error Messages & Informative Feedback & Confirmation for Key Actions
 - **Plan of this week's work (*discuss and decision-making*)(9 min)**
     - Product Pitch: update the presentation draft to BrightSpace (Deadline: 28th March, this Thursday)
     - Tag Creation UI
