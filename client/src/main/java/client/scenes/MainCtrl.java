@@ -17,7 +17,15 @@
 package client.scenes;
 
 import client.MyFXML;
-import client.components.ExpenseCard;
+import client.components.ExpenseCardCtrl;
+import commons.Event;
+import commons.Expense;
+import commons.Person;
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -58,8 +66,7 @@ public class MainCtrl {
     //private Scene participant;
     private MyFXML fxml;
     //step 1 below.
-
-    private Pair<ExpenseCard, javafx.scene.Parent> expenseCard;
+    private Pair<ExpenseCardCtrl, javafx.scene.Parent> expenseCard;
 
     /**
      * Main controller initialization.
@@ -73,8 +80,7 @@ public class MainCtrl {
     public void initialize(Stage primaryStage, MyFXML fxml, Pair<HomeCtrl, Parent> homePair,
                            Pair<AdminCredentialsCtrl, Parent> adminCredentialsPair,
                            Pair<ExpenseOverviewCtrl, Parent> expenseOverviewPair,
-                           Pair<EventOverviewCtrl, Parent> eventOverviewPair,
-                           Pair<ExpenseCard, Parent> expenseCard) {
+                           Pair<EventOverviewCtrl, Parent> eventOverviewPair) {
         this.primaryStage = primaryStage;
         this.fxml = fxml;
 
@@ -88,7 +94,23 @@ public class MainCtrl {
         this.expenseOverviewCtrl = expenseOverviewPair.getKey();
         this.expenseOverview = new Scene(expenseOverviewPair.getValue());
 
+        this.eventOverviewCtrl = eventOverviewPair.getKey();
+        this.eventOverview = new Scene(eventOverviewPair.getValue());
+
+        this.expenseCard = expenseCard;
+
         showHome();
+        // TODO Remove this is only for testing
+        var person1 = new Person("Alice", "needs a surname", "Alice@domain.com", "AL35202111090000000001234567", "ZUOBJEO6XXX");
+        var participants = new ArrayList<Person>();
+        participants.add(person1);
+        var list = List.of(new Expense("Food", participants, person1, new BigDecimal(14.00), null, Instant.now()),
+            new Expense("Drinks", participants, person1, new BigDecimal(14.00), null, Instant.now()));
+        var event = new Event("Dinner and Drinks", "Dinner and drinks with the group",
+            new ArrayList<>(), new ArrayList<>(), list, new ArrayList<>(),
+            LocalDate.now(), LocalDate.now(), Instant.now());
+        showEventOverview(event);
+        // TODO: Remove until here
         primaryStage.show();
 
         //        Wing debug dummy expense scene
@@ -207,7 +229,16 @@ public class MainCtrl {
      * Gets the ExpenseCard.
      * @return the expenseCard
      */
-    public Pair<ExpenseCard, Parent> getExpenseCard() {
+    public Pair<ExpenseCardCtrl, Parent> getExpenseCard() {
         return expenseCard;
+    }
+
+    /**
+     * Sets primary stage to the Home scene.
+     */
+    public void showEventOverview(Event event) {
+        primaryStage.setTitle(fxml.getBundle().getString("home.title")); // TODO: send event with it (is a lot neater)
+        eventOverviewCtrl.refresh(event);
+        primaryStage.setScene(eventOverview);
     }
 }

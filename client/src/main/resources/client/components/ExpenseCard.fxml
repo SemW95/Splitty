@@ -7,20 +7,19 @@
 
 <AnchorPane prefHeight="150.0" prefWidth="275.0" style="-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="13.0" layoutY="31.0" text="\\@expense">
+      <Label fx:id="expenseDescription" layoutX="12.0" layoutY="29.0" text="\\\@expense">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="13.0" layoutY="8.0" text="\@receiver">
+      <Label fx:id="expenseReceiver" layoutX="13.0" layoutY="8.0" text="\@receiver">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="15.0" layoutY="69.0" prefHeight="39.0" prefWidth="244.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit." wrapText="true" />
-      <Label layoutX="202.0" layoutY="10.0" prefHeight="18.0" prefWidth="64.0" text="02-03-2024" />
-      <Label layoutX="226.0" layoutY="29.0" text="230,15" />
-      <Button layoutX="11.0" layoutY="114.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" style="-fx-background-color: #FFA500; -fx-padding: 4px 8px; -fx-text-fill: #000000; -fx-border-radius: 12px; -fx-background-radius: 12px;" text="FOOD" />
-      <Label layoutX="188.0" layoutY="130.0" text="10 participants" />
+      <Label fx:id="expenseDate" layoutX="202.0" layoutY="10.0" prefHeight="18.0" prefWidth="64.0" text="02-03-2024" textAlignment="RIGHT" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="10.0" />
+      <Label fx:id="expenseAmount" layoutX="226.0" layoutY="29.0" text="230,15" />
+      <Button fx:id="expenseTag" layoutX="11.0" layoutY="114.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" style="-fx-background-color: #FFA500; -fx-padding: 4px 8px; -fx-text-fill: #000000; -fx-border-radius: 12px; -fx-background-radius: 12px;" text="FOOD" />
+      <Label fx:id="expenseParticipants" layoutX="188.0" layoutY="130.0" text="10 participants" />
    </children>
 </AnchorPane>

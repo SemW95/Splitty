@@ -17,10 +17,20 @@
 package client.scenes;
 
 
+import client.Main;
+import client.components.ExpenseCardCtrl;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Event;
+import commons.Expense;
+import commons.Payment;
+import commons.Person;
+import commons.Tag;
+import java.math.BigDecimal;
 import java.net.URL;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -29,24 +39,41 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.text.Text;
 
 
+// TODO: add a way such that the tags of the event can be changed in quantity, colour and tekst
 /**
- * Home screen.
+ * EventOverview screen.
  */
 public class EventOverviewCtrl implements Initializable {
 
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
     private ResourceBundle resources;
-
+    private Event event;
     @FXML
-    private ListView<Event> listView;
-    private List<Event> eventList;
+    private Label eventNameLabel; // TODO: change this such that label is seen when changing the name and otherwise text
+    @FXML
+    private Text eventDescription;
+    @FXML
+    private Label eventDates;
+    @FXML
+    private Label eventLastModified;
+    @FXML
+    private Label amountOfParticipants;
+    // TODO: make tags a component and add them + make field
 
     @FXML
     private ComboBox<String> dropDown;
+
+    @FXML
+    private FlowPane expensesFlowPane;
 
     @Inject
     public EventOverviewCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -72,12 +99,38 @@ public class EventOverviewCtrl implements Initializable {
     }
 
     /**
-     * Gets called on showHome to request data.
+     * This method fills the flowpane with expenses (expenseCard).
      */
-    public void getData() {
-        eventList = server.getEvents();
-        listView.getItems().addAll(eventList);
+    public void refresh(Event event){
+        this.event = event;
+        if(event.getTitle() != null){
+            this.eventNameLabel.setText(event.getTitle());
+        }
+        if(event.getDescription() != null){
+            this.eventDescription.setText(event.getDescription());
+        }
+        // TODO: start and enddate
+        if(event.getLastModifiedDateTime() != null){
+            this.eventLastModified.setText(event.getLastModifiedDateTime().toString());
+        }
+        if(event.getPeople() != null){
+            this.amountOfParticipants.setText(event.getPeople().toString());
+        }
+
+        for (Expense expense : event.getExpenses()) {
+            var expenseCard = Main.FXML.loadComponent(ExpenseCardCtrl.class, "client", "components", "ExpenseCard.fxml");
+            expenseCard.getKey().setExpense(expense);
+            expensesFlowPane.getChildren().add(expenseCard.getValue());
+        }
     }
+
+//    /**
+//     * Gets called on showHome to request data.
+//     */
+//    public void getData() {
+//        eventList = server.getEvents();
+//        listView.getItems().addAll(eventList);
+//    }
 
     /**
      * Testing function for language switch.
@@ -112,22 +165,51 @@ public class EventOverviewCtrl implements Initializable {
         System.out.println("Pressed home.");
     }
 
-    /**
-     * Logic for the "settings" button.
-     */
-    public void clickSettings() {
-        System.out.println("Pressed settings.");
+    // TODO
+    public void handleLanguageClick(MouseEvent mouseEvent) {
+    }
+
+    // TODO
+    public void handleCurrencyClick(MouseEvent mouseEvent) {
+    }
+
+    // TODO
+    public void handleManageTags(ActionEvent actionEvent) {
     }
 
     /**
-     * Logic for the "add event" button.
+     * Logic for the "+" button next to "Expenses".
      */
-    public void addEvent() {
-        System.out.println("Pressed add event");
+    public void handleAddExpenses(ActionEvent actionEvent) {
+        System.out.println("Pressed add expense.");
     }
 
-    @FXML
-    private void clickAdminView(ActionEvent actionEvent) {
-        mainCtrl.showAdminCredentialsPopup();
+    // TODO: go to manage expenses
+    public void handleManageExpenses(ActionEvent actionEvent) {
     }
+
+    // TODO: go to add participants
+    public void handleAddParticipants(ActionEvent actionEvent) {
+    }
+
+    // TODO: go to manage participants
+    public void handleManageParticipants(ActionEvent actionEvent) {
+    }
+
+    // TODO: go to add payments
+    public void handleAddPayments(ActionEvent actionEvent) {
+    }
+
+    // TODO: go to manage payments
+    public void handleManagePayments(ActionEvent actionEvent) {
+    }
+
+    // TODO: go to Open Debts
+    public void handleOpenDebts(ActionEvent actionEvent) {
+    }
+
+    // TODO: go to Paid Off Debts
+    public void handlePaidOffDebts(ActionEvent actionEvent) {
+    }
+
 }

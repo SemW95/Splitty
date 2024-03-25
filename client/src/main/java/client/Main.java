@@ -18,7 +18,7 @@ package client;
 
 import static com.google.inject.Guice.createInjector;
 
-import client.components.ExpenseCard;
+import client.components.ExpenseCardCtrl;
 import client.scenes.AdminCredentialsCtrl;
 import client.scenes.EventOverviewCtrl;
 import client.scenes.ExpenseOverviewCtrl;
@@ -34,7 +34,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private static final Injector INJECTOR = createInjector(new MyModule());
-    private static final MyFXML FXML = new MyFXML(INJECTOR);
+    public static final MyFXML FXML = new MyFXML(INJECTOR);
 
     public static void main(String[] args) {
         launch();
@@ -50,13 +50,10 @@ public class Main extends Application {
             "ExpenseOverview.fxml");
         var eventOverview = FXML.load(EventOverviewCtrl.class, "client", "scenes", "EventOverview.fxml");
 
-        // Components
-        var expenseCard = FXML.loadComponent(ExpenseCard.class, "client", "components", "ExpenseCard.fxml");
-
         //step 6 add new page here
 
 
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, FXML, home, adminCredentials, expenseOverview, eventOverview, expenseCard);
+        mainCtrl.initialize(primaryStage, FXML, home, adminCredentials, expenseOverview, eventOverview);
     }
 }

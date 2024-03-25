@@ -322,6 +322,14 @@ public class Event {
         this.payments = payments;
     }
 
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
     public Instant getLastModifiedDateTime() {
         return lastModifiedDateTime;
     }

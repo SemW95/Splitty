@@ -8,7 +8,6 @@
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -16,20 +15,19 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <Pane prefHeight="600.0" prefWidth="1022.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.EventOverviewCtrl">
    <children>
       <Pane layoutX="19.0" layoutY="101.0" prefHeight="144.0" prefWidth="825.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="148.0" stroke="BLACK" strokeType="INSIDE" width="825.0" />
-            <Label layoutX="11.0" prefHeight="33.0" prefWidth="156.0" text="Event Name">
+            <Label fx:id="eventNameLabel" layoutX="11.0" prefHeight="33.0" prefWidth="156.0" text="Event Name">
                <font>
                   <Font size="28.0" />
                </font>
             </Label>
             <Text fx:id="eventDescription" layoutX="11.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed pharetra velit. Suspendisse potenti. Praesent at tortor elementum, condimentum diam a, fringilla nisi. Nullam convallis cursus dolor, at imperdiet urna maximus nec. Suspendisse porta gravida nisi, ut feugiat turpis laoreet eget. Quisque iaculis laoreet sodales. Mauris dapibus, dolor non auctor mattis, diam nisl feugiat lacus, a eleifend neque felis ac ligula. Fusce lacinia dictum dolor id consectetur." wrappingWidth="680.2699146270752" />
             <Button layoutX="679.0" layoutY="114.0" mnemonicParsing="false" onAction="#handleManageTags" prefHeight="25.0" prefWidth="140.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #CF9FFF;" text="MANAGE TAGS" />
-            <Text fx:id="eventName" layoutX="11.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Name" wrappingWidth="247.2033748626709">
+            <Text fx:id="eventNameText" layoutX="11.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Name" wrappingWidth="247.2033748626709">
                <font>
                   <Font size="28.0" />
                </font>
@@ -38,7 +36,7 @@
                <children>
                   <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" style="-fx-background-color: #FFA500; -fx-padding: 4px 8px; -fx-text-fill: #000000; -fx-border-radius: 12px; -fx-background-radius: 12px;" text="FOOD" />
                   <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="123.0" style="-fx-background-color: #ADD8E6; -fx-padding: 4px 8px; -fx-text-fill: #000000; -fx-border-radius: 12px; -fx-background-radius: 12px;" text="ENTRANCE FEES" />
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" style="-fx-background-color: #90EE90; -fx-padding: 4px 8px; -fx-text-fill: #00000; -fx-border-radius: 12px; -fx-background-radius: 12px;" text="TRAVEL" />
+                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" style="-fx-background-color: #90EE90; -fx-padding: 4px 8px; -fx-text-fill: #000000; -fx-border-radius: 12px; -fx-background-radius: 12px;" text="TRAVEL" />
                </children>
             </HBox>
             <Label fx:id="eventDates" contentDisplay="RIGHT" layoutX="685.0" layoutY="6.0" text="01-03-24 - 03-03-24">
@@ -50,7 +48,7 @@
                   </ImageView>
                </graphic>
             </Label>
-            <Label fx:id="lastModified" contentDisplay="RIGHT" layoutX="744.0" layoutY="31.0" text="04-03-24">
+            <Label fx:id="eventLastModified" contentDisplay="RIGHT" layoutX="744.0" layoutY="31.0" text="04-03-24">
                <graphic>
                   <ImageView fitHeight="21.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -74,29 +72,7 @@
          <children>
             <ScrollPane hbarPolicy="NEVER" prefHeight="290.0" prefWidth="560.0">
                <content>
-                  <FlowPane fx:id="expensesFlowPane" prefHeight="290.0" prefWidth="560.0">
-                     <children>
-                        <AnchorPane prefHeight="150.0" prefWidth="275.0" style="-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;">
-                           <children>
-                              <Label layoutX="13.0" layoutY="31.0" text="\\@expense">
-                                 <font>
-                                    <Font name="System Bold" size="24.0" />
-                                 </font>
-                              </Label>
-                              <Label layoutX="13.0" layoutY="8.0" text="\@receiver">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label layoutX="15.0" layoutY="69.0" prefHeight="39.0" prefWidth="244.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit." wrapText="true" />
-                              <Label layoutX="202.0" layoutY="10.0" prefHeight="18.0" prefWidth="64.0" text="02-03-2024" />
-                              <Label layoutX="226.0" layoutY="29.0" text="230,15" />
-                              <Button layoutX="11.0" layoutY="114.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" style="-fx-background-color: #FFA500; -fx-padding: 4px 8px; -fx-text-fill: #000000; -fx-border-radius: 12px; -fx-background-radius: 12px;" text="FOOD" />
-                              <Label layoutX="188.0" layoutY="130.0" text="10 participants" />
-                           </children>
-                        </AnchorPane>
-                     </children>
-                  </FlowPane>
+                  <FlowPane fx:id="expensesFlowPane" prefHeight="290.0" prefWidth="560.0" />
                </content>
             </ScrollPane>
          </children>
@@ -167,7 +143,7 @@
       <Pane layoutX="593.0" layoutY="257.0" prefHeight="327.0" prefWidth="411.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="325.0" stroke="BLACK" strokeType="INSIDE" width="415.0" />
-            <PieChart prefHeight="325.0" prefWidth="411.0" title="Statistics" />
+            <PieChart fx:id="expensePieChart" prefHeight="325.0" prefWidth="411.0" title="Statistics" />
          </children>
       </Pane>
    </children>
