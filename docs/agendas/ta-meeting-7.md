@@ -41,7 +41,6 @@
     - Show every screen and popup seperately.
 
 ## Talking Points (22 min)
-- **Talking Points: (Inform/ brainstorm/ decision-making/ discuss)**
 - **Some details about UI (*discuss*)(10 min)**
     - The size of screen: 1920 * 1080 / 1080 * 720 / 1000 * 600
     - Usability
