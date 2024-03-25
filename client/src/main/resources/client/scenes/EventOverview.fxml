@@ -27,9 +27,9 @@
                   <Font size="28.0" />
                </font>
             </Label>
-            <Text layoutX="11.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed pharetra velit. Suspendisse potenti. Praesent at tortor elementum, condimentum diam a, fringilla nisi. Nullam convallis cursus dolor, at imperdiet urna maximus nec. Suspendisse porta gravida nisi, ut feugiat turpis laoreet eget. Quisque iaculis laoreet sodales. Mauris dapibus, dolor non auctor mattis, diam nisl feugiat lacus, a eleifend neque felis ac ligula. Fusce lacinia dictum dolor id consectetur." wrappingWidth="680.2699146270752" />
+            <Text fx:id="eventDescription" layoutX="11.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed pharetra velit. Suspendisse potenti. Praesent at tortor elementum, condimentum diam a, fringilla nisi. Nullam convallis cursus dolor, at imperdiet urna maximus nec. Suspendisse porta gravida nisi, ut feugiat turpis laoreet eget. Quisque iaculis laoreet sodales. Mauris dapibus, dolor non auctor mattis, diam nisl feugiat lacus, a eleifend neque felis ac ligula. Fusce lacinia dictum dolor id consectetur." wrappingWidth="680.2699146270752" />
             <Button layoutX="679.0" layoutY="114.0" mnemonicParsing="false" onAction="#handleManageTags" prefHeight="25.0" prefWidth="140.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #CF9FFF;" text="MANAGE TAGS" />
-            <Text layoutX="11.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Name" wrappingWidth="247.2033748626709">
+            <Text fx:id="eventName" layoutX="11.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Name" wrappingWidth="247.2033748626709">
                <font>
                   <Font size="28.0" />
                </font>
@@ -41,7 +41,7 @@
                   <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" style="-fx-background-color: #90EE90; -fx-padding: 4px 8px; -fx-text-fill: #00000; -fx-border-radius: 12px; -fx-background-radius: 12px;" text="TRAVEL" />
                </children>
             </HBox>
-            <Label contentDisplay="RIGHT" layoutX="685.0" layoutY="6.0" text="01-03-24 - 03-03-24">
+            <Label fx:id="eventDates" contentDisplay="RIGHT" layoutX="685.0" layoutY="6.0" text="01-03-24 - 03-03-24">
                <graphic>
                   <ImageView fitHeight="21.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -50,7 +50,7 @@
                   </ImageView>
                </graphic>
             </Label>
-            <Label contentDisplay="RIGHT" layoutX="744.0" layoutY="31.0" text="04-03-24">
+            <Label fx:id="lastModified" contentDisplay="RIGHT" layoutX="744.0" layoutY="31.0" text="04-03-24">
                <graphic>
                   <ImageView fitHeight="21.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -59,7 +59,7 @@
                   </ImageView>
                </graphic>
             </Label>
-            <Label contentDisplay="RIGHT" layoutX="779.0" layoutY="52.0" prefHeight="21.0" prefWidth="44.0" text="15">
+            <Label fx:id="amountOfParticipants" contentDisplay="RIGHT" layoutX="779.0" layoutY="52.0" prefHeight="21.0" prefWidth="44.0" text="15">
                <graphic>
                   <ImageView fitHeight="28.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -72,17 +72,27 @@
       </Pane>
       <Pane layoutX="20.0" layoutY="292.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="293.0" prefWidth="548.0">
          <children>
-            <ScrollPane prefHeight="294.0" prefWidth="553.0">
+            <ScrollPane hbarPolicy="NEVER" prefHeight="290.0" prefWidth="560.0">
                <content>
-                  <FlowPane fx:id="participantsFlowPane" prefHeight="296.0" prefWidth="552.0">
+                  <FlowPane fx:id="expensesFlowPane" prefHeight="290.0" prefWidth="560.0">
                      <children>
-                        <AnchorPane prefHeight="91.0" prefWidth="290.0" style="-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;">
+                        <AnchorPane prefHeight="150.0" prefWidth="275.0" style="-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;">
                            <children>
-                              <Label layoutX="13.0" layoutY="8.0" text="\\@expense1">
+                              <Label layoutX="13.0" layoutY="31.0" text="\\@expense">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>
                               </Label>
+                              <Label layoutX="13.0" layoutY="8.0" text="\@receiver">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="15.0" layoutY="69.0" prefHeight="39.0" prefWidth="244.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit." wrapText="true" />
+                              <Label layoutX="202.0" layoutY="10.0" prefHeight="18.0" prefWidth="64.0" text="02-03-2024" />
+                              <Label layoutX="226.0" layoutY="29.0" text="230,15" />
+                              <Button layoutX="11.0" layoutY="114.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" style="-fx-background-color: #FFA500; -fx-padding: 4px 8px; -fx-text-fill: #000000; -fx-border-radius: 12px; -fx-background-radius: 12px;" text="FOOD" />
+                              <Label layoutX="188.0" layoutY="130.0" text="10 participants" />
                            </children>
                         </AnchorPane>
                      </children>
@@ -98,7 +108,7 @@
                   <DropShadow height="26.93" radius="6.2325" width="0.0" />
                </effect>
             </Rectangle>
-            <Button layoutX="-18.0" layoutY="19.0" mnemonicParsing="false" onAction="#handleClickHome" prefHeight="44.0" prefWidth="281.0" style="-fx-background-color: transparent; -fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 20;" text="SPLITTY: Going Dutch">
+            <Button layoutX="-18.0" layoutY="19.0" mnemonicParsing="false" onAction="#clickHome" prefHeight="44.0" prefWidth="281.0" style="-fx-background-color: transparent; -fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 20;" text="SPLITTY: Going Dutch">
                <font>
                   <Font size="14.0" />
                </font>
@@ -114,7 +124,7 @@
                </image>
             </ImageView>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="28.0" layoutX="437.0" layoutY="25.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
-            <Label fx:id="invitationCode" layoutX="445.0" layoutY="24.0" prefHeight="17.0" prefWidth="185.0" text="Invitation Code">
+            <Label fx:id="inviteCode" layoutX="444.0" layoutY="24.0" prefHeight="17.0" prefWidth="185.0" text="Invite Code">
                <font>
                   <Font size="20.0" />
                </font>
@@ -141,7 +151,7 @@
             <Font size="19.0" />
          </font>
       </Text>
-      <Text layoutX="19.0" layoutY="282.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Expenses" wrappingWidth="121.33675193786621">
+      <Text layoutX="19.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Expenses" wrappingWidth="121.33675193786621">
          <font>
             <Font size="19.0" />
          </font>
@@ -154,9 +164,9 @@
       <Button layoutX="848.0" layoutY="199.0" mnemonicParsing="false" onAction="#handleManagePayments" prefHeight="25.0" prefWidth="168.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #CF9FFF;" text="MANAGE" />
       <Button layoutX="313.0" layoutY="261.0" mnemonicParsing="false" onAction="#handleOpenDebts" prefHeight="25.0" prefWidth="126.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #FFE761;" text="OPEN DEBTS" />
       <Button layoutX="447.0" layoutY="260.0" mnemonicParsing="false" onAction="#handlePaidOffDebts" prefHeight="25.0" prefWidth="126.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #FFE761;" text="PAID OFF DEBTS" />
-      <Pane layoutX="599.0" layoutY="257.0" prefHeight="327.0" prefWidth="411.0">
+      <Pane layoutX="593.0" layoutY="257.0" prefHeight="327.0" prefWidth="411.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="329.0" stroke="BLACK" strokeType="INSIDE" width="415.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="325.0" stroke="BLACK" strokeType="INSIDE" width="415.0" />
             <PieChart prefHeight="325.0" prefWidth="411.0" title="Statistics" />
          </children>
       </Pane>

@@ -71,6 +71,18 @@ public class MyFXML {
         }
     }
 
+    public <T> Pair<T, Parent> loadComponent(Class<T> c, String... parts){
+        var loader = new FXMLLoader(getLocation(parts), bundle);
+        T controller = injector.getInstance(c);
+        loader.setController(controller);
+        try{
+            Parent parent = loader.load();
+            return new Pair<>(controller, parent);
+        }catch(IOException e){
+            throw new RuntimeException(e);
+        }
+    }
+
     private URL getLocation(String... parts) {
         var path = Path.of("", parts).toString();
         return MyFXML.class.getClassLoader().getResource(path);
