@@ -17,6 +17,7 @@
 package client.scenes;
 
 import client.MyFXML;
+import client.components.ExpenseCard;
 import java.util.Locale;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -51,10 +52,14 @@ public class MainCtrl {
     private Scene adminCredentials;
     private ExpenseOverviewCtrl expenseOverviewCtrl;
     private Scene expenseOverview;
+    private EventOverviewCtrl eventOverviewCtrl;
+    private Scene eventOverview;
     //private ParticipantCtrl participantCtrl;
     //private Scene participant;
     private MyFXML fxml;
     //step 1 below.
+
+    private Pair<ExpenseCard, javafx.scene.Parent> expenseCard;
 
     /**
      * Main controller initialization.
@@ -67,7 +72,9 @@ public class MainCtrl {
      */
     public void initialize(Stage primaryStage, MyFXML fxml, Pair<HomeCtrl, Parent> homePair,
                            Pair<AdminCredentialsCtrl, Parent> adminCredentialsPair,
-                           Pair<ExpenseOverviewCtrl, Parent> expenseOverviewPair) {
+                           Pair<ExpenseOverviewCtrl, Parent> expenseOverviewPair,
+                           Pair<EventOverviewCtrl, Parent> eventOverviewPair,
+                           Pair<ExpenseCard, Parent> expenseCard) {
         this.primaryStage = primaryStage;
         this.fxml = fxml;
 
@@ -195,4 +202,12 @@ public class MainCtrl {
         System.out.println("Show admin view");
     }
     //add step 4 here.
+
+    /**
+     * Gets the ExpenseCard.
+     * @return the expenseCard
+     */
+    public Pair<ExpenseCard, Parent> getExpenseCard() {
+        return expenseCard;
+    }
 }

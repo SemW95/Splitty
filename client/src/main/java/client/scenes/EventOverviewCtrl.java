@@ -35,7 +35,7 @@ import javafx.scene.control.ListView;
 /**
  * Home screen.
  */
-public class EventCtrl implements Initializable {
+public class EventOverviewCtrl implements Initializable {
 
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
@@ -49,7 +49,7 @@ public class EventCtrl implements Initializable {
     private ComboBox<String> dropDown;
 
     @Inject
-    public EventCtrl(ServerUtils server, MainCtrl mainCtrl) {
+    public EventOverviewCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.server = server;
         this.mainCtrl = mainCtrl;
     }
