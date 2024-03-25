@@ -47,6 +47,7 @@
         - Color Contrast (*discuss*)
         - Keyboard Shortcuts (*discuss*)
         - Multi-modal Visualization
+        - Logical Navigation
         - Keyboard Navigation (*discuss*)
         - Supporting Undo Actions (*discuss*)
         - Error Messages
