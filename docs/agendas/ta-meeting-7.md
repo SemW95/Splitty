@@ -44,6 +44,14 @@
 - **Some details about UI (*discuss*)(10 min)**
     - The size of screen: 1920 * 1080 / 1080 * 720 / 1000 * 600
     - Usability
+        - Color Contrast (*discuss*)
+        - Keyboard Shortcuts (*discuss*)
+        - Multi-modal Visualization
+        - Keyboard Navigation (*discuss*)
+        - Supporting Undo Actions (*discuss*)
+        - Error Messages
+        - Informative Feedback
+        - Confirmation for Key Actions
 - **Plan of this week's work (*discuss and decision-making*)(9 min)**
     - Product Pitch: update the presentation draft to BrightSpace (Deadline: 28th March, this Thursday)
     - Tag Creation UI
@@ -51,9 +59,8 @@
     - Usability of UI: improve the interface
     - Write business logic code & Connect UI to backend code
 - **Code of Conduct (*discuss*)(3 min)**
-    - Does anyone have any advice on the Code of Conduct? 
-
-
+    - Does anyone have any advice on the Code of Conduct? `
+`
 **NOTE: anything that was skipped or unclear will be discussed in detail after the TA meeting.**
 
 
