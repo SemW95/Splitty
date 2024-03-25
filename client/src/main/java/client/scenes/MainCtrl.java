@@ -139,8 +139,8 @@ public class MainCtrl {
 
         //        primaryStage.setScene(expenseOverview);
         //        expenseOverviewCtrl.populate();
-        primaryStage.setScene(manageExpense);
-        manageExpenseCtrl.populate();
+//        primaryStage.setScene(manageExpense);
+//        manageExpenseCtrl.populate();
 
 
         // For testing the following four scenes:
