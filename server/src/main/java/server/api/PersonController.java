@@ -177,7 +177,7 @@ public class PersonController {
         @PathVariable(name = "id") Long id,
         @PathVariable(name = "iban") String iban
     ) {
-        personService.setEmail(id, iban);
+        personService.setIban(id, iban);
     }
 
     /**
@@ -193,7 +193,7 @@ public class PersonController {
         @PathVariable(name = "id") Long id,
         @PathVariable(name = "bic") String bic
     ) {
-        personService.setEmail(id, bic);
+        personService.setBic(id, bic);
     }
 
     /**
