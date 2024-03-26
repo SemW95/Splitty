@@ -11,12 +11,11 @@
 |            | Lukas Milieška                     |
 |            | Sem van der Weijden                |
 |            | Eva Miesen                         |
-## START (10 min)
+## START (5 min) 13:45
 - **Opening by chair (1 min)**
 - **Check-in: How is everyone doing? (1 min)**
     - Did everybody's task feel managable?
-    - Any questions on where we are in the bigger picture?
-- **Unaddressed announcements by the team (2 min)**
+- **Any unaddressed announcements by the team (2 min)**
 - **Summary of work (3 min)**
     - Connecting Scenes to one another
 - **Remaining Gitlab Issues (2 min)**
@@ -25,21 +24,45 @@
     - Are there any questions?
 - **Announcements by the TA (1 min)**
 
-## Talking Points (35 min)
-- **Some details about UI (*discuss*)(10 min)**
-    - Connecting Scenes
-    - Product Pitch
-    - Tag Creation (low priority)
-    - Keyboard Support
-    - Undo Support
-    - Error Messages
-    - MVP by sixth of April - is this still reachable?
-    - Aim for improvement Code of Conduct
+## Talking Points (35 min) 13:50
+- **Vital goals (5 min)**
+  - MVP by sixth of April - is this still a realistic goal?
+  - Final coding deadline end of week 9 -> 14 April?
+  - Final Product Pitch 18th April 14:40
+- **Human Computer Interactions(5 min)**
+  - Keyboard Shortcuts
+  - Keyboard Navigation
+  - Supporting Undo Actions
+  - Error Messages
+    - related to illegal characters in forms?
+  - Informative Feedback
+    - Confirmation dialogue pop-ups
+- **Technology(10 min)**
+    - Spring Boot
+      - @Services are defined, encapsulating business logic or shared states
+    - JavaFX
+      - JavaFX controllers for dependency Injection
+    - Communication
+      - Define all REST and webservice endpoints through Spring
+      - Use a client library like Jersey (Rest) or Stomp (Webservice) (These two simplify server requests)
+- **Testing(10 min)**
+    - Coverage
+      - Code coverage above 80%
+    - Unit Testing
+      - Configurable subclasses to replace components we depend on in tests, for most tests
+    - Endpoint Testing
+      - Automated tests that cover regular & exceptional usage of endpoints
+- Unfinished Business from Last Week's Sprint
+  - Connecting Scenes finished?
+- What will be done by whom, when?
+  - focus-1
+  - focus-2
+  - focus-3
 - **NOTE: anything that was skipped or unclear will be discussed in detail after the TA meeting.**
 
 
-## Wrapping Up (5 min)
-- **Summarize action points: Who, what, when? (2 min)**
-- **Feedback round: What went well and what can be improved next time? (3 min)**
+## Wrapping Up (5 min) 13:25
+- **Next Chair and Minute Taker**
+- **Feedback round: What went well this sprint and what can be improved for the next sprint? (3 min)**
 - **Any Questions?: Does anyone have anything to add before the meeting closes? (2 min)**
 - **Closure (1 min)**
