@@ -158,7 +158,10 @@ public class PersonService {
             person.setEmail(email);
         } catch (IllegalArgumentException e) {
             // Handle the case where email validation fails
-            throw new IllegalArgumentException("The provided email is not valid: " + e.getMessage());
+            throw new IllegalArgumentException(
+                "The provided email is not valid: "
+                    + e.getMessage()
+            );
         }
 
         // Save the updated person object to the database
