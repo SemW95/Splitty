@@ -21,7 +21,7 @@
     - Most of the UI has been built:
         - Admin Overview Screen: Luke
         - Expense Overview Screen & Manage Expense Popup: Wing
-        - Event Overview Screen & Expense Card Popup: Eva
+        - Event Overview Screen & Expense Card Screen: Eva
         - Add Participant Popup, Edit Participant Popup, Manage Particpants Screen & Delete Participant Confirmation Popup: Xiaoyu
     - Some other works:
         - Added dummy data initialized and reset on startup: Sem
