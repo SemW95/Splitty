@@ -7,15 +7,7 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Event;
 import commons.Expense;
-import commons.Payment;
-import commons.Person;
-import commons.Tag;
-import java.math.BigDecimal;
 import java.net.URL;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,7 +23,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 
 
-// TODO: add a way such that the tags of the event can be changed in quantity, colour and tekst
+// TODO: add a way such that the tags of the event can be changed in quantity, colour and text
 /**
  * EventOverview screen.
  */

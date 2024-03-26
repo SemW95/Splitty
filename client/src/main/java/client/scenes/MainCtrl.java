@@ -100,16 +100,16 @@ public class MainCtrl {
         this.expenseCard = expenseCard;
 
         showHome();
-        // TODO Remove this is only for testing
-        var person1 = new Person("Alice", "needs a surname", "Alice@domain.com", "AL35202111090000000001234567", "ZUOBJEO6XXX");
-        var participants = new ArrayList<Person>();
-        participants.add(person1);
-        var list = List.of(new Expense("Food", participants, person1, new BigDecimal(14.00), null, Instant.now()),
-            new Expense("Drinks", participants, person1, new BigDecimal(14.00), null, Instant.now()));
-        var event = new Event("Dinner and Drinks", "Dinner and drinks with the group",
-            new ArrayList<>(), new ArrayList<>(), list, new ArrayList<>(),
-            LocalDate.now(), LocalDate.now(), Instant.now());
-        showEventOverview(event);
+        // TODO Remove when done this is only for testing (for the EventOverview)
+//        var person1 = new Person("Alice", "needs a surname", "Alice@domain.com", "AL35202111090000000001234567", "ZUOBJEO6XXX");
+//        var participants = new ArrayList<Person>();
+//        participants.add(person1);
+//        var list = List.of(new Expense("Food", participants, person1, new BigDecimal(14.00), null, Instant.now()),
+//            new Expense("Drinks", participants, person1, new BigDecimal(14.00), null, Instant.now()));
+//        var event = new Event("Dinner and Drinks", "Dinner and drinks with the group",
+//            new ArrayList<>(), new ArrayList<>(), list, new ArrayList<>(),
+//            LocalDate.now(), LocalDate.now(), Instant.now());
+//        showEventOverview(event);
         // TODO: Remove until here
         primaryStage.show();
 
