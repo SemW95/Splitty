@@ -21,6 +21,10 @@ public class PaymentService {
         this.paymentRepository = paymentRepository;
     }
 
+    /** Adds a Payment.
+     *
+     * @param payment The Payment that should be added
+     */
     public void addPayment(Payment payment) {
         Optional<Payment> optionalPayment = paymentRepository.findById(payment.getId());
 
