@@ -71,14 +71,24 @@ public class MyFXML {
         }
     }
 
-    public <T> Pair<T, Parent> loadComponent(Class<T> c, String... parts){
+    /**
+     * Loads components.
+     *
+     * @param c     The controller
+     * @param parts An array of strings representing the location of the FXML file
+     *              and any additional parts.
+     * @return      A Pair containing the loaded controller of type T and the root node
+     *              of the loaded component.
+     */
+
+    public <T> Pair<T, Parent> loadComponent(Class<T> c, String... parts) {
         var loader = new FXMLLoader(getLocation(parts), bundle);
         T controller = injector.getInstance(c);
         loader.setController(controller);
-        try{
+        try {
             Parent parent = loader.load();
             return new Pair<>(controller, parent);
-        }catch(IOException e){
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

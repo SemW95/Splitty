@@ -18,7 +18,6 @@ package client;
 
 import static com.google.inject.Guice.createInjector;
 
-import client.components.ExpenseCardCtrl;
 import client.scenes.AdminCredentialsCtrl;
 import client.scenes.EventOverviewCtrl;
 import client.scenes.ExpenseOverviewCtrl;
@@ -45,15 +44,18 @@ public class Main extends Application {
         // Scenes
         var home = FXML.load(HomeCtrl.class, "client", "scenes", "Home.fxml");
         var adminCredentials =
-            FXML.load(AdminCredentialsCtrl.class, "client", "scenes", "AdminCredentials.fxml");
+            FXML.load(AdminCredentialsCtrl.class,
+                "client", "scenes", "AdminCredentials.fxml");
         var expenseOverview = FXML.load(ExpenseOverviewCtrl.class, "client", "scenes",
             "ExpenseOverview.fxml");
-        var eventOverview = FXML.load(EventOverviewCtrl.class, "client", "scenes", "EventOverview.fxml");
+        var eventOverview = FXML.load(EventOverviewCtrl.class,
+            "client", "scenes", "EventOverview.fxml");
 
         //step 6 add new page here
 
 
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, FXML, home, adminCredentials, expenseOverview, eventOverview);
+        mainCtrl.initialize(primaryStage, FXML, home, adminCredentials, expenseOverview,
+            eventOverview);
     }
 }

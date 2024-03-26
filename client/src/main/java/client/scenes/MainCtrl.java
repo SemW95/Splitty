@@ -19,13 +19,6 @@ package client.scenes;
 import client.MyFXML;
 import client.components.ExpenseCardCtrl;
 import commons.Event;
-import commons.Expense;
-import commons.Person;
-import java.math.BigDecimal;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -101,15 +94,18 @@ public class MainCtrl {
 
         showHome();
         // TODO Remove when done this is only for testing (for the EventOverview)
-//        var person1 = new Person("Alice", "needs a surname", "Alice@domain.com", "AL35202111090000000001234567", "ZUOBJEO6XXX");
-//        var participants = new ArrayList<Person>();
-//        participants.add(person1);
-//        var list = List.of(new Expense("Food", participants, person1, new BigDecimal(14.00), null, Instant.now()),
-//            new Expense("Drinks", participants, person1, new BigDecimal(14.00), null, Instant.now()));
-//        var event = new Event("Dinner and Drinks", "Dinner and drinks with the group",
-//            new ArrayList<>(), new ArrayList<>(), list, new ArrayList<>(),
-//            LocalDate.now(), LocalDate.now(), Instant.now());
-//        showEventOverview(event);
+        //        var person1 = new Person("Alice", "needs a surname", "Alice@domain.com",
+        //        "AL35202111090000000001234567", "ZUOBJEO6XXX");
+        //        var participants = new ArrayList<Person>();
+        //        participants.add(person1);
+        //        var list = List.of(new Expense("Food", participants, person1,
+        //        new BigDecimal(14.00), null, Instant.now()),
+        //            new Expense("Drinks", participants, person1, new BigDecimal(14.00),
+        //            null, Instant.now()));
+        //        var event = new Event("Dinner and Drinks", "Dinner and drinks with the group",
+        //            new ArrayList<>(), new ArrayList<>(), list, new ArrayList<>(),
+        //            LocalDate.now(), LocalDate.now(), Instant.now());
+        //        showEventOverview(event);
         // TODO: Remove until here
         primaryStage.show();
 
@@ -225,10 +221,6 @@ public class MainCtrl {
     }
     //add step 4 here.
 
-    /**
-     * Gets the ExpenseCard.
-     * @return the expenseCard
-     */
     public Pair<ExpenseCardCtrl, Parent> getExpenseCard() {
         return expenseCard;
     }
@@ -237,7 +229,8 @@ public class MainCtrl {
      * Sets primary stage to the Home scene.
      */
     public void showEventOverview(Event event) {
-        primaryStage.setTitle(fxml.getBundle().getString("home.title")); // TODO: send event with it (is a lot neater)
+        primaryStage.setTitle(fxml.getBundle().getString("home.title"));
+        // TODO: send event with it (is a lot neater)
         eventOverviewCtrl.refresh(event);
         primaryStage.setScene(eventOverview);
     }

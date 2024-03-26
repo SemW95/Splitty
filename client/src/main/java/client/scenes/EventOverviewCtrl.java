@@ -16,14 +16,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 
 
 // TODO: add a way such that the tags of the event can be changed in quantity, colour and text
+
 /**
  * EventOverview screen.
  */
@@ -33,8 +32,9 @@ public class EventOverviewCtrl implements Initializable {
     private final MainCtrl mainCtrl;
     private ResourceBundle resources;
     private Event event;
+    // TODO: change this such that label is seen when changing the name and otherwise text
     @FXML
-    private Label eventNameLabel; // TODO: change this such that label is seen when changing the name and otherwise text
+    private Label eventNameLabel;
     @FXML
     private Text eventDescription;
     @FXML
@@ -77,36 +77,37 @@ public class EventOverviewCtrl implements Initializable {
     /**
      * This method fills the flowpane with expenses (expenseCard).
      */
-    public void refresh(Event event){
+    public void refresh(Event event) {
         this.event = event;
-        if(event.getTitle() != null){
+        if (event.getTitle() != null) {
             this.eventNameLabel.setText(event.getTitle());
         }
-        if(event.getDescription() != null){
+        if (event.getDescription() != null) {
             this.eventDescription.setText(event.getDescription());
         }
         // TODO: start and enddate
-        if(event.getLastModifiedDateTime() != null){
+        if (event.getLastModifiedDateTime() != null) {
             this.eventLastModified.setText(event.getLastModifiedDateTime().toString());
         }
-        if(event.getPeople() != null){
+        if (event.getPeople() != null) {
             this.amountOfParticipants.setText(event.getPeople().toString());
         }
 
         for (Expense expense : event.getExpenses()) {
-            var expenseCard = Main.FXML.loadComponent(ExpenseCardCtrl.class, "client", "components", "ExpenseCard.fxml");
+            var expenseCard = Main.FXML.loadComponent(ExpenseCardCtrl.class,
+                "client", "components", "ExpenseCard.fxml");
             expenseCard.getKey().setExpense(expense);
             expensesFlowPane.getChildren().add(expenseCard.getValue());
         }
     }
 
-//    /**
-//     * Gets called on showHome to request data.
-//     */
-//    public void getData() {
-//        eventList = server.getEvents();
-//        listView.getItems().addAll(eventList);
-//    }
+    //    /**
+    //     * Gets called on showHome to request data.
+    //     */
+    //    public void getData() {
+    //        eventList = server.getEvents();
+    //        listView.getItems().addAll(eventList);
+    //    }
 
     /**
      * Testing function for language switch.
