@@ -12,7 +12,6 @@ import org.springframework.data.jpa.repository.Query;
  * Repository Interface for the Expense Object.
  */
 public interface ExpenseRepository extends JpaRepository<Expense, Long> {
-    Optional<Expense> findById(long id);
 
     List<Expense> findByDescriptionContainingIgnoreCase(String description);
 
