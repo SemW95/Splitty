@@ -31,7 +31,6 @@
         - Mockito tests for the personService class: Sem
 - **Issues from the previous sprint which haven't been done (2 min)**
     - Tag Creation UI has not been created as a issue
-    - The size of screen
 - **Approval of last minutes - Did everyone read the minutes from the previous meeting? (1 min)**
     - Is everything clear? Any feedback?
 - **Announcements by the TA (2 min)**
@@ -40,7 +39,7 @@
 
 ## Talking Points (22 min)
 - **Some details about UI (*discuss*)(10 min)**
-    - The size of screen: 1920 * 1080 / 1080 * 720 / 1000 * 600
+    - The size of screen: 1000 * 600
     - Usability
         - Color Contrast (*discuss*)
         - Keyboard Shortcuts (*discuss*)
