@@ -65,8 +65,8 @@ public class Event {
      *
      * @param title       The title of the Event.
      * @param description The description of the Event.
-     * @param startDate    The date that this Event started.
-     * @param endDate      The date that this Event ended.
+     * @param startDate   The date that this Event started.
+     * @param endDate     The date that this Event ended.
      */
     public Event(
         String title,
@@ -113,8 +113,8 @@ public class Event {
      * @param title       The title of the Event.
      * @param description The description of the Event.
      * @param tags        The Tags of the Event
-     * @param startDate    The date that this Event started.
-     * @param endDate      The date that this Event ended.
+     * @param startDate   The date that this Event started.
+     * @param endDate     The date that this Event ended.
      */
     public Event(
         String title,
@@ -144,14 +144,14 @@ public class Event {
     /**
      * The Event constructor that is the base for all non-import constructors.
      *
-     * @param title        The Event title.
-     * @param description  The Event description.
-     * @param people       The ArrayList with all Persons in the Event.
-     * @param tags         The ArrayList with all the Tags in the Event.
-     * @param expenses     The ArrayList with all the Expenses in the Event.
-     * @param payments     The ArrayList with all the Payments in the Event.
-     * @param startDate    The date that this Event started.
-     * @param endDate      The date that this Event ended.
+     * @param title       The Event title.
+     * @param description The Event description.
+     * @param people      The ArrayList with all Persons in the Event.
+     * @param tags        The ArrayList with all the Tags in the Event.
+     * @param expenses    The ArrayList with all the Expenses in the Event.
+     * @param payments    The ArrayList with all the Payments in the Event.
+     * @param startDate   The date that this Event started.
+     * @param endDate     The date that this Event ended.
      */
     public Event(
         String title,
@@ -178,14 +178,14 @@ public class Event {
     /**
      * The Event constructor used for imports.
      *
-     * @param title        The Event title.
-     * @param description  The Event description.
-     * @param people       The ArrayList with all Persons in the Event.
-     * @param tags         The ArrayList with all the Tags in the Event.
-     * @param expenses     The ArrayList with all the Expenses in the Event.
-     * @param payments     The ArrayList with all the Payments in the Event.
-     * @param startDate    The date that this Event started.
-     * @param endDate      The date that this Event ended.
+     * @param title                The Event title.
+     * @param description          The Event description.
+     * @param people               The ArrayList with all Persons in the Event.
+     * @param tags                 The ArrayList with all the Tags in the Event.
+     * @param expenses             The ArrayList with all the Expenses in the Event.
+     * @param payments             The ArrayList with all the Payments in the Event.
+     * @param startDate            The date that this Event started.
+     * @param endDate              The date that this Event ended.
      * @param lastModifiedDateTime The date of when this Event was last modified.
      */
     public Event(
@@ -220,7 +220,7 @@ public class Event {
     }
 
     public void updateLastModifiedDateTime() {
-        // TODO: update the lastModifiedDateTime variable
+        this.lastModifiedDateTime = Instant.now();
     }
 
     /**
@@ -326,8 +326,16 @@ public class Event {
         return startDate;
     }
 
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
     public LocalDate getEndDate() {
         return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 
     public Instant getLastModifiedDateTime() {

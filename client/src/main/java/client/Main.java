@@ -18,11 +18,18 @@ package client;
 
 import static com.google.inject.Guice.createInjector;
 
+import client.scenes.AddParticipantCtrl;
 import client.scenes.AdminCredentialsCtrl;
+import client.scenes.AdminOverviewCtrl;
+import client.scenes.DeleteEventConfirmationCtrl;
+import client.scenes.DeleteParticipantConfirmationCtrl;
+import client.scenes.EditParticipantCtrl;
 import client.scenes.EventOverviewCtrl;
 import client.scenes.ExpenseOverviewCtrl;
 import client.scenes.HomeCtrl;
 import client.scenes.MainCtrl;
+import client.scenes.ManageExpenseCtrl;
+import client.scenes.ManageParticipantsCtrl;
 import com.google.inject.Injector;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -50,12 +57,28 @@ public class Main extends Application {
             "ExpenseOverview.fxml");
         var eventOverview = FXML.load(EventOverviewCtrl.class,
             "client", "scenes", "EventOverview.fxml");
+        var manageExpense = FXML.load(ManageExpenseCtrl.class, "client", "scenes",
+            "ManageExpense.fxml");
+        var addParticipant = FXML.load(AddParticipantCtrl.class,
+            "client", "scenes", "AddParticipant.fxml");
+        var manageParticipants = FXML.load(ManageParticipantsCtrl.class,
+            "client", "scenes", "ManageParticipants.fxml");
+        var editParticipant = FXML.load(EditParticipantCtrl.class,
+            "client", "scenes", "EditParticipant.fxml");
+        var deleteParticipantConfirmation = FXML.load(DeleteParticipantConfirmationCtrl.class,
+            "client", "scenes", "DeleteParticipantConfirmation.fxml");
+        var adminOverview = FXML.load(AdminOverviewCtrl.class,
+            "client", "scenes", "AdminOverview.fxml");
+        var deleteEventConfirmation = FXML.load(DeleteEventConfirmationCtrl.class,
+            "client", "scenes", "DeleteEventConfirmation.fxml");
 
         //step 6 add new page here
 
 
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         mainCtrl.initialize(primaryStage, FXML, home, adminCredentials, expenseOverview,
-            eventOverview);
+            eventOverview,
+            manageExpense, addParticipant, manageParticipants, editParticipant,
+            deleteParticipantConfirmation, adminOverview, deleteEventConfirmation);
     }
 }
