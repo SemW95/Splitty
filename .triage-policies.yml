@@ -40,7 +40,7 @@ resource_rules:
     rules:
       - name: Ensure all non-draft open merge requests have the state::feedback label
         conditions:
-          state: open
+          state: opened
           forbidden_labels:
             - state::feedback
         action:
