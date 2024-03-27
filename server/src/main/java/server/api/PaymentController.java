@@ -98,7 +98,7 @@ public class PaymentController {
      * @param paymentId The id of the Payment
      * @param receiver The receiver for the Payment
      */
-    @PutMapping(path = "/payment/{id}/payer")
+    @PutMapping(path = "/payment/{id}/receiver")
     public void setReceiver(
         @PathVariable(name = "id") Long paymentId,
         @RequestBody Person receiver
@@ -111,7 +111,7 @@ public class PaymentController {
      * @param paymentId The id of the Payment
      * @param amount The amount for the Payment
      */
-    @PutMapping(path = "/payment/{id}/payer")
+    @PutMapping(path = "/payment/{id}/amount")
     public void setAmount(
         @PathVariable(name = "id") Long paymentId,
         @RequestBody BigDecimal amount
