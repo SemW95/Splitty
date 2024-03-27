@@ -139,7 +139,7 @@ class EventTest {
     }
 
     @Test
-    void debt() {
+    void debtTest() {
         List<Expense> expenses = new ArrayList<>();
 
         Person a =
@@ -163,20 +163,15 @@ class EventTest {
 
         payments.add(new Payment(a, b, new BigDecimal("3")));
         payments.add(new Payment(b, d, new BigDecimal("1")));
-        payments.add(new Payment(c, d, new BigDecimal("13")));
 
         Event event = new Event("", "",
             Arrays.asList(a, b, c, d, e), new ArrayList<>(), expenses,
             payments, LocalDate.now(), LocalDate.now(), Instant.now());
 
-
-        System.out.println(event.calculateSettlements());
-
-        System.out.println(event.calculateDebt(a));
-        System.out.println(event.calculateDebt(b));
-        System.out.println(event.calculateDebt(c));
-        System.out.println(event.calculateDebt(d));
-        System.out.println(event.calculateDebt(e));
-
+        assertEquals(0, event.calculateDebtSum(a).compareTo(new BigDecimal("7")));
+        assertEquals(0, event.calculateDebtSum(b).compareTo(new BigDecimal("1")));
+        assertEquals(0, event.calculateDebtSum(c).compareTo(new BigDecimal("20")));
+        assertEquals(0, event.calculateDebtSum(d).compareTo(new BigDecimal("-21")));
+        assertEquals(0, event.calculateDebtSum(e).compareTo(new BigDecimal("-7")));
     }
 }
