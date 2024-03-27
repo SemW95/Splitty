@@ -68,7 +68,7 @@ resource_rules:
             - state::aborted
       - name: Ensures merged merge request have a correct label
         conditions:
-          state: closed
+          state: merged
           forbidden_labels:
             - state::completed
         actions:
