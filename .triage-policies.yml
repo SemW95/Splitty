@@ -66,3 +66,13 @@ resource_rules:
         actions:
           labels:
             - state::completed
+      - name: Ensure a priority label is present
+        conditions:
+          forbidden_labels:
+            - priority::low
+            - priority::normal
+            - priority::high
+            - priority::urgent
+        actions:
+          labels:
+            - priority::normal
