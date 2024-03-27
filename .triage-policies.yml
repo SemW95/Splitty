@@ -44,7 +44,7 @@ resource_rules:
           draft: false
           forbidden_labels:
             - state::feedback
-        action:
+        actions:
           labels:
             - state::feedback
       - name: Give all draft merge requests the state::in-process label
@@ -54,15 +54,15 @@ resource_rules:
             - state::in-process
             - state::preparation
             - state::idea
-          action:
-            labels:
-              - state::in-process
+        actions:
+          labels:
+            - state::in-process
       - name: Ensures closed merge request have a correct label
         conditions:
           state: closed
           forbidden_labels:
             - state::aborted
             - state::completed
-        action:
+        actions:
           labels:
             - state::completed
