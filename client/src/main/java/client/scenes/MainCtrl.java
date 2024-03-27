@@ -17,6 +17,8 @@
 package client.scenes;
 
 import client.MyFXML;
+import client.components.ExpenseCardCtrl;
+import commons.Event;
 import java.io.File;
 import java.util.Locale;
 import javafx.scene.Parent;
@@ -59,6 +61,10 @@ public class MainCtrl {
     private Scene manageExpense;
     private ManageExpenseCtrl manageExpenseCtrl;
     private Scene expenseOverview;
+    private EventOverviewCtrl eventOverviewCtrl;
+    private Scene eventOverview;
+    //private ParticipantCtrl participantCtrl;
+    //private Scene participant;
     private AddParticipantCtrl addParticipantCtrl;
     private Scene addParticipant;
     private ManageParticipantsCtrl manageParticipantsCtrl;
@@ -71,24 +77,42 @@ public class MainCtrl {
     private Scene adminOverview;
     private DeleteEventConfirmationCtrl deleteEventConfirmationCtrl;
     private Scene deleteEventConfirmation;
-
     private MyFXML fxml;
     private String savedAdminPassword;
     //step 1 below.
+    private Pair<ExpenseCardCtrl, javafx.scene.Parent> expenseCard;
 
     /**
      * Main controller initialization.
      *
-     * @param primaryStage         the primary stage
-     * @param fxml                 MyFXML class
-     * @param homePair             a pair of the home controller and node
-     * @param adminCredentialsPair a pair of the admin credentials controller and node
-     * @param expenseOverviewPair  a pair of the expense overview controller and node
-     * @param adminOverviewPair    a pair of the admin overview controller and node
+     * @param primaryStage                                  the primary stage
+     * @param fxml                                          MyFXML class
+     * @param homePair                                      a pair of the home controller and node
+     * @param adminCredentialsPair                          a pair of the admin credentials
+     *                                                      controller and node
+     * @param expenseOverviewPair                           a pair of the expense overview
+     *                                                      controller and node
+     * @param eventOverviewPair                             a pair of the event overview
+     *                                                      controller and node
+     * @param manageExpensePair                             a pair of the manage expense
+     *                                                      controller and node
+     * @param addParticipantPair                            a pair of the add participant
+     *                                                      controller and node
+     * @param manageParticipantsPair                        a pair of the manage participant
+     *                                                      controller and node
+     * @param editParticipantPair                           a pair of the edit participant
+     *                                                      controller and node
+     * @param deleteParticipantConfirmationCtrlParentPair   a pair of the delete participant
+     *                                                      confirmation controller and node
+     * @param adminOverviewPair                             a pair of the admin overview controller
+     *                                                      and node
+     * @param deleteEventConfirmationPair                   a pair of the delete event confirmation
+     *                                                      controller and node
      */
     public void initialize(Stage primaryStage, MyFXML fxml, Pair<HomeCtrl, Parent> homePair,
                            Pair<AdminCredentialsCtrl, Parent> adminCredentialsPair,
                            Pair<ExpenseOverviewCtrl, Parent> expenseOverviewPair,
+                           Pair<EventOverviewCtrl, Parent> eventOverviewPair,
                            Pair<ManageExpenseCtrl, Parent> manageExpensePair,
                            Pair<AddParticipantCtrl, Parent> addParticipantPair,
                            Pair<ManageParticipantsCtrl, Parent> manageParticipantsPair,
@@ -97,6 +121,7 @@ public class MainCtrl {
                                deleteParticipantConfirmationCtrlParentPair,
                            Pair<AdminOverviewCtrl, Parent> adminOverviewPair,
                            Pair<DeleteEventConfirmationCtrl, Parent> deleteEventConfirmationPair) {
+
         this.primaryStage = primaryStage;
         this.fxml = fxml;
 
@@ -109,6 +134,11 @@ public class MainCtrl {
 
         this.expenseOverviewCtrl = expenseOverviewPair.getKey();
         this.expenseOverview = new Scene(expenseOverviewPair.getValue());
+
+        this.eventOverviewCtrl = eventOverviewPair.getKey();
+        this.eventOverview = new Scene(eventOverviewPair.getValue());
+
+        this.expenseCard = expenseCard;
 
         this.manageExpenseCtrl = manageExpensePair.getKey();
         this.manageExpense = new Scene(manageExpensePair.getValue());
@@ -132,7 +162,22 @@ public class MainCtrl {
 
         this.deleteEventConfirmationCtrl = deleteEventConfirmationPair.getKey();
         this.deleteEventConfirmation = new Scene(deleteEventConfirmationPair.getValue());
+
         showHome();
+        // TODO Remove when done this is only for testing (for the EventOverview)
+        //        var person1 = new Person("Alice", "needs a surname", "Alice@domain.com",
+        //        "AL35202111090000000001234567", "ZUOBJEO6XXX");
+        //        var participants = new ArrayList<Person>();
+        //        participants.add(person1);
+        //        var list = List.of(new Expense("Food", participants, person1,
+        //        new BigDecimal(14.00), null, Instant.now()),
+        //            new Expense("Drinks", participants, person1, new BigDecimal(14.00),
+        //            null, Instant.now()));
+        //        var event = new Event("Dinner and Drinks", "Dinner and drinks with the group",
+        //            new ArrayList<>(), new ArrayList<>(), list, new ArrayList<>(),
+        //            LocalDate.now(), LocalDate.now(), Instant.now());
+        //        showEventOverview(event);
+        // TODO: Remove until here
         primaryStage.show();
 
         // TODO Make the expense control fetch data from database and delete this!
@@ -332,6 +377,20 @@ public class MainCtrl {
     }
 
     //add step 4 here.
+
+    public Pair<ExpenseCardCtrl, Parent> getExpenseCard() {
+        return expenseCard;
+    }
+
+    /**
+     * Sets primary stage to the Home scene.
+     */
+    public void showEventOverview(Event event) {
+        primaryStage.setTitle(fxml.getBundle().getString("home.title"));
+        // TODO: send event with it (is a lot neater)
+        eventOverviewCtrl.refresh(event);
+        primaryStage.setScene(eventOverview);
+    }
 
     public String getSavedAdminPassword() {
         return savedAdminPassword;

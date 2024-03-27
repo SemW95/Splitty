@@ -24,6 +24,7 @@ import client.scenes.AdminOverviewCtrl;
 import client.scenes.DeleteEventConfirmationCtrl;
 import client.scenes.DeleteParticipantConfirmationCtrl;
 import client.scenes.EditParticipantCtrl;
+import client.scenes.EventOverviewCtrl;
 import client.scenes.ExpenseOverviewCtrl;
 import client.scenes.HomeCtrl;
 import client.scenes.MainCtrl;
@@ -48,11 +49,15 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        // Scenes
         var home = FXML.load(HomeCtrl.class, "client", "scenes", "Home.fxml");
         var adminCredentials =
-            FXML.load(AdminCredentialsCtrl.class, "client", "scenes", "AdminCredentials.fxml");
+            FXML.load(AdminCredentialsCtrl.class,
+                "client", "scenes", "AdminCredentials.fxml");
         var expenseOverview = FXML.load(ExpenseOverviewCtrl.class, "client", "scenes",
             "ExpenseOverview.fxml");
+        var eventOverview = FXML.load(EventOverviewCtrl.class,
+            "client", "scenes", "EventOverview.fxml");
         var manageExpense = FXML.load(ManageExpenseCtrl.class, "client", "scenes",
             "ManageExpense.fxml");
         var addParticipant = FXML.load(AddParticipantCtrl.class,
@@ -67,13 +72,14 @@ public class Main extends Application {
             "client", "scenes", "AdminOverview.fxml");
         var deleteEventConfirmation = FXML.load(DeleteEventConfirmationCtrl.class,
             "client", "scenes", "DeleteEventConfirmation.fxml");
+
         //step 6 add new page here
 
 
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         mainCtrl.initialize(primaryStage, FXML, home, adminCredentials, expenseOverview,
-            manageExpense,
-            addParticipant, manageParticipants, editParticipant,
+            eventOverview,
+            manageExpense, addParticipant, manageParticipants, editParticipant,
             deleteParticipantConfirmation, adminOverview, deleteEventConfirmation);
     }
 }
