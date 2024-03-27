@@ -199,25 +199,24 @@ public class Person {
 
     @Override
     public String toString() {
-        return firstName;
-//        return "Person{"
-//            + "id="
-//            + id
-//            + ", firstName='"
-//            + firstName
-//            + '\''
-//            + ", lastName='"
-//            + lastName
-//            + '\''
-//            + ", email='"
-//            + email
-//            + '\''
-//            + ", iban='"
-//            + iban
-//            + '\'' + ", bic='"
-//            + bic
-//            + '\''
-//            + '}';
+        return "Person{"
+            + "id="
+            + id
+            + ", firstName='"
+            + firstName
+            + '\''
+            + ", lastName='"
+            + lastName
+            + '\''
+            + ", email='"
+            + email
+            + '\''
+            + ", iban='"
+            + iban
+            + '\'' + ", bic='"
+            + bic
+            + '\''
+            + '}';
     }
 
     public String getIban() {
