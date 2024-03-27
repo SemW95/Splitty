@@ -33,7 +33,7 @@ public class ConfigManager {
      */
     private Properties loadProperties() throws IOException {
         Properties properties = new Properties();
-        FileInputStream input = new FileInputStream("client/src/main/resources/config.properties");
+        FileInputStream input = new FileInputStream("src/main/resources/config.properties");
         properties.load(input);
         return properties;
     }
