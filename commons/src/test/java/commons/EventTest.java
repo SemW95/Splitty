@@ -173,5 +173,7 @@ class EventTest {
         assertEquals(0, event.calculateDebtSum(c).compareTo(new BigDecimal("20")));
         assertEquals(0, event.calculateDebtSum(d).compareTo(new BigDecimal("-21")));
         assertEquals(0, event.calculateDebtSum(e).compareTo(new BigDecimal("-7")));
+
+        assertEquals(0, event.totalAmountSpent().compareTo(new BigDecimal("91")));
     }
 }
