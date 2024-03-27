@@ -93,7 +93,7 @@ public class HomeCtrl implements Initializable {
     }
 
     public static void handleClickEvent(Event event) {
-        System.out.println("pressed in homeCtrl");
+        System.out.println("pressed " + event.getTitle());
     }
 
     /**
