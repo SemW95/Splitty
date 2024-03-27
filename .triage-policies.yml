@@ -41,6 +41,7 @@ resource_rules:
       - name: Ensure all non-draft open merge requests have the state::feedback label
         conditions:
           state: opened
+          draft: false
           forbidden_labels:
             - state::feedback
         action:
@@ -53,9 +54,15 @@ resource_rules:
             - state::in-process
             - state::preparation
             - state::idea
+          action:
+            labels:
+              - state::in-process
       - name: Ensures closed merge request have a correct label
         conditions:
           state: closed
           forbidden_labels:
             - state::aborted
+            - state::completed
+        action:
+          labels:
             - state::completed
