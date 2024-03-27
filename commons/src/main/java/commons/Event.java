@@ -224,7 +224,7 @@ public class Event {
     }
 
     public void updateLastModifiedDateTime() {
-        // TODO: update the lastModifiedDateTime variable
+        this.lastModifiedDateTime = Instant.now();
     }
 
     /**
@@ -463,6 +463,22 @@ public class Event {
 
     public void setPayments(List<Payment> payments) {
         this.payments = payments;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 
     public Instant getLastModifiedDateTime() {

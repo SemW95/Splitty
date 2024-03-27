@@ -1,9 +1,7 @@
 package commons;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -14,14 +12,18 @@ class TagTest {
         Colour colourTest1 = new Colour(50, 100, 150);
         Colour colourTest2 = new Colour(0, 50, 100);
         Tag tagTest1 = new Tag("tagTest1", colourTest1);
-        Tag tagTest2 = new Tag("tagTest1", colourTest1);
-        Tag tagTest3 = new Tag("tagTest3", colourTest1);
-        Tag tagTest4 = new Tag("tagTest1", colourTest2);
-        assertTrue(tagTest1.equals(tagTest2));
-        assertFalse(tagTest1.equals(tagTest3));
-        assertFalse(tagTest1.equals(tagTest4));
-        assertTrue(tagTest1.equals(tagTest1));
-        assertFalse(tagTest1.equals(colourTest1));
+        Tag tagTest2 = new Tag("tagTest1", 50, 100, 150);
+        Tag tagTest3 = new Tag("tagTest1", "326496");
+        assertEquals(tagTest1, tagTest2);
+        assertEquals(tagTest1, tagTest3);
+
+        Tag tagTest4 = new Tag("tagTest3", colourTest1);
+        Tag tagTest5 = new Tag("tagTest1", colourTest2);
+        assertNotEquals(tagTest1, tagTest4);
+        assertNotEquals(tagTest1, tagTest5);
+
+        assertEquals(tagTest1, tagTest1);
+        assertNotEquals(tagTest1, colourTest1);
     }
 
     @Test

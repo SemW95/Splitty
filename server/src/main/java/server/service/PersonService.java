@@ -59,6 +59,7 @@ public class PersonService {
                 "There already is a person with this id"
             );
         }
+
         personRepository.save(person);
     }
 
@@ -80,5 +81,4 @@ public class PersonService {
 
         personRepository.deleteById(id);
     }
-
 }

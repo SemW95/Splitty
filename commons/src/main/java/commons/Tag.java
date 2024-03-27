@@ -25,20 +25,53 @@ public class Tag {
     public Tag() {
     }
 
-    /**
-     * Create a Tag.
+    /** Create a Tag.
      *
      * @param name   Name of the Tag
      * @param colour The Colour needed
      */
-    public Tag(String name, Colour colour) {
+    public Tag(
+        String name,
+        Colour colour
+    ) {
         this.name = name;
         this.colour = colour;
     }
 
-    // TODO: create Tag with different colour specification methods
+    /** Create a Tag with red, green & blue colour values.
+     *
+     * @param name  Name of the Tag
+     * @param red   red index
+     * @param green green index
+     * @param blue  blue index
+     */
+    public Tag(
+        String name,
+        int red,
+        int green,
+        int blue
+    ) {
+        this(
+            name,
+            new Colour(red, green, blue)
+        );
+    }
 
-    // TODO: create equals and hash function once the storage type of the Tag colour is determined
+
+    /** Create a Tag a hexString colour value.
+     *
+     * @param name  Name of the Tag
+     * @param hexString hexString of the colour
+     */
+    public Tag(
+        String name,
+        String hexString
+    ) {
+        this(
+            name,
+            new Colour(hexString)
+        );
+    }
 
 
     @Override
@@ -58,12 +91,12 @@ public class Tag {
         return Objects.hash(name, colour);
     }
 
-    public String getName() {
-        return name;
-    }
-
     public long getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {

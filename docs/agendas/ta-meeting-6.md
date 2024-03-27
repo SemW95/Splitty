@@ -23,7 +23,8 @@
     - Nearly finished all tests for the JPA Repository classes:
         - JPA tests for the EventRepository class (Eva Miesen)
         - JPA tests for the TagRepository class (Xiaoyu Du)
-    - Tests for the Event and Currency class (Eva Miesen)
+        - JPA tests for the PaymentRepository class (and PaymentRepository class made aswell) (Eva Miesen)
+    - Tests for the Event, Currency and Payment class (Eva Miesen)
     - Changed the date storage for the Event and Expense class (Rens Pols): 
         - Event class: LocalDate startDate, LocalDate endDate, Instant lastModifiedDateTime
         - Expense class: Instant paymentDateTime
@@ -36,7 +37,6 @@
 - **Issues from the previous sprint which haven't been done (2 min)**
     - Most of the Basic UI issues
     - Issue JPA test Expense class
-    - Issue JPA Repository and JPA test for the Payment class
 - **Approval of the agenda - Does anyone have any additions? (1 min)**
 - **Approval of last minutes - Did everyone read the minutes from the previous meeting? (1 min)**
     - All clear? Any feedback?
@@ -50,7 +50,7 @@
         - Focus on project completion over lines of code
     - Plan of action for the coming weeks (*discuss and decision-making*)
     - Divide UI issues and deadline (*decision-making and discuss*)
-    - Formative deadlines on 24-03-2004 (Sunday): HCI/Usability, Testing:
+    - Formative deadlines on 22-03-2024 (Friday): HCI/Usability, Testing:
         - Read the corresponding assignments on Brightspace after the meeting (*inform*)
     - Code of Conduct: improve based on feedback from the TA and make changes if needed to ensure alignment with the reality (*discuss*)
 

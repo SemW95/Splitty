@@ -1,10 +1,12 @@
 package client.scenes;
 
+import client.utils.ServerUtils;
+import com.google.inject.Inject;
+import commons.Event;
 import commons.Expense;
 import commons.Person;
 import commons.Tag;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,6 +25,8 @@ import javafx.scene.text.Font;
 public class ExpenseOverviewCtrl implements Initializable {
 
 
+    private final ServerUtils server;
+    private final MainCtrl mainCtrl;
     @FXML
     private AnchorPane rootAnchorPane;
     @FXML
@@ -43,6 +47,11 @@ public class ExpenseOverviewCtrl implements Initializable {
     private Tag tag;
     private ResourceBundle resources;
 
+    @Inject
+    public ExpenseOverviewCtrl(ServerUtils server, MainCtrl mainCtrl) {
+        this.server = server;
+        this.mainCtrl = mainCtrl;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -53,6 +62,9 @@ public class ExpenseOverviewCtrl implements Initializable {
      * populates the UI with appropiate data from the expense object.
      */
     public void populate() {
+        Event event = server.getEvents().getFirst();
+        this.expense = event.getExpenses().getFirst();
+
         // Initialize UI with expense data
         expenseNameLabel.setText(expense.getDescription());
         expenseAmountLabel.setText("€ " + expense.getPaid().toString());
@@ -62,17 +74,12 @@ public class ExpenseOverviewCtrl implements Initializable {
         tag = expense.getTag();
         tagLabel.setText(tag.getName());
 
+        var oldFill = tagLabel.getBackground().getFills().getFirst();
+        tagLabel.setBackground(new Background(
+            new BackgroundFill(Color.web(tag.getColour().toHexString()), oldFill.getRadii(),
+                oldFill.getInsets())));
 
-        // new background version
-        var oldFills = tagLabel.getBackground().getFills();
-        var newFills = new ArrayList<>(oldFills);
-        newFills.add(new BackgroundFill(Color.web(tag.getColour().toHexString()), null, null));
-        //TODO make sure the background radius property from the css in expenseoverview fxml
-        // is not overwritten by this background set call
-
-        tagLabel.setBackground(new Background(newFills, null));
-
-        // text color with 50% brightness
+        // calculate what colour the text should be depending on the background
         int red = tag.getColour().getRed();
         int green = tag.getColour().getGreen();
         int blue = tag.getColour().getBlue();
@@ -81,7 +88,6 @@ public class ExpenseOverviewCtrl implements Initializable {
         } else {
             tagLabel.setTextFill(Color.web("#ffffff"));
         }
-
 
         // Populate participants
         for (Person participant : expense.getParticipants()) {
@@ -94,23 +100,25 @@ public class ExpenseOverviewCtrl implements Initializable {
      * Creates a new Participant card for the dynamically scaled FlowPane.
      *
      * @param participant The participant
-     *
      * @return An anchor pane
      */
     private AnchorPane createParticipantCard(Person participant) {
         AnchorPane card = new AnchorPane();
-        card.setPrefSize(290, 50);
+        card.setPrefSize(475, 50);
         card.setStyle(
             "-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;");
 
-        Label participantLabel = new Label(participant.getFirstName());
-        participantLabel.setFont(new Font("System Bold", 24));
-        participantLabel.setLayoutX(14);
-        participantLabel.setLayoutY(8);
+        String participantRepresentation = participant.getFirstName().concat("-"
+            + participant.getId());
+        Label participantLabel = new Label(participantRepresentation);
+        Font globalFont = new Font("System Bold", 24);
+        participantLabel.setFont(globalFont);
+        participantLabel.setLayoutX(12.5);
+        participantLabel.setLayoutY(7.5);
         participantLabel.setOnMouseEntered(
             event -> participantLabel.setText("ID: " + participant.getId()));
         participantLabel.setOnMouseExited(
-            event -> participantLabel.setText(participant.getFirstName()));
+            event -> participantLabel.setText(participantRepresentation));
 
         card.getChildren().add(participantLabel);
         return card;

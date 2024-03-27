@@ -6,8 +6,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Objects;
 
 /**
@@ -48,7 +50,7 @@ public class Currency {
      * @param otherCurrency The Currency method that it should be converted to.
      * @return conversion rate
      */
-    public BigDecimal getConversionRate(Currency otherCurrency) {
+    public BigDecimal getConversionRate(Currency otherCurrency) throws IOException {
         return getConversionRate(otherCurrency, "latest");
     }
 
@@ -60,7 +62,8 @@ public class Currency {
      * @param date          A date which is of format "YYYY-MM-DD".
      * @return conversion rate
      */
-    public BigDecimal getConversionRate(Currency otherCurrency, String date) {
+    public BigDecimal getConversionRate(Currency otherCurrency, String date)
+        throws IOException {
         if (this.equals(otherCurrency)) {
             return BigDecimal.ONE;
         }
@@ -73,9 +76,12 @@ public class Currency {
             JsonNode root = new ObjectMapper().readTree(uri.toURL());
 
             return new BigDecimal(root.get("rates").get(otherCurrency.code).asText());
-        } catch (Exception e) {
-            System.err.println("Couldn't get conversion rate from api. Reason: " + e);
-            return null;
+        } catch (IOException e) {
+            System.err.println("Couldn't get conversion rate from api due to an IOException");
+            throw e;
+        } catch (URISyntaxException e) {
+            System.err.println("Couldn't get conversion rate from api due to a URISyntaxException");
+            throw new RuntimeException(e);
         }
     }
 

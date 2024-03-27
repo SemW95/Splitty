@@ -22,4 +22,19 @@ public class EventService {
     public List<Event> getAllEvent() {
         return eventRepository.findAll();
     }
+
+    public void deleteEvent(long id) {
+        eventRepository.deleteById(id);
+    }
+
+    /**
+     * Creates an event. Fails if an event exists with the same id or invite code.
+     *
+     * @param event the event to be created.
+     */
+    public void createEvent(Event event) {
+        if (eventRepository.findById(event.getId()).isEmpty()) {
+            eventRepository.save(event);
+        }
+    }
 }

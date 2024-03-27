@@ -1,5 +1,6 @@
 package commons;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,6 +19,9 @@ import java.util.Objects;
  * The class that contains all the info for an expense.
  */
 @Entity
+/*Had to add this because JSON parser found a field "share" and broke, but share is
+not initialized anywhere. This ignores unknown fields.*/
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Expense {
 
     @Id
@@ -190,8 +194,11 @@ public class Expense {
         return paymentDateTime;
     }
 
-    public void setPaymentDateTime(Instant creationDate) {
-        this.paymentDateTime = creationDate;
+    public void setPaymentDateTime(Instant dateOfPayment) {
+        this.paymentDateTime = dateOfPayment;
     }
 
+    public long getId() {
+        return id;
+    }
 }
