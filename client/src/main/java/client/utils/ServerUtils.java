@@ -18,6 +18,7 @@ package client.utils;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
+import client.Main;
 import commons.Event;
 import commons.Expense;
 import commons.Person;
@@ -32,7 +33,24 @@ import org.glassfish.jersey.client.ClientConfig;
  * A singleton that contains some server utility methods.
  */
 public class ServerUtils {
-    private static final String SERVER = "http://localhost:8080/";
+
+    @SuppressWarnings({"checkstyle:AbbreviationAsWordInName", "checkstyle:MemberName"})
+    private final String SERVER = setServer();
+
+    /**
+     * Gets a server from the config file. If not available use default 8080.
+     *
+     * @return String containing server address
+     */
+    public String setServer() {
+        String configServer = Main.configManager.getProperties().getProperty("server");
+
+        if (configServer != null) {
+            return configServer;
+        }
+
+        return "http://localhost:8080/";
+    }
 
     /**
      * Validates an admin password.
@@ -90,7 +108,21 @@ public class ServerUtils {
      */
     public List<Event> getEvents() {
         return ClientBuilder.newClient(new ClientConfig())
-            .target(SERVER).path("/event")
+            .target(SERVER).path("/event/")
+            .request(APPLICATION_JSON)
+            .accept(APPLICATION_JSON)
+            .get(new GenericType<>() {
+            });
+    }
+
+    /**
+     * Create an event based on eventCode.
+     *
+     * @return list of events
+     */
+    public Event getEventByCode(String code) {
+        return ClientBuilder.newClient(new ClientConfig())
+            .target(SERVER).path("/event/" + code)
             .request(APPLICATION_JSON)
             .accept(APPLICATION_JSON)
             .get(new GenericType<>() {

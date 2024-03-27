@@ -54,10 +54,12 @@ public class AdminOverviewCtrl implements Initializable {
         this.resources = resources;
 
         orderByChoiceBox.getItems().addAll("Title", "Creation date", "Last modified date");
-        orderByChoiceBox.getSelectionModel().selectFirst();
+        //TODO: The order choice box gets called on "weird" occasions and creates errors.
+        //orderByChoiceBox.getSelectionModel().selectFirst();
 
         directionChoiceBox.getItems().addAll("Ascending", "Descending");
-        directionChoiceBox.getSelectionModel().selectFirst();
+        //TODO: The order choice box gets called on "weird" occasions and creates errors.
+        //directionChoiceBox.getSelectionModel().selectFirst();
     }
 
     @FXML
@@ -103,7 +105,7 @@ public class AdminOverviewCtrl implements Initializable {
         eventName.setPrefWidth(300);
         eventName.setFont(Font.font(18));
 
-        // TODO: add functionality for going to the clicked event
+        // TODO: add functionality for going to the clicked event (could be copied from HomeCtrl)
 
         Label eventCode = new Label(event.getCode());
         eventCode.setLayoutX(341);
@@ -187,6 +189,7 @@ public class AdminOverviewCtrl implements Initializable {
         return pane;
     }
 
+    //TODO: call this function from PaneCreator and delete this.
     private Label createTagItem(Tag tag) {
         Label tagLabel = new Label(tag.getName());
 
