@@ -48,7 +48,7 @@ resource_rules:
             - state::feedback
       - name: Give all draft merge requests the state::in-process label
         conditions:
-          state: drafted
+          name: /^draft:/i
           forbidden_labels:
             - state::in-process
             - state::preparation
