@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import server.service.PaymentService;
 
@@ -36,6 +37,7 @@ public class PaymentController {
      * @return All payments
      */
     @GetMapping(path = "/payment")
+    @ResponseBody
     public List<Payment> getAllPayments() {
         return paymentService.getAllPayments();
     }
@@ -46,6 +48,7 @@ public class PaymentController {
      * @return The Payment
      */
     @GetMapping(path = "/payment/{id}")
+    @ResponseBody
     public Payment getPaymentById(@PathVariable(name = "id") Long id) {
         return paymentService.getPaymentById(id);
     }
@@ -56,6 +59,7 @@ public class PaymentController {
      * @return The payer of the Payment
      */
     @GetMapping(path = "/payment/{id}/payer")
+    @ResponseBody
     public Person getPayer(@PathVariable(name = "id") Long paymentId) {
         return paymentService.getPayer(paymentId);
     }
@@ -66,6 +70,7 @@ public class PaymentController {
      * @return The receiver of the Payment
      */
     @GetMapping(path = "/payment/{id}/receiver")
+    @ResponseBody
     public Person getReceiver(@PathVariable(name = "id") Long paymentId) {
         return paymentService.getReceiver(paymentId);
     }
@@ -98,6 +103,7 @@ public class PaymentController {
      * @return The amount of the Payment
      */
     @GetMapping(path = "/payment/{id}/amount")
+    @ResponseBody
     public BigDecimal getAmount(@PathVariable(name = "id") Long paymentId) {
         return paymentService.getAmount(paymentId);
     }
