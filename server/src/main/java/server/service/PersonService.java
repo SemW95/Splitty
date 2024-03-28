@@ -30,8 +30,9 @@ public class PersonService {
      *
      * @param id that is searched
      * @return Person with specified id
+     * @throws IllegalStateException When the person with this id doesn't exist
      */
-    public Person getPersonById(Long id) {
+    public Person getPersonById(Long id) throws IllegalStateException {
         Optional<Person> optionalPerson = personRepository
             .findById(id);
 
@@ -213,8 +214,9 @@ public class PersonService {
      * throws exception if person does not exist.
      *
      * @param id that is to be deleted
+     * @throws IllegalStateException When the person with this id doesn't exist
      */
-    public void deletePerson(Long id) {
+    public void deletePerson(Long id) throws IllegalStateException {
         Optional<Person> optionalPerson = personRepository
             .findById(id);
 
