@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -94,6 +95,28 @@ public class PersonServiceTest {
             fail("The test itself broke");
         }
     }
+
+    @Test
+    void addPersonSuccessTest() {
+        String firstName = "Jane";
+        String lastName = "Doe";
+        String email = "janedoe@example.com";
+        String iban = "DE02500105170137075030";
+        String bic = "DEUTDEDBBER";
+
+        // Act
+        personService.addPerson(firstName, lastName, email, iban, bic);
+
+        // Assert
+        verify(personRepository).save(argThat(person ->
+            firstName.equals(person.getFirstName())
+                && lastName.equals(person.getLastName())
+                && email.equals(person.getEmail())
+                && iban.equals(person.getIban())
+                && bic.equals(person.getBic())
+        ));
+    }
+
 
     @Test
     void deletePersonByIdTest() {
