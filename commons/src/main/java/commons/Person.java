@@ -124,24 +124,29 @@ public class Person {
         return checkSum % 97 == 1;
     }
 
-
-    /** Validates a given BIC and only uses the API when the api is available.
+    /**
+     * Validates the structure of a given BIC using Regex.
      *
      * @param bic takes a bic number
      * @return a boolean if it is a correct/existing bic.
      */
     public static boolean bicCheck(String bic) {
-        return bicCheck(bic, false);
+        // https://en.wikipedia.org/wiki/ISO_9362#Structure
+        String bicRegex = "^[A-Za-z]{4}[A-Za-z]{2}[A-Za-z0-9]{2}([A-Za-z0-9]{3})?$";
+        Pattern pattern = Pattern.compile(bicRegex);
+        Matcher bicMatcher = pattern.matcher(bic);
+        return bicMatcher.matches();
     }
 
-
-    /** Validates a given BIC.
+    /**
+     * Validates a given BIC with an API. So it takes a while
+     * Calling this method many times in a short period
+     * will cause it get rate limited.
      *
      * @param bic takes a bic number
-     * @param reqApi throws an error if the API cannot be reached
      * @return a boolean if it is a correct/existing bic.
      */
-    public static boolean bicCheck(String bic, boolean reqApi) {
+    public static boolean additionalBicCheck(String bic) {
         String apiToken = "0b410729c58bc9485ff66701376d7ecab989b125";
         String urlString = "https://aaapis.com/api/v1/validate/bic/";
         String jsonInputString = "{\"bic_number\": \"" + bic + "\"}";
@@ -154,14 +159,7 @@ public class Person {
                 return jsonResponse.contains("\"valid\":true");
             }
         } catch (Exception e) {
-            if (reqApi) {
-                throw new RuntimeException();
-            }
-            // https://en.wikipedia.org/wiki/ISO_9362#Structure
-            String bicRegex = "^[A-Za-z]{4}[A-Za-z]{2}[A-Za-z0-9]{2}([A-Za-z0-9]{3})?$";
-            Pattern pattern = Pattern.compile(bicRegex);
-            Matcher bicMatcher = pattern.matcher(bic);
-            return bicMatcher.matches();
+            throw new RuntimeException(e);
         }
     }
 
@@ -191,7 +189,7 @@ public class Person {
      */
     public static boolean emailCheck(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]"
-                + "+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+            + "+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         Pattern pattern = Pattern.compile(emailRegex);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();

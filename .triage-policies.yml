@@ -38,4 +38,49 @@ resource_rules:
 
   merge_requests:
     rules:
-      []
+      - name: Ensure all non-draft open merge requests have the state::feedback label
+        conditions:
+          state: opened
+          draft: false
+          forbidden_labels:
+            - state::feedback
+        actions:
+          labels:
+            - state::feedback
+      - name: Give all draft merge requests the state::in-process label
+        conditions:
+          state: opened
+          draft: true
+          forbidden_labels:
+            - state::in-process
+            - state::preparation
+            - state::idea
+        actions:
+          labels:
+            - state::in-process
+      - name: Ensures closed merge request have a correct label
+        conditions:
+          state: closed
+          forbidden_labels:
+            - state::aborted
+        actions:
+          labels:
+            - state::aborted
+      - name: Ensures merged merge request have a correct label
+        conditions:
+          state: merged
+          forbidden_labels:
+            - state::completed
+        actions:
+          labels:
+            - state::completed
+      - name: Ensure a priority label is present
+        conditions:
+          forbidden_labels:
+            - priority::low
+            - priority::normal
+            - priority::high
+            - priority::urgent
+        actions:
+          labels:
+            - priority::normal

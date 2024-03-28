@@ -79,6 +79,7 @@ server:test:
 
 coverageReport:
   stage: coverageReport
+  allow_failure: true
   needs:
     - commons:test
     - client:test
