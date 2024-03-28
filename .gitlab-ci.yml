@@ -88,6 +88,17 @@ server:service:test:
       - TEST_CLASS:
           - "PersonServiceTest"
 
+server:controller:test:
+  stage: test
+  needs:
+    - compile
+  script:
+    - ./gradlew :server:test --tests server.controller.$TEST_CLASS
+  parallel:
+    matrix:
+      - TEST_CLASS:
+          - "PersonControllerTest"
+
 coverageReport:
   stage: coverageReport
   allow_failure: true
@@ -96,6 +107,7 @@ coverageReport:
     - client:test
     - server:database:test
     - server:service:test
+    - server:controller:test
   script:
     - ./gradlew AggregateJacocoReport
     - mv build/reports/jacoco/aggregate/html ./coverage
