@@ -135,8 +135,6 @@ public class PersonServiceTest {
         verify(personRepository).findById(12345L);
     }
 
-    // Similarly, write tests for getLastName, getEmail, getIban, and getBic
-
     @Test
     void setFirstNameTest() {
         when(personRepository.findById(any())).thenReturn(Optional.of(returnPerson));
@@ -144,8 +142,6 @@ public class PersonServiceTest {
         verify(personRepository).save(returnPerson);
         assertEquals("UpdatedName", returnPerson.getFirstName());
     }
-
-    // Similarly, write tests for setLastName, setEmail, setIban, and setBic
 
     @Test
     void setEmailInvalidTest() {
@@ -164,8 +160,6 @@ public class PersonServiceTest {
             () -> personService.setIban(12345L, "invalidIBAN")
         );
     }
-
-    // Similar tests for setBic with invalid input
 
     @Test
     void getLastNameTest() {
@@ -242,7 +236,6 @@ public class PersonServiceTest {
         );
     }
 
-    // Additional validation tests for setters
     @Test
     void setEmailInvalidFormatTest() {
         when(personRepository.findById(any())).thenReturn(Optional.of(returnPerson));
