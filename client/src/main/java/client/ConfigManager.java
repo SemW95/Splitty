@@ -11,7 +11,7 @@ import java.util.Properties;
  */
 public class ConfigManager {
 
-    Properties properties;
+    private Properties properties;
 
     /**
      * Constructor for the configManager.
@@ -43,7 +43,46 @@ public class ConfigManager {
      *
      * @return the properties
      */
-    public Properties getProperties() {
+    private Properties getProperties() {
         return properties;
     }
+
+    /**
+     * Getter for the "codes" property.
+     *
+     * @return String of codes
+     */
+    public String getCodes() {
+        return this.getProperties().getProperty("codes");
+    }
+
+    /**
+     * Add a code to the list of codes from recent events.
+     * TODO: IMPLEMENT and make a check if this code actually exist before adding
+     *
+     * @param code for an event
+     */
+    public void addCode(String code) {
+        properties.setProperty("codes", "codes" + "," + code);
+    }
+
+    /**
+     * Getter for the "server" property.
+     *
+     * @return String containing server address
+     */
+    public String getServer() {
+        return this.getProperties().getProperty("server");
+    }
+
+    /**
+     * Setter for the "server" property.
+     * TODO: Make this actually used by server switch
+     *
+     * @param server address
+     */
+    public void changeServer(String server) {
+        properties.setProperty("server", server);
+    }
+
 }

@@ -43,7 +43,7 @@ public class ServerUtils {
      * @return String containing server address
      */
     public String setServer() {
-        String configServer = Main.configManager.getProperties().getProperty("server");
+        String configServer = Main.configManager.getServer();
 
         if (configServer != null) {
             return configServer;
