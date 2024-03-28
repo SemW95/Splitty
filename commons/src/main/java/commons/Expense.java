@@ -14,8 +14,6 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
-import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * The class that contains all the info for an expense.
