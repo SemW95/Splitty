@@ -9,10 +9,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * The class that contains all the info for an expense.
@@ -105,6 +108,14 @@ public class Expense {
     protected Expense() {
     }
 
+    private boolean containsPersonWithId(long id) {
+        for (Person participant : this.participants) {
+            if (participant.getId() == id) {
+                return true; // Found a participant with the same ID
+            }
+        }
+        return false; // No participant with the same ID found
+    }
 
     public String getDescription() {
         return description;
@@ -114,23 +125,64 @@ public class Expense {
         this.description = description;
     }
 
-    public void addParticipant(Person participant) {
-        participants.add(participant);
+    /** Adds a participant to an Expense.
+     *
+     * @param participant The participant that should be added
+     * @throws IllegalStateException When there already is a Person with that id present
+     */
+    public void addParticipant(Person participant) throws IllegalStateException {
+        if (containsPersonWithId(participant.getId())) {
+            participants.add(participant);
+        } else {
+            throw new IllegalStateException(
+                "There already is a Person with this id in the participants ArrayList"
+            );
+        }
     }
 
+    /** Adds participants to an Expense.
+     *
+     * @param newParticipants The participants that should be added
+     * @throws IllegalStateException When there is one duplicate id
+     */
+    public void addParticipants(List<Person> newParticipants) throws IllegalStateException {
+        for (Person participant : newParticipants) {
+            if (containsPersonWithId(participant.getId())) {
+                throw new IllegalStateException(
+                    "There already is a Person with this id in the participants ArrayList"
+                );
+            }
+        }
+        for (Person participant : newParticipants) {
+            addParticipant(participant);
+        }
+    }
+
+    /** Removes a participant.
+     *
+     * @param participant The participant that should be removed
+     */
     public void removeParticipant(Person participant) {
         participants.remove(participant);
     }
 
-    /**
-     * gets the share that should be paid /person.
+    /** Removes a participant.
      *
-     * @return the share a person needs to pay for this expense;
+     * @param id The id of the participant that should be removed
+     */
+    public void removeParticipant(long id) {
+        if (containsPersonWithId(id)) {
+            participants.remove(getParticipantById(id));
+        }
+    }
+
+    /** gets the share that should be paid /person (rounded up to a cent).
+     *
+     * @return the share a person needs to pay for this expense
      */
     public BigDecimal getShare() {
-        int totalNoParticipants = participants.size() + 1;
-        // TODO: return (Money) paid/totalNoParticipants
-        return null;
+        BigDecimal totalNoParticipants = new BigDecimal(participants.size() + 1);
+        return paid.divide(totalNoParticipants, 2, RoundingMode.CEILING);
     }
 
     @Override
@@ -157,6 +209,21 @@ public class Expense {
 
     public List<Person> getParticipants() {
         return participants;
+    }
+
+    /** Gets a participant by it's id.
+     *
+     * @param id The id of the participant that should be returned
+     * @return The requested participant
+     * @throws IllegalStateException When there isn't a participant with this id
+     */
+    public Person getParticipantById(long id) throws IllegalStateException {
+        for (Person participant : this.participants) {
+            if (participant.getId() == id) {
+                return participant;
+            }
+        }
+        throw new IllegalStateException("There is no participant with this id");
     }
 
     public void setParticipants(ArrayList<Person> participants) {
