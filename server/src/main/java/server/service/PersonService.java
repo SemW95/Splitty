@@ -63,6 +63,12 @@ public class PersonService {
         personRepository.save(person);
     }
 
+    public void addPerson(
+        String firstName, String lastName, String email, String iban, String bic
+    ) {
+        personRepository.save(new Person(firstName, lastName, email, iban, bic));
+    }
+
     /** Gets the email of a person with the given id.
      *
      * @param id        The id of the person whose email is retrieved.

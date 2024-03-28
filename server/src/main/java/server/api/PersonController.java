@@ -208,6 +208,22 @@ public class PersonController {
     }
 
     /**
+     * Adds a person object to the database with person-details,
+     * throws exception if person already exists.
+     *
+     */
+    @PostMapping(path = "/person/{first-name}/{last-name}/{email}/{iban}/{bic}")
+    public void addPerson(
+        @PathVariable(name = "first-name") String firstName,
+        @PathVariable(name = "last-name") String lastName,
+        @PathVariable(name = "email") String email,
+        @PathVariable(name = "iban") String iban,
+        @PathVariable(name = "bic") String bic
+    ) {
+        personService.addPerson(firstName, lastName, email, iban, bic);
+    }
+
+    /**
      * Deletes person with certain id,
      * throws exception if person does not exist.
      *
