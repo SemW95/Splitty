@@ -1,4 +1,4 @@
-package server.event;
+package server.service;
 
 import static org.assertj.core.api.Fail.fail;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -62,11 +62,9 @@ public class PersonServiceTest {
     @Test
     void getPersonByIdTestX() {
         try {
-
             when(personRepository.findById(12345L)).thenReturn(Optional.empty());
             assertThrows(IllegalStateException.class, () -> personService.getPersonById(12345L));
             verify(personRepository).findById(12345L);
-
         } catch (Exception e) {
             fail("The test itself broke");
         }
@@ -75,11 +73,9 @@ public class PersonServiceTest {
     @Test
     void addPersonByIdTest() {
         try {
-
             when(personRepository.findById(any())).thenReturn(Optional.empty());
             assertDoesNotThrow(() -> personService.addPerson(insertPerson));
             verify(personRepository).save(any());
-
         } catch (Exception e) {
             fail("The test itself broke");
         }
@@ -88,11 +84,9 @@ public class PersonServiceTest {
     @Test
     void addPersonByIdTestX() {
         try {
-
             when(personRepository.findById(any())).thenReturn(Optional.of(returnPerson));
             assertThrows(IllegalStateException.class, () -> personService.addPerson(insertPerson));
             verify(personRepository).findById(any());
-
         } catch (Exception e) {
             fail("The test itself broke");
         }
@@ -101,11 +95,9 @@ public class PersonServiceTest {
     @Test
     void deletePersonByIdTest() {
         try {
-
             when(personRepository.findById(12345L)).thenReturn(Optional.of(returnPerson));
             assertDoesNotThrow(() -> personService.deletePerson(12345L));
             verify(personRepository).deleteById(12345L);
-
         } catch (Exception e) {
             fail("The test itself broke");
         }
@@ -114,11 +106,9 @@ public class PersonServiceTest {
     @Test
     void deletePersonByIdTestX() {
         try {
-
             when(personRepository.findById(12345L)).thenReturn(Optional.empty());
             assertThrows(IllegalStateException.class, () -> personService.deletePerson(12345L));
             verify(personRepository).findById(12345L);
-
         } catch (Exception e) {
             fail("The test itself broke");
         }
