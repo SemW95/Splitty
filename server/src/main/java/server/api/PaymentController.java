@@ -70,6 +70,28 @@ public class PaymentController {
         return paymentService.getReceiver(paymentId);
     }
 
+    /** Gets the payer's ID of a Payment.
+     *
+     * @param paymentId The id of the Payment
+     * @return The payer's ID of the Payment
+     */
+    @GetMapping(path = "/payment/{id}/payer/id")
+    @ResponseBody
+    public long getPayerId(@PathVariable(name = "id") Long paymentId) {
+        return paymentService.getPayer(paymentId).getId();
+    }
+
+    /** Gets the receiver's ID of a Payment.
+     *
+     * @param paymentId The id of the Payment
+     * @return The receiver's ID of the Payment
+     */
+    @GetMapping(path = "/payment/{id}/receiver/id")
+    @ResponseBody
+    public long getReceiverId(@PathVariable(name = "id") Long paymentId) {
+        return paymentService.getReceiver(paymentId).getId();
+    }
+
     /** Gets the amount of a Payment.
      *
      * @param paymentId The id of the Payment

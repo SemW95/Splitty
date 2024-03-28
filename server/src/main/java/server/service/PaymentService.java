@@ -76,6 +76,23 @@ public class PaymentService {
         return getPaymentById(paymentId).getReceiver();
     }
 
+    /** Retrieves the ID of the (Person) payer of the specified Payment.
+     *
+     * @param paymentId The id of the Payment
+     * @return The payer Person Object's ID in the Payment
+     */
+    public long getPayerId(Long paymentId) {
+        return getPaymentById(paymentId).getPayer().getId();
+    }
+
+    /** Retrieves the ID of the (Person) receiver of the specified Payment.
+     *
+     * @param paymentId The id of the Payment
+     * @return The receiver Person Object's ID in the Payment
+     */
+    public long getReceiverId(Long paymentId) {
+        return getPaymentById(paymentId).getReceiver().getId();
+    }
 
     /** Retrieves the (BigDecimal) amount of the specified Payment.
      *
