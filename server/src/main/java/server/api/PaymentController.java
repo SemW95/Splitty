@@ -83,7 +83,7 @@ public class PaymentController {
     @GetMapping(path = "/payment/{id}/payer/id")
     @ResponseBody
     public long getPayerId(@PathVariable(name = "id") Long paymentId) {
-        return paymentService.getPayer(paymentId).getId();
+        return paymentService.getPayerId(paymentId);
     }
 
     /** Gets the receiver's ID of a Payment.
@@ -94,7 +94,7 @@ public class PaymentController {
     @GetMapping(path = "/payment/{id}/receiver/id")
     @ResponseBody
     public long getReceiverId(@PathVariable(name = "id") Long paymentId) {
-        return paymentService.getReceiver(paymentId).getId();
+        return paymentService.getReceiverId(paymentId);
     }
 
     /** Gets the amount of a Payment.
