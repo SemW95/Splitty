@@ -6,6 +6,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
@@ -17,7 +19,7 @@
             <FlowPane fx:id="participantsFlowPane" prefHeight="550.0" prefWidth="350.0" />
          </content>
       </ScrollPane>
-      <TextField fx:id="expenseNameLabel" layoutX="400.0" layoutY="25.0" onAction="#handleNameChange" prefHeight="35.0" prefWidth="414.0" style="-fx-background-color: transparent;" text="Rename...">
+      <TextField fx:id="expenseNameLabel" layoutX="400.0" layoutY="25.0" onAction="#handleNameChange" prefHeight="35.0" prefWidth="441.0" style="-fx-background-color: transparent;" text="Expense Rename Text Field">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -30,7 +32,7 @@
             <Font name="System Bold" size="24.0" />
          </font>
          <graphic>
-            <TextField fx:id="expenseAmountLabel" onAction="#handleAmountChange" style="-fx-background-color: transparent;" text="25,12">
+            <TextField fx:id="expenseAmountLabel" onAction="#handleAmountChange" prefHeight="35.0" prefWidth="317.0" style="-fx-background-color: transparent;" text="25,12">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
@@ -64,5 +66,30 @@
             <ComboBox fx:id="tagMenu" onAction="#handleTagChange" prefHeight="33.0" prefWidth="354.0" promptText="Select another " />
          </graphic>
       </Label>
+      <ImageView fx:id="indicatorNameModified" fitHeight="24.0" fitWidth="24.0" layoutX="815.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/client/icons/edit_idle.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="indicatorAmountModified" fitHeight="24.0" fitWidth="24.0" layoutX="815.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/client/icons/edit_idle.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="indicatorTagModified" fitHeight="24.0" fitWidth="24.0" layoutX="815.0" layoutY="270.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/client/icons/edit_idle.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="indicatorDateModified" fitHeight="24.0" fitWidth="24.0" layoutX="815.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/client/icons/edit_idle.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="indicatorRecipientModified" fitHeight="24.0" fitWidth="24.0" layoutX="815.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/client/icons/edit_idle.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

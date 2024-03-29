@@ -145,12 +145,14 @@ public class Seeder implements CommandLineRunner {
         Event dinner = new Event("Celebration Dinner", "Dinner and drinks with the group",
             participants, tags, expenses,
             new ArrayList<Payment>(), start, end, now);
+        dinner.setCode("1234");
         eventRepository.save(dinner);
 
         Event ride = new Event("Uber ride", "We took an uber to get to a restaurant",
             new ArrayList<>(), List.of(tagRepository.findTagByName("travel").get()),
             new ArrayList<>(),
             new ArrayList<>(), start, end, now.minusSeconds(60 * 60 * 24 * 5));
+        ride.setCode("5678");
         eventRepository.save(ride);
     }
 }
