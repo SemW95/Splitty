@@ -95,6 +95,10 @@ public class ManageExpenseCtrl implements Initializable {
      * populates the UI with appropriate data from the expense object.
      */
     public void populate() {
+        if (expense == null || event == null) {
+            return;
+        }
+
         List<Tag> allTags = event.getTags();
 
         // Initialize UI with expense data

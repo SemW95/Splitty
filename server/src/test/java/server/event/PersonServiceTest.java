@@ -2,6 +2,8 @@ package server.event;
 
 import static org.assertj.core.api.Fail.fail;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -41,7 +43,7 @@ public class PersonServiceTest {
         returnPerson = new Person("Bobertus", "Fireball", "aliceh@domain.name",
             "LT601010012345678901",
             "BOOKTP99A3E");
-        insertPerson.setId("not-null");
+        returnPerson.setId("not-null");
     }
 
     @Test
@@ -51,7 +53,7 @@ public class PersonServiceTest {
             when(personRepository.findById("12345")).thenReturn(Optional.of(returnPerson));
 
             // Checks if no exception is thrown since the id exists
-            assertDoesNotThrow(() -> personService.getPersonById("12345"));
+            assertEquals(returnPerson, personService.getPersonById("12345"));
 
             // Checks if the personRepository is actually called (one time)
             verify(personRepository).findById("12345");
@@ -66,7 +68,7 @@ public class PersonServiceTest {
         try {
 
             when(personRepository.findById("12345")).thenReturn(Optional.empty());
-            assertThrows(IllegalStateException.class, () -> personService.getPersonById("12345"));
+            assertNull(personService.getPersonById("12345"));
             verify(personRepository).findById("12345");
 
         } catch (Exception e) {

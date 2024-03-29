@@ -33,6 +33,7 @@ public class DeleteEventConfirmationCtrl implements Initializable {
             deleteCallback.run();
         }
         mainCtrl.closePrimaryPopup();
+        mainCtrl.updateAll();
     }
 
     @FXML

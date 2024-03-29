@@ -26,22 +26,13 @@ public class PersonService {
 
     /**
      * Searches Person on specified id,
-     * throws exception if id doesn't exist.
+     * returns null if id doesn't exist.
      *
      * @param id that is searched
      * @return Person with specified id
      */
     public Person getPersonById(String id) {
-        Optional<Person> optionalPerson = personRepository
-            .findById(id);
-
-        if (optionalPerson.isEmpty()) {
-            throw new IllegalStateException(
-                "There is no person with this id"
-            );
-        }
-
-        return optionalPerson.get();
+        return personRepository.findById(id).orElse(null);
     }
 
     /**
@@ -67,9 +58,9 @@ public class PersonService {
      * @param id that is to be deleted
      */
     public void deletePerson(String id) {
+        System.out.println(id);
         Optional<Person> optionalPerson = personRepository
             .findById(id);
-
         if (optionalPerson.isEmpty()) {
             throw new IllegalStateException(
                 "There is no person with this id"

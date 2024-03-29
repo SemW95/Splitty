@@ -59,7 +59,6 @@ public class ManageParticipantsCtrl implements Initializable {
             event.getPeople().remove(person);
             server.updateEvent(event);
             server.deletePerson(person);
-            mainCtrl.updateAll();
         });
     }
 
@@ -72,7 +71,13 @@ public class ManageParticipantsCtrl implements Initializable {
         mainCtrl.showEventOverview(event, false);
     }
 
+    /**
+     * Populate the screen.
+     */
     public void populate() {
+        if (event == null) {
+            return;
+        }
         // TODO
     }
 

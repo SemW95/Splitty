@@ -55,6 +55,9 @@ public class ExpenseOverviewCtrl implements Initializable {
      * Populates the UI with appropriate data from the expense object.
      */
     public void populate() {
+        if (expense == null || event == null) {
+            return;
+        }
         // Initialize UI with expense data
         expenseNameLabel.setText(expense.getDescription());
         expenseAmountLabel.setText("€ " + expense.getPaid().toString());

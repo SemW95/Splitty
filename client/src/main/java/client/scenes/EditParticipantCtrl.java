@@ -194,6 +194,9 @@ public class EditParticipantCtrl implements Initializable {
      * Populate the screen.
      */
     public void populate() {
+        if (this.person == null) {
+            return;
+        }
         firstNameLabel.setText(person.getFirstName());
         lastNameLabel.setText(person.getLastName());
         emailLabel.setText(person.getEmail());

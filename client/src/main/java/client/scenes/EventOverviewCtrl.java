@@ -82,6 +82,9 @@ public class EventOverviewCtrl implements Initializable {
      */
     // TODO: Make this pretty in the UI
     public void populate() {
+        if (event == null) {
+            return;
+        }
         if (event.getTitle() != null) {
             this.eventNameLabel.setText(event.getTitle());
         }
