@@ -33,6 +33,8 @@ public class EventOverviewCtrl implements Initializable {
     @FXML
     private Label eventNameLabel;
     @FXML
+    public Text eventNameText;
+    @FXML
     private Text eventDescription;
     @FXML
     private Label eventDates;
@@ -74,15 +76,22 @@ public class EventOverviewCtrl implements Initializable {
     /**
      * This method fills the flowpane with expenses (expenseCard).
      */
+    // TODO: Make this pretty in the UI
     public void refresh(Event event) {
         this.event = event;
         if (event.getTitle() != null) {
             this.eventNameLabel.setText(event.getTitle());
         }
+        if (event.getTitle() != null) {
+            this.eventNameText.setText(event.getTitle());
+        }
         if (event.getDescription() != null) {
             this.eventDescription.setText(event.getDescription());
         }
-        // TODO: start and enddate
+        if (event.getStartDate() != null & event.getEndDate() != null) {
+            String dates = event.getStartDate().toString() + " - " + event.getEndDate().toString();
+            this.eventDates.setText(String.valueOf(dates));
+        }
         if (event.getLastModifiedDateTime() != null) {
             this.eventLastModified.setText(event.getLastModifiedDateTime().toString());
         }
@@ -98,14 +107,6 @@ public class EventOverviewCtrl implements Initializable {
         //        }
     }
 
-    //    /**
-    //     * Gets called on showHome to request data.
-    //     */
-    //    public void getData() {
-    //        eventList = server.getEvents();
-    //        listView.getItems().addAll(eventList);
-    //    }
-
     /**
      * Testing function for language switch.
      */
@@ -118,9 +119,17 @@ public class EventOverviewCtrl implements Initializable {
     }
 
     /**
+     * Logic for the home title.
+     */
+    public void handleHome() {
+        System.out.println("Pressed home.");
+    }
+
+    /**
      * Logic for the "language" button on home.
      */
-    public void clickLanguage() {
+
+    public void handleLanguage() {
         System.out.println("Pressed language");
         testing();
     }
@@ -128,23 +137,17 @@ public class EventOverviewCtrl implements Initializable {
     /**
      * Logic for the "currency" button on home.
      */
-    public void clickCurrency() {
+    public void handleCurrency() {
         System.out.println("Pressed currency.");
     }
 
-    /**
-     * Logic for the home title.
-     */
-    public void clickHome() {
-        System.out.println("Pressed home.");
-    }
-
-    // TODO
-    public void handleLanguageClick(MouseEvent mouseEvent) {
-    }
-
-    // TODO
-    public void handleCurrencyClick(MouseEvent mouseEvent) {
+    public void clickChangeEventName(MouseEvent mouseEvent) {
+        // TODO: use the following to control the visibility of the label and the textLabel.
+        // eventNameLabel.setVisible(false); // Hide the Label
+        // eventNameText.setVisible(true); // Show the TextField
+        // eventNameText.requestFocus(); // Set focus to TextField
+        // TODO: use the content in the textField by emailTextField.getText() to save in the
+        //  repository and display on the label
     }
 
     // TODO
@@ -186,4 +189,12 @@ public class EventOverviewCtrl implements Initializable {
     public void handlePaidOffDebts(ActionEvent actionEvent) {
     }
 
+    // TODO: return to Home
+    public void clickReturn(MouseEvent mouseEvent) {
+        System.out.println("Pressed return.");
+    }
+
+    // TODO
+    public void handleCopyInviteCode(ActionEvent actionEvent) {
+    }
 }
