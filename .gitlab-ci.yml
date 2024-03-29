@@ -94,7 +94,7 @@ server:controller:test:
   needs:
     - compile
   script:
-    - ./gradlew :server:test --tests server.controller.$TEST_CLASS
+    - ./gradlew :server:test --tests server.api.$TEST_CLASS
   parallel:
     matrix:
       - TEST_CLASS:

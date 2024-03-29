@@ -1,4 +1,4 @@
-package server.controller;
+package server.api;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -25,7 +25,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import server.api.PersonController;
 import server.service.PersonService;
 
 /** The class for testing the PersonController.

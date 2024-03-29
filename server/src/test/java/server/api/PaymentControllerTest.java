@@ -207,7 +207,7 @@ public class PaymentControllerTest {
             .andExpect(status().isOk());
 
         // Verifying the interaction with the mock service
-        verify(paymentService).setReceiver(eq(paymentId), (Person) any(Person.class));
+        verify(paymentService).setReceiver(eq(paymentId), any(Person.class));
     }
 
     // Test for setting the amount of a payment
