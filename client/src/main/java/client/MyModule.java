@@ -16,9 +16,6 @@
 
 package client;
 
-import client.scenes.AdminCredentialsCtrl;
-import client.scenes.ExpenseOverviewCtrl;
-import client.scenes.HomeCtrl;
 import client.scenes.MainCtrl;
 import com.google.inject.Binder;
 import com.google.inject.Module;
@@ -32,9 +29,5 @@ public class MyModule implements Module {
     @Override
     public void configure(Binder binder) {
         binder.bind(MainCtrl.class).in(Scopes.SINGLETON);
-        binder.bind(HomeCtrl.class).in(Scopes.SINGLETON);
-        binder.bind(AdminCredentialsCtrl.class).in(Scopes.SINGLETON);
-        binder.bind(ExpenseOverviewCtrl.class).in(Scopes.SINGLETON);
-        //Step 5 add new page here
     }
 }
