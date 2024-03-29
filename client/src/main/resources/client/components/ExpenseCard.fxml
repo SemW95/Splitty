@@ -7,7 +7,7 @@
 
 <AnchorPane prefHeight="150.0" prefWidth="275.0" style="-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="expenseDescription" layoutX="12.0" layoutY="29.0" text="\\\@expense">
+      <Label fx:id="expenseDescription" layoutX="12.0" layoutY="29.0" text="\@expense">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
