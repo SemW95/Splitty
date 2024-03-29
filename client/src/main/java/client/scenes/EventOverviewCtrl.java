@@ -36,6 +36,8 @@ public class EventOverviewCtrl implements Initializable {
     @FXML
     private Label eventNameLabel;
     @FXML
+    public Text eventNameText;
+    @FXML
     private Text eventDescription;
     @FXML
     private Label eventDates;
@@ -82,10 +84,13 @@ public class EventOverviewCtrl implements Initializable {
         if (event.getTitle() != null) {
             this.eventNameLabel.setText(event.getTitle());
         }
+        if (event.getTitle() != null){
+            this.eventNameText.setText(event.getTitle());
+        }
         if (event.getDescription() != null) {
             this.eventDescription.setText(event.getDescription());
         }
-        // TODO: start and enddate
+        // TODO: start and enddate  ,ll
         if (event.getLastModifiedDateTime() != null) {
             this.eventLastModified.setText(event.getLastModifiedDateTime().toString());
         }
@@ -101,14 +106,6 @@ public class EventOverviewCtrl implements Initializable {
         }
     }
 
-    //    /**
-    //     * Gets called on showHome to request data.
-    //     */
-    //    public void getData() {
-    //        eventList = server.getEvents();
-    //        listView.getItems().addAll(eventList);
-    //    }
-
     /**
      * Testing function for language switch.
      */
@@ -121,13 +118,22 @@ public class EventOverviewCtrl implements Initializable {
     }
 
     /**
+     * Logic for the home title.
+     */
+    public void clickHome() {
+        System.out.println("Pressed home.");
+    }
+
+    /**
      * Logic for the "language" button on home.
      */
+    // TODO: rename other in sceneBuilder
     public void clickLanguage() {
         System.out.println("Pressed language");
         testing();
     }
 
+    // TODO: rename other in sceneBuilder
     /**
      * Logic for the "currency" button on home.
      */
@@ -135,19 +141,10 @@ public class EventOverviewCtrl implements Initializable {
         System.out.println("Pressed currency.");
     }
 
-    /**
-     * Logic for the home title.
-     */
-    public void clickHome() {
-        System.out.println("Pressed home.");
-    }
-
-    // TODO
-    public void handleLanguageClick(MouseEvent mouseEvent) {
-    }
-
-    // TODO
-    public void handleCurrencyClick(MouseEvent mouseEvent) {
+    public void clickChangeEventName(MouseEvent mouseEvent) {
+        eventNameLabel.setVisible(false); // Hide the Label
+        eventNameText.setVisible(true); // Show the TextField
+        eventNameText.requestFocus(); // Set focus to TextField
     }
 
     // TODO
@@ -189,4 +186,7 @@ public class EventOverviewCtrl implements Initializable {
     public void handlePaidOffDebts(ActionEvent actionEvent) {
     }
 
+    // TODO: return to Home
+    public void clickReturn(MouseEvent mouseEvent) {
+    }
 }

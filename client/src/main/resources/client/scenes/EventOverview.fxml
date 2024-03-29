@@ -20,14 +20,14 @@
       <Pane layoutX="19.0" layoutY="101.0" prefHeight="144.0" prefWidth="825.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="148.0" stroke="BLACK" strokeType="INSIDE" width="825.0" />
-            <Label fx:id="eventNameLabel" layoutX="11.0" prefHeight="33.0" prefWidth="156.0" text="Event Name">
+            <Label fx:id="eventNameLabel" layoutX="11.0" onMouseClicked="#clickChangeEventName" prefHeight="33.0" prefWidth="156.0" text="Event Name">
                <font>
                   <Font size="28.0" />
                </font>
             </Label>
             <Text fx:id="eventDescription" layoutX="11.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed pharetra velit. Suspendisse potenti. Praesent at tortor elementum, condimentum diam a, fringilla nisi. Nullam convallis cursus dolor, at imperdiet urna maximus nec. Suspendisse porta gravida nisi, ut feugiat turpis laoreet eget. Quisque iaculis laoreet sodales. Mauris dapibus, dolor non auctor mattis, diam nisl feugiat lacus, a eleifend neque felis ac ligula. Fusce lacinia dictum dolor id consectetur." wrappingWidth="680.2699146270752" />
             <Button layoutX="679.0" layoutY="114.0" mnemonicParsing="false" onAction="#handleManageTags" prefHeight="25.0" prefWidth="140.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #CF9FFF;" text="MANAGE TAGS" />
-            <Text fx:id="eventNameText" layoutX="11.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Name" wrappingWidth="247.2033748626709">
+            <Text fx:id="eventNameText" layoutX="11.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Name" visible="false" wrappingWidth="247.2033748626709">
                <font>
                   <Font size="28.0" />
                </font>
@@ -84,37 +84,46 @@
                   <DropShadow height="26.93" radius="6.2325" width="0.0" />
                </effect>
             </Rectangle>
-            <Button layoutX="-18.0" layoutY="19.0" mnemonicParsing="false" onAction="#clickHome" prefHeight="44.0" prefWidth="281.0" style="-fx-background-color: transparent; -fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 20;" text="SPLITTY: Going Dutch">
+            <Button layoutX="12.0" layoutY="19.0" mnemonicParsing="false" onAction="#clickHome" prefHeight="44.0" prefWidth="281.0" style="-fx-background-color: transparent; -fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 20;" text="SPLITTY: Going Dutch">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <ComboBox fx:id="dropDown" layoutX="250.0" layoutY="27.0" prefWidth="150.0" style="-fx-background-color: white;">
+            <ComboBox fx:id="dropDown" layoutX="293.0" layoutY="27.0" prefWidth="150.0" style="-fx-background-color: white;">
                <effect>
                   <DropShadow color="#00000068" height="22.24" radius="10.25" width="20.76" />
                </effect>
             </ComboBox>
-            <ImageView fitHeight="28.0" fitWidth="35.0" layoutX="642.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="28.0" fitWidth="35.0" layoutX="676.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../icons/copy.png" />
                </image>
             </ImageView>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="28.0" layoutX="437.0" layoutY="25.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
-            <Label fx:id="inviteCode" layoutX="444.0" layoutY="24.0" prefHeight="17.0" prefWidth="185.0" text="Invite Code">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="28.0" layoutX="470.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+            <Label fx:id="inviteCode" layoutX="476.0" layoutY="25.0" prefHeight="30.0" prefWidth="126.0" text="Invite Code">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <ImageView fx:id="language" fitHeight="30.0" fitWidth="30.0" layoutX="974.0" layoutY="26.0" onMouseClicked="#handleLanguageClick" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="language" fitHeight="30.0" fitWidth="30.0" layoutX="974.0" layoutY="26.0" onMouseClicked="#clickLanguage" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../icons/language.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="923.0" layoutY="26.0" onMouseClicked="#handleCurrencyClick" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: transparent;">
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="923.0" layoutY="26.0" onMouseClicked="#clickCurrency" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: transparent;">
                <image>
                   <Image url="@../icons/currency.png" />
                </image>
             </ImageView>
+            <Button layoutX="15.0" layoutY="29.0" mnemonicParsing="false" onMouseClicked="#clickReturn" prefHeight="25.0" prefWidth="14.0" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/back.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </Pane>
       <Text layoutX="851.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Participants" wrappingWidth="121.33675193786621">
