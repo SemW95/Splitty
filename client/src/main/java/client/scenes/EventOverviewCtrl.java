@@ -85,7 +85,7 @@ public class EventOverviewCtrl implements Initializable {
         if (event.getTitle() != null) {
             this.eventNameLabel.setText(event.getTitle());
         }
-        if (event.getTitle() != null){
+        if (event.getTitle() != null) {
             this.eventNameText.setText(event.getTitle());
         }
         if (event.getDescription() != null) {
@@ -149,7 +149,8 @@ public class EventOverviewCtrl implements Initializable {
         // eventNameLabel.setVisible(false); // Hide the Label
         // eventNameText.setVisible(true); // Show the TextField
         // eventNameText.requestFocus(); // Set focus to TextField
-        // TODO: use the content in the textField by emailTextField.getText() to save in the repository and display on the label
+        // TODO: use the content in the textField by emailTextField.getText() to save in the
+        //  repository and display on the label
     }
 
     // TODO
