@@ -25,7 +25,7 @@ public class EventService {
     }
 
     /**
-     * null checks the searched event.
+     * Finds an event by its code. May return null
      *
      * @param code of the event
      * @return Event that was searched
@@ -34,13 +34,7 @@ public class EventService {
         Optional<Event> optionalEvent = eventRepository
             .findByCode(code);
 
-        if (optionalEvent.isEmpty()) {
-            throw new IllegalStateException(
-                "There is no event with this code"
-            );
-        }
-
-        return optionalEvent.get();
+        return optionalEvent.orElse(null);
     }
 
     public void deleteEvent(Long id) {

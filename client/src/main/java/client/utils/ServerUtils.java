@@ -93,7 +93,7 @@ public class ServerUtils {
      */
     public List<Event> getEvents() {
         return ClientBuilder.newClient(new ClientConfig())
-            .target(SERVER).path("/event/")
+            .target(SERVER).path("/event")
             .request(APPLICATION_JSON)
             .accept(APPLICATION_JSON)
             .get(new GenericType<>() {
@@ -110,8 +110,7 @@ public class ServerUtils {
             .target(SERVER).path("/event/" + code)
             .request(APPLICATION_JSON)
             .accept(APPLICATION_JSON)
-            .get(new GenericType<>() {
-            });
+            .get(Event.class);
     }
 
     /**

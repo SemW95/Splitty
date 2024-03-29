@@ -16,8 +16,9 @@
 
 package client.scenes;
 
+import static client.utils.PaneCreator.createEventItem;
+
 import client.Main;
-import client.utils.PaneCreator;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Event;
@@ -76,19 +77,24 @@ public class HomeCtrl implements Initializable {
      * It reads all stored event codes from config files and iterates through them.
      */
     public void getData() {
-        String[] codes = Main.configManager.getCodes();
         List<Event> events = new ArrayList<>();
 
-        for (String code : codes) {
-            events.add(server.getEventByCode(code));
+        for (String code : Main.configManager.getCodes()) {
+            Event event = server.getEventByCode(code);
+            if (event != null) {
+                events.add(event);
+            } else {
+                Main.configManager.removeCode(code);
+            }
         }
 
         eventList.getChildren()
-            .setAll(events.stream().map(PaneCreator::createEventItem).toList());
+            .setAll(
+                events.stream().map(e -> createEventItem(e, this::handleClickEvent)).toList());
     }
 
-    public static void handleClickEvent(Event event) {
-        System.out.println("pressed " + event.getTitle());
+    private void handleClickEvent(Event event) {
+        mainCtrl.showEventOverview(event);
     }
 
     /**

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import org.apache.commons.lang3.RandomStringUtils;
 
 /**
  * This is the data Object for an Event.
@@ -212,11 +213,11 @@ public class Event {
     }
 
     /**
-     * A UUID is not unique, however the chance of having duplicates is minimal.
+     * A code is not unique, however the chance of having duplicates is minimal.
      */
     private static String generateInviteCode() {
         // TODO: check if it already exists
-        return UUID.randomUUID().toString();
+        return RandomStringUtils.randomAlphanumeric(8);
     }
 
     public void updateLastModifiedDateTime() {

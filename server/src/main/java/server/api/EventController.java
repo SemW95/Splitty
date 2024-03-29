@@ -42,7 +42,7 @@ public class EventController {
      * @return the searched event
      */
     @GetMapping(path = "/event/{code}")
-    public Event getEventByCode(@PathVariable(name = "code") String code) {
+    public Event getEventByCode(@PathVariable String code) {
         return eventService.getEventByCode(code);
     }
 
