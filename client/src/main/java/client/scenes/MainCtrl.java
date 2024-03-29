@@ -17,16 +17,13 @@
 package client.scenes;
 
 import client.MyFXML;
-import client.components.ExpenseCardCtrl;
+import client.utils.CsPair;
 import commons.Event;
 import java.io.File;
 import java.util.Locale;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 
 /**
  * This is the main controller, which holds references to all controllers and scenes.
@@ -35,17 +32,7 @@ public class MainCtrl {
     /*
     How to insert a new page: (you can use home as reference)
     Make sure you created a controller and your Page.fxml links:"client.scenes.PageCtrl"
-    Fields:
-    Step 1: Initialize 2 fields, "PageCtrl pageCtrl" and "Scene page"
-    Constructor:
-    Step 2: add a "Pair [PageController, Parent] page" ( [] = <>) parameter.
-    Step 3: this.pageCtrl = page.getKey() + this.page = new Scene(page.getValue()).
-    Step 4: Create a function showPage() for handling transition. setScene + setTitle.
-    MyModule:
-    Step 5: add controller to MyModule "binder.bind(PageCtrl.class).in(Scopes.SINGLETON);"
-    Main
-    Step 6: add "var page = FXML.load(PageCtrl.class, "client", "scenes", "Home.fxml");"
-    Step 7: add the same to the refresh method. Also add more stuff there too. Kind of TODO
+    TODO
     */
     private Stage primaryStage;
     private Stage primaryPopup;
@@ -53,118 +40,59 @@ public class MainCtrl {
      * Usually used for confirmation popups.
      */
     private Stage secondaryPopup;
-    private HomeCtrl homeCtrl;
-    private Scene home;
-    private AdminCredentialsCtrl adminCredentialsCtrl;
-    private Scene adminCredentials;
-    private ExpenseOverviewCtrl expenseOverviewCtrl;
-    private Scene manageExpense;
-    private ManageExpenseCtrl manageExpenseCtrl;
-    private Scene expenseOverview;
-    private EventOverviewCtrl eventOverviewCtrl;
-    private Scene eventOverview;
-    //private ParticipantCtrl participantCtrl;
-    //private Scene participant;
-    private AddParticipantCtrl addParticipantCtrl;
-    private Scene addParticipant;
-    private ManageParticipantsCtrl manageParticipantsCtrl;
-    private Scene manageParticipants;
-    private EditParticipantCtrl editParticipantCtrl;
-    private Scene editParticipant;
-    private DeleteParticipantConfirmationCtrl deleteParticipantConfirmationCtrl;
-    private Scene deleteParticipantConfirmation;
-    private AdminOverviewCtrl adminOverviewCtrl;
-    private Scene adminOverview;
-    private DeleteEventConfirmationCtrl deleteEventConfirmationCtrl;
-    private Scene deleteEventConfirmation;
     private MyFXML fxml;
     private String savedAdminPassword;
-    //step 1 below.
-    private Pair<ExpenseCardCtrl, javafx.scene.Parent> expenseCard;
+    private CsPair<HomeCtrl> homePair;
+    private CsPair<AdminCredentialsCtrl> adminCredentialsPair;
+    private CsPair<ExpenseOverviewCtrl> expenseOverviewPair;
+    private CsPair<EventOverviewCtrl> eventOverviewPair;
+    private CsPair<ManageExpenseCtrl> manageExpensePair;
+    private CsPair<AddParticipantCtrl> addParticipantPair;
+    private CsPair<ManageParticipantsCtrl> manageParticipantsPair;
+    private CsPair<EditParticipantCtrl> editParticipantPair;
+    private CsPair<DeleteParticipantConfirmationCtrl> deleteParticipantConfirmationPair;
+    private CsPair<AdminOverviewCtrl> adminOverviewPair;
+    private CsPair<DeleteEventConfirmationCtrl> deleteEventConfirmationPair;
+    // private Pair<ExpenseCardCtrl, Parent> expenseCard;
 
     /**
      * Main controller initialization.
      *
-     * @param primaryStage                                the primary stage
-     * @param fxml                                        MyFXML class
-     * @param homePair                                    a pair of the home controller and node
-     * @param adminCredentialsPair                        a pair of the admin credentials
-     *                                                    controller and node
-     * @param expenseOverviewPair                         a pair of the expense overview
-     *                                                    controller and node
-     * @param eventOverviewPair                           a pair of the event overview
-     *                                                    controller and node
-     * @param manageExpensePair                           a pair of the manage expense
-     *                                                    controller and node
-     * @param addParticipantPair                          a pair of the add participant
-     *                                                    controller and node
-     * @param manageParticipantsPair                      a pair of the manage participant
-     *                                                    controller and node
-     * @param editParticipantPair                         a pair of the edit participant
-     *                                                    controller and node
-     * @param deleteParticipantConfirmationCtrlParentPair a pair of the delete participant
-     *                                                    confirmation controller and node
-     * @param adminOverviewPair                           a pair of the admin overview controller
-     *                                                    and node
-     * @param deleteEventConfirmationPair                 a pair of the delete event confirmation
-     *                                                    controller and node
+     * @param primaryStage the primary stage
+     * @param fxml         MyFXML class
      */
-    public void initialize(Stage primaryStage, MyFXML fxml, Pair<HomeCtrl, Parent> homePair,
-                           Pair<AdminCredentialsCtrl, Parent> adminCredentialsPair,
-                           Pair<ExpenseOverviewCtrl, Parent> expenseOverviewPair,
-                           Pair<EventOverviewCtrl, Parent> eventOverviewPair,
-                           Pair<ManageExpenseCtrl, Parent> manageExpensePair,
-                           Pair<AddParticipantCtrl, Parent> addParticipantPair,
-                           Pair<ManageParticipantsCtrl, Parent> manageParticipantsPair,
-                           Pair<EditParticipantCtrl, Parent> editParticipantPair,
-                           Pair<DeleteParticipantConfirmationCtrl, Parent>
-                               deleteParticipantConfirmationCtrlParentPair,
-                           Pair<AdminOverviewCtrl, Parent> adminOverviewPair,
-                           Pair<DeleteEventConfirmationCtrl, Parent> deleteEventConfirmationPair) {
-
+    public void initialize(Stage primaryStage, MyFXML fxml) {
         this.primaryStage = primaryStage;
         this.fxml = fxml;
-
-        //add step 2 and 3 below.
-        this.homeCtrl = homePair.getKey();
-        this.home = new Scene(homePair.getValue());
-
-        this.adminCredentialsCtrl = adminCredentialsPair.getKey();
-        this.adminCredentials = new Scene(adminCredentialsPair.getValue());
-
-        this.expenseOverviewCtrl = expenseOverviewPair.getKey();
-        this.expenseOverview = new Scene(expenseOverviewPair.getValue());
-
-        this.eventOverviewCtrl = eventOverviewPair.getKey();
-        this.eventOverview = new Scene(eventOverviewPair.getValue());
-
-        // this.expenseCard = expenseCard;
-
-        this.manageExpenseCtrl = manageExpensePair.getKey();
-        this.manageExpense = new Scene(manageExpensePair.getValue());
-
-        this.addParticipantCtrl = addParticipantPair.getKey();
-        this.addParticipant = new Scene(addParticipantPair.getValue());
-
-        this.manageParticipantsCtrl = manageParticipantsPair.getKey();
-        this.manageParticipants = new Scene(manageParticipantsPair.getValue());
-
-        this.editParticipantCtrl = editParticipantPair.getKey();
-        this.editParticipant = new Scene(editParticipantPair.getValue());
-
-        this.deleteParticipantConfirmationCtrl =
-            deleteParticipantConfirmationCtrlParentPair.getKey();
-        this.deleteParticipantConfirmation =
-            new Scene(deleteParticipantConfirmationCtrlParentPair.getValue());
-
-        this.adminOverviewCtrl = adminOverviewPair.getKey();
-        this.adminOverview = new Scene(adminOverviewPair.getValue());
-
-        this.deleteEventConfirmationCtrl = deleteEventConfirmationPair.getKey();
-        this.deleteEventConfirmation = new Scene(deleteEventConfirmationPair.getValue());
+        loadAllPairs();
 
         showHome();
         primaryStage.show();
+    }
+
+    private void loadAllPairs() {
+        homePair = fxml.load(HomeCtrl.class, "client", "scenes", "Home.fxml");
+        adminCredentialsPair =
+            fxml.load(AdminCredentialsCtrl.class,
+                "client", "scenes", "AdminCredentials.fxml");
+        expenseOverviewPair = fxml.load(ExpenseOverviewCtrl.class, "client", "scenes",
+            "ExpenseOverview.fxml");
+        eventOverviewPair = fxml.load(EventOverviewCtrl.class,
+            "client", "scenes", "EventOverview.fxml");
+        manageExpensePair = fxml.load(ManageExpenseCtrl.class, "client", "scenes",
+            "ManageExpense.fxml");
+        addParticipantPair = fxml.load(AddParticipantCtrl.class,
+            "client", "scenes", "AddParticipant.fxml");
+        manageParticipantsPair = fxml.load(ManageParticipantsCtrl.class,
+            "client", "scenes", "ManageParticipants.fxml");
+        editParticipantPair = fxml.load(EditParticipantCtrl.class,
+            "client", "scenes", "EditParticipant.fxml");
+        deleteParticipantConfirmationPair = fxml.load(DeleteParticipantConfirmationCtrl.class,
+            "client", "scenes", "DeleteParticipantConfirmation.fxml");
+        adminOverviewPair = fxml.load(AdminOverviewCtrl.class,
+            "client", "scenes", "AdminOverview.fxml");
+        deleteEventConfirmationPair = fxml.load(DeleteEventConfirmationCtrl.class,
+            "client", "scenes", "DeleteEventConfirmation.fxml");
     }
 
     /**
@@ -172,8 +100,8 @@ public class MainCtrl {
      */
     public void showHome() {
         primaryStage.setTitle(fxml.getBundle().getString("home.title"));
-        homeCtrl.getData();
-        primaryStage.setScene(home);
+        homePair.ctrl.getData();
+        primaryStage.setScene(homePair.scene);
     }
 
     /**
@@ -193,27 +121,8 @@ public class MainCtrl {
     }
 
     private void refresh() {
-        // STEP 7
-        // TODO: maybe find a way to remove the code duplication
-        var homePair = fxml.load(HomeCtrl.class, "client", "scenes", "Home.fxml");
-        this.homeCtrl = homePair.getKey();
-        this.home = new Scene(homePair.getValue());
-
-        var adminCredentialsPair =
-            fxml.load(AdminCredentialsCtrl.class, "client", "scenes", "AdminCredentials.fxml");
-        this.adminCredentialsCtrl = adminCredentialsPair.getKey();
-        this.adminCredentials = new Scene(adminCredentialsPair.getValue());
-
-        var expenseOverviewPair =
-            fxml.load(ExpenseOverviewCtrl.class, "client", "scenes", "ExpenseOverview.fxml");
-        this.expenseOverviewCtrl = expenseOverviewPair.getKey();
-        this.expenseOverview = new Scene(expenseOverviewPair.getValue());
-
-        var manageExpensePair =
-            fxml.load(ManageExpenseCtrl.class, "client", "scenes", "ManageExpense.fxml");
-        this.manageExpenseCtrl = manageExpensePair.getKey();
-        this.manageExpense = new Scene(manageExpensePair.getValue());
-
+        loadAllPairs();
+        // TODO
         showHome();
     }
 
@@ -223,7 +132,7 @@ public class MainCtrl {
      */
     public void showAdminCredentialsPopup() {
         // If the user already entered the password, it should directly open the admin overview
-        if (adminCredentialsCtrl.savedPasswordIsCorrect()) {
+        if (adminCredentialsPair.ctrl.savedPasswordIsCorrect()) {
             showAdminOverview();
             return;
         }
@@ -233,7 +142,7 @@ public class MainCtrl {
         primaryPopup.initModality(Modality.APPLICATION_MODAL);
         primaryPopup.initOwner(primaryStage);
         primaryPopup.setTitle("Admin credentials");
-        primaryPopup.setScene(adminCredentials);
+        primaryPopup.setScene(adminCredentialsPair.scene);
         // Making it not resizable also sets it to the size specified in the .fxml file
         // This was the only way I found that fixed that problem
         // (Except the .setMaximized(true), which makes the window flash when it appears)
@@ -265,9 +174,9 @@ public class MainCtrl {
      * This method should only be called after entering the correct admin password.
      */
     public void showAdminOverview() {
-        primaryStage.setScene(adminOverview);
+        primaryStage.setScene(adminOverviewPair.scene);
         primaryStage.setTitle("Admin Overview");
-        adminOverviewCtrl.populate();
+        adminOverviewPair.ctrl.populate();
     }
 
     /**
@@ -298,7 +207,7 @@ public class MainCtrl {
     public void showAddParticipantPopup() {
         primaryPopup = new Stage();
         primaryPopup.setTitle("Add Participant");
-        primaryPopup.setScene(addParticipant);
+        primaryPopup.setScene(addParticipantPair.scene);
         primaryPopup.show();
     }
 
@@ -308,7 +217,7 @@ public class MainCtrl {
      */
     public void showManageParticipantsScreen() {
         primaryStage.setTitle("Manage Participants");
-        primaryStage.setScene(manageParticipants);
+        primaryStage.setScene(manageParticipantsPair.scene);
     }
 
     /**
@@ -317,7 +226,7 @@ public class MainCtrl {
     public void showEditParticipantPopup() {
         primaryPopup = new Stage();
         primaryPopup.setTitle("Edit Participant");
-        primaryPopup.setScene(editParticipant);
+        primaryPopup.setScene(editParticipantPair.scene);
         primaryPopup.show();
         primaryPopup.setResizable(false);
     }
@@ -328,7 +237,7 @@ public class MainCtrl {
     public void showDeleteParticipantConfirmationPopup() {
         secondaryPopup = new Stage();
         secondaryPopup.setTitle("Delete Participant Confirmation");
-        secondaryPopup.setScene(deleteParticipantConfirmation);
+        secondaryPopup.setScene(deleteParticipantConfirmationPair.scene);
         secondaryPopup.show();
         secondaryPopup.setResizable(false);
     }
@@ -342,25 +251,25 @@ public class MainCtrl {
         primaryPopup = new Stage();
         primaryPopup.initModality(Modality.APPLICATION_MODAL);
         primaryPopup.setTitle("Delete Event Confirmation");
-        primaryPopup.setScene(deleteEventConfirmation);
+        primaryPopup.setScene(deleteEventConfirmationPair.scene);
         primaryPopup.show();
         primaryPopup.setResizable(false);
-        deleteEventConfirmationCtrl.setCallback(deleteCallback);
+        deleteEventConfirmationPair.ctrl.setCallback(deleteCallback);
     }
 
     //add step 4 here.
 
-    public Pair<ExpenseCardCtrl, Parent> getExpenseCard() {
-        return expenseCard;
-    }
+    // public Pair<ExpenseCardCtrl, Parent> getExpenseCard() {
+    //     return expenseCard;
+    // }
 
     /**
      * Sets primary stage to the Event overview scene.
      */
     public void showEventOverview(Event event) {
         primaryStage.setTitle("Event Overview");
-        eventOverviewCtrl.refresh(event);
-        primaryStage.setScene(eventOverview);
+        eventOverviewPair.ctrl.refresh(event);
+        primaryStage.setScene(eventOverviewPair.scene);
     }
 
     public String getSavedAdminPassword() {

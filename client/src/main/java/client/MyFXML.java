@@ -16,6 +16,7 @@
 
 package client;
 
+import client.utils.CsPair;
 import com.google.inject.Injector;
 import java.io.IOException;
 import java.net.URL;
@@ -59,13 +60,13 @@ public class MyFXML {
      * @param <T>   type of the controller class, I think
      * @return a pair of a controller and scene
      */
-    public <T> Pair<T, Parent> load(Class<T> c, String... parts) {
+    public <T> CsPair<T> load(Class<T> c, String... parts) {
         try {
             var loader = new FXMLLoader(getLocation(parts), bundle, null, new MyFactory(),
                 StandardCharsets.UTF_8);
             Parent parent = loader.load();
             T ctrl = loader.getController();
-            return new Pair<>(ctrl, parent);
+            return new CsPair<>(ctrl, parent);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
