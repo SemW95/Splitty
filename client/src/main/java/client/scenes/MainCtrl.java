@@ -61,6 +61,9 @@ public class MainCtrl {
     private Scene manageExpense;
     private ManageExpenseCtrl manageExpenseCtrl;
     private Scene expenseOverview;
+    private ExpenseAddParticipantCtrl expenseAddParticipantCtrl;
+    private Scene expenseAddParticipant;
+
     private EventOverviewCtrl eventOverviewCtrl;
     private Scene eventOverview;
     //private ParticipantCtrl participantCtrl;
@@ -92,6 +95,8 @@ public class MainCtrl {
      *                                                    controller and node
      * @param expenseOverviewPair                         a pair of the expense overview
      *                                                    controller and node
+     * @param expenseAddParticipantPair                   a pair of the expenseAddParticipant overview
+     *                                                    controller and node
      * @param eventOverviewPair                           a pair of the event overview
      *                                                    controller and node
      * @param manageExpensePair                           a pair of the manage expense
@@ -112,6 +117,7 @@ public class MainCtrl {
     public void initialize(Stage primaryStage, MyFXML fxml, Pair<HomeCtrl, Parent> homePair,
                            Pair<AdminCredentialsCtrl, Parent> adminCredentialsPair,
                            Pair<ExpenseOverviewCtrl, Parent> expenseOverviewPair,
+                           Pair<ExpenseAddParticipantCtrl, Parent> expenseAddParticipantPair,
                            Pair<EventOverviewCtrl, Parent> eventOverviewPair,
                            Pair<ManageExpenseCtrl, Parent> manageExpensePair,
                            Pair<AddParticipantCtrl, Parent> addParticipantPair,
@@ -142,6 +148,9 @@ public class MainCtrl {
 
         this.manageExpenseCtrl = manageExpensePair.getKey();
         this.manageExpense = new Scene(manageExpensePair.getValue());
+
+        this.expenseAddParticipantCtrl = expenseAddParticipantPair.getKey();
+        this.expenseAddParticipant = new Scene(expenseAddParticipantPair.getValue());
 
         this.addParticipantCtrl = addParticipantPair.getKey();
         this.addParticipant = new Scene(addParticipantPair.getValue());
@@ -184,8 +193,11 @@ public class MainCtrl {
 
         // primaryStage.setScene(expenseOverview);
         // expenseOverviewCtrl.populate();
-        // primaryStage.setScene(manageExpense);
-        // manageExpenseCtrl.populate();
+//         primaryStage.setScene(manageExpense);
+//         manageExpenseCtrl.populate();
+
+        primaryStage.setScene(expenseAddParticipant);
+        expenseAddParticipantCtrl.populate();
 
 
         // For testing the following four scenes:
@@ -236,6 +248,11 @@ public class MainCtrl {
             fxml.load(ExpenseOverviewCtrl.class, "client", "scenes", "ExpenseOverview.fxml");
         this.expenseOverviewCtrl = expenseOverviewPair.getKey();
         this.expenseOverview = new Scene(expenseOverviewPair.getValue());
+
+        var expenseAddParticipantPair =
+            fxml.load(ExpenseAddParticipantCtrl.class, "client", "scenes", "ExpenseAddParticipant.fxml");
+        this.expenseAddParticipantCtrl = expenseAddParticipantPair.getKey();
+        this.expenseAddParticipant = new Scene(expenseAddParticipantPair.getValue());
 
         var manageExpensePair =
             fxml.load(ManageExpenseCtrl.class, "client", "scenes", "ManageExpense.fxml");

@@ -26,6 +26,7 @@ import client.scenes.DeleteParticipantConfirmationCtrl;
 import client.scenes.EditParticipantCtrl;
 import client.scenes.EventOverviewCtrl;
 import client.scenes.ExpenseOverviewCtrl;
+import client.scenes.ExpenseAddParticipantCtrl;
 import client.scenes.HomeCtrl;
 import client.scenes.MainCtrl;
 import client.scenes.ManageExpenseCtrl;
@@ -60,6 +61,7 @@ public class Main extends Application {
             "client", "scenes", "EventOverview.fxml");
         var manageExpense = FXML.load(ManageExpenseCtrl.class, "client", "scenes",
             "ManageExpense.fxml");
+        var expenseAddParticipant = FXML.load(ExpenseAddParticipantCtrl.class,"client", "scenes", "ExpenseAddParticipant.fxml");
         var addParticipant = FXML.load(AddParticipantCtrl.class,
             "client", "scenes", "AddParticipant.fxml");
         var manageParticipants = FXML.load(ManageParticipantsCtrl.class,
@@ -77,7 +79,7 @@ public class Main extends Application {
 
 
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, FXML, home, adminCredentials, expenseOverview,
+        mainCtrl.initialize(primaryStage, FXML, home, adminCredentials, expenseOverview, expenseAddParticipant,
             eventOverview,
             manageExpense, addParticipant, manageParticipants, editParticipant,
             deleteParticipantConfirmation, adminOverview, deleteEventConfirmation);
