@@ -87,6 +87,7 @@ server:service:test:
     matrix:
       - TEST_CLASS:
           - "PersonServiceTest"
+          - "PaymentServiceTest"
 
 server:controller:test:
   stage: test
@@ -98,6 +99,7 @@ server:controller:test:
     matrix:
       - TEST_CLASS:
           - "PersonControllerTest"
+          - "PaymentControllerTest"
 
 coverageReport:
   stage: coverageReport
