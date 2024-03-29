@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,8 +58,8 @@ public class PersonController {
      * @param person that is to be added
      */
     @PostMapping(path = "/person")
-    public void addPerson(@RequestBody Person person) {
-        personService.addPerson(person);
+    public Person addPerson(@RequestBody Person person) {
+        return personService.addPerson(person);
     }
 
     /**
@@ -70,5 +71,10 @@ public class PersonController {
     @DeleteMapping(path = "/person/{id}")
     public void deletePerson(@PathVariable String id) {
         personService.deletePerson(id);
+    }
+
+    @PutMapping(path = "/person")
+    public void updatePerson(@RequestBody Person person) {
+        personService.updatePerson(person);
     }
 }

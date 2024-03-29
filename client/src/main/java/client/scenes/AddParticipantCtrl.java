@@ -5,6 +5,7 @@ import com.google.inject.Inject;
 import commons.Person;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -19,6 +20,7 @@ public class AddParticipantCtrl implements Initializable {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
     private ResourceBundle resources;
+    private Consumer<Person> callback;
 
     @Inject
     public AddParticipantCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -34,8 +36,6 @@ public class AddParticipantCtrl implements Initializable {
     @FXML
     private TextField bicTextField;
 
-    @FXML
-    private Button cross;
 
     @FXML
     private TextField emailTextField;
@@ -72,21 +72,21 @@ public class AddParticipantCtrl implements Initializable {
         firstName = firstNameTextField.getText();
         lastName = lastNameTextField.getText();
 
-        if (Person.emailCheck(emailTextField.getText())) {
+        if (emailTextField.getText().isBlank() || Person.emailCheck(emailTextField.getText())) {
             email = emailTextField.getText();
             invalidEmailMessage.setVisible(false);
         } else {
             invalidEmailMessage.setVisible(true);
         }
 
-        if (ibanTextField.getText().isEmpty() || Person.ibanCheckSum(ibanTextField.getText())) {
+        if (ibanTextField.getText().isBlank() || Person.ibanCheckSum(ibanTextField.getText())) {
             iban = ibanTextField.getText();
             invalidIbanMessage.setVisible(false);
         } else {
             invalidIbanMessage.setVisible(true);
         }
 
-        if (bicTextField.getText().isEmpty() || Person.bicCheck(bicTextField.getText())) {
+        if (bicTextField.getText().isBlank() || Person.bicCheck(bicTextField.getText())) {
             bic = bicTextField.getText();
             invalidBicMessage.setVisible(false);
         } else {
@@ -94,18 +94,16 @@ public class AddParticipantCtrl implements Initializable {
         }
 
         if (!invalidEmailMessage.isVisible()
-                && !invalidIbanMessage.isVisible()
-                && !invalidBicMessage.isVisible()) {
-            // TODO: Store the new Participant in this Event.
-            // TODO: Go back to the Event Overview scene.
+            && !invalidIbanMessage.isVisible()
+            && !invalidBicMessage.isVisible()) {
+            Person person = new Person(firstName, lastName, email, iban, bic);
+            callback.accept(person);
+            mainCtrl.closePrimaryPopup();
         }
-
     }
 
-    @FXML
-    private void cross(){
-        // TODO: Go back to the Event Overview scene.
+    public void setCallback(Consumer<Person> callback) {
+        this.callback = callback;
     }
-
 }
 

@@ -1,11 +1,13 @@
 package server.api;
 
 import commons.Event;
+import commons.Expense;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import server.service.EventService;
@@ -52,7 +54,12 @@ public class EventController {
     }
 
     @PostMapping(path = "/event")
-    public void createEvent(@RequestBody Event event) {
-        eventService.createEvent(event);
+    public Event createEvent(@RequestBody Event event) {
+        return eventService.createEvent(event);
+    }
+
+    @PutMapping(path = "/event")
+    public void updateEvent(@RequestBody Event event) {
+        eventService.updateEvent(event);
     }
 }

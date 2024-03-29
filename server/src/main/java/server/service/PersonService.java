@@ -50,17 +50,14 @@ public class PersonService {
      *
      * @param person that is to be added
      */
-    public void addPerson(Person person) {
-        Optional<Person> optionalPerson = personRepository
-            .findById(person.getId());
-
-        if (optionalPerson.isPresent()) {
+    public Person addPerson(Person person) {
+        if (person.getId() != null && !personRepository.existsById(person.getId())) {
             throw new IllegalStateException(
                 "There already is a person with this id"
             );
         }
 
-        personRepository.save(person);
+        return personRepository.save(person);
     }
 
     /**
@@ -80,5 +77,9 @@ public class PersonService {
         }
 
         personRepository.deleteById(id);
+    }
+
+    public void updatePerson(Person person) {
+        personRepository.save(person);
     }
 }

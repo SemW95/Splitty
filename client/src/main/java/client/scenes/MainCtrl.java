@@ -20,9 +20,11 @@ import client.MyFXML;
 import client.utils.CsPair;
 import commons.Event;
 import commons.Expense;
+import commons.Person;
 import java.io.File;
 import java.util.Locale;
 import java.util.Stack;
+import java.util.function.Consumer;
 import javafx.fxml.Initializable;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -71,6 +73,7 @@ public class MainCtrl {
         loadAllPairs();
 
         showHome();
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
@@ -107,9 +110,8 @@ public class MainCtrl {
         expenseOverviewPair.ctrl.refetch();
         eventOverviewPair.ctrl.refetch();
         manageExpensePair.ctrl.refetch();
-        // addParticipantPair.ctrl
-        // manageParticipantsPair.ctrl
-        // editParticipantPair.ctrl
+        manageParticipantsPair.ctrl.refetch();
+        editParticipantPair.ctrl.refetch();
         adminOverviewPair.ctrl.refetch();
     }
 
@@ -221,11 +223,16 @@ public class MainCtrl {
 
     /**
      * Show the AddParticipant popup.
+     *
+     * @param callback function which will be called if the person is added successfully
      */
-    public void showAddParticipantPopup() {
+    public void showAddParticipantPopup(Consumer<Person> callback) {
         primaryPopup = new Stage();
         primaryPopup.setTitle("Add Participant");
         primaryPopup.setScene(addParticipantPair.scene);
+        addParticipantPair.ctrl.setCallback(callback);
+        primaryPopup.initModality(Modality.APPLICATION_MODAL);
+        primaryPopup.setResizable(false);
         primaryPopup.show();
     }
 
@@ -233,18 +240,20 @@ public class MainCtrl {
     /**
      * Show the ManageParticipants screen.
      */
-    public void showManageParticipantsScreen() {
+    public void showManageParticipantsScreen(Event event) {
         primaryStage.setTitle("Manage Participants");
         primaryStage.setScene(manageParticipantsPair.scene);
+        manageParticipantsPair.ctrl.update(event);
     }
 
     /**
      * Show the EditParticipant popup.
      */
-    public void showEditParticipantPopup() {
+    public void showEditParticipantPopup(Person person) {
         primaryPopup = new Stage();
         primaryPopup.setTitle("Edit Participant");
         primaryPopup.setScene(editParticipantPair.scene);
+        editParticipantPair.ctrl.update(person);
         primaryPopup.show();
         primaryPopup.setResizable(false);
     }
@@ -252,12 +261,13 @@ public class MainCtrl {
     /**
      * Show the DeleteParticipantConfirmation popup.
      */
-    public void showDeleteParticipantConfirmationPopup() {
-        secondaryPopup = new Stage();
-        secondaryPopup.setTitle("Delete Participant Confirmation");
-        secondaryPopup.setScene(deleteParticipantConfirmationPair.scene);
-        secondaryPopup.show();
-        secondaryPopup.setResizable(false);
+    public void showDeleteParticipantConfirmationPopup(Runnable callback) {
+        primaryPopup = new Stage();
+        primaryPopup.setTitle("Delete Participant Confirmation");
+        primaryPopup.setScene(deleteParticipantConfirmationPair.scene);
+        deleteParticipantConfirmationPair.ctrl.setCallback(callback);
+        primaryPopup.show();
+        primaryPopup.setResizable(false);
     }
 
     /**
@@ -283,6 +293,8 @@ public class MainCtrl {
 
     /**
      * Sets primary stage to the Event overview scene.
+     *
+     * @param fromAdmin whether the user is coming to this screen from the admin overview
      */
     public void showEventOverview(Event event, boolean fromAdmin) {
         primaryStage.setTitle("Event Overview");

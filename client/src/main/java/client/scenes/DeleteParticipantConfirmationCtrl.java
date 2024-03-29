@@ -15,6 +15,7 @@ public class DeleteParticipantConfirmationCtrl implements Initializable {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
     private ResourceBundle resources;
+    private Runnable callback;
 
     @Inject
     public DeleteParticipantConfirmationCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -35,13 +36,16 @@ public class DeleteParticipantConfirmationCtrl implements Initializable {
 
     @FXML
     private void deleteParticipant() {
-        // TODO: Delete the participant that is chosen.
+        callback.run();
+        mainCtrl.closePrimaryPopup();
     }
 
     @FXML
     private void goBackToManageScene() {
-        // TODO: Go back to the ManageParticipant scene.
+        mainCtrl.closePrimaryPopup();
     }
 
-
+    public void setCallback(Runnable callback) {
+        this.callback = callback;
+    }
 }

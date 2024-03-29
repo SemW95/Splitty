@@ -46,13 +46,18 @@ public class EventService {
      *
      * @param event the event to be created.
      */
-    public void createEvent(Event event) {
-        if (eventRepository.findById(event.getId()).isEmpty()) {
-            eventRepository.save(event);
+    public Event createEvent(Event event) {
+        if (event.getId() == null || !eventRepository.existsById(event.getId())) {
+            return eventRepository.save(event);
         }
+        return null;
     }
 
     public Event getEventById(String id) {
         return eventRepository.findById(id).orElse(null);
+    }
+
+    public void updateEvent(Event event) {
+        eventRepository.save(event);
     }
 }

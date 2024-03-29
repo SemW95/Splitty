@@ -188,10 +188,17 @@ public class EventOverviewCtrl implements Initializable {
 
     // TODO: go to add participants
     public void handleAddParticipants(ActionEvent actionEvent) {
+        mainCtrl.showAddParticipantPopup((person) -> {
+            person = server.createPerson(person);
+            event.getPeople().add(person);
+            server.updateEvent(event);
+            mainCtrl.updateAll();
+        });
     }
 
     // TODO: go to manage participants
     public void handleManageParticipants(ActionEvent actionEvent) {
+        mainCtrl.showManageParticipantsScreen(event);
     }
 
     // TODO: go to add payments

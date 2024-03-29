@@ -43,13 +43,13 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    public String id;
+    private String id;
 
-    public String firstName;
-    public String lastName;
-    public String email;
-    public String iban;
-    public String bic;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String iban;
+    private String bic;
 
     /**
      * Makes the Person class.
@@ -63,20 +63,9 @@ public class Person {
     public Person(String firstName, String lastName, String email, String iban, String bic) {
         this.firstName = firstName;
         this.lastName = lastName;
-        if (!emailCheck(email)) {
-            throw new IllegalArgumentException("invalid email syntax");
-        }
-        this.email = email;
-
-        if (!ibanCheckSum(iban)) {
-            throw new IllegalArgumentException("invalid iban syntax");
-        }
-        this.iban = iban;
-
-        if (!bicCheck(bic)) {
-            throw new IllegalArgumentException("invalid bic syntax");
-        }
-        this.bic = bic;
+        setEmail(email);
+        setIban(iban);
+        setBic(bic);
     }
 
 
@@ -227,8 +216,8 @@ public class Person {
      * @param iban new iban for person
      */
     public void setIban(String iban) {
-        if (ibanCheckSum(iban)) {
-            this.iban = iban;
+        if (iban == null || iban.isBlank() || ibanCheckSum(iban)) {
+            this.iban = iban == null ? "" : iban;
         } else {
             throw new IllegalArgumentException("This is not a valid IBAN");
         }
@@ -244,8 +233,8 @@ public class Person {
      * @param bic new BIC of person.
      */
     public void setBic(String bic) {
-        if (bicCheck(bic)) {
-            this.bic = bic;
+        if (bic == null || bic.isBlank() || bicCheck(bic)) {
+            this.bic = bic == null ? "" : bic;
         } else {
             throw new IllegalArgumentException("This is an incorrect BIC");
         }
@@ -281,9 +270,8 @@ public class Person {
      * @param email new email for Person
      */
     public void setEmail(String email) {
-        boolean check = emailCheck(email);
-        if (check) {
-            this.email = email;
+        if (email == null || email.isBlank() || emailCheck(email)) {
+            this.email = email == null ? "" : email;
         } else {
             throw new IllegalArgumentException("The provided email is not a valid email");
         }

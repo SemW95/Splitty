@@ -146,13 +146,13 @@ public class ServerUtils {
      *
      * @param event the event to be created.
      */
-    public void createEvent(Event event) {
-        // TODO: maybe it should return a boolean
-        ClientBuilder.newClient(new ClientConfig())
+    public Event createEvent(Event event) {
+        return ClientBuilder.newClient(new ClientConfig())
             .target(server).path("/event")
             .request(APPLICATION_JSON)
             .accept(APPLICATION_JSON)
-            .post(Entity.json(event));
+            .post(Entity.json(event))
+            .readEntity(Event.class);
     }
 
     /**
@@ -179,5 +179,49 @@ public class ServerUtils {
             .request(APPLICATION_JSON)
             .accept(APPLICATION_JSON)
             .get(Expense.class);
+    }
+
+    /**
+     * This updates the event in the database.
+     *
+     * @param event the event to update
+     */
+    public void updateEvent(Event event) {
+        ClientBuilder.newClient(new ClientConfig())
+            .target(server).path("/event")
+            .request(APPLICATION_JSON)
+            .put(Entity.json(event));
+    }
+
+    public Person createPerson(Person person) {
+        return ClientBuilder.newClient(new ClientConfig())
+            .target(server).path("/person")
+            .request(APPLICATION_JSON)
+            .accept(APPLICATION_JSON)
+            .accept(APPLICATION_JSON)
+            .post(Entity.json(person))
+            .readEntity(Person.class);
+    }
+
+    public void updatePerson(Person person) {
+        ClientBuilder.newClient(new ClientConfig())
+            .target(server).path("/person")
+            .request(APPLICATION_JSON)
+            .put(Entity.json(person));
+    }
+
+    public Person getPersonById(String id) {
+        return ClientBuilder.newClient(new ClientConfig())
+            .target(server).path("/person/" + id)
+            .request(APPLICATION_JSON)
+            .accept(APPLICATION_JSON)
+            .get(Person.class);
+    }
+
+    public void deletePerson(Person person) {
+        ClientBuilder.newClient(new ClientConfig())
+            .target(server).path("/person/" + person.getId())
+            .request(APPLICATION_JSON)
+            .delete();
     }
 }
