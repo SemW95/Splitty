@@ -76,6 +76,9 @@ public class ManageParticipantsCtrl implements Initializable {
         // TODO
     }
 
+    /**
+     * Update current event.
+     */
     public void refetch() {
         if (this.event == null) {
             return;

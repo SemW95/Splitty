@@ -193,6 +193,12 @@ public class ServerUtils {
             .put(Entity.json(event));
     }
 
+    /**
+     * Create a new person in the database.
+     *
+     * @param person the person to create
+     * @return the created person with updated fields (id is created)
+     */
     public Person createPerson(Person person) {
         return ClientBuilder.newClient(new ClientConfig())
             .target(server).path("/person")
@@ -203,6 +209,11 @@ public class ServerUtils {
             .readEntity(Person.class);
     }
 
+    /**
+     * Updates a person in the database.
+     *
+     * @param person the person to persist
+     */
     public void updatePerson(Person person) {
         ClientBuilder.newClient(new ClientConfig())
             .target(server).path("/person")
@@ -210,6 +221,12 @@ public class ServerUtils {
             .put(Entity.json(person));
     }
 
+    /**
+     * Gets a person by its id.
+     *
+     * @param id the person's id
+     * @return the requested person
+     */
     public Person getPersonById(String id) {
         return ClientBuilder.newClient(new ClientConfig())
             .target(server).path("/person/" + id)
@@ -218,6 +235,11 @@ public class ServerUtils {
             .get(Person.class);
     }
 
+    /**
+     * Deletes a person.
+     *
+     * @param person the person to delete
+     */
     public void deletePerson(Person person) {
         ClientBuilder.newClient(new ClientConfig())
             .target(server).path("/person/" + person.getId())

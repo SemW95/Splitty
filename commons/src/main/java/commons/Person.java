@@ -297,4 +297,13 @@ public class Person {
     public int hashCode() {
         return Objects.hash(firstName, lastName, email, iban, bic);
     }
+
+    /**
+     * Set the id. Should be only used for testing purposes.
+     *
+     * @param id the new id
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
 }

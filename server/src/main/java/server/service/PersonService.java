@@ -51,7 +51,7 @@ public class PersonService {
      * @param person that is to be added
      */
     public Person addPerson(Person person) {
-        if (person.getId() != null && !personRepository.existsById(person.getId())) {
+        if (person.getId() != null && personRepository.existsById(person.getId())) {
             throw new IllegalStateException(
                 "There already is a person with this id"
             );

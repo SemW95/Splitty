@@ -190,6 +190,9 @@ public class EditParticipantCtrl implements Initializable {
         }
     }
 
+    /**
+     * Populate the screen.
+     */
     public void populate() {
         firstNameLabel.setText(person.getFirstName());
         lastNameLabel.setText(person.getLastName());
@@ -198,6 +201,9 @@ public class EditParticipantCtrl implements Initializable {
         bicLabel.setText(person.getBic());
     }
 
+    /**
+     * Update the current person.
+     */
     public void refetch() {
         if (this.person == null) {
             return;

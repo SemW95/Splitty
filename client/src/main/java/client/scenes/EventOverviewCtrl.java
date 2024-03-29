@@ -186,8 +186,8 @@ public class EventOverviewCtrl implements Initializable {
     public void handleManageExpenses(ActionEvent actionEvent) {
     }
 
-    // TODO: go to add participants
-    public void handleAddParticipants(ActionEvent actionEvent) {
+    @FXML
+    private void handleAddParticipants(ActionEvent actionEvent) {
         mainCtrl.showAddParticipantPopup((person) -> {
             person = server.createPerson(person);
             event.getPeople().add(person);

@@ -37,9 +37,11 @@ public class PersonServiceTest {
         insertPerson = new Person("Bobertus", "Fireball", "aliceh@domain.name",
             "LT601010012345678901",
             "BOOKTP99A3E");
+        insertPerson.setId("not-null");
         returnPerson = new Person("Bobertus", "Fireball", "aliceh@domain.name",
             "LT601010012345678901",
             "BOOKTP99A3E");
+        insertPerson.setId("not-null");
     }
 
     @Test
@@ -76,7 +78,7 @@ public class PersonServiceTest {
     void addPersonByIdTest() {
         try {
 
-            when(personRepository.findById(any())).thenReturn(Optional.empty());
+            when(personRepository.existsById(any())).thenReturn(false);
             assertDoesNotThrow(() -> personService.addPerson(insertPerson));
             verify(personRepository).save(any());
 
@@ -89,9 +91,9 @@ public class PersonServiceTest {
     void addPersonByIdTestX() {
         try {
 
-            when(personRepository.findById(any())).thenReturn(Optional.of(returnPerson));
+            when(personRepository.existsById(any())).thenReturn(true);
             assertThrows(IllegalStateException.class, () -> personService.addPerson(insertPerson));
-            verify(personRepository).findById(any());
+            verify(personRepository).existsById(any());
 
         } catch (Exception e) {
             fail("The test itself broke");

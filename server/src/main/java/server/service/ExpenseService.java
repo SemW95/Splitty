@@ -33,7 +33,7 @@ public class ExpenseService {
      * @param expense the expense to be created.
      */
     public void createExpense(Expense expense) {
-        if (expenseRepository.findById(expense.getId()).isEmpty()) {
+        if (expense.getId() != null || expenseRepository.findById(expense.getId()).isEmpty()) {
             expenseRepository.save(expense);
         }
     }
