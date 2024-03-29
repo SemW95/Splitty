@@ -191,7 +191,7 @@ public class EventOverviewCtrl implements Initializable {
 
     // TODO: return to Home
     public void clickReturn(MouseEvent mouseEvent) {
-        System.out.println("Pressed return.");
+        mainCtrl.showHome();
     }
 
     // TODO

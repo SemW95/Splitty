@@ -5,12 +5,13 @@ import com.google.inject.Inject;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
 /**
  * DeleteParticipantConfirmation Popup.
  */
-public class DeleteParticipantConfirmationCtrl {
+public class DeleteParticipantConfirmationCtrl implements Initializable {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
     private ResourceBundle resources;
@@ -21,7 +22,7 @@ public class DeleteParticipantConfirmationCtrl {
         this.mainCtrl = mainCtrl;
     }
 
-    //@Override
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
     }

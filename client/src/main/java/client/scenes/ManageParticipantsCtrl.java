@@ -5,13 +5,14 @@ import com.google.inject.Inject;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
 
 /**
  * ManageParticipants screen.
  */
-public class ManageParticipantsCtrl {
+public class ManageParticipantsCtrl implements Initializable {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
     private ResourceBundle resources;
@@ -22,7 +23,7 @@ public class ManageParticipantsCtrl {
         this.mainCtrl = mainCtrl;
     }
 
-    //@Override
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
     }

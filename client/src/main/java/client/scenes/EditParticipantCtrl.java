@@ -6,6 +6,7 @@ import commons.Person;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -13,7 +14,7 @@ import javafx.scene.control.TextField;
 /**
  * EditParticipant popup.
  */
-public class EditParticipantCtrl {
+public class EditParticipantCtrl implements Initializable {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
     private ResourceBundle resources;
@@ -24,7 +25,7 @@ public class EditParticipantCtrl {
         this.mainCtrl = mainCtrl;
     }
 
-    //@Override
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
     }

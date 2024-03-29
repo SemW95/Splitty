@@ -6,6 +6,7 @@ import commons.Person;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -14,7 +15,7 @@ import javafx.scene.control.TextField;
 /**
  * AddParticipant screen.
  */
-public class AddParticipantCtrl {
+public class AddParticipantCtrl implements Initializable {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
     private ResourceBundle resources;
@@ -25,7 +26,7 @@ public class AddParticipantCtrl {
         this.mainCtrl = mainCtrl;
     }
 
-    //@Override
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
     }
