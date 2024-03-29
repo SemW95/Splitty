@@ -112,6 +112,9 @@ public class EventOverviewCtrl implements Initializable {
         }
     }
 
+    /**
+     * Updates the loaded event.
+     */
     public void refetch() {
         if (this.event == null) {
             return;

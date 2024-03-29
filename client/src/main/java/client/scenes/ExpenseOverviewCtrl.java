@@ -113,6 +113,9 @@ public class ExpenseOverviewCtrl implements Initializable {
         mainCtrl.showEventOverview(event, false);
     }
 
+    /**
+     * Updates the loaded expanse and event.
+     */
     public void refetch() {
         if (this.expense == null || this.event == null) {
             return;
@@ -123,6 +126,12 @@ public class ExpenseOverviewCtrl implements Initializable {
         populate();
     }
 
+    /**
+     * Set what the screen should show.
+     *
+     * @param expense the expense
+     * @param event   the event
+     */
     public void update(Expense expense, Event event) {
         this.expense = expense;
         this.event = event;

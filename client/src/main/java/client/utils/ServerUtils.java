@@ -111,6 +111,12 @@ public class ServerUtils {
             .get(Event.class);
     }
 
+    /**
+     * Gets an event by its id.
+     *
+     * @param id the id
+     * @return the event
+     */
     public Event getEventById(String id) {
         return ClientBuilder.newClient(new ClientConfig())
             .target(server).path("/event/id/" + id)
@@ -161,6 +167,12 @@ public class ServerUtils {
             .put(Entity.json(expense));
     }
 
+    /**
+     * Gets an expense by its id.
+     *
+     * @param id the id
+     * @return the expense
+     */
     public Expense getExpenseById(String id) {
         return ClientBuilder.newClient(new ClientConfig())
             .target(server).path("/expense/" + id)

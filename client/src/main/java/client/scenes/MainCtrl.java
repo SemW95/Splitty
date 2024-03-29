@@ -99,6 +99,9 @@ public class MainCtrl {
             "client", "scenes", "DeleteEventConfirmation.fxml");
     }
 
+    /**
+     * Updates all screens with data from the database.
+     */
     public void updateAll() {
         homePair.ctrl.refetch();
         expenseOverviewPair.ctrl.refetch();

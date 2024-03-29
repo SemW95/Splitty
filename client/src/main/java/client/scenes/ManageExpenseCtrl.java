@@ -343,6 +343,9 @@ public class ManageExpenseCtrl implements Initializable {
         return true;
     }
 
+    /**
+     * Updates the loaded expense and event.
+     */
     public void refetch() {
         if (this.expense == null || this.event == null) {
             return;
@@ -352,6 +355,12 @@ public class ManageExpenseCtrl implements Initializable {
         populate();
     }
 
+    /**
+     * Set what the screen should show.
+     *
+     * @param expense the expense
+     * @param event   the event
+     */
     public void update(Expense expense, Event event) {
         this.expense = expense;
         this.event = event;

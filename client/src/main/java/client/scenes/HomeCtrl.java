@@ -92,6 +92,9 @@ public class HomeCtrl implements Initializable {
         populate();
     }
 
+    /**
+     * Populate the screen.
+     */
     public void populate() {
         if (events == null) {
             return;
