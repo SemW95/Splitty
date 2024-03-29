@@ -2,6 +2,7 @@ package server.service;
 
 import commons.Event;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import server.database.EventRepository;
@@ -23,7 +24,26 @@ public class EventService {
         return eventRepository.findAll();
     }
 
-    public void deleteEvent(long id) {
+    /**
+     * null checks the searched event.
+     *
+     * @param code of the event
+     * @return Event that was searched
+     */
+    public Event getEventByCode(String code) {
+        Optional<Event> optionalEvent = eventRepository
+            .findByCode(code);
+
+        if (optionalEvent.isEmpty()) {
+            throw new IllegalStateException(
+                "There is no event with this code"
+            );
+        }
+
+        return optionalEvent.get();
+    }
+
+    public void deleteEvent(Long id) {
         eventRepository.deleteById(id);
     }
 

@@ -17,15 +17,22 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
+import javafx.stage.WindowEvent;
 
 /**
  * Controls the Expense UI.
@@ -51,6 +58,21 @@ public class ManageExpenseCtrl implements Initializable {
 
     @FXML
     private AnchorPane rootAnchorPane;
+
+    @FXML
+    private ImageView indicatorAmountModified;
+
+    @FXML
+    private ImageView indicatorDateModified;
+
+    @FXML
+    private ImageView indicatorNameModified;
+
+    @FXML
+    private ImageView indicatorRecipientModified;
+
+    @FXML
+    private ImageView indicatorTagModified;
 
     @FXML
     private ComboBox<Tag> tagMenu;
@@ -142,9 +164,12 @@ public class ManageExpenseCtrl implements Initializable {
 
         // Populate participants
         for (Person participant : expense.getParticipants()) {
-            AnchorPane participantCard = createParticipantCard(participant);
-            participantsFlowPane.getChildren().add(participantCard);
+            participantsFlowPane.getChildren().add(createParticipantCard(participant));
         }
+
+        // Prevent window closure when there are unsaved changes with invalid syntax
+        rootAnchorPane.getScene().getWindow()
+            .addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::handleCloseRequest);
     }
 
     /**
@@ -166,16 +191,23 @@ public class ManageExpenseCtrl implements Initializable {
         participantLabel.setFont(globalFont);
         participantLabel.setLayoutX(12.5);
         participantLabel.setLayoutY(7.5);
-        participantLabel.setOnMouseEntered(
-            event -> participantLabel.setTextFill(Paint.valueOf("red")));
+        if (participantLabel.isVisible()) {
+            participantLabel.setOnMouseEntered(
+                event -> participantLabel.setTextFill(Paint.valueOf("red")));
 
-        participantLabel.setOnMouseExited(
-            event -> participantLabel.setTextFill(Paint.valueOf("black")));
-        participantLabel.setOnMouseClicked(event -> {
+            participantLabel.setOnMouseExited(
+                event -> participantLabel.setTextFill(Paint.valueOf("black")));
+        }
+
+        participantLabel.setOnMousePressed(event -> {
                 this.expense.getParticipants().remove(participant);
                 server.updateExpense(this.expense);
-                participantLabel.setVisible(false);
+                participantsFlowPane.getChildren().remove(card);
+                participantsFlowPane.requestLayout();
                 card.getChildren().remove(participantLabel);
+                card.setVisible(false);
+                card.requestLayout();
+                participantLabel.setVisible(false);
             }
         );
 
@@ -191,6 +223,9 @@ public class ManageExpenseCtrl implements Initializable {
     private void handleTagChange(ActionEvent actionEvent) {
         Tag selectedTag = tagMenu.getSelectionModel().getSelectedItem();
         if (selectedTag != null) {
+            if (!selectedTag.equals(expense.getTag())) {
+                indicatorTagModified.setImage(new Image("client/icons/edit_done.png"));
+            }
             this.expense.setTag(selectedTag);
             server.updateExpense(this.expense);
         }
@@ -201,6 +236,9 @@ public class ManageExpenseCtrl implements Initializable {
     private void handleRecipientChange(ActionEvent actionEvent) {
         Person selectedPerson = recipientMenu.getSelectionModel().getSelectedItem();
         if (selectedPerson != null) {
+            if (!selectedPerson.equals(expense.getReceiver())) {
+                indicatorRecipientModified.setImage(new Image("client/icons/edit_done.png"));
+            }
             this.expense.setReceiver(selectedPerson);
             server.updateExpense(this.expense);
         }
@@ -212,6 +250,9 @@ public class ManageExpenseCtrl implements Initializable {
         Instant selectedDateAsInstant =
             selectedDate.atStartOfDay(ZoneId.systemDefault()).toInstant();
         if (selectedDateAsInstant != null) {
+            if (!selectedDate.equals(expense.getPaymentDateTime())) {
+                indicatorDateModified.setImage(new Image("client/icons/edit_done.png"));
+            }
             this.expense.setPaymentDateTime(selectedDateAsInstant);
             server.updateExpense(this.expense);
         }
@@ -221,7 +262,11 @@ public class ManageExpenseCtrl implements Initializable {
     private void handleNameChange(ActionEvent actionEvent) {
         String selectedName = expenseNameLabel.getText();
         if (selectedName != null) {
+            if (!selectedName.equals(expense.getDescription())) {
+                indicatorNameModified.setImage(new Image("client/icons/edit_done.png"));
+            }
             this.expense.setDescription(selectedName);
+
             System.out.println(selectedName);
             server.updateExpense(this.expense);
         }
@@ -242,11 +287,72 @@ public class ManageExpenseCtrl implements Initializable {
             }
         }
         //7015.15 7015.15 7015.15
+        char[] inChars = typedAmount.toCharArray();
+        for (char c : inChars) {
+            if (!Character.isDigit(c) && (c != '.')) {
+                //invalid
+                indicatorAmountModified.setImage(new Image("client/icons/edit_invalid.png"));
+                return;
+            }
+        }
 
 
         BigDecimal selectedAmount = new BigDecimal(typedAmount);
+        if (!selectedAmount.equals(expense.getPaid())) {
+            indicatorAmountModified.setImage(new Image("client/icons/edit_done.png"));
+        }
         this.expense.setPaid(selectedAmount);
         server.updateExpense(this.expense);
+        expenseAmountLabel.setText(selectedAmount.toPlainString());
+
+    }
+
+    private void handleCloseRequest(WindowEvent event) {
+        if (!amountHasCorrectSyntax()) {
+            // Prevent the window from closing
+            event.consume();
+
+            // Show a modal dialog to inform the user
+            Dialog<String> dialog = new Dialog<>();
+            dialog.initModality(Modality.APPLICATION_MODAL); // Make the dialog modal
+            dialog.initOwner(rootAnchorPane.getScene().getWindow()); // Set the owner
+
+            // Customize the dialog appearance
+            dialog.setTitle("Invalid Input Detected");
+            dialog.setContentText(
+                "You have unsaved changes with invalid syntax."
+                    +
+                    "\nPlease review that you have entered a valid amount of money.");
+
+            // Adding a custom close button inside the dialog, since default buttons are not used
+            ButtonType closeButton = new ButtonType("Understood", ButtonBar.ButtonData.OK_DONE);
+            dialog.getDialogPane().getButtonTypes().add(closeButton);
+
+            // Handling dialog result to perform actions if needed, but it's informational
+            dialog.showAndWait();
+        }
+    }
+
+    private boolean amountHasCorrectSyntax() {
+        String s = expenseAmountLabel.getText();
+        System.out.println(s);
+        char[] inChars = s.toCharArray();
+        for (char c : inChars) {
+            if (!Character.isDigit(c) && (c != '.')) {
+                //invalid
+                System.out.println(c + " violates the following:");
+                if (!Character.isDigit(c)) {
+                    System.out.println("    " + c + " is not a digit");
+                }
+                if (c != '.') {
+                    System.out.println("    " + c + " is not a dot");
+                }
+                indicatorAmountModified.setImage(new Image("client/icons/edit_invalid.png"));
+                return false;
+            }
+        }
+        System.out.println("looks good.");
+        return true;
     }
 
 }
