@@ -1,9 +1,12 @@
 package client.scenes;
 
 
+import client.Main;
+import client.components.ExpenseCardCtrl;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Event;
+import commons.Expense;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -99,12 +102,13 @@ public class EventOverviewCtrl implements Initializable {
             this.amountOfParticipants.setText(event.getPeople().toString());
         }
 
-        //        for (Expense expense : event.getExpenses()) {
-        //            var expenseCard = Main.FXML.loadComponent(ExpenseCardCtrl.class,
-        //                "client", "components", "ExpenseCard.fxml");
-        //            expenseCard.getKey().setExpense(expense);
-        //            expensesFlowPane.getChildren().add(expenseCard.getValue());
-        //        }
+        for (Expense expense : event.getExpenses()) {
+            var expenseCard = Main.FXML.loadComponent(ExpenseCardCtrl.class,
+                "client", "components", "ExpenseCard.fxml");
+            expenseCard.getKey().setExpense(expense);
+            expenseCard.getKey().setOnClick((e) -> mainCtrl.showExpenseOverview(e, event));
+            expensesFlowPane.getChildren().add(expenseCard.getValue());
+        }
     }
 
     /**

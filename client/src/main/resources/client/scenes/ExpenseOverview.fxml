@@ -15,13 +15,6 @@
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
-         <graphic>
-            <Label fx:id="tagLabel" style="-fx-background-color: ff7d7d; -fx-padding: 4px 8px; -fx-text-fill: #864444; -fx-border-radius: 12px; -fx-background-radius: 12px;" text="Food" textFill="#864444">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-         </graphic>
       </Label>
       <Label fx:id="expenseAmountLabel" layoutX="25.0" layoutY="60.0" text="\$ 230,15">
          <font>

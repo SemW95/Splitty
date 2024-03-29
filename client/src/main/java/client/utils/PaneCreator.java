@@ -115,7 +115,7 @@ public class PaneCreator {
      * @param tag tag to be created
      * @return a label made from tag
      */
-    private static Label createTagItem(Tag tag) {
+    public static Label createTagItem(Tag tag) {
         Label tagLabel = new Label(tag.getName());
 
         tagLabel.setStyle(String.format(

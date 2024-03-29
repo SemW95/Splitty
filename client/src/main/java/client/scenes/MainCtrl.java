@@ -19,6 +19,7 @@ package client.scenes;
 import client.MyFXML;
 import client.utils.CsPair;
 import commons.Event;
+import commons.Expense;
 import java.io.File;
 import java.util.Locale;
 import javafx.stage.FileChooser;
@@ -278,5 +279,11 @@ public class MainCtrl {
 
     public void setSavedAdminPassword(String savedAdminPassword) {
         this.savedAdminPassword = savedAdminPassword;
+    }
+
+    public void showExpenseOverview(Expense expense, Event event) {
+        primaryStage.setTitle("Expense Overview");
+        expenseOverviewPair.ctrl.populate(expense, event);
+        primaryStage.setScene(expenseOverviewPair.scene);
     }
 }
