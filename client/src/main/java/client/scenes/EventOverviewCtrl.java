@@ -120,31 +120,32 @@ public class EventOverviewCtrl implements Initializable {
     /**
      * Logic for the home title.
      */
-    public void clickHome() {
+    public void handleHome() {
         System.out.println("Pressed home.");
     }
 
     /**
      * Logic for the "language" button on home.
      */
-    // TODO: rename other in sceneBuilder
-    public void clickLanguage() {
+
+    public void handleLanguage() {
         System.out.println("Pressed language");
         testing();
     }
 
-    // TODO: rename other in sceneBuilder
     /**
      * Logic for the "currency" button on home.
      */
-    public void clickCurrency() {
+    public void handleCurrency() {
         System.out.println("Pressed currency.");
     }
 
     public void clickChangeEventName(MouseEvent mouseEvent) {
-        eventNameLabel.setVisible(false); // Hide the Label
-        eventNameText.setVisible(true); // Show the TextField
-        eventNameText.requestFocus(); // Set focus to TextField
+        // TODO: use the following to control the visibility of the label and the textLabel.
+        // eventNameLabel.setVisible(false); // Hide the Label
+        // eventNameText.setVisible(true); // Show the TextField
+        // eventNameText.requestFocus(); // Set focus to TextField
+        // TODO: use the content in the textField by emailTextField.getText() to save in the repository and display on the label
     }
 
     // TODO
@@ -188,5 +189,7 @@ public class EventOverviewCtrl implements Initializable {
 
     // TODO: return to Home
     public void clickReturn(MouseEvent mouseEvent) {
+        System.out.println("Pressed return.");
     }
+
 }
