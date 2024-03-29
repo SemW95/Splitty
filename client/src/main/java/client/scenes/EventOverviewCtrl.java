@@ -79,6 +79,7 @@ public class EventOverviewCtrl implements Initializable {
     /**
      * This method fills the flowpane with expenses (expenseCard).
      */
+    // TODO: Make this pretty in the UI
     public void refresh(Event event) {
         this.event = event;
         if (event.getTitle() != null) {
@@ -90,7 +91,10 @@ public class EventOverviewCtrl implements Initializable {
         if (event.getDescription() != null) {
             this.eventDescription.setText(event.getDescription());
         }
-        // TODO: start and enddate  ,ll
+        if (event.getStartDate() != null & event.getEndDate() != null) {
+            String dates = event.getStartDate().toString() + " - " + event.getEndDate().toString();
+            this.eventDates.setText(String.valueOf(dates));
+        }
         if (event.getLastModifiedDateTime() != null) {
             this.eventLastModified.setText(event.getLastModifiedDateTime().toString());
         }
@@ -192,4 +196,7 @@ public class EventOverviewCtrl implements Initializable {
         System.out.println("Pressed return.");
     }
 
+    // TODO
+    public void handleCopyInviteCode(ActionEvent actionEvent) {
+    }
 }
