@@ -1,6 +1,8 @@
 package client;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -52,8 +54,15 @@ public class ConfigManager {
      *
      * @return String of codes
      */
-    public String getCodes() {
-        return this.getProperties().getProperty("codes");
+    public String[] getCodes() {
+        String codes = this.getProperties().getProperty("codes");
+        String[] eventCodes;
+
+        if (codes != null) {
+            return eventCodes = codes.split(",");
+        }
+
+        return eventCodes = new String[0];
     }
 
     /**
@@ -62,17 +71,32 @@ public class ConfigManager {
      *
      * @param code for an event
      */
-    public void addCode(String code) {
+    public void addCode(String code) throws IOException {
         properties.setProperty("codes", "codes" + "," + code);
+        save(properties);
     }
 
     /**
      * Getter for the "server" property.
+     * Gets it from the config file, if it does not exist
+     * it sets and saves a default.
      *
      * @return String containing server address
      */
     public String getServer() {
-        return this.getProperties().getProperty("server");
+        String configServer = this.getProperties().getProperty("server");
+
+        if (configServer != null) {
+            return configServer;
+        }
+
+        properties.setProperty("server", "http://localhost:8080/");
+        try {
+            save(properties);
+        } catch (IOException e) {
+            System.out.println("The default server could not be saved");
+        }
+        return "http://localhost:8080/";
     }
 
     /**
@@ -81,8 +105,37 @@ public class ConfigManager {
      *
      * @param server address
      */
-    public void changeServer(String server) {
+    public void changeServer(String server) throws IOException {
         properties.setProperty("server", server);
+        save(properties);
     }
 
+    /**
+     * General save method for property values.
+     *
+     * @throws FileNotFoundException if config file cant be found
+     */
+    public void save(Properties properties) throws IOException {
+
+        FileOutputStream output = null;
+
+        // find the config file
+        try {
+            output = new FileOutputStream("src/main/resources/config.properties");
+        } catch (FileNotFoundException e) {
+            System.out.println("The config file could not be found");
+        }
+
+        // save the config file
+        if (output != null) {
+
+            try {
+                properties.store(output, null);
+            } catch (IOException io) {
+                System.out.println("The config file could not be saved");
+            }
+
+            output.close();
+        }
+    }
 }

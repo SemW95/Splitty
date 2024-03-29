@@ -35,22 +35,7 @@ import org.glassfish.jersey.client.ClientConfig;
 public class ServerUtils {
 
     @SuppressWarnings({"checkstyle:AbbreviationAsWordInName", "checkstyle:MemberName"})
-    private final String SERVER = setServer();
-
-    /**
-     * Gets a server from the config file. If not available use default 8080.
-     *
-     * @return String containing server address
-     */
-    public String setServer() {
-        String configServer = Main.configManager.getServer();
-
-        if (configServer != null) {
-            return configServer;
-        }
-
-        return "http://localhost:8080/";
-    }
+    private final String SERVER = Main.configManager.getServer();
 
     /**
      * Validates an admin password.

@@ -76,15 +76,11 @@ public class HomeCtrl implements Initializable {
      * It reads all stored event codes from config files and iterates through them.
      */
     public void getData() {
-        String codes = Main.configManager.getCodes();
+        String[] codes = Main.configManager.getCodes();
         List<Event> events = new ArrayList<>();
 
-        if (codes != null) {
-            String[] eventCodes = codes.split(",");
-
-            for (String code : eventCodes) {
-                events.add(server.getEventByCode(code));
-            }
+        for (String code : codes) {
+            events.add(server.getEventByCode(code));
         }
 
         eventList.getChildren()
