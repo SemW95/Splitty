@@ -281,6 +281,12 @@ public class MainCtrl {
         this.savedAdminPassword = savedAdminPassword;
     }
 
+    /**
+     * Shows the expense overview.
+     *
+     * @param expense the expense to show
+     * @param event   which event the expense belongs to
+     */
     public void showExpenseOverview(Expense expense, Event event) {
         primaryStage.setTitle("Expense Overview");
         expenseOverviewPair.ctrl.populate(expense, event);
