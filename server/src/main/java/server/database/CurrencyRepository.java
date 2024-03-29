@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * The repository of the currency entity.
  */
-public interface CurrencyRepository extends JpaRepository<Currency, Long> {
+public interface CurrencyRepository extends JpaRepository<Currency, String> {
     Optional<Currency> findByName(String name);
 
     Optional<Currency> findByCode(String code);

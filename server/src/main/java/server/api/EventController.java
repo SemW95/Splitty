@@ -41,9 +41,14 @@ public class EventController {
      * @param code the invite code
      * @return the searched event
      */
-    @GetMapping(path = "/event/{code}")
+    @GetMapping(path = "/event/code/{code}")
     public Event getEventByCode(@PathVariable String code) {
         return eventService.getEventByCode(code);
+    }
+
+    @GetMapping(path = "/event/id/{id}")
+    public Event getEventById(@PathVariable String id) {
+        return eventService.getEventById(id);
     }
 
     @PostMapping(path = "/event")

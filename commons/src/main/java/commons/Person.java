@@ -42,8 +42,8 @@ import java.util.regex.Pattern;
 public class Person {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    public String id;
 
     public String firstName;
     public String lastName;
@@ -251,7 +251,7 @@ public class Person {
         }
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 

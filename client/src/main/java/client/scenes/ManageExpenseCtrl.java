@@ -78,6 +78,7 @@ public class ManageExpenseCtrl implements Initializable {
     private ComboBox<Tag> tagMenu;
     private ResourceBundle resources;
     private Expense expense;
+    private Event event;
 
     @Inject
     public ManageExpenseCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -91,11 +92,9 @@ public class ManageExpenseCtrl implements Initializable {
     }
 
     /**
-     * populates the UI with appropiate data from the expense object.
+     * populates the UI with appropriate data from the expense object.
      */
     public void populate() {
-        Event event = server.getEvents().getFirst();
-        this.expense = event.getExpenses().getFirst();
         List<Tag> allTags = event.getTags();
 
         // Initialize UI with expense data
@@ -105,31 +104,27 @@ public class ManageExpenseCtrl implements Initializable {
         List<Person> allPeople = event.getPeople();
         recipientMenu.getItems().setAll(allPeople);
         expenseDate.setPromptText(Date.from(expense.getPaymentDateTime()).toString());
-        tagMenu.setCellFactory(p -> {
-            return new ListCell<Tag>() {
-                protected void updateItem(Tag t1, boolean empty) {
-                    super.updateItem(t1, empty);
-                    if (t1 != null) {
-                        setText(t1.getName());
-                    } else {
-                        setText(null);
-                    }
-
+        tagMenu.setCellFactory(p -> new ListCell<>() {
+            @Override
+            protected void updateItem(Tag t1, boolean empty) {
+                super.updateItem(t1, empty);
+                if (t1 != null) {
+                    setText(t1.getName());
+                } else {
+                    setText(null);
                 }
-            };
+            }
         });
-        recipientMenu.setCellFactory(p -> {
-            return new ListCell<Person>() {
-                protected void updateItem(Person p1, boolean empty) {
-                    super.updateItem(p1, empty);
-                    if (p1 != null) {
-                        setText(p1.getFirstName() + "-" + p1.getId());
-                    } else {
-                        setText(null);
-                    }
-
+        recipientMenu.setCellFactory(p -> new ListCell<>() {
+            @Override
+            protected void updateItem(Person p1, boolean empty) {
+                super.updateItem(p1, empty);
+                if (p1 != null) {
+                    setText(p1.getFirstName() + "-" + p1.getId());
+                } else {
+                    setText(null);
                 }
-            };
+            }
         });
 
         tagMenu.getSelectionModel().select(expense.getTag());
@@ -146,8 +141,7 @@ public class ManageExpenseCtrl implements Initializable {
                     setText(null);
                 }
             }
-        }
-        );
+        });
         recipientMenu.setButtonCell(new ListCell<>() {
             @Override
             protected void updateItem(Person person, boolean empty) {
@@ -158,11 +152,11 @@ public class ManageExpenseCtrl implements Initializable {
                     setText(null);
                 }
             }
-        }
-        );
+        });
 
 
         // Populate participants
+        participantsFlowPane.getChildren().setAll();
         for (Person participant : expense.getParticipants()) {
             participantsFlowPane.getChildren().add(createParticipantCard(participant));
         }
@@ -184,8 +178,8 @@ public class ManageExpenseCtrl implements Initializable {
         card.setStyle(
             "-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;");
 
-        String participantRepresentation = "Remove " + participant.getFirstName().concat("-"
-            + participant.getId());
+        String participantRepresentation =
+            "Remove " + participant.getFirstName() + " " + participant.getLastName();
         Label participantLabel = new Label(participantRepresentation);
         Font globalFont = new Font("System Bold", 24);
         participantLabel.setFont(globalFont);
@@ -201,13 +195,10 @@ public class ManageExpenseCtrl implements Initializable {
 
         participantLabel.setOnMousePressed(event -> {
                 this.expense.getParticipants().remove(participant);
-                server.updateExpense(this.expense);
                 participantsFlowPane.getChildren().remove(card);
                 participantsFlowPane.requestLayout();
-                card.getChildren().remove(participantLabel);
-                card.setVisible(false);
-                card.requestLayout();
-                participantLabel.setVisible(false);
+                server.updateExpense(this.expense);
+                mainCtrl.updateAll();
             }
         );
 
@@ -215,19 +206,17 @@ public class ManageExpenseCtrl implements Initializable {
         return card;
     }
 
-    public void setExpense(Expense expense) {
-        this.expense = expense;
-    }
-
     @FXML
     private void handleTagChange(ActionEvent actionEvent) {
         Tag selectedTag = tagMenu.getSelectionModel().getSelectedItem();
         if (selectedTag != null) {
-            if (!selectedTag.equals(expense.getTag())) {
-                indicatorTagModified.setImage(new Image("client/icons/edit_done.png"));
+            if (selectedTag.equals(expense.getTag())) {
+                return;
             }
+            indicatorTagModified.setImage(new Image("client/icons/edit_done.png"));
             this.expense.setTag(selectedTag);
             server.updateExpense(this.expense);
+            mainCtrl.updateAll();
         }
     }
 
@@ -236,11 +225,13 @@ public class ManageExpenseCtrl implements Initializable {
     private void handleRecipientChange(ActionEvent actionEvent) {
         Person selectedPerson = recipientMenu.getSelectionModel().getSelectedItem();
         if (selectedPerson != null) {
-            if (!selectedPerson.equals(expense.getReceiver())) {
-                indicatorRecipientModified.setImage(new Image("client/icons/edit_done.png"));
+            if (selectedPerson.equals(expense.getReceiver())) {
+                return;
             }
+            indicatorRecipientModified.setImage(new Image("client/icons/edit_done.png"));
             this.expense.setReceiver(selectedPerson);
             server.updateExpense(this.expense);
+            mainCtrl.updateAll();
         }
     }
 
@@ -250,11 +241,14 @@ public class ManageExpenseCtrl implements Initializable {
         Instant selectedDateAsInstant =
             selectedDate.atStartOfDay(ZoneId.systemDefault()).toInstant();
         if (selectedDateAsInstant != null) {
-            if (!selectedDate.equals(expense.getPaymentDateTime())) {
-                indicatorDateModified.setImage(new Image("client/icons/edit_done.png"));
+            if (selectedDate.equals(
+                LocalDate.ofInstant(expense.getPaymentDateTime(), ZoneId.systemDefault()))) {
+                return;
             }
+            indicatorDateModified.setImage(new Image("client/icons/edit_done.png"));
             this.expense.setPaymentDateTime(selectedDateAsInstant);
             server.updateExpense(this.expense);
+            mainCtrl.updateAll();
         }
     }
 
@@ -262,13 +256,14 @@ public class ManageExpenseCtrl implements Initializable {
     private void handleNameChange(ActionEvent actionEvent) {
         String selectedName = expenseNameLabel.getText();
         if (selectedName != null) {
-            if (!selectedName.equals(expense.getDescription())) {
-                indicatorNameModified.setImage(new Image("client/icons/edit_done.png"));
+            if (selectedName.equals(expense.getDescription())) {
+                return;
             }
+            indicatorNameModified.setImage(new Image("client/icons/edit_done.png"));
             this.expense.setDescription(selectedName);
 
-            System.out.println(selectedName);
             server.updateExpense(this.expense);
+            mainCtrl.updateAll();
         }
     }
 
@@ -280,10 +275,8 @@ public class ManageExpenseCtrl implements Initializable {
         if (typedAmount.contains(".")) {
             int lastIndex = typedAmount.lastIndexOf('.');
             if (lastIndex != -1) { // Check if a dot exists
-                String modifiedString =
-                    typedAmount.substring(0, lastIndex).replace(".", "")
-                        + typedAmount.substring(lastIndex, typedAmount.length());
-                typedAmount = modifiedString;
+                typedAmount = typedAmount.substring(0, lastIndex).replace(".", "")
+                    + typedAmount.substring(lastIndex);
             }
         }
         //7015.15 7015.15 7015.15
@@ -298,13 +291,14 @@ public class ManageExpenseCtrl implements Initializable {
 
 
         BigDecimal selectedAmount = new BigDecimal(typedAmount);
-        if (!selectedAmount.equals(expense.getPaid())) {
-            indicatorAmountModified.setImage(new Image("client/icons/edit_done.png"));
+        if (selectedAmount.equals(expense.getPaid())) {
+            return;
         }
+        indicatorAmountModified.setImage(new Image("client/icons/edit_done.png"));
         this.expense.setPaid(selectedAmount);
-        server.updateExpense(this.expense);
         expenseAmountLabel.setText(selectedAmount.toPlainString());
-
+        server.updateExpense(this.expense);
+        mainCtrl.updateAll();
     }
 
     private void handleCloseRequest(WindowEvent event) {
@@ -340,19 +334,27 @@ public class ManageExpenseCtrl implements Initializable {
         for (char c : inChars) {
             if (!Character.isDigit(c) && (c != '.')) {
                 //invalid
-                System.out.println(c + " violates the following:");
-                if (!Character.isDigit(c)) {
-                    System.out.println("    " + c + " is not a digit");
-                }
-                if (c != '.') {
-                    System.out.println("    " + c + " is not a dot");
-                }
+                System.err.println("    " + c + " is not a digit or a dot");
+
                 indicatorAmountModified.setImage(new Image("client/icons/edit_invalid.png"));
                 return false;
             }
         }
-        System.out.println("looks good.");
         return true;
     }
 
+    public void refetch() {
+        if (this.expense == null || this.event == null) {
+            return;
+        }
+        this.expense = server.getExpenseById(expense.getId());
+        this.event = server.getEventById(event.getId());
+        populate();
+    }
+
+    public void update(Expense expense, Event event) {
+        this.expense = expense;
+        this.event = event;
+        populate();
+    }
 }

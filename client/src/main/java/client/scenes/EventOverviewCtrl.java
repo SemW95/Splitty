@@ -32,6 +32,7 @@ public class EventOverviewCtrl implements Initializable {
     private final MainCtrl mainCtrl;
     private ResourceBundle resources;
     private Event event;
+    private boolean goBackToAdmin;
     // TODO: change this such that label is seen when changing the name and otherwise text
     @FXML
     private Label eventNameLabel;
@@ -80,8 +81,7 @@ public class EventOverviewCtrl implements Initializable {
      * This method fills the flowpane with expenses (expenseCard).
      */
     // TODO: Make this pretty in the UI
-    public void refresh(Event event) {
-        this.event = event;
+    public void populate() {
         if (event.getTitle() != null) {
             this.eventNameLabel.setText(event.getTitle());
         }
@@ -93,7 +93,7 @@ public class EventOverviewCtrl implements Initializable {
         }
         if (event.getStartDate() != null & event.getEndDate() != null) {
             String dates = event.getStartDate().toString() + " - " + event.getEndDate().toString();
-            this.eventDates.setText(String.valueOf(dates));
+            this.eventDates.setText(dates);
         }
         if (event.getLastModifiedDateTime() != null) {
             this.eventLastModified.setText(event.getLastModifiedDateTime().toString());
@@ -102,6 +102,7 @@ public class EventOverviewCtrl implements Initializable {
             this.amountOfParticipants.setText(event.getPeople().toString());
         }
 
+        expensesFlowPane.getChildren().setAll();
         for (Expense expense : event.getExpenses()) {
             var expenseCard = Main.FXML.loadComponent(ExpenseCardCtrl.class,
                 "client", "components", "ExpenseCard.fxml");
@@ -109,6 +110,19 @@ public class EventOverviewCtrl implements Initializable {
             expenseCard.getKey().setOnClick((e) -> mainCtrl.showExpenseOverview(e, event));
             expensesFlowPane.getChildren().add(expenseCard.getValue());
         }
+    }
+
+    public void refetch() {
+        if (this.event == null) {
+            return;
+        }
+        this.event = server.getEventById(event.getId());
+        populate();
+    }
+
+    public void update(Event event) {
+        this.event = event;
+        populate();
     }
 
     /**
@@ -193,9 +207,18 @@ public class EventOverviewCtrl implements Initializable {
     public void handlePaidOffDebts(ActionEvent actionEvent) {
     }
 
-    // TODO: return to Home
-    public void clickReturn(MouseEvent mouseEvent) {
-        mainCtrl.showHome();
+    @FXML
+    private void clickReturn(MouseEvent mouseEvent) {
+        if (goBackToAdmin) {
+            mainCtrl.showAdminOverview();
+            goBackToAdmin = false;
+        } else {
+            mainCtrl.showHome();
+        }
+    }
+
+    public void setGoBackToAdmin(boolean goBackToAdmin) {
+        this.goBackToAdmin = goBackToAdmin;
     }
 
     // TODO

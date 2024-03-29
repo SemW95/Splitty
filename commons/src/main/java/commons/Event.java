@@ -20,8 +20,8 @@ import org.apache.commons.lang3.RandomStringUtils;
 @Entity
 public class Event {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    String id;
     @Column(unique = true)
     String code;
     String title;
@@ -262,7 +262,7 @@ public class Event {
             endDate, lastModifiedDateTime);
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 

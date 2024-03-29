@@ -54,10 +54,7 @@ public class ExpenseOverviewCtrl implements Initializable {
     /**
      * Populates the UI with appropriate data from the expense object.
      */
-    public void populate(Expense expense, Event event) {
-        this.expense = expense;
-        this.event = event;
-
+    public void populate() {
         // Initialize UI with expense data
         expenseNameLabel.setText(expense.getDescription());
         expenseAmountLabel.setText("€ " + expense.getPaid().toString());
@@ -67,6 +64,7 @@ public class ExpenseOverviewCtrl implements Initializable {
         expenseNameLabel.setGraphic(PaneCreator.createTagItem(expense.getTag()));
 
         // Populate participants
+        participantsFlowPane.getChildren().setAll();
         for (Person participant : expense.getParticipants()) {
             AnchorPane participantCard = createParticipantCard(participant);
             participantsFlowPane.getChildren().add(participantCard);
@@ -85,8 +83,8 @@ public class ExpenseOverviewCtrl implements Initializable {
         card.setStyle(
             "-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;");
 
-        String participantRepresentation = participant.getFirstName().concat("#"
-            + participant.getId());
+        String participantRepresentation =
+            participant.getFirstName() + " " + participant.getLastName();
         Label participantLabel = new Label(participantRepresentation);
         Font globalFont = new Font("System Bold", 24);
         participantLabel.setFont(globalFont);
@@ -102,11 +100,32 @@ public class ExpenseOverviewCtrl implements Initializable {
     private void onAddParticipantClicked() {
         // TODO go to add participant UI
         System.out.println("Pressed add participant button.");
+        handleExit();
     }
 
     @FXML
     private void onManageClicked() {
-        // TODO go to EDIT expense UI
-        System.out.println("Pressed currency.");
+        mainCtrl.showManageExpensePopup(expense, event);
+    }
+
+    @FXML
+    private void handleExit() {
+        mainCtrl.showEventOverview(event, false);
+    }
+
+    public void refetch() {
+        if (this.expense == null || this.event == null) {
+            return;
+        }
+
+        this.expense = server.getExpenseById(expense.getId());
+        this.event = server.getEventById(event.getId());
+        populate();
+    }
+
+    public void update(Expense expense, Event event) {
+        this.expense = expense;
+        this.event = event;
+        populate();
     }
 }

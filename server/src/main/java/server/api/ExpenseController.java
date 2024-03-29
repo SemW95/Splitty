@@ -4,6 +4,7 @@ import commons.Expense;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,12 +31,17 @@ public class ExpenseController {
         return expenseService.getAllExpense();
     }
 
+    @GetMapping(path = "/expense/{id}")
+    public Expense getExpenseById(@PathVariable String id) {
+        return expenseService.getExpenseById(id);
+    }
+
     @PostMapping(path = "/expense")
     public void createExpense(@RequestBody Expense expense) {
         expenseService.createExpense(expense);
     }
 
-    @PutMapping (path = "/expense")
+    @PutMapping(path = "/expense")
     public void updateExpense(@RequestBody Expense expense) {
         expenseService.updateExpense(expense);
     }

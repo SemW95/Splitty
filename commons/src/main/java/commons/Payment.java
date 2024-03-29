@@ -15,8 +15,8 @@ import java.util.Objects;
 @Entity
 public class Payment {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    String id;
     @ManyToOne
     Person payer;
     @ManyToOne
@@ -84,7 +84,7 @@ public class Payment {
         this.amount = amount;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 }

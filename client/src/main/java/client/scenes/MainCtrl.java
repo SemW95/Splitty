@@ -22,6 +22,8 @@ import commons.Event;
 import commons.Expense;
 import java.io.File;
 import java.util.Locale;
+import java.util.Stack;
+import javafx.fxml.Initializable;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -43,6 +45,7 @@ public class MainCtrl {
     private Stage secondaryPopup;
     private MyFXML fxml;
     private String savedAdminPassword;
+    private Stack<CsPair<Initializable>> stack;
     private CsPair<HomeCtrl> homePair;
     private CsPair<AdminCredentialsCtrl> adminCredentialsPair;
     private CsPair<ExpenseOverviewCtrl> expenseOverviewPair;
@@ -96,12 +99,23 @@ public class MainCtrl {
             "client", "scenes", "DeleteEventConfirmation.fxml");
     }
 
+    public void updateAll() {
+        homePair.ctrl.refetch();
+        expenseOverviewPair.ctrl.refetch();
+        eventOverviewPair.ctrl.refetch();
+        manageExpensePair.ctrl.refetch();
+        // addParticipantPair.ctrl
+        // manageParticipantsPair.ctrl
+        // editParticipantPair.ctrl
+        adminOverviewPair.ctrl.refetch();
+    }
+
     /**
      * Sets primary stage to the Home scene.
      */
     public void showHome() {
         primaryStage.setTitle(fxml.getBundle().getString("home.title"));
-        homePair.ctrl.getData();
+        homePair.ctrl.refetch();
         primaryStage.setScene(homePair.scene);
     }
 
@@ -177,7 +191,7 @@ public class MainCtrl {
     public void showAdminOverview() {
         primaryStage.setScene(adminOverviewPair.scene);
         primaryStage.setTitle("Admin Overview");
-        adminOverviewPair.ctrl.populate();
+        adminOverviewPair.ctrl.refetch();
     }
 
     /**
@@ -267,9 +281,12 @@ public class MainCtrl {
     /**
      * Sets primary stage to the Event overview scene.
      */
-    public void showEventOverview(Event event) {
+    public void showEventOverview(Event event, boolean fromAdmin) {
         primaryStage.setTitle("Event Overview");
-        eventOverviewPair.ctrl.refresh(event);
+        eventOverviewPair.ctrl.update(event);
+        if (fromAdmin) {
+            eventOverviewPair.ctrl.setGoBackToAdmin(true);
+        }
         primaryStage.setScene(eventOverviewPair.scene);
     }
 
@@ -289,7 +306,24 @@ public class MainCtrl {
      */
     public void showExpenseOverview(Expense expense, Event event) {
         primaryStage.setTitle("Expense Overview");
-        expenseOverviewPair.ctrl.populate(expense, event);
+        expenseOverviewPair.ctrl.update(expense, event);
         primaryStage.setScene(expenseOverviewPair.scene);
+    }
+
+    /**
+     * Show the manage expense popup.
+     *
+     * @param expense the expense to manage
+     * @param event   which event the expense belongs to
+     */
+    public void showManageExpensePopup(Expense expense, Event event) {
+        primaryPopup = new Stage();
+        primaryPopup.initModality(Modality.APPLICATION_MODAL);
+        primaryPopup.initOwner(primaryStage);
+        primaryPopup.setTitle("Manage expense");
+        primaryPopup.setScene(manageExpensePair.scene);
+        primaryPopup.setResizable(false);
+        manageExpensePair.ctrl.update(expense, event);
+        primaryPopup.show();
     }
 }

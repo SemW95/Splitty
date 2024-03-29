@@ -18,8 +18,8 @@ import java.util.Objects;
 @Entity
 public class Currency {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    String id;
     String name; // for example, Dollar
     String code; // for example, USD
     char symbol; // for example, $
@@ -127,7 +127,7 @@ public class Currency {
         this.symbol = symbol;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 }

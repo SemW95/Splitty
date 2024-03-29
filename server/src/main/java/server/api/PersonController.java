@@ -46,7 +46,7 @@ public class PersonController {
      */
     @GetMapping(path = "/person/{id}")
     @ResponseBody
-    public Person getPersonById(@PathVariable(name = "id") Long id) {
+    public Person getPersonById(@PathVariable String id) {
         return personService.getPersonById(id);
     }
 
@@ -68,7 +68,7 @@ public class PersonController {
      * @param id that is to be deleted
      */
     @DeleteMapping(path = "/person/{id}")
-    public void deletePerson(@PathVariable(name = "id") Long id) {
+    public void deletePerson(@PathVariable String id) {
         personService.deletePerson(id);
     }
 }

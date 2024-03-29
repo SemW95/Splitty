@@ -40,7 +40,7 @@ public class AdminController {
      * @param password the admin password
      */
     @DeleteMapping(path = "/admin/event/{id}")
-    public void deleteEvent(@PathVariable long id, @RequestParam String password) {
+    public void deleteEvent(@PathVariable String id, @RequestParam String password) {
         if (!adminService.validatePassword(password)) {
             return;
         }

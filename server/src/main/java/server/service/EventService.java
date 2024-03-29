@@ -37,7 +37,7 @@ public class EventService {
         return optionalEvent.orElse(null);
     }
 
-    public void deleteEvent(Long id) {
+    public void deleteEvent(String id) {
         eventRepository.deleteById(id);
     }
 
@@ -50,5 +50,9 @@ public class EventService {
         if (eventRepository.findById(event.getId()).isEmpty()) {
             eventRepository.save(event);
         }
+    }
+
+    public Event getEventById(String id) {
+        return eventRepository.findById(id).orElse(null);
     }
 }

@@ -33,9 +33,7 @@ import org.glassfish.jersey.client.ClientConfig;
  * A singleton that contains some server utility methods.
  */
 public class ServerUtils {
-
-    @SuppressWarnings({"checkstyle:AbbreviationAsWordInName", "checkstyle:MemberName"})
-    private final String SERVER = Main.configManager.getServer();
+    private final String server = Main.configManager.getServer();
 
     /**
      * Validates an admin password.
@@ -45,7 +43,7 @@ public class ServerUtils {
      */
     public boolean validateAdminPassword(String password) {
         return ClientBuilder.newClient(new ClientConfig())
-            .target(SERVER).path("/admin/validate/" + password)
+            .target(server).path("/admin/validate/" + password)
             .request(APPLICATION_JSON)
             .accept(APPLICATION_JSON)
             .get(Boolean.class);
@@ -62,7 +60,7 @@ public class ServerUtils {
             a GET request to the requested endpoint and receiving specified type.
          */
         return ClientBuilder.newClient(new ClientConfig())
-            .target(SERVER).path("/person")
+            .target(server).path("/person")
             .request(APPLICATION_JSON)
             .accept(APPLICATION_JSON)
             .get(new GenericType<>() {
@@ -77,7 +75,7 @@ public class ServerUtils {
      */
     public List<Tag> getTags() {
         return ClientBuilder.newClient(new ClientConfig())
-            .target(SERVER).path("/tag")
+            .target(server).path("/tag")
             .request(APPLICATION_JSON)
             .accept(APPLICATION_JSON)
             .get(new GenericType<>() {
@@ -93,7 +91,7 @@ public class ServerUtils {
      */
     public List<Event> getEvents() {
         return ClientBuilder.newClient(new ClientConfig())
-            .target(SERVER).path("/event")
+            .target(server).path("/event")
             .request(APPLICATION_JSON)
             .accept(APPLICATION_JSON)
             .get(new GenericType<>() {
@@ -107,7 +105,15 @@ public class ServerUtils {
      */
     public Event getEventByCode(String code) {
         return ClientBuilder.newClient(new ClientConfig())
-            .target(SERVER).path("/event/" + code)
+            .target(server).path("/event/code/" + code)
+            .request(APPLICATION_JSON)
+            .accept(APPLICATION_JSON)
+            .get(Event.class);
+    }
+
+    public Event getEventById(String id) {
+        return ClientBuilder.newClient(new ClientConfig())
+            .target(server).path("/event/id/" + id)
             .request(APPLICATION_JSON)
             .accept(APPLICATION_JSON)
             .get(Event.class);
@@ -122,7 +128,7 @@ public class ServerUtils {
      */
     public void deleteEvent(Event event, String adminPassword) {
         ClientBuilder.newClient(new ClientConfig())
-            .target(SERVER).path("/admin/event/" + event.getId())
+            .target(server).path("/admin/event/" + event.getId())
             .queryParam("password", adminPassword)
             .request(APPLICATION_JSON)
             .accept(APPLICATION_JSON)
@@ -137,7 +143,7 @@ public class ServerUtils {
     public void createEvent(Event event) {
         // TODO: maybe it should return a boolean
         ClientBuilder.newClient(new ClientConfig())
-            .target(SERVER).path("/event")
+            .target(server).path("/event")
             .request(APPLICATION_JSON)
             .accept(APPLICATION_JSON)
             .post(Entity.json(event));
@@ -150,9 +156,16 @@ public class ServerUtils {
      */
     public void updateExpense(Expense expense) {
         ClientBuilder.newClient(new ClientConfig())
-            .target(SERVER).path("/expense")
+            .target(server).path("/expense")
             .request(APPLICATION_JSON)
             .put(Entity.json(expense));
     }
 
+    public Expense getExpenseById(String id) {
+        return ClientBuilder.newClient(new ClientConfig())
+            .target(server).path("/expense/" + id)
+            .request(APPLICATION_JSON)
+            .accept(APPLICATION_JSON)
+            .get(Expense.class);
+    }
 }

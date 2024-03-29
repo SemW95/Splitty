@@ -37,6 +37,7 @@ public class AdminOverviewCtrl implements Initializable {
     @FXML
     private VBox eventList;
     private ResourceBundle resources;
+    private List<Event> events;
 
     @Inject
     public AdminOverviewCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -66,9 +67,16 @@ public class AdminOverviewCtrl implements Initializable {
      * Fetches all events from the database, orders them by the specified order and direction.
      * Then creates a Pane for each event and adds them to the event list vbox.
      */
-    public void populate() {
-        List<Event> events = server.getEvents();
+    public void refetch() {
+        events = server.getEvents();
 
+        populate();
+    }
+
+    public void populate() {
+        if (events == null) {
+            return;
+        }
         int orderByIndex = orderByChoiceBox.getSelectionModel().getSelectedIndex();
         switch (orderByIndex) {
             case 0 -> events.sort(Comparator.comparing(Event::getTitle));
@@ -107,7 +115,7 @@ public class AdminOverviewCtrl implements Initializable {
         downloadIcon.setPreserveRatio(true);
         downloadIcon.setOnMouseClicked((e) -> handleDownloadEvent(event));
 
-        Pane pane = PaneCreator.createEventItem(event, mainCtrl::showEventOverview);
+        Pane pane = PaneCreator.createEventItem(event, (e) -> mainCtrl.showEventOverview(e, true));
 
         pane.getChildren().addAll(trashIcon, downloadIcon);
 
@@ -155,7 +163,7 @@ public class AdminOverviewCtrl implements Initializable {
                     .readValue(eventJson, Event.class);
             server.createEvent(event);
             // TODO: could use optimistic ui
-            populate();
+            refetch();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -165,7 +173,7 @@ public class AdminOverviewCtrl implements Initializable {
     private void handleEventDelete(Event event) {
         mainCtrl.showDeleteEventConfirmationPopup(() -> {
             server.deleteEvent(event, mainCtrl.getSavedAdminPassword());
-            populate();
+            refetch();
         });
     }
 }

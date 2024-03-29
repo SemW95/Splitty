@@ -31,7 +31,7 @@ public class PersonService {
      * @param id that is searched
      * @return Person with specified id
      */
-    public Person getPersonById(Long id) {
+    public Person getPersonById(String id) {
         Optional<Person> optionalPerson = personRepository
             .findById(id);
 
@@ -69,7 +69,7 @@ public class PersonService {
      *
      * @param id that is to be deleted
      */
-    public void deletePerson(Long id) {
+    public void deletePerson(String id) {
         Optional<Person> optionalPerson = personRepository
             .findById(id);
 

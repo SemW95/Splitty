@@ -48,6 +48,7 @@ public class HomeCtrl implements Initializable {
 
     @FXML
     private VBox eventList;
+    private List<Event> events;
 
     @Inject
     public HomeCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -76,8 +77,8 @@ public class HomeCtrl implements Initializable {
      * Gets called on showHome to request data.
      * It reads all stored event codes from config files and iterates through them.
      */
-    public void getData() {
-        List<Event> events = new ArrayList<>();
+    public void refetch() {
+        events = new ArrayList<>();
 
         for (String code : Main.configManager.getCodes()) {
             Event event = server.getEventByCode(code);
@@ -88,13 +89,20 @@ public class HomeCtrl implements Initializable {
             }
         }
 
+        populate();
+    }
+
+    public void populate() {
+        if (events == null) {
+            return;
+        }
         eventList.getChildren()
             .setAll(
                 events.stream().map(e -> createEventItem(e, this::handleClickEvent)).toList());
     }
 
     private void handleClickEvent(Event event) {
-        mainCtrl.showEventOverview(event);
+        mainCtrl.showEventOverview(event, false);
     }
 
     /**
