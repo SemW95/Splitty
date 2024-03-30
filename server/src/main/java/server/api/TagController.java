@@ -57,7 +57,7 @@ public class TagController {
      */
     @GetMapping(path = "/tag/{id}")
     @ResponseBody
-    public Tag getTagById(@PathVariable(name = "id") Long id) {
+    public Tag getTagById(@PathVariable(name = "id") String id) {
         return tagService.getTagById(id);
     }
 
@@ -68,7 +68,7 @@ public class TagController {
      */
     @GetMapping(path = "/tag/{id}/name")
     @ResponseBody
-    public String getName(@PathVariable(name = "id") Long id) {
+    public String getName(@PathVariable(name = "id") String id) {
         return tagService.getName(id);
     }
 
@@ -79,7 +79,7 @@ public class TagController {
      */
     @GetMapping(path = "/tag/{id}/colour")
     @ResponseBody
-    public Colour getColour(@PathVariable(name = "id") Long id) {
+    public Colour getColour(@PathVariable(name = "id") String id) {
         return tagService.getColour(id);
     }
 
@@ -90,14 +90,14 @@ public class TagController {
      */
     @PutMapping(path = "/tag/{id}/name/{name}")
     public void setName(
-        @PathVariable(name = "id") Long id,
+        @PathVariable(name = "id") String id,
         @PathVariable(name = "name") String name
     ) {
         tagService.setName(id, name);
     }
 
     @PutMapping(path = "/tag/{id}")
-    public void setColour(@PathVariable(name = "id") Long id, @RequestBody Colour colour) {
+    public void setColour(@PathVariable(name = "id") String id, @RequestBody Colour colour) {
         tagService.setColour(id, colour);
     }
 
@@ -110,7 +110,7 @@ public class TagController {
      */
     @PutMapping(path = "/tag/{id}/name/{red}/{green}/{blue}")
     public void setColour(
-        @PathVariable(name = "id") Long id,
+        @PathVariable(name = "id") String id,
         @PathVariable(name = "red") int red,
         @PathVariable(name = "green") int green,
         @PathVariable(name = "blue") int blue
@@ -125,14 +125,14 @@ public class TagController {
      */
     @PutMapping(path = "/tag/{id}/name/{hex-string}")
     public void setColour(
-        @PathVariable(name = "id") Long id,
+        @PathVariable(name = "id") String id,
         @PathVariable(name = "hex-string") String hexString
     ) {
         tagService.setColour(id, new Colour(hexString));
     }
 
     @DeleteMapping(path = "/tag/{id}")
-    public void deleteTag(@PathVariable(name = "id") Long id) {
+    public void deleteTag(@PathVariable(name = "id") String id) {
         tagService.deleteTag(id);
     }
 

@@ -49,7 +49,7 @@ public class PaymentController {
      */
     @GetMapping(path = "/payment/{id}")
     @ResponseBody
-    public Payment getPaymentById(@PathVariable(name = "id") Long id) {
+    public Payment getPaymentById(@PathVariable(name = "id") String id) {
         return paymentService.getPaymentById(id);
     }
 
@@ -60,7 +60,7 @@ public class PaymentController {
      */
     @GetMapping(path = "/payment/{id}/payer")
     @ResponseBody
-    public Person getPayer(@PathVariable(name = "id") Long paymentId) {
+    public Person getPayer(@PathVariable(name = "id") String paymentId) {
         return paymentService.getPayer(paymentId);
     }
 
@@ -71,7 +71,7 @@ public class PaymentController {
      */
     @GetMapping(path = "/payment/{id}/receiver")
     @ResponseBody
-    public Person getReceiver(@PathVariable(name = "id") Long paymentId) {
+    public Person getReceiver(@PathVariable(name = "id") String paymentId) {
         return paymentService.getReceiver(paymentId);
     }
 
@@ -82,7 +82,7 @@ public class PaymentController {
      */
     @GetMapping(path = "/payment/{id}/payer/id")
     @ResponseBody
-    public long getPayerId(@PathVariable(name = "id") Long paymentId) {
+    public String getPayerId(@PathVariable(name = "id") String paymentId) {
         return paymentService.getPayerId(paymentId);
     }
 
@@ -93,7 +93,7 @@ public class PaymentController {
      */
     @GetMapping(path = "/payment/{id}/receiver/id")
     @ResponseBody
-    public long getReceiverId(@PathVariable(name = "id") Long paymentId) {
+    public String getReceiverId(@PathVariable(name = "id") String paymentId) {
         return paymentService.getReceiverId(paymentId);
     }
 
@@ -104,7 +104,7 @@ public class PaymentController {
      */
     @GetMapping(path = "/payment/{id}/amount")
     @ResponseBody
-    public BigDecimal getAmount(@PathVariable(name = "id") Long paymentId) {
+    public BigDecimal getAmount(@PathVariable(name = "id") String paymentId) {
         return paymentService.getAmount(paymentId);
     }
 
@@ -115,7 +115,7 @@ public class PaymentController {
      */
     @PutMapping(path = "/payment/{id}/payer")
     public void setPayer(
-        @PathVariable(name = "id") Long paymentId,
+        @PathVariable(name = "id") String paymentId,
         @RequestBody Person payer
     ) {
         paymentService.setPayer(paymentId, payer);
@@ -128,7 +128,7 @@ public class PaymentController {
      */
     @PutMapping(path = "/payment/{id}/receiver")
     public void setReceiver(
-        @PathVariable(name = "id") Long paymentId,
+        @PathVariable(name = "id") String paymentId,
         @RequestBody Person receiver
     ) {
         paymentService.setReceiver(paymentId, receiver);
@@ -141,14 +141,14 @@ public class PaymentController {
      */
     @PutMapping(path = "/payment/{id}/amount")
     public void setAmount(
-        @PathVariable(name = "id") Long paymentId,
+        @PathVariable(name = "id") String paymentId,
         @RequestBody BigDecimal amount
     ) {
         paymentService.setAmount(paymentId, amount);
     }
 
     @DeleteMapping(path = "/payment/{id}")
-    public void deletePayment(@PathVariable(name = "id") Long paymentId) {
+    public void deletePayment(@PathVariable(name = "id") String paymentId) {
         paymentService.deletePayment(paymentId);
     }
 }

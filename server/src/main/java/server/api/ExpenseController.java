@@ -58,7 +58,7 @@ public class ExpenseController {
      * @param participants The new list of participants for the Expense
      */
     @PutMapping(path = "/expense/{id}/participants")
-    public void setParticipants(@PathVariable Long id, @RequestBody List<Person> participants) {
+    public void setParticipants(@PathVariable String id, @RequestBody List<Person> participants) {
         expenseService.setParticipants(id, participants);
     }
 
@@ -70,7 +70,7 @@ public class ExpenseController {
      * @param description The new description
      */
     @PutMapping(path = "/expense/{id}/description")
-    public void setDescription(@PathVariable Long id, @RequestBody String description) {
+    public void setDescription(@PathVariable String id, @RequestBody String description) {
         expenseService.setDescription(id, description);
     }
 
@@ -81,7 +81,7 @@ public class ExpenseController {
      * @param receiver The new receiver
      */
     @PutMapping(path = "/expense/{id}/receiver")
-    public void setReceiver(@PathVariable Long id, @RequestBody Person receiver) {
+    public void setReceiver(@PathVariable String id, @RequestBody Person receiver) {
         expenseService.setReceiver(id, receiver);
     }
 
@@ -92,7 +92,7 @@ public class ExpenseController {
      * @param paid The new paid amount
      */
     @PutMapping(path = "/expense/{id}/paid")
-    public void setPaid(@PathVariable Long id, @RequestBody BigDecimal paid) {
+    public void setPaid(@PathVariable String id, @RequestBody BigDecimal paid) {
         expenseService.setPaid(id, paid);
     }
 
@@ -103,7 +103,7 @@ public class ExpenseController {
      * @param tag The new tag
      */
     @PutMapping(path = "/expense/{id}/tag")
-    public void setTag(@PathVariable Long id, @RequestBody Tag tag) {
+    public void setTag(@PathVariable String id, @RequestBody Tag tag) {
         expenseService.setTag(id, tag);
     }
 
@@ -114,7 +114,7 @@ public class ExpenseController {
      * @param paymentDateTime The new paymentDateTime
      */
     @PutMapping(path = "/expense/{id}/paymentDateTime")
-    public void setPaymentDateTime(@PathVariable Long id, @RequestBody Instant paymentDateTime) {
+    public void setPaymentDateTime(@PathVariable String id, @RequestBody Instant paymentDateTime) {
         expenseService.setPaymentDateTime(id, paymentDateTime);
     }
 
@@ -125,7 +125,7 @@ public class ExpenseController {
      * @param participant The participant to be added
      */
     @PostMapping(path = "/expense/{id}/participant")
-    public void addParticipant(@PathVariable Long id, @RequestBody Person participant) {
+    public void addParticipant(@PathVariable String id, @RequestBody Person participant) {
         expenseService.addParticipant(id, participant);
     }
 
@@ -137,7 +137,7 @@ public class ExpenseController {
      * @param participants The participants to add
      */
     @PostMapping(path = "/expense/{id}/addParticipants")
-    public void addParticipants(@PathVariable Long id, @RequestBody List<Person> participants) {
+    public void addParticipants(@PathVariable String id, @RequestBody List<Person> participants) {
         expenseService.addParticipants(id, participants);
     }
 
@@ -148,7 +148,10 @@ public class ExpenseController {
      * @param participantId The ID of the participant to remove
      */
     @DeleteMapping(path = "/expense/{expenseId}/participants/{participantId}")
-    public void removeParticipant(@PathVariable Long expenseId, @PathVariable Long participantId) {
+    public void removeParticipant(
+        @PathVariable String expenseId,
+        @PathVariable String participantId
+    ) {
         expenseService.removeParticipant(expenseId, participantId);
     }
 
@@ -160,7 +163,7 @@ public class ExpenseController {
      * @return The requested share
      */
     @GetMapping(path = "/expense/{id}/share")
-    public BigDecimal getShare(@PathVariable Long id) {
+    public BigDecimal getShare(@PathVariable String id) {
         return expenseService.getShare(id);
     }
 
@@ -171,7 +174,7 @@ public class ExpenseController {
      * @return A list of participants involved in the Expense
      */
     @GetMapping(path = "/expense/{id}/participants")
-    public List<Person> getParticipants(@PathVariable Long id) {
+    public List<Person> getParticipants(@PathVariable String id) {
         return expenseService.getParticipants(id);
     }
 
@@ -183,7 +186,7 @@ public class ExpenseController {
      * @return The requested description
      */
     @GetMapping(path = "/expense/{id}/description")
-    public String getDescription(@PathVariable Long id) {
+    public String getDescription(@PathVariable String id) {
         return expenseService.getDescription(id);
     }
 
@@ -194,7 +197,7 @@ public class ExpenseController {
      * @return The requested receiver
      */
     @GetMapping(path = "/expense/{id}/receiver")
-    public Person getReceiver(@PathVariable Long id) {
+    public Person getReceiver(@PathVariable String id) {
         return expenseService.getReceiver(id);
     }
 
@@ -205,7 +208,7 @@ public class ExpenseController {
      * @return The requested paid variable
      */
     @GetMapping(path = "/expense/{id}/paid")
-    public BigDecimal getPaid(@PathVariable Long id) {
+    public BigDecimal getPaid(@PathVariable String id) {
         return expenseService.getPaid(id);
     }
 
@@ -216,7 +219,7 @@ public class ExpenseController {
      * @return The requested tag
      */
     @GetMapping(path = "/expense/{id}/tag")
-    public Tag getTag(@PathVariable Long id) {
+    public Tag getTag(@PathVariable String id) {
         return expenseService.getTag(id);
     }
 
@@ -227,7 +230,7 @@ public class ExpenseController {
      * @return The requested paymentDateTime
      */
     @GetMapping(path = "/expense/{id}/paymentDateTime")
-    public Instant getPaymentDateTime(@PathVariable Long id) {
+    public Instant getPaymentDateTime(@PathVariable String id) {
         return expenseService.getPaymentDateTime(id);
     }
 
@@ -237,7 +240,7 @@ public class ExpenseController {
      * @param id The ID of the Expense to delete
      */
     @DeleteMapping(path = "/expense/{id}")
-    public void deleteExpense(@PathVariable Long id) {
+    public void deleteExpense(@PathVariable String id) {
         expenseService.deleteExpense(id);
     }
 }

@@ -48,7 +48,7 @@ public class PaymentService {
      * @param id The id of the Payment that should be received
      * @return The specified Payment
      */
-    public Payment getPaymentById(Long id) {
+    public Payment getPaymentById(String id) {
         Optional<Payment> optionalPayment = paymentRepository.findById(id);
 
         if (optionalPayment.isEmpty()) {
@@ -63,7 +63,7 @@ public class PaymentService {
      * @param paymentId The id of the Payment
      * @return The payer Person Object in the Payment
      */
-    public Person getPayer(Long paymentId) {
+    public Person getPayer(String paymentId) {
         return getPaymentById(paymentId).getPayer();
     }
 
@@ -72,7 +72,7 @@ public class PaymentService {
      * @param paymentId The id of the Payment
      * @return The receiver Person Object in the Payment
      */
-    public Person getReceiver(Long paymentId) {
+    public Person getReceiver(String paymentId) {
         return getPaymentById(paymentId).getReceiver();
     }
 
@@ -81,7 +81,7 @@ public class PaymentService {
      * @param paymentId The id of the Payment
      * @return The payer Person Object's ID in the Payment
      */
-    public long getPayerId(Long paymentId) {
+    public String getPayerId(String paymentId) {
         return getPaymentById(paymentId).getPayer().getId();
     }
 
@@ -90,7 +90,7 @@ public class PaymentService {
      * @param paymentId The id of the Payment
      * @return The receiver Person Object's ID in the Payment
      */
-    public long getReceiverId(Long paymentId) {
+    public String getReceiverId(String paymentId) {
         return getPaymentById(paymentId).getReceiver().getId();
     }
 
@@ -99,7 +99,7 @@ public class PaymentService {
      * @param paymentId The id of the Payment
      * @return The amount BigDecimal Object in the Payment
      */
-    public BigDecimal getAmount(Long paymentId) {
+    public BigDecimal getAmount(String paymentId) {
         return getPaymentById(paymentId).getAmount();
     }
 
@@ -108,7 +108,7 @@ public class PaymentService {
      * @param paymentId The id of the Payment
      * @param payer The payer for the Payment
      */
-    public void setPayer(Long paymentId, Person payer) {
+    public void setPayer(String paymentId, Person payer) {
         Payment payment = getPaymentById(paymentId);
 
         payment.setPayer(payer);
@@ -120,7 +120,7 @@ public class PaymentService {
      * @param paymentId The id of the Payment
      * @param receiver The receiver for the Payment
      */
-    public void setReceiver(Long paymentId, Person receiver) {
+    public void setReceiver(String paymentId, Person receiver) {
         Payment payment = getPaymentById(paymentId);
 
         payment.setReceiver(receiver);
@@ -132,7 +132,7 @@ public class PaymentService {
      * @param paymentId The id of the Payment
      * @param amount The amount for the Payment
      */
-    public void setAmount(Long paymentId, BigDecimal amount) {
+    public void setAmount(String paymentId, BigDecimal amount) {
         Payment payment = getPaymentById(paymentId);
 
         payment.setAmount(amount);
@@ -143,7 +143,7 @@ public class PaymentService {
      *
      * @param id The id of the Payment that should be deleted
      */
-    public void deletePayment(Long id) {
+    public void deletePayment(String id) {
         Optional<Payment> optionalPayment = paymentRepository.findById(id);
 
         if (optionalPayment.isEmpty()) {

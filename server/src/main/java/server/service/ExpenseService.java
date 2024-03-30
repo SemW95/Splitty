@@ -34,7 +34,7 @@ public class ExpenseService {
      * @param id The ID of the Expense that is requested
      * @return The requested Expense
      */
-    public Expense getExpenseById(Long id) {
+    public Expense getExpenseById(String id) {
         Optional<Expense> optionalExpense = expenseRepository.findById(id);
 
         if (optionalExpense.isEmpty()) {
@@ -44,7 +44,17 @@ public class ExpenseService {
         return optionalExpense.get();
     }
 
+    /** Deletes an Expense.
+     *
+     * @param id The id of the Expense that should be deleted
+     */
     public void deleteExpense(String id) {
+        Optional<Expense> optionalExpense = expenseRepository.findById(id);
+
+        if (optionalExpense.isEmpty()) {
+            throw new IllegalStateException("There is no Expense with this id");
+        }
+
         expenseRepository.deleteById(id);
     }
 
@@ -81,7 +91,7 @@ public class ExpenseService {
      * @param id The id of the Expense for which the description should be returned
      * @return The requested description
      */
-    public List<Person> getParticipants(Long id) {
+    public List<Person> getParticipants(String id) {
         return getExpenseById(id).getParticipants();
     }
 
@@ -90,7 +100,7 @@ public class ExpenseService {
      * @param id The id of the Expense for which the description should be returned
      * @return The requested description
      */
-    public String getDescription(Long id) {
+    public String getDescription(String id) {
         return getExpenseById(id).getDescription();
     }
 
@@ -99,7 +109,7 @@ public class ExpenseService {
      * @param id The id of the Expense for which the receiver should be returned
      * @return The requested receiver
      */
-    public Person getReceiver(Long id) {
+    public Person getReceiver(String id) {
         return getExpenseById(id).getReceiver();
     }
 
@@ -108,7 +118,7 @@ public class ExpenseService {
      * @param id The id of the Expense for which the paid variable should be returned
      * @return The requested paid variable
      */
-    public BigDecimal getPaid(Long id) {
+    public BigDecimal getPaid(String id) {
         return getExpenseById(id).getPaid();
     }
 
@@ -117,7 +127,7 @@ public class ExpenseService {
      * @param id The id of the Expense for which the tag should be returned
      * @return The requested tag
      */
-    public Tag getTag(Long id) {
+    public Tag getTag(String id) {
         return getExpenseById(id).getTag();
     }
 
@@ -126,7 +136,7 @@ public class ExpenseService {
      * @param id The id of the Expense for which the paymentDateTime should be returned
      * @return The requested paymentDateTime
      */
-    public Instant getPaymentDateTime(Long id) {
+    public Instant getPaymentDateTime(String id) {
         return getExpenseById(id).getPaymentDateTime();
     }
 
@@ -134,7 +144,7 @@ public class ExpenseService {
      *
      * @param id The id of the Expense for which the description should be set
      */
-    public void setParticipants(Long id, List<Person> participants) {
+    public void setParticipants(String id, List<Person> participants) {
         getExpenseById(id).setParticipants(new ArrayList<>(participants));
     }
 
@@ -142,7 +152,7 @@ public class ExpenseService {
      *
      * @param id The id of the Expense for which the description should be set
      */
-    public void setDescription(Long id, String description) {
+    public void setDescription(String id, String description) {
         getExpenseById(id).setDescription(description);
     }
 
@@ -150,7 +160,7 @@ public class ExpenseService {
      *
      * @param id The id of the Expense for which the receiver should be set
      */
-    public void setReceiver(Long id, Person receiver) {
+    public void setReceiver(String id, Person receiver) {
         getExpenseById(id).setReceiver(receiver);
     }
 
@@ -158,7 +168,7 @@ public class ExpenseService {
      *
      * @param id The id of the Expense for which the paid variable should be set
      */
-    public void setPaid(Long id, BigDecimal paid) {
+    public void setPaid(String id, BigDecimal paid) {
         getExpenseById(id).setPaid(paid);
     }
 
@@ -166,7 +176,7 @@ public class ExpenseService {
      *
      * @param id The id of the Expense for which the tag should be set
      */
-    public void setTag(Long id, Tag tag) {
+    public void setTag(String id, Tag tag) {
         getExpenseById(id).setTag(tag);
     }
 
@@ -174,37 +184,23 @@ public class ExpenseService {
      *
      * @param id The id of the Expense for which the paymentDateTime should be set
      */
-    public void setPaymentDateTime(Long id, Instant paymentDateTime) {
+    public void setPaymentDateTime(String id, Instant paymentDateTime) {
         getExpenseById(id).setPaymentDateTime(paymentDateTime);
     }
 
-    public void addParticipant(Long id, Person newParticipant) {
+    public void addParticipant(String id, Person newParticipant) {
         getExpenseById(id).addParticipant(newParticipant);
     }
 
-    public void addParticipants(Long id, List<Person> newParticipants) {
+    public void addParticipants(String id, List<Person> newParticipants) {
         getExpenseById(id).addParticipants(newParticipants);
     }
 
-    public void removeParticipant(Long expenseId, Long participantId) {
+    public void removeParticipant(String expenseId, String participantId) {
         getExpenseById(expenseId).removeParticipant(participantId);
     }
 
-    public BigDecimal getShare(Long id) {
+    public BigDecimal getShare(String id) {
         return getExpenseById(id).getShare();
-    }
-
-    /** Deletes an Expense.
-     *
-     * @param id The id of the Expense that should be deleted
-     */
-    public void deleteExpense(Long id) {
-        Optional<Expense> optionalExpense = expenseRepository.findById(id);
-
-        if (optionalExpense.isEmpty()) {
-            throw new IllegalStateException("There is no Expense with this id");
-        }
-
-        expenseRepository.deleteById(id);
     }
 }

@@ -74,48 +74,48 @@ class PaymentServiceTest {
     @Test
     void getPaymentById() {
         when(paymentRepository.findById(any())).thenReturn(Optional.of(payment));
-        Payment foundPayment = paymentService.getPaymentById(1L);
+        Payment foundPayment = paymentService.getPaymentById("1");
         assertEquals(payment, foundPayment);
     }
 
     @Test
     void getPaymentByIdThrowsExceptionWhenNotFound() {
         when(paymentRepository.findById(any())).thenReturn(Optional.empty());
-        assertThrows(IllegalStateException.class, () -> paymentService.getPaymentById(1L));
+        assertThrows(IllegalStateException.class, () -> paymentService.getPaymentById("1"));
     }
 
     @Test
     void getPayer() {
         when(paymentRepository.findById(any())).thenReturn(Optional.of(payment));
-        Person foundPayer = paymentService.getPayer(1L);
+        Person foundPayer = paymentService.getPayer("1");
         assertEquals(payment.getPayer(), foundPayer);
     }
 
     @Test
     void getReceiver() {
         when(paymentRepository.findById(any())).thenReturn(Optional.of(payment));
-        Person foundReceiver = paymentService.getReceiver(1L);
+        Person foundReceiver = paymentService.getReceiver("1");
         assertEquals(payment.getReceiver(), foundReceiver);
     }
 
     @Test
     void getPayerId() {
         when(paymentRepository.findById(any())).thenReturn(Optional.of(payment));
-        long payerId = paymentService.getPayerId(1L);
+        String payerId = paymentService.getPayerId("1");
         assertEquals(payment.getPayer().getId(), payerId);
     }
 
     @Test
     void getReceiverId() {
         when(paymentRepository.findById(any())).thenReturn(Optional.of(payment));
-        long receiverId = paymentService.getReceiverId(1L);
+        String receiverId = paymentService.getReceiverId("1");
         assertEquals(payment.getReceiver().getId(), receiverId);
     }
 
     @Test
     void getAmount() {
         when(paymentRepository.findById(any())).thenReturn(Optional.of(payment));
-        BigDecimal amount = paymentService.getAmount(1L);
+        BigDecimal amount = paymentService.getAmount("1");
         assertEquals(payment.getAmount(), amount);
     }
 
@@ -128,7 +128,7 @@ class PaymentServiceTest {
             "alice@example.com",
             "NL03INGB4597485589",
             "UCJAES2MXXX");
-        assertDoesNotThrow(() -> paymentService.setPayer(1L, newPayer));
+        assertDoesNotThrow(() -> paymentService.setPayer("1", newPayer));
         verify(paymentRepository).save(payment);
         assertEquals(newPayer, payment.getPayer());
     }
@@ -142,7 +142,7 @@ class PaymentServiceTest {
             "bob@example.com",
             "NL54RABO4370891833",
             "CMCIFRPP");
-        assertDoesNotThrow(() -> paymentService.setReceiver(1L, newReceiver));
+        assertDoesNotThrow(() -> paymentService.setReceiver("1", newReceiver));
         verify(paymentRepository).save(payment);
         assertEquals(newReceiver, payment.getReceiver());
     }
@@ -151,7 +151,7 @@ class PaymentServiceTest {
     void setAmount() {
         when(paymentRepository.findById(any())).thenReturn(Optional.of(payment));
         BigDecimal newAmount = new BigDecimal("200.00");
-        assertDoesNotThrow(() -> paymentService.setAmount(1L, newAmount));
+        assertDoesNotThrow(() -> paymentService.setAmount("1", newAmount));
         verify(paymentRepository).save(payment);
         assertEquals(newAmount, payment.getAmount());
     }
@@ -159,13 +159,13 @@ class PaymentServiceTest {
     @Test
     void deletePayment() {
         when(paymentRepository.findById(any())).thenReturn(Optional.of(payment));
-        assertDoesNotThrow(() -> paymentService.deletePayment(1L));
-        verify(paymentRepository).deleteById(1L);
+        assertDoesNotThrow(() -> paymentService.deletePayment("1"));
+        verify(paymentRepository).deleteById("1");
     }
 
     @Test
     void deletePaymentThrowsExceptionWhenNotFound() {
         when(paymentRepository.findById(any())).thenReturn(Optional.empty());
-        assertThrows(IllegalStateException.class, () -> paymentService.deletePayment(1L));
+        assertThrows(IllegalStateException.class, () -> paymentService.deletePayment("1"));
     }
 }

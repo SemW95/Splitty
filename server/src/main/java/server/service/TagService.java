@@ -32,7 +32,7 @@ public class TagService {
      * @param id The id of the Tag that is searched
      * @return Tag with the specified id
      */
-    public Tag getTagById(Long id) {
+    public Tag getTagById(String id) {
         Optional<Tag> optionalTag = tagRepository.findById(id);
 
         if (optionalTag.isEmpty()) {
@@ -61,7 +61,7 @@ public class TagService {
      * @param id The id of the Tag that is searched
      * @return The name of the Tag with the specified id
      */
-    public String getName(Long id) {
+    public String getName(String id) {
         Tag tag = getTagById(id);
         return tag.getName();
     }
@@ -71,7 +71,7 @@ public class TagService {
      * @param id The id of the Tag that is searched
      * @return The colour of the Tag with the specified id
      */
-    public Colour getColour(Long id) {
+    public Colour getColour(String id) {
         Tag tag = getTagById(id);
         return tag.getColour();
     }
@@ -81,7 +81,7 @@ public class TagService {
      * @param id The id of the Tag that is searched
      * @param name The name for the Tag with the specified id
      */
-    public void setName(Long id, String name) {
+    public void setName(String id, String name) {
         Tag tag = getTagById(id);
 
         tag.setName(name);
@@ -93,7 +93,7 @@ public class TagService {
      * @param id The id of the Tag that is searched
      * @param colour The Colour for the Tag with the specified id
      */
-    public void setColour(Long id, Colour colour) {
+    public void setColour(String id, Colour colour) {
         Tag tag = getTagById(id);
 
         tag.setColour(colour);
@@ -104,7 +104,7 @@ public class TagService {
      *
      * @param id The id of the Tag that should be deleted
      */
-    public void deleteTag(Long id) {
+    public void deleteTag(String id) {
         Optional<Tag> optionalTag = tagRepository.findById(id);
 
         if (optionalTag.isEmpty()) {

@@ -229,7 +229,12 @@ public class PersonService {
         personRepository.deleteById(id);
     }
 
-    public void updatePerson(Person person) {
+    /** Updates a Person in the database.
+     *
+     * @param person The Person Object with the updated data
+     * @throws IllegalStateException When there isn't a Person with this id in the database
+     */
+    public void updatePerson(Person person) throws IllegalStateException {
         Optional<Person> optionalPerson = personRepository
             .findById(person.getId());
 

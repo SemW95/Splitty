@@ -106,9 +106,9 @@ public class Expense {
     protected Expense() {
     }
 
-    private boolean containsPersonWithId(long id) {
+    private boolean containsPersonWithId(String id) {
         for (Person participant : this.participants) {
-            if (participant.getId() == id) {
+            if (participant.getId().equals(id)) {
                 return true; // Found a participant with the same ID
             }
         }
@@ -168,7 +168,7 @@ public class Expense {
      *
      * @param id The id of the participant that should be removed
      */
-    public void removeParticipant(long id) {
+    public void removeParticipant(String id) {
         if (containsPersonWithId(id)) {
             participants.remove(getParticipantById(id));
         }
@@ -192,7 +192,7 @@ public class Expense {
             return false;
         }
         Expense expense = (Expense) o;
-        return id == expense.id && Objects.equals(description, expense.description)
+        return id.equals(expense.id) && Objects.equals(description, expense.description)
             && Objects.equals(participants, expense.participants)
             && Objects.equals(receiver, expense.receiver)
             && Objects.equals(paid, expense.paid)
@@ -215,9 +215,9 @@ public class Expense {
      * @return The requested participant
      * @throws IllegalStateException When there isn't a participant with this id
      */
-    public Person getParticipantById(long id) throws IllegalStateException {
+    public Person getParticipantById(String id) throws IllegalStateException {
         for (Person participant : this.participants) {
-            if (participant.getId() == id) {
+            if (participant.getId().equals(id)) {
                 return participant;
             }
         }

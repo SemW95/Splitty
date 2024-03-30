@@ -64,12 +64,14 @@ public class PaymentControllerTest {
             "john.doe@example.com",
             "NL39RABO8247360527",
             "DEUTDEDBFRA");
+        payer.setId("1");
         receiver = new Person(
             "Jane",
             "Doe",
             "jane.doe@example.com",
             "DE95500105175827669536",
             "NWBKGB22");
+        receiver.setId("2");
         payment = new Payment(payer, receiver, new BigDecimal("100.00"));
     }
 
@@ -98,7 +100,7 @@ public class PaymentControllerTest {
 
     @Test
     public void getPaymentByIdTest() throws Exception {
-        final Long paymentId = 1L;
+        final String paymentId = "1";
 
         given(paymentService.getPaymentById(paymentId)).willReturn(payment);
 
@@ -110,7 +112,7 @@ public class PaymentControllerTest {
 
     @Test
     public void getPayerTest() throws Exception {
-        final Long paymentId = 1L;
+        final String paymentId = "1";
 
         given(paymentService.getPayer(paymentId)).willReturn(payer);
 
@@ -122,7 +124,7 @@ public class PaymentControllerTest {
 
     @Test
     public void getReceiverTest() throws Exception {
-        final Long paymentId = 1L;
+        final String paymentId = "1";
 
         given(paymentService.getReceiver(paymentId)).willReturn(receiver);
 
@@ -134,7 +136,7 @@ public class PaymentControllerTest {
 
     @Test
     public void deletePaymentTest() throws Exception {
-        final Long paymentId = 1L;
+        final String paymentId = "1";
         doNothing().when(paymentService).deletePayment(paymentId);
 
         mockMvc.perform(delete("/payment/{id}", paymentId))
@@ -144,21 +146,21 @@ public class PaymentControllerTest {
     // Test for getting the payer's ID of a payment
     @Test
     public void getPayerIdTest() throws Exception {
-        final Long paymentId = 1L;
-        final long expectedPayerId = payer.getId();
+        final String paymentId = "1";
+        final String expectedPayerId = payer.getId();
 
         given(paymentService.getPayerId(paymentId)).willReturn(expectedPayerId);
 
         mockMvc.perform(get("/payment/{id}/payer/id", paymentId))
             .andExpect(status().isOk())
-            .andExpect(content().string(String.valueOf(expectedPayerId)));
+            .andExpect(content().string(expectedPayerId));
     }
 
     // Test for getting the receiver's ID of a payment
     @Test
     public void getReceiverIdTest() throws Exception {
-        final Long paymentId = 1L;
-        final long expectedReceiverId = receiver.getId();
+        final String paymentId = "1";
+        final String expectedReceiverId = receiver.getId();
 
         given(paymentService.getReceiverId(paymentId)).willReturn(expectedReceiverId);
 
@@ -170,7 +172,7 @@ public class PaymentControllerTest {
     // Test for setting the payer of a payment
     @Test
     public void setPayerTest() throws Exception {
-        final Long paymentId = 1L;
+        final String paymentId = "1";
         final Person newPayer = new Person("Alice",
             "Smith",
             "alice@example.com",
@@ -191,7 +193,7 @@ public class PaymentControllerTest {
     // Test for setting the receiver of a payment
     @Test
     public void setReceiverTest() throws Exception {
-        final Long paymentId = 1L;
+        final String paymentId = "1";
         final Person newReceiver = new Person(
             "Bob",
             "Brown",
@@ -213,7 +215,7 @@ public class PaymentControllerTest {
     // Test for setting the amount of a payment
     @Test
     public void setAmountTest() throws Exception {
-        final Long paymentId = 1L;
+        final String paymentId = "1";
         final BigDecimal newAmount = new BigDecimal("150.00");
 
         doNothing().when(paymentService).setAmount(paymentId, newAmount);
