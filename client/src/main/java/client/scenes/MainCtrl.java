@@ -128,16 +128,19 @@ public class MainCtrl {
     public void changeLanguage(String language) {
         Locale locale = Locale.of(language);
         fxml.changeLocale(locale);
-
-        refresh();
+        loadAllPairs();
+        updateCurrentScreen();
     }
 
     public String getCurrentLanguage() {
         return fxml.getCurrentLocale().toLanguageTag();
     }
 
-    private void refresh() {
-        loadAllPairs();
+    /**
+     * Sets the scene to the screen it was showing before.
+     * This is called after changing the language
+     */
+    private void updateCurrentScreen() {
         // TODO
         showHome();
     }
