@@ -11,6 +11,7 @@ import static org.mockito.Mockito.when;
 
 import commons.Expense;
 import commons.Person;
+import commons.Tag;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Collections;
@@ -51,7 +52,7 @@ class ExpenseServiceTest {
             "NL78ABNA2490067532",
             "DNBANOKK");
         receiver2.setId("receiverId2");
-        testExpense = new Expense(receiver, BigDecimal.valueOf(100), Instant.now());
+        testExpense = new Expense(receiver, BigDecimal.valueOf(100), Instant.now(), new Tag());
         testExpense.setId("testId");
     }
 
