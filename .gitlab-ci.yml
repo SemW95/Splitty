@@ -87,17 +87,19 @@ server:service:test:
     matrix:
       - TEST_CLASS:
           - "PersonServiceTest"
+          - "PaymentServiceTest"
 
 server:controller:test:
   stage: test
   needs:
     - compile
   script:
-    - ./gradlew :server:test --tests server.controller.$TEST_CLASS
+    - ./gradlew :server:test --tests server.api.$TEST_CLASS
   parallel:
     matrix:
       - TEST_CLASS:
           - "PersonControllerTest"
+          - "PaymentControllerTest"
 
 coverageReport:
   stage: coverageReport
