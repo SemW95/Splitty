@@ -380,7 +380,7 @@ public class Event {
             return false;
         }
         Event event = (Event) o;
-        return id == event.id && Objects.equals(code, event.code)
+        return Objects.equals(id, event.id) && Objects.equals(code, event.code)
             && Objects.equals(title, event.title)
             && Objects.equals(description, event.description)
             && Objects.equals(people, event.people)

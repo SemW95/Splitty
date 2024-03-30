@@ -108,7 +108,7 @@ public class Expense {
 
     private boolean containsPersonWithId(String id) {
         for (Person participant : this.participants) {
-            if (participant.getId().equals(id)) {
+            if (Objects.equals(participant.getId(), id)) {
                 return true; // Found a participant with the same ID
             }
         }
@@ -192,7 +192,7 @@ public class Expense {
             return false;
         }
         Expense expense = (Expense) o;
-        return id.equals(expense.id) && Objects.equals(description, expense.description)
+        return Objects.equals(id, expense.id) && Objects.equals(description, expense.description)
             && Objects.equals(participants, expense.participants)
             && Objects.equals(receiver, expense.receiver)
             && Objects.equals(paid, expense.paid)
