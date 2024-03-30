@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import server.service.EventService;
@@ -41,13 +42,23 @@ public class EventController {
      * @param code the invite code
      * @return the searched event
      */
-    @GetMapping(path = "/event/{code}")
-    public Event getEventByCode(@PathVariable(name = "code") String code) {
+    @GetMapping(path = "/event/code/{code}")
+    public Event getEventByCode(@PathVariable String code) {
         return eventService.getEventByCode(code);
     }
 
+    @GetMapping(path = "/event/id/{id}")
+    public Event getEventById(@PathVariable String id) {
+        return eventService.getEventById(id);
+    }
+
     @PostMapping(path = "/event")
-    public void createEvent(@RequestBody Event event) {
-        eventService.createEvent(event);
+    public Event createEvent(@RequestBody Event event) {
+        return eventService.createEvent(event);
+    }
+
+    @PutMapping(path = "/event")
+    public void updateEvent(@RequestBody Event event) {
+        eventService.updateEvent(event);
     }
 }

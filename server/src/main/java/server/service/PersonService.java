@@ -26,22 +26,13 @@ public class PersonService {
 
     /**
      * Searches Person on specified id,
-     * throws exception if id doesn't exist.
+     * returns null if id doesn't exist.
      *
      * @param id that is searched
      * @return Person with specified id
      */
-    public Person getPersonById(Long id) {
-        Optional<Person> optionalPerson = personRepository
-            .findById(id);
-
-        if (optionalPerson.isEmpty()) {
-            throw new IllegalStateException(
-                "There is no person with this id"
-            );
-        }
-
-        return optionalPerson.get();
+    public Person getPersonById(String id) {
+        return personRepository.findById(id).orElse(null);
     }
 
     /**
@@ -50,17 +41,14 @@ public class PersonService {
      *
      * @param person that is to be added
      */
-    public void addPerson(Person person) {
-        Optional<Person> optionalPerson = personRepository
-            .findById(person.getId());
-
-        if (optionalPerson.isPresent()) {
+    public Person addPerson(Person person) {
+        if (person.getId() != null && personRepository.existsById(person.getId())) {
             throw new IllegalStateException(
                 "There already is a person with this id"
             );
         }
 
-        personRepository.save(person);
+        return personRepository.save(person);
     }
 
     /**
@@ -69,10 +57,10 @@ public class PersonService {
      *
      * @param id that is to be deleted
      */
-    public void deletePerson(Long id) {
+    public void deletePerson(String id) {
+        System.out.println(id);
         Optional<Person> optionalPerson = personRepository
             .findById(id);
-
         if (optionalPerson.isEmpty()) {
             throw new IllegalStateException(
                 "There is no person with this id"
@@ -80,5 +68,9 @@ public class PersonService {
         }
 
         personRepository.deleteById(id);
+    }
+
+    public void updatePerson(Person person) {
+        personRepository.save(person);
     }
 }

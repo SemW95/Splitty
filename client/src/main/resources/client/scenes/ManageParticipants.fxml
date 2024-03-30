@@ -39,10 +39,10 @@
                <font>
                   <Font size="24.0" />
                </font></Button>
-            <Button fx:id="save" layoutX="753.0" layoutY="425.0" mnemonicParsing="false" onAction="#save" prefHeight="50.0" prefWidth="90.0" text="Save">
-               <font>
-                  <Font size="24.0" />
-               </font></Button>
+<!--            <Button fx:id="save" layoutX="753.0" layoutY="425.0" mnemonicParsing="false" onAction="#save" prefHeight="50.0" prefWidth="90.0" text="Save">-->
+<!--               <font>-->
+<!--                  <Font size="24.0" />-->
+<!--               </font></Button>-->
          </children>
       </AnchorPane>
    </children>
