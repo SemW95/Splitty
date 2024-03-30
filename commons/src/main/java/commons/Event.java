@@ -290,9 +290,8 @@ public class Event {
         // the people who are owed, sorted
         ArrayList<Pair<Person, BigDecimal>> negative = new ArrayList<>();
 
-        // TODO: change first name comparison to ID comparison
         List<Person> sorted =
-            people.stream().sorted(Comparator.comparing(p -> p.firstName)).toList();
+            people.stream().sorted(Comparator.comparing(Person::getId)).toList();
         for (Person person : sorted) {
             BigDecimal debt = calculateDebtSum(person);
             Pair<Person, BigDecimal> pair = new Pair<>(person, debt);
