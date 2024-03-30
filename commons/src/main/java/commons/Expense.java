@@ -129,7 +129,7 @@ public class Expense {
      * @throws IllegalStateException When there already is a Person with that id present
      */
     public void addParticipant(Person participant) throws IllegalStateException {
-        if (containsPersonWithId(participant.getId())) {
+        if (!containsPersonWithId(participant.getId())) {
             participants.add(participant);
         } else {
             throw new IllegalStateException(
