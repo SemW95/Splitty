@@ -176,7 +176,7 @@ public class AdminOverviewCtrl implements Initializable {
     private void handleEventDelete(Event event) {
         mainCtrl.showDeleteEventConfirmationPopup(() -> {
             server.deleteEvent(event, mainCtrl.getSavedAdminPassword());
-            refetch();
+            mainCtrl.updateAll();
         });
     }
 }
