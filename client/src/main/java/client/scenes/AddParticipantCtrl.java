@@ -98,7 +98,7 @@ public class AddParticipantCtrl implements Initializable {
             && !invalidBicMessage.isVisible()) {
             Person person = new Person(firstName, lastName, email, iban, bic);
             callback.accept(person);
-            mainCtrl.closePrimaryPopup();
+            mainCtrl.closePopup();
         }
     }
 

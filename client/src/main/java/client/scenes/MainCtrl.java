@@ -40,11 +40,7 @@ public class MainCtrl {
     TODO
     */
     private Stage primaryStage;
-    private Stage primaryPopup;
-    /**
-     * Usually used for confirmation popups.
-     */
-    private Stage secondaryPopup;
+    private Stage popup;
     private MyFXML fxml;
     private String savedAdminPassword;
     private Stack<CsPair<Initializable>> stack;
@@ -157,36 +153,27 @@ public class MainCtrl {
             return;
         }
 
-        primaryPopup = new Stage();
+        popup = new Stage();
         // Set it to block other windows (you can only click on this popup)
-        primaryPopup.initModality(Modality.APPLICATION_MODAL);
-        primaryPopup.initOwner(primaryStage);
-        primaryPopup.setTitle("Admin credentials");
-        primaryPopup.setScene(adminCredentialsPair.scene);
+        popup.initModality(Modality.APPLICATION_MODAL);
+        popup.initOwner(primaryStage);
+        popup.setTitle("Admin credentials");
+        popup.setScene(adminCredentialsPair.scene);
         // Making it not resizable also sets it to the size specified in the .fxml file
         // This was the only way I found that fixed that problem
         // (Except the .setMaximized(true), which makes the window flash when it appears)
         // Also, this might be a linux issue only
-        primaryPopup.setResizable(false);
-        primaryPopup.show();
+        popup.setResizable(false);
+        popup.show();
     }
 
     /**
      * Closes the primary popup.
      * Should never be called if the primary popup window is not shown.
      */
-    public void closePrimaryPopup() {
-        primaryPopup.close();
-        primaryPopup = null;
-    }
-
-    /**
-     * Closes the secondary popup.
-     * Should never be called if the secondary popup window is not shown.
-     */
-    public void closeSecondaryPopup() {
-        secondaryPopup.close();
-        secondaryPopup = null;
+    public void closePopup() {
+        popup.close();
+        popup = null;
     }
 
     /**
@@ -227,13 +214,13 @@ public class MainCtrl {
      * @param callback function which will be called if the person is added successfully
      */
     public void showAddParticipantPopup(Consumer<Person> callback) {
-        primaryPopup = new Stage();
-        primaryPopup.setTitle("Add Participant");
-        primaryPopup.setScene(addParticipantPair.scene);
+        popup = new Stage();
+        popup.setTitle("Add Participant");
+        popup.setScene(addParticipantPair.scene);
         addParticipantPair.ctrl.setCallback(callback);
-        primaryPopup.initModality(Modality.APPLICATION_MODAL);
-        primaryPopup.setResizable(false);
-        primaryPopup.show();
+        popup.initModality(Modality.APPLICATION_MODAL);
+        popup.setResizable(false);
+        popup.show();
     }
 
 
@@ -250,24 +237,28 @@ public class MainCtrl {
      * Show the EditParticipant popup.
      */
     public void showEditParticipantPopup(Person person) {
-        primaryPopup = new Stage();
-        primaryPopup.setTitle("Edit Participant");
-        primaryPopup.setScene(editParticipantPair.scene);
+        popup = new Stage();
+        popup.setTitle("Edit Participant");
+        popup.setScene(editParticipantPair.scene);
+        popup.initModality(Modality.APPLICATION_MODAL);
+        popup.initOwner(primaryStage);
         editParticipantPair.ctrl.update(person);
-        primaryPopup.show();
-        primaryPopup.setResizable(false);
+        popup.show();
+        popup.setResizable(false);
     }
 
     /**
      * Show the DeleteParticipantConfirmation popup.
      */
     public void showDeleteParticipantConfirmationPopup(Runnable callback) {
-        primaryPopup = new Stage();
-        primaryPopup.setTitle("Delete Participant Confirmation");
-        primaryPopup.setScene(deleteParticipantConfirmationPair.scene);
+        popup = new Stage();
+        popup.setTitle("Delete Participant Confirmation");
+        popup.setScene(deleteParticipantConfirmationPair.scene);
+        popup.initModality(Modality.APPLICATION_MODAL);
+        popup.initOwner(primaryStage);
         deleteParticipantConfirmationPair.ctrl.setCallback(callback);
-        primaryPopup.show();
-        primaryPopup.setResizable(false);
+        popup.show();
+        popup.setResizable(false);
     }
 
     /**
@@ -276,12 +267,14 @@ public class MainCtrl {
      * @param deleteCallback the function to be called if the user confirms their action
      */
     public void showDeleteEventConfirmationPopup(Runnable deleteCallback) {
-        primaryPopup = new Stage();
-        primaryPopup.initModality(Modality.APPLICATION_MODAL);
-        primaryPopup.setTitle("Delete Event Confirmation");
-        primaryPopup.setScene(deleteEventConfirmationPair.scene);
-        primaryPopup.show();
-        primaryPopup.setResizable(false);
+        popup = new Stage();
+        popup.initModality(Modality.APPLICATION_MODAL);
+        popup.setTitle("Delete Event Confirmation");
+        popup.setScene(deleteEventConfirmationPair.scene);
+        popup.initModality(Modality.APPLICATION_MODAL);
+        popup.initOwner(primaryStage);
+        popup.show();
+        popup.setResizable(false);
         deleteEventConfirmationPair.ctrl.setCallback(deleteCallback);
     }
 
@@ -332,13 +325,13 @@ public class MainCtrl {
      * @param event   which event the expense belongs to
      */
     public void showManageExpensePopup(Expense expense, Event event) {
-        primaryPopup = new Stage();
-        primaryPopup.initModality(Modality.APPLICATION_MODAL);
-        primaryPopup.initOwner(primaryStage);
-        primaryPopup.setTitle("Manage expense");
-        primaryPopup.setScene(manageExpensePair.scene);
-        primaryPopup.setResizable(false);
+        popup = new Stage();
+        popup.initModality(Modality.APPLICATION_MODAL);
+        popup.initOwner(primaryStage);
+        popup.setTitle("Manage expense");
+        popup.setScene(manageExpensePair.scene);
+        popup.setResizable(false);
         manageExpensePair.ctrl.update(expense, event);
-        primaryPopup.show();
+        popup.show();
     }
 }
