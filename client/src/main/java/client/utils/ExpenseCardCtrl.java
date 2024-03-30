@@ -1,4 +1,4 @@
-package client.components;
+package client.utils;
 
 import commons.Expense;
 import javafx.fxml.FXML;
