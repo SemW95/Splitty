@@ -1,9 +1,13 @@
 package client;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -13,39 +17,30 @@ import java.util.Properties;
  */
 public class ConfigManager {
 
-    private Properties properties;
+    private final Properties properties;
 
     /**
      * Constructor for the configManager.
      */
     public ConfigManager() {
-        try {
-            this.properties = loadProperties();
-        } catch (IOException e) {
-            //TODO: make sure a config file is created if it does not exist
-            System.out.println("There was a problem reading the config file.");
-        }
+        this.properties = loadProperties();
     }
 
     /**
      * loads the properties from the config file.
      *
      * @return properties
-     * @throws IOException if config file is not found
      */
-    private Properties loadProperties() throws IOException {
+    private Properties loadProperties() {
         Properties properties = new Properties();
-        FileInputStream input = new FileInputStream("src/main/resources/config.properties");
-        properties.load(input);
-        return properties;
-    }
-
-    /**
-     * Getter for the loaded properties.
-     *
-     * @return the properties
-     */
-    private Properties getProperties() {
+        try {
+            File file = new File("src/main/resources/config.properties");
+            file.createNewFile();
+            FileInputStream input = new FileInputStream(file);
+            properties.load(input);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         return properties;
     }
 
@@ -54,26 +49,46 @@ public class ConfigManager {
      *
      * @return String of codes
      */
-    public String[] getCodes() {
-        String codes = this.getProperties().getProperty("codes");
-        String[] eventCodes;
+    public List<String> getCodes() {
+        String codes = properties.getProperty("codes");
 
         if (codes != null) {
-            return eventCodes = codes.split(",");
+            return new ArrayList<>(Arrays.asList(codes.split(",")));
         }
 
-        return eventCodes = new String[0];
+        properties.setProperty("codes", "");
+        save();
+        return new ArrayList<>();
     }
 
     /**
      * Add a code to the list of codes from recent events.
-     * TODO: IMPLEMENT and make a check if this code actually exist before adding
      *
      * @param code for an event
      */
-    public void addCode(String code) throws IOException {
-        properties.setProperty("codes", "codes" + "," + code);
-        save(properties);
+    public void addCode(String code) {
+        List<String> codes = getCodes();
+        if (codes.contains(code)) {
+            return;
+        }
+        codes.add(code);
+        properties.setProperty("codes", String.join(",", codes));
+        save();
+    }
+
+    /**
+     * Remove a code to the list of codes from recent events.
+     *
+     * @param code for an event
+     */
+    public void removeCode(String code) {
+        List<String> codes = getCodes();
+        if (!codes.contains(code)) {
+            return;
+        }
+        codes.remove(code);
+        properties.setProperty("codes", String.join(",", codes));
+        save();
     }
 
     /**
@@ -84,19 +99,17 @@ public class ConfigManager {
      * @return String containing server address
      */
     public String getServer() {
-        String configServer = this.getProperties().getProperty("server");
+        String configServer = properties.getProperty("server");
 
         if (configServer != null) {
             return configServer;
         }
 
-        properties.setProperty("server", "http://localhost:8080/");
-        try {
-            save(properties);
-        } catch (IOException e) {
-            System.out.println("The default server could not be saved");
-        }
-        return "http://localhost:8080/";
+        String initialServer = "http://localhost:8080/";
+        properties.setProperty("server", initialServer);
+        save();
+
+        return initialServer;
     }
 
     /**
@@ -105,37 +118,33 @@ public class ConfigManager {
      *
      * @param server address
      */
-    public void changeServer(String server) throws IOException {
+    public void changeServer(String server) {
         properties.setProperty("server", server);
-        save(properties);
+        save();
     }
 
     /**
      * General save method for property values.
-     *
-     * @throws FileNotFoundException if config file cant be found
+     * Tries to save the current state of Properties into the config file
      */
-    public void save(Properties properties) throws IOException {
-
+    private void save() {
         FileOutputStream output = null;
 
         // find the config file
         try {
             output = new FileOutputStream("src/main/resources/config.properties");
         } catch (FileNotFoundException e) {
-            System.out.println("The config file could not be found");
+            System.err.println("The config file could not be found");
         }
 
         // save the config file
         if (output != null) {
-
             try {
                 properties.store(output, null);
+                output.close();
             } catch (IOException io) {
-                System.out.println("The config file could not be saved");
+                System.err.println("The config file could not be saved");
             }
-
-            output.close();
         }
     }
 }

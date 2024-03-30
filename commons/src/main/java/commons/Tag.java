@@ -13,11 +13,11 @@ import java.util.Objects;
 @Entity
 public class Tag {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
-    String name;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
+    private String name;
     @OneToOne
-    Colour colour;
+    private Colour colour;
 
     /**
      * Empty constructor for JPA.
@@ -91,7 +91,7 @@ public class Tag {
         return Objects.hash(name, colour);
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 

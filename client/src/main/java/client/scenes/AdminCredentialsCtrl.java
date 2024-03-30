@@ -42,7 +42,7 @@ public class AdminCredentialsCtrl implements Initializable {
 
         if (server.validateAdminPassword(password)) {
             mainCtrl.setSavedAdminPassword(password);
-            mainCtrl.closePrimaryPopup();
+            mainCtrl.closePopup();
             mainCtrl.showAdminOverview();
         } else {
             // Show a warning to the user that the password was incorrect

@@ -1,10 +1,10 @@
 package client.utils;
 
-import static client.scenes.HomeCtrl.handleClickEvent;
-
 import commons.Event;
 import commons.Tag;
+import java.util.function.Consumer;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,30 +17,30 @@ import javafx.scene.text.Font;
  * Class for all Pane creators.
  */
 public class PaneCreator {
-
-
     /**
      * Makes a pane of an event.
      *
-     * @param event to be created
+     * @param event       to be created
+     * @param handleClick a function which will be called when the item is clicked
      * @return a pane containing given event
      */
-    public static Pane createEventItem(Event event) {
+    public static Pane createEventItem(Event event, Consumer<Event> handleClick) {
         Pane pane = new Pane();
 
         //The entire pane
         pane.setPrefHeight(150);
         pane.setPrefWidth(685);
         pane.setStyle("-fx-border-color: #000000; -fx-border-width: 0 0 1 0;");
-        pane.setOnMouseClicked((e) -> handleClickEvent(event));
 
         //Event name
         Label eventName = new Label(event.getTitle());
         eventName.setLayoutX(14);
         eventName.setLayoutY(14);
         eventName.setPrefHeight(21);
-        eventName.setPrefWidth(300);
+        eventName.setMaxWidth(300);
         eventName.setFont(Font.font(18));
+        eventName.setCursor(Cursor.HAND);
+        eventName.setOnMouseClicked((e) -> handleClick.accept(event));
 
         //Event code
         Label eventCode = new Label(event.getCode());
@@ -72,8 +72,7 @@ public class PaneCreator {
         lastModified.setFont(Font.font(18));
         lastModified.setAlignment(Pos.CENTER_RIGHT);
 
-        // TODO: change users icon to date icon
-        ImageView dateIcon = new ImageView(new Image("client/icons/users.png"));
+        ImageView dateIcon = new ImageView(new Image("client/icons/calendar.png"));
         dateIcon.setLayoutX(647);
         dateIcon.setLayoutY(13);
         dateIcon.setFitHeight(24);
@@ -116,7 +115,7 @@ public class PaneCreator {
      * @param tag tag to be created
      * @return a label made from tag
      */
-    private static Label createTagItem(Tag tag) {
+    public static Label createTagItem(Tag tag) {
         Label tagLabel = new Label(tag.getName());
 
         tagLabel.setStyle(String.format(

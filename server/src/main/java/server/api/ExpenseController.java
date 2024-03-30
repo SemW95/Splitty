@@ -36,12 +36,17 @@ public class ExpenseController {
         return expenseService.getAllExpense();
     }
 
+    @GetMapping(path = "/expense/{id}")
+    public Expense getExpenseById(@PathVariable String id) {
+        return expenseService.getExpenseById(id);
+    }
+
     @PostMapping(path = "/expense")
     public void createExpense(@RequestBody Expense expense) {
         expenseService.createExpense(expense);
     }
 
-    @PutMapping (path = "/expense")
+    @PutMapping(path = "/expense")
     public void updateExpense(@RequestBody Expense expense) {
         expenseService.updateExpense(expense);
     }

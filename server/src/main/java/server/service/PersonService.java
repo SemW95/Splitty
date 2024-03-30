@@ -216,7 +216,7 @@ public class PersonService {
      * @param id that is to be deleted
      * @throws IllegalStateException When the person with this id doesn't exist
      */
-    public void deletePerson(Long id) throws IllegalStateException {
+    public void deletePerson(String id) throws IllegalStateException {
         Optional<Person> optionalPerson = personRepository
             .findById(id);
 
@@ -227,5 +227,18 @@ public class PersonService {
         }
 
         personRepository.deleteById(id);
+    }
+
+    public void updatePerson(Person person) {
+        Optional<Person> optionalPerson = personRepository
+            .findById(id);
+
+        if (optionalPerson.isEmpty()) {
+            throw new IllegalStateException(
+                "There is no person with this id"
+            );
+        }
+        personRepository.save(person);
+
     }
 }

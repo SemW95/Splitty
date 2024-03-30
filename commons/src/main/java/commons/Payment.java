@@ -15,8 +15,8 @@ import java.util.Objects;
 @Entity
 public class Payment {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    String id;
     @ManyToOne
     Person payer;
     @ManyToOne
@@ -40,6 +40,11 @@ public class Payment {
      * Empty constructor for JPA.
      */
     protected Payment() {
+    }
+
+    @Override
+    public String toString() {
+        return "Payment{%s --(%s)-> %s}".formatted(payer, amount, receiver);
     }
 
     @Override
@@ -84,7 +89,7 @@ public class Payment {
         this.amount = amount;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 }

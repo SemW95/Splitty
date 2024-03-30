@@ -2,6 +2,7 @@ package server.api;
 
 import commons.Person;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,7 +52,7 @@ public class PersonController {
      */
     @GetMapping(path = "/person/{id}")
     @ResponseBody
-    public Person getPersonById(@PathVariable(name = "id") Long id) throws IllegalStateException {
+    public Person getPersonById(@PathVariable(name = "id") String id) throws IllegalStateException {
         return personService.getPersonById(id);
     }
 
@@ -234,7 +235,7 @@ public class PersonController {
      * @param id that is to be deleted
      */
     @DeleteMapping(path = "/person/{id}")
-    public void deletePerson(@PathVariable(name = "id") Long id) {
+    public void deletePerson(@PathVariable(name = 'id') String id) {
         personService.deletePerson(id);
     }
 
@@ -242,5 +243,10 @@ public class PersonController {
     public ResponseEntity<Object> handleIllegalStateException(IllegalStateException ex) {
         // Return a ResponseEntity with the NOT_FOUND status
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PutMapping(path = "/person")
+    public void updatePerson(@RequestBody Person person) {
+        personService.updatePerson(person);
     }
 }

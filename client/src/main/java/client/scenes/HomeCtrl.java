@@ -16,8 +16,9 @@
 
 package client.scenes;
 
+import static client.utils.PaneCreator.createEventItem;
+
 import client.Main;
-import client.utils.PaneCreator;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Event;
@@ -47,6 +48,7 @@ public class HomeCtrl implements Initializable {
 
     @FXML
     private VBox eventList;
+    private List<Event> events;
 
     @Inject
     public HomeCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -75,20 +77,35 @@ public class HomeCtrl implements Initializable {
      * Gets called on showHome to request data.
      * It reads all stored event codes from config files and iterates through them.
      */
-    public void getData() {
-        String[] codes = Main.configManager.getCodes();
-        List<Event> events = new ArrayList<>();
+    public void refetch() {
+        events = new ArrayList<>();
 
-        for (String code : codes) {
-            events.add(server.getEventByCode(code));
+        for (String code : Main.configManager.getCodes()) {
+            Event event = server.getEventByCode(code);
+            if (event != null) {
+                events.add(event);
+            } else {
+                Main.configManager.removeCode(code);
+            }
         }
 
-        eventList.getChildren()
-            .setAll(events.stream().map(PaneCreator::createEventItem).toList());
+        populate();
     }
 
-    public static void handleClickEvent(Event event) {
-        System.out.println("pressed " + event.getTitle());
+    /**
+     * Populate the screen.
+     */
+    public void populate() {
+        if (events == null) {
+            return;
+        }
+        eventList.getChildren()
+            .setAll(
+                events.stream().map(e -> createEventItem(e, this::handleClickEvent)).toList());
+    }
+
+    private void handleClickEvent(Event event) {
+        mainCtrl.showEventOverview(event, false);
     }
 
     /**

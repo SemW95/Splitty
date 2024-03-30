@@ -33,9 +33,7 @@ import org.glassfish.jersey.client.ClientConfig;
  * A singleton that contains some server utility methods.
  */
 public class ServerUtils {
-
-    @SuppressWarnings({"checkstyle:AbbreviationAsWordInName", "checkstyle:MemberName"})
-    private final String SERVER = Main.configManager.getServer();
+    private final String server = Main.configManager.getServer();
 
     /**
      * Validates an admin password.
@@ -45,7 +43,7 @@ public class ServerUtils {
      */
     public boolean validateAdminPassword(String password) {
         return ClientBuilder.newClient(new ClientConfig())
-            .target(SERVER).path("/admin/validate/" + password)
+            .target(server).path("/admin/validate/" + password)
             .request(APPLICATION_JSON)
             .accept(APPLICATION_JSON)
             .get(Boolean.class);
@@ -62,7 +60,7 @@ public class ServerUtils {
             a GET request to the requested endpoint and receiving specified type.
          */
         return ClientBuilder.newClient(new ClientConfig())
-            .target(SERVER).path("/person")
+            .target(server).path("/person")
             .request(APPLICATION_JSON)
             .accept(APPLICATION_JSON)
             .get(new GenericType<>() {
@@ -77,7 +75,7 @@ public class ServerUtils {
      */
     public List<Tag> getTags() {
         return ClientBuilder.newClient(new ClientConfig())
-            .target(SERVER).path("/tag")
+            .target(server).path("/tag")
             .request(APPLICATION_JSON)
             .accept(APPLICATION_JSON)
             .get(new GenericType<>() {
@@ -93,7 +91,7 @@ public class ServerUtils {
      */
     public List<Event> getEvents() {
         return ClientBuilder.newClient(new ClientConfig())
-            .target(SERVER).path("/event/")
+            .target(server).path("/event")
             .request(APPLICATION_JSON)
             .accept(APPLICATION_JSON)
             .get(new GenericType<>() {
@@ -107,11 +105,24 @@ public class ServerUtils {
      */
     public Event getEventByCode(String code) {
         return ClientBuilder.newClient(new ClientConfig())
-            .target(SERVER).path("/event/" + code)
+            .target(server).path("/event/code/" + code)
             .request(APPLICATION_JSON)
             .accept(APPLICATION_JSON)
-            .get(new GenericType<>() {
-            });
+            .get(Event.class);
+    }
+
+    /**
+     * Gets an event by its id.
+     *
+     * @param id the id
+     * @return the event
+     */
+    public Event getEventById(String id) {
+        return ClientBuilder.newClient(new ClientConfig())
+            .target(server).path("/event/id/" + id)
+            .request(APPLICATION_JSON)
+            .accept(APPLICATION_JSON)
+            .get(Event.class);
     }
 
     /**
@@ -123,7 +134,7 @@ public class ServerUtils {
      */
     public void deleteEvent(Event event, String adminPassword) {
         ClientBuilder.newClient(new ClientConfig())
-            .target(SERVER).path("/admin/event/" + event.getId())
+            .target(server).path("/admin/event/" + event.getId())
             .queryParam("password", adminPassword)
             .request(APPLICATION_JSON)
             .accept(APPLICATION_JSON)
@@ -135,13 +146,13 @@ public class ServerUtils {
      *
      * @param event the event to be created.
      */
-    public void createEvent(Event event) {
-        // TODO: maybe it should return a boolean
-        ClientBuilder.newClient(new ClientConfig())
-            .target(SERVER).path("/event")
+    public Event createEvent(Event event) {
+        return ClientBuilder.newClient(new ClientConfig())
+            .target(server).path("/event")
             .request(APPLICATION_JSON)
             .accept(APPLICATION_JSON)
-            .post(Entity.json(event));
+            .post(Entity.json(event))
+            .readEntity(Event.class);
     }
 
     /**
@@ -151,9 +162,88 @@ public class ServerUtils {
      */
     public void updateExpense(Expense expense) {
         ClientBuilder.newClient(new ClientConfig())
-            .target(SERVER).path("/expense")
+            .target(server).path("/expense")
             .request(APPLICATION_JSON)
             .put(Entity.json(expense));
     }
 
+    /**
+     * Gets an expense by its id.
+     *
+     * @param id the id
+     * @return the expense
+     */
+    public Expense getExpenseById(String id) {
+        return ClientBuilder.newClient(new ClientConfig())
+            .target(server).path("/expense/" + id)
+            .request(APPLICATION_JSON)
+            .accept(APPLICATION_JSON)
+            .get(Expense.class);
+    }
+
+    /**
+     * This updates the event in the database.
+     *
+     * @param event the event to update
+     */
+    public void updateEvent(Event event) {
+        ClientBuilder.newClient(new ClientConfig())
+            .target(server).path("/event")
+            .request(APPLICATION_JSON)
+            .put(Entity.json(event));
+    }
+
+    /**
+     * Create a new person in the database.
+     *
+     * @param person the person to create
+     * @return the created person with updated fields (id is created)
+     */
+    public Person createPerson(Person person) {
+        return ClientBuilder.newClient(new ClientConfig())
+            .target(server).path("/person")
+            .request(APPLICATION_JSON)
+            .accept(APPLICATION_JSON)
+            .accept(APPLICATION_JSON)
+            .post(Entity.json(person))
+            .readEntity(Person.class);
+    }
+
+    /**
+     * Updates a person in the database.
+     *
+     * @param person the person to persist
+     */
+    public void updatePerson(Person person) {
+        ClientBuilder.newClient(new ClientConfig())
+            .target(server).path("/person")
+            .request(APPLICATION_JSON)
+            .put(Entity.json(person));
+    }
+
+    /**
+     * Gets a person by its id.
+     *
+     * @param id the person's id
+     * @return the requested person
+     */
+    public Person getPersonById(String id) {
+        return ClientBuilder.newClient(new ClientConfig())
+            .target(server).path("/person/" + id)
+            .request(APPLICATION_JSON)
+            .accept(APPLICATION_JSON)
+            .get(Person.class);
+    }
+
+    /**
+     * Deletes a person.
+     *
+     * @param person the person to delete
+     */
+    public void deletePerson(Person person) {
+        ClientBuilder.newClient(new ClientConfig())
+            .target(server).path("/person/" + person.getId())
+            .request(APPLICATION_JSON)
+            .delete();
+    }
 }

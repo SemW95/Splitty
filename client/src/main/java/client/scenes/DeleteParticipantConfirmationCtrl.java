@@ -5,15 +5,17 @@ import com.google.inject.Inject;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
 /**
  * DeleteParticipantConfirmation Popup.
  */
-public class DeleteParticipantConfirmationCtrl {
+public class DeleteParticipantConfirmationCtrl implements Initializable {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
     private ResourceBundle resources;
+    private Runnable callback;
 
     @Inject
     public DeleteParticipantConfirmationCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -21,7 +23,7 @@ public class DeleteParticipantConfirmationCtrl {
         this.mainCtrl = mainCtrl;
     }
 
-    //@Override
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
     }
@@ -34,13 +36,16 @@ public class DeleteParticipantConfirmationCtrl {
 
     @FXML
     private void deleteParticipant() {
-        // TODO: Delete the participant that is chosen.
+        callback.run();
+        mainCtrl.closePopup();
     }
 
     @FXML
     private void goBackToManageScene() {
-        // TODO: Go back to the ManageParticipant scene.
+        mainCtrl.closePopup();
     }
 
-
+    public void setCallback(Runnable callback) {
+        this.callback = callback;
+    }
 }

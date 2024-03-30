@@ -44,6 +44,10 @@ public class ExpenseService {
         return optionalExpense.get();
     }
 
+    public void deleteExpense(String id) {
+        expenseRepository.deleteById(id);
+    }
+
     /** Creates an expense. Fails if an expense exists with the same id or invite code.
      *
      * @param expense the expense to be created.
