@@ -145,7 +145,9 @@ public class ExpenseService {
      * @param id The id of the Expense for which the description should be set
      */
     public void setParticipants(String id, List<Person> participants) {
-        getExpenseById(id).setParticipants(new ArrayList<>(participants));
+        Expense expense = getExpenseById(id);
+        expense.setParticipants(new ArrayList<>(participants));
+        expenseRepository.save(expense);
     }
 
     /** Sets the description for the specified Expense.
@@ -153,7 +155,9 @@ public class ExpenseService {
      * @param id The id of the Expense for which the description should be set
      */
     public void setDescription(String id, String description) {
-        getExpenseById(id).setDescription(description);
+        Expense expense = getExpenseById(id);
+        expense.setDescription(description);
+        expenseRepository.save(expense);
     }
 
     /** Sets the receiver for the specified Expense.
@@ -161,7 +165,9 @@ public class ExpenseService {
      * @param id The id of the Expense for which the receiver should be set
      */
     public void setReceiver(String id, Person receiver) {
-        getExpenseById(id).setReceiver(receiver);
+        Expense expense = getExpenseById(id);
+        expense.setReceiver(receiver);
+        expenseRepository.save(expense);
     }
 
     /** Sets the paid variable for the specified Expense.
@@ -169,7 +175,9 @@ public class ExpenseService {
      * @param id The id of the Expense for which the paid variable should be set
      */
     public void setPaid(String id, BigDecimal paid) {
-        getExpenseById(id).setPaid(paid);
+        Expense expense = getExpenseById(id);
+        expense.setPaid(paid);
+        expenseRepository.save(expense);
     }
 
     /** Sets the tag for the specified Expense.
@@ -177,7 +185,9 @@ public class ExpenseService {
      * @param id The id of the Expense for which the tag should be set
      */
     public void setTag(String id, Tag tag) {
-        getExpenseById(id).setTag(tag);
+        Expense expense = getExpenseById(id);
+        expense.setTag(tag);
+        expenseRepository.save(expense);
     }
 
     /** Sets the paymentDateTime for the specified Expense.
@@ -185,19 +195,43 @@ public class ExpenseService {
      * @param id The id of the Expense for which the paymentDateTime should be set
      */
     public void setPaymentDateTime(String id, Instant paymentDateTime) {
-        getExpenseById(id).setPaymentDateTime(paymentDateTime);
+        Expense expense = getExpenseById(id);
+        expense.setPaymentDateTime(paymentDateTime);
+        expenseRepository.save(expense);
     }
 
+    /** Removes a participant from an Expense.
+     *
+     * @param id The id of the Expense
+     * @param newParticipant The id of the participant that should be added
+     */
     public void addParticipant(String id, Person newParticipant) {
-        getExpenseById(id).addParticipant(newParticipant);
+        Expense expense = getExpenseById(id);
+        expense.addParticipant(newParticipant);
+        expenseRepository.save(expense);
     }
+
+    /** Removes a participant from an Expense.
+     *
+     * @param id The id of the Expense
+     * @param newParticipants The List of the participants that should be added
+     */
 
     public void addParticipants(String id, List<Person> newParticipants) {
-        getExpenseById(id).addParticipants(newParticipants);
+        Expense expense = getExpenseById(id);
+        expense.addParticipants(newParticipants);
+        expenseRepository.save(expense);
     }
 
+    /** Removes a participant from an Expense.
+     *
+     * @param expenseId The id of the Expense
+     * @param participantId The id of the participant that should be removed
+     */
     public void removeParticipant(String expenseId, String participantId) {
-        getExpenseById(expenseId).removeParticipant(participantId);
+        Expense expense = getExpenseById(expenseId);
+        expense.removeParticipant(participantId);
+        expenseRepository.save(expense);
     }
 
     public BigDecimal getShare(String id) {
