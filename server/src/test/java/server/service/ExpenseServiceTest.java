@@ -143,7 +143,9 @@ class ExpenseServiceTest {
     @Test
     void setParticipants() {
         when(expenseRepository.findById(anyString())).thenReturn(Optional.of(testExpense));
-        assertDoesNotThrow(() -> expenseService.setParticipants("testId", Collections.singletonList(new Person())));
+        assertDoesNotThrow(() -> expenseService.setParticipants(
+            "testId",
+            Collections.singletonList(new Person())));
         verify(expenseRepository).save(testExpense);
     }
 
