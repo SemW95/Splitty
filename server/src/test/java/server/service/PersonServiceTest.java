@@ -50,13 +50,13 @@ public class PersonServiceTest {
     void getPersonByIdTest() {
         try {
             //Mock the findById method of personRepository and returns a Person.
-            when(personRepository.findById(12345L)).thenReturn(Optional.of(returnPerson));
+            when(personRepository.findById("12345")).thenReturn(Optional.of(returnPerson));
 
             // Checks if no exception is thrown since the id exists
-            assertDoesNotThrow(() -> personService.getPersonById(12345L));
+            assertDoesNotThrow(() -> personService.getPersonById("12345"));
 
             // Checks if the personRepository is actually called (one time)
-            verify(personRepository).findById(12345L);
+            verify(personRepository).findById("12345");
 
         } catch (Exception e) {
             fail("The test itself broke");
@@ -66,9 +66,9 @@ public class PersonServiceTest {
     @Test
     void getPersonByIdTestX() {
         try {
-            when(personRepository.findById(12345L)).thenReturn(Optional.empty());
-            assertThrows(IllegalStateException.class, () -> personService.getPersonById(12345L));
-            verify(personRepository).findById(12345L);
+            when(personRepository.findById("12345")).thenReturn(Optional.empty());
+            assertThrows(IllegalStateException.class, () -> personService.getPersonById("12345"));
+            verify(personRepository).findById("12345");
         } catch (Exception e) {
             fail("The test itself broke");
         }
@@ -121,9 +121,9 @@ public class PersonServiceTest {
     @Test
     void deletePersonByIdTest() {
         try {
-            when(personRepository.findById(12345L)).thenReturn(Optional.of(returnPerson));
-            assertDoesNotThrow(() -> personService.deletePerson(12345L));
-            verify(personRepository).deleteById(12345L);
+            when(personRepository.findById("12345")).thenReturn(Optional.of(returnPerson));
+            assertDoesNotThrow(() -> personService.deletePerson("12345"));
+            verify(personRepository).deleteById("12345");
         } catch (Exception e) {
             fail("The test itself broke");
         }
@@ -132,9 +132,9 @@ public class PersonServiceTest {
     @Test
     void deletePersonByIdTestX() {
         try {
-            when(personRepository.findById(12345L)).thenReturn(Optional.empty());
-            assertThrows(IllegalStateException.class, () -> personService.deletePerson(12345L));
-            verify(personRepository).findById(12345L);
+            when(personRepository.findById("12345")).thenReturn(Optional.empty());
+            assertThrows(IllegalStateException.class, () -> personService.deletePerson("12345"));
+            verify(personRepository).findById("12345");
         } catch (Exception e) {
             fail("The test itself broke");
         }
@@ -153,15 +153,15 @@ public class PersonServiceTest {
     @Test
     void getFirstNameTest() {
         when(personRepository.findById(any())).thenReturn(Optional.of(returnPerson));
-        String firstName = personService.getFirstName(12345L);
+        String firstName = personService.getFirstName("12345");
         assertEquals("Bobertus", firstName);
-        verify(personRepository).findById(12345L);
+        verify(personRepository).findById("12345");
     }
 
     @Test
     void setFirstNameTest() {
         when(personRepository.findById(any())).thenReturn(Optional.of(returnPerson));
-        assertDoesNotThrow(() -> personService.setFirstName(12345L, "UpdatedName"));
+        assertDoesNotThrow(() -> personService.setFirstName("12345", "UpdatedName"));
         verify(personRepository).save(returnPerson);
         assertEquals("UpdatedName", returnPerson.getFirstName());
     }
@@ -171,7 +171,7 @@ public class PersonServiceTest {
         when(personRepository.findById(any())).thenReturn(Optional.of(returnPerson));
         assertThrows(
             IllegalArgumentException.class,
-            () -> personService.setEmail(12345L, "invalidEmail")
+            () -> personService.setEmail("12345", "invalidEmail")
         );
     }
 
@@ -180,46 +180,46 @@ public class PersonServiceTest {
         when(personRepository.findById(any())).thenReturn(Optional.of(returnPerson));
         assertThrows(
             IllegalArgumentException.class,
-            () -> personService.setIban(12345L, "invalidIBAN")
+            () -> personService.setIban("12345", "invalidIBAN")
         );
     }
 
     @Test
     void getLastNameTest() {
         when(personRepository.findById(any())).thenReturn(Optional.of(returnPerson));
-        String lastName = personService.getLastName(12345L);
+        String lastName = personService.getLastName("12345");
         assertEquals("Fireball", lastName);
-        verify(personRepository).findById(12345L);
+        verify(personRepository).findById("12345");
     }
 
     @Test
     void getEmailTest() {
         when(personRepository.findById(any())).thenReturn(Optional.of(returnPerson));
-        String email = personService.getEmail(12345L);
+        String email = personService.getEmail("12345");
         assertEquals("aliceh@domain.name", email);
-        verify(personRepository).findById(12345L);
+        verify(personRepository).findById("12345");
     }
 
     @Test
     void getIbanTest() {
         when(personRepository.findById(any())).thenReturn(Optional.of(returnPerson));
-        String iban = personService.getIban(12345L);
+        String iban = personService.getIban("12345");
         assertEquals("LT601010012345678901", iban);
-        verify(personRepository).findById(12345L);
+        verify(personRepository).findById("12345");
     }
 
     @Test
     void getBicTest() {
         when(personRepository.findById(any())).thenReturn(Optional.of(returnPerson));
-        String bic = personService.getBic(12345L);
+        String bic = personService.getBic("12345");
         assertEquals("BOOKTP99A3E", bic);
-        verify(personRepository).findById(12345L);
+        verify(personRepository).findById("12345");
     }
 
     @Test
     void setLastNameTest() {
         when(personRepository.findById(any())).thenReturn(Optional.of(returnPerson));
-        assertDoesNotThrow(() -> personService.setLastName(12345L, "UpdatedLastName"));
+        assertDoesNotThrow(() -> personService.setLastName("12345", "UpdatedLastName"));
         verify(personRepository).save(returnPerson);
         assertEquals("UpdatedLastName", returnPerson.getLastName());
     }
@@ -228,7 +228,7 @@ public class PersonServiceTest {
     void setEmailTest() {
         when(personRepository.findById(any())).thenReturn(Optional.of(returnPerson));
         assertDoesNotThrow(
-            () -> personService.setEmail(12345L, "updatedemail@domain.com")
+            () -> personService.setEmail("12345", "updatedemail@domain.com")
         );
         verify(personRepository).save(returnPerson);
         assertEquals("updatedemail@domain.com", returnPerson.getEmail());
@@ -237,7 +237,7 @@ public class PersonServiceTest {
     @Test
     void setIbanTest() {
         when(personRepository.findById(any())).thenReturn(Optional.of(returnPerson));
-        assertDoesNotThrow(() -> personService.setIban(12345L, "DE89370400440532013000"));
+        assertDoesNotThrow(() -> personService.setIban("12345", "DE89370400440532013000"));
         verify(personRepository).save(returnPerson);
         assertEquals("DE89370400440532013000", returnPerson.getIban());
     }
@@ -245,7 +245,7 @@ public class PersonServiceTest {
     @Test
     void setBicTest() {
         when(personRepository.findById(any())).thenReturn(Optional.of(returnPerson));
-        assertDoesNotThrow(() -> personService.setBic(12345L, "DEUTDEFF"));
+        assertDoesNotThrow(() -> personService.setBic("12345", "DEUTDEFF"));
         verify(personRepository).save(returnPerson);
         assertEquals("DEUTDEFF", returnPerson.getBic());
     }
@@ -255,7 +255,7 @@ public class PersonServiceTest {
         when(personRepository.findById(any())).thenReturn(Optional.of(returnPerson));
         assertThrows(
             IllegalArgumentException.class,
-            () -> personService.setBic(12345L, "invalid")
+            () -> personService.setBic("12345", "invalid")
         );
     }
 
@@ -265,7 +265,7 @@ public class PersonServiceTest {
         // This test assumes your service has logic to validate the email format which isn't shown
         assertThrows(
             IllegalArgumentException.class,
-            () -> personService.setEmail(12345L, "bademailformat")
+            () -> personService.setEmail("12345", "bademailformat")
         );
     }
 

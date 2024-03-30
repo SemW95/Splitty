@@ -32,7 +32,7 @@ public class PersonService {
      * @return Person with specified id
      * @throws IllegalStateException When the person with this id doesn't exist
      */
-    public Person getPersonById(Long id) throws IllegalStateException {
+    public Person getPersonById(String id) throws IllegalStateException {
         Optional<Person> optionalPerson = personRepository
             .findById(id);
 
@@ -74,7 +74,7 @@ public class PersonService {
      *
      * @param id        The id of the person whose email is retrieved.
      */
-    public String getFirstName(Long id) {
+    public String getFirstName(String id) {
         // Use existing method to get the person by ID
         Person person = getPersonById(id);
 
@@ -85,7 +85,7 @@ public class PersonService {
      *
      * @param id        The id of the person whose email is retrieved.
      */
-    public String getLastName(Long id) {
+    public String getLastName(String id) {
         // Use existing method to get the person by ID
         Person person = getPersonById(id);
 
@@ -96,7 +96,7 @@ public class PersonService {
      *
      * @param id    The id of the person whose email is to be retrieved.
      */
-    public String getEmail(Long id) {
+    public String getEmail(String id) {
         // Use existing method to get the person by ID
         Person person = getPersonById(id);
 
@@ -107,7 +107,7 @@ public class PersonService {
      *
      * @param id        The id of the person whose email is retrieved.
      */
-    public String getIban(Long id) {
+    public String getIban(String id) {
         // Use existing method to get the person by ID
         Person person = getPersonById(id);
 
@@ -118,7 +118,7 @@ public class PersonService {
      *
      * @param id        The id of the person whose email is retrieved.
      */
-    public String getBic(Long id) {
+    public String getBic(String id) {
         // Use existing method to get the person by ID
         Person person = getPersonById(id);
 
@@ -130,7 +130,7 @@ public class PersonService {
      * @param id        The id of the person whose email is to be updated.
      * @param firstName The new firstName to be set.
      */
-    public void setFirstName(Long id, String firstName) {
+    public void setFirstName(String id, String firstName) {
         // Use existing method to get the person by ID
         Person person = getPersonById(id);
 
@@ -143,7 +143,7 @@ public class PersonService {
      * @param id        The id of the person whose email is to be updated.
      * @param lastName  The new lastName to be set.
      */
-    public void setLastName(Long id, String lastName) {
+    public void setLastName(String id, String lastName) {
         // Use existing method to get the person by ID
         Person person = getPersonById(id);
 
@@ -156,7 +156,7 @@ public class PersonService {
      * @param id    The id of the person whose email is to be updated.
      * @param email The new email to be set.
      */
-    public void setEmail(Long id, String email) {
+    public void setEmail(String id, String email) {
         // Use existing method to get the person by ID
         Person person = getPersonById(id);
 
@@ -180,7 +180,7 @@ public class PersonService {
      * @param id        The id of the person whose email is to be updated.
      * @param iban      The new iban to be set.
      */
-    public void setIban(Long id, String iban) {
+    public void setIban(String id, String iban) {
         // Use existing method to get the person by ID
         Person person = getPersonById(id);
 
@@ -197,7 +197,7 @@ public class PersonService {
      * @param id        The id of the person whose email is to be updated.
      * @param bic       The new bic to be set.
      */
-    public void setBic(Long id, String bic) {
+    public void setBic(String id, String bic) {
         // Use existing method to get the person by ID
         Person person = getPersonById(id);
 
@@ -231,7 +231,7 @@ public class PersonService {
 
     public void updatePerson(Person person) {
         Optional<Person> optionalPerson = personRepository
-            .findById(id);
+            .findById(person.getId());
 
         if (optionalPerson.isEmpty()) {
             throw new IllegalStateException(
