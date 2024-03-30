@@ -2,7 +2,6 @@ package server.api;
 
 import commons.Person;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -65,7 +64,7 @@ public class PersonController {
      */
     @GetMapping(path = "/person/{id}/first-name")
     @ResponseBody
-    public String getFirstNameByPersonId(@PathVariable(name = "id") Long id) {
+    public String getFirstNameByPersonId(@PathVariable(name = "id") String id) {
         return personService.getFirstName(id);
     }
 
@@ -78,7 +77,7 @@ public class PersonController {
      */
     @GetMapping(path = "/person/{id}/last-name")
     @ResponseBody
-    public String getLastNameByPersonId(@PathVariable(name = "id") Long id) {
+    public String getLastNameByPersonId(@PathVariable(name = "id") String id) {
         return personService.getLastName(id);
     }
 
@@ -91,7 +90,7 @@ public class PersonController {
      */
     @GetMapping(path = "/person/{id}/email")
     @ResponseBody
-    public String getEmailByPersonId(@PathVariable(name = "id") Long id) {
+    public String getEmailByPersonId(@PathVariable(name = "id") String id) {
         return personService.getEmail(id);
     }
 
@@ -104,7 +103,7 @@ public class PersonController {
      */
     @GetMapping(path = "/person/{id}/iban")
     @ResponseBody
-    public String getIbanByPersonId(@PathVariable(name = "id") Long id) {
+    public String getIbanByPersonId(@PathVariable(name = "id") String id) {
         return personService.getIban(id);
     }
 
@@ -117,7 +116,7 @@ public class PersonController {
      */
     @GetMapping(path = "/person/{id}/bic")
     @ResponseBody
-    public String getBicByPersonId(@PathVariable(name = "id") Long id) {
+    public String getBicByPersonId(@PathVariable(name = "id") String id) {
         return personService.getBic(id);
     }
 
@@ -131,7 +130,7 @@ public class PersonController {
     @PutMapping(path = "/person/{id}/first-name/{first-name}")
     @ResponseBody
     public void setFirstNameByPersonId(
-        @PathVariable(name = "id") Long id,
+        @PathVariable(name = "id") String id,
         @PathVariable(name = "first-name") String firstName
     ) {
         personService.setFirstName(id, firstName);
@@ -147,7 +146,7 @@ public class PersonController {
     @PutMapping(path = "/person/{id}/last-name/{last-name}")
     @ResponseBody
     public void setLastNameByPersonId(
-        @PathVariable(name = "id") Long id,
+        @PathVariable(name = "id") String id,
         @PathVariable(name = "last-name") String lastName
     ) {
         personService.setLastName(id, lastName);
@@ -163,7 +162,7 @@ public class PersonController {
     @PutMapping(path = "/person/{id}/email/{email}")
     @ResponseBody
     public void setEmailByPersonId(
-        @PathVariable(name = "id") Long id,
+        @PathVariable(name = "id") String id,
         @PathVariable(name = "email") String email
     ) {
         personService.setEmail(id, email);
@@ -179,7 +178,7 @@ public class PersonController {
     @PutMapping(path = "/person/{id}/iban/{iban}")
     @ResponseBody
     public void setIbanByPersonId(
-        @PathVariable(name = "id") Long id,
+        @PathVariable(name = "id") String id,
         @PathVariable(name = "iban") String iban
     ) {
         personService.setIban(id, iban);
@@ -195,7 +194,7 @@ public class PersonController {
     @PutMapping(path = "/person/{id}/bic/{bic}")
     @ResponseBody
     public void setBicByPersonId(
-        @PathVariable(name = "id") Long id,
+        @PathVariable(name = "id") String id,
         @PathVariable(name = "bic") String bic
     ) {
         personService.setBic(id, bic);
@@ -235,7 +234,7 @@ public class PersonController {
      * @param id that is to be deleted
      */
     @DeleteMapping(path = "/person/{id}")
-    public void deletePerson(@PathVariable(name = 'id') String id) {
+    public void deletePerson(@PathVariable(name = "id") String id) {
         personService.deletePerson(id);
     }
 

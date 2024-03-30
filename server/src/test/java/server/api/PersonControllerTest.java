@@ -78,7 +78,7 @@ public class PersonControllerTest {
 
     @Test
     public void getPersonByIdTest() throws Exception {
-        final Long personId = 1L;
+        final String personId = "1";
         final Person person = new Person(
             "John",
             "Doe",
@@ -96,7 +96,7 @@ public class PersonControllerTest {
 
     @Test
     public void updateFirstNameByPersonIdTest() throws Exception {
-        final Long personId = 1L;
+        final String personId = "1";
         final String newFirstName = "UpdatedName";
         doNothing().when(personService).setFirstName(personId, newFirstName);
 
@@ -123,7 +123,7 @@ public class PersonControllerTest {
 
     @Test
     public void getFirstNameByPersonIdTest() throws Exception {
-        final Long personId = 1L;
+        final String personId = "1";
         final String expectedFirstName = "John";
 
         given(personService.getFirstName(personId)).willReturn(expectedFirstName);
@@ -135,7 +135,7 @@ public class PersonControllerTest {
 
     @Test
     public void getLastNameByPersonIdTest() throws Exception {
-        final Long personId = 1L;
+        final String personId = "1";
         final String expectedLastName = "Doe";
 
         given(personService.getLastName(personId)).willReturn(expectedLastName);
@@ -147,7 +147,7 @@ public class PersonControllerTest {
 
     @Test
     public void updateLastNameByPersonIdTest() throws Exception {
-        final Long personId = 1L;
+        final String personId = "1";
         final String newLastName = "UpdatedLastName";
 
         doNothing().when(personService).setLastName(personId, newLastName);
@@ -173,7 +173,7 @@ public class PersonControllerTest {
 
     @Test
     public void deletePersonTest() throws Exception {
-        final Long personId = 1L;
+        final String personId = "1";
         doNothing().when(personService).deletePerson(personId);
 
         mockMvc.perform(delete("/person/{id}", personId))
@@ -187,7 +187,7 @@ public class PersonControllerTest {
      */
     @Test
     public void getEmailByPersonIdTest() throws Exception {
-        final Long personId = 1L;
+        final String personId = "1";
         final String expectedEmail = "john.doe@example.com";
 
         given(personService.getEmail(personId)).willReturn(expectedEmail);
@@ -202,7 +202,7 @@ public class PersonControllerTest {
      */
     @Test
     public void updateEmailByPersonIdTest() throws Exception {
-        final Long personId = 1L;
+        final String personId = "1";
         final String newEmail = "new.john.doe@example.com";
 
         doNothing().when(personService).setEmail(personId, newEmail);
@@ -215,7 +215,7 @@ public class PersonControllerTest {
      */
     @Test
     public void getIbanByPersonIdTest() throws Exception {
-        final Long personId = 1L;
+        final String personId = "1";
         final String expectedIban = "NL39RABO8247360527";
 
         given(personService.getIban(personId)).willReturn(expectedIban);
@@ -230,7 +230,7 @@ public class PersonControllerTest {
      */
     @Test
     public void updateIbanByPersonIdTest() throws Exception {
-        final Long personId = 1L;
+        final String personId = "1";
         final String newIban = "DE89 3704 0044 0532 0130 00";
 
         doNothing().when(personService).setIban(personId, newIban);
@@ -244,7 +244,7 @@ public class PersonControllerTest {
      */
     @Test
     public void getBicByPersonIdTest() throws Exception {
-        final Long personId = 1L;
+        final String personId = "1";
         final String expectedBic = "DEUTDEDBFRA";
 
         given(personService.getBic(personId)).willReturn(expectedBic);
@@ -259,7 +259,7 @@ public class PersonControllerTest {
      */
     @Test
     public void updateBicByPersonIdTest() throws Exception {
-        final Long personId = 1L;
+        final String personId = "1";
         final String newBic = "NWBKGB22";
 
         doNothing().when(personService).setBic(personId, newBic);
@@ -274,7 +274,7 @@ public class PersonControllerTest {
      */
     @Test
     public void handleIllegalStateExceptionTest() throws Exception {
-        final Long personId = 1L;
+        final String personId = "1";
 
         // Setup the condition to throw an IllegalStateException
         given(personService.getPersonById(personId)).willThrow(new IllegalStateException());
