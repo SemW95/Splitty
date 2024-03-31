@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -161,13 +162,45 @@ public class ManageExpenseCtrl implements Initializable {
 
         // Populate participants
         participantsFlowPane.getChildren().setAll();
+        participantsFlowPane.getChildren().add(createRecipientCard(expense.getReceiver()));
+        System.out.println("Created a recipient card instead of a normal participant card");
         for (Person participant : expense.getParticipants()) {
             participantsFlowPane.getChildren().add(createParticipantCard(participant));
+            System.out.println("Created a regular participant card");
         }
+        participantsFlowPane.requestLayout();
+
 
         // Prevent window closure when there are unsaved changes with invalid syntax
         rootAnchorPane.getScene().getWindow()
             .addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::handleCloseRequest);
+    }
+
+    /**
+     * Creates a new Participant card for the dynamically scaled FlowPane.
+     *
+     * @param participant The participant
+     * @return An anchor pane
+     */
+    private AnchorPane createRecipientCard(Person participant) {
+        AnchorPane card = new AnchorPane();
+        card.setPrefSize(475, 50);
+        card.setStyle(
+            "-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;");
+
+        String participantRepresentation =
+            participant.getFirstName() + " " + participant.getLastName();
+        System.out.println(participant.getId());
+        System.out.println(expense.getReceiver().getId());
+        participantRepresentation = participantRepresentation.concat(" (Recipient)");
+        Label participantLabel = new Label(participantRepresentation);
+        Font globalFont = new Font("System Bold", 24);
+        participantLabel.setFont(globalFont);
+        participantLabel.setLayoutX(12.5);
+        participantLabel.setLayoutY(7.5);
+
+        card.getChildren().add(participantLabel);
+        return card;
     }
 
     /**
@@ -184,6 +217,8 @@ public class ManageExpenseCtrl implements Initializable {
 
         String participantRepresentation =
             "Remove " + participant.getFirstName() + " " + participant.getLastName();
+        System.out.println(participant.getId());
+        System.out.println(expense.getReceiver().getId());
         Label participantLabel = new Label(participantRepresentation);
         Font globalFont = new Font("System Bold", 24);
         participantLabel.setFont(globalFont);
@@ -227,13 +262,21 @@ public class ManageExpenseCtrl implements Initializable {
 
     @FXML
     private void handleRecipientChange(ActionEvent actionEvent) {
+        Person previousRecipient = this.expense.getReceiver();
         Person selectedPerson = recipientMenu.getSelectionModel().getSelectedItem();
         if (selectedPerson != null) {
+            //already recipient
             if (selectedPerson.equals(expense.getReceiver())) {
                 return;
             }
+            //new recipient
             indicatorRecipientModified.setImage(new Image("client/icons/edit_done.png"));
             this.expense.setReceiver(selectedPerson);
+            //if they used to be a participant, they are no longer, if they used to be an
+            // event candidate, they are and won't be a participant, either way, make sure
+            // the recipient is not in list of participants
+            this.expense.getParticipants().remove(selectedPerson);
+            this.expense.getParticipants().add(previousRecipient);
             server.updateExpense(this.expense);
             mainCtrl.updateAll();
         }
