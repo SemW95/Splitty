@@ -85,7 +85,8 @@ public class MainCtrl {
             "client", "scenes", "EventOverview.fxml");
         manageExpensePair = fxml.load(ManageExpenseCtrl.class, "client", "scenes",
             "ManageExpense.fxml");
-        expenseAddParticipantPair = fxml.load(ExpenseAddParticipantCtrl.class, "client", "scenes", "ExpenseAddParticipant.fxml");
+        expenseAddParticipantPair = fxml.load(ExpenseAddParticipantCtrl.class, "client",
+            "scenes", "ExpenseAddParticipant.fxml");
         addParticipantPair = fxml.load(AddParticipantCtrl.class,
             "client", "scenes", "AddParticipant.fxml");
         manageParticipantsPair = fxml.load(ManageParticipantsCtrl.class,

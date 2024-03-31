@@ -6,19 +6,22 @@ import com.google.inject.Inject;
 import commons.Event;
 import commons.Expense;
 import commons.Person;
-import commons.Tag;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+/**
+ * Controller class for adding a participant to an expense.
+ *
+ */
 public class ExpenseAddParticipantCtrl implements Initializable {
 
     private final ServerUtils server;
@@ -48,7 +51,7 @@ public class ExpenseAddParticipantCtrl implements Initializable {
     }
 
     @Override
-    public void initialize (URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
     }
 
@@ -69,64 +72,141 @@ public class ExpenseAddParticipantCtrl implements Initializable {
         currentParticipants.getChildren().setAll();
         availableParticipants.getChildren().setAll();
 
+        currentParticipants.getChildren().add(createRecipientCard(expense.getReceiver()));
+
         // Populate available participants
         for (Person participant : event.getPeople()) {
-            if (!expense.getParticipants().contains(participant) && !participant.equals(expense.getReceiver())) {
-                addParticipantCardToDualFlowPane(availableParticipants, currentParticipants, participant);
+            if (!expense.getParticipants().contains(participant)
+                &&
+                !participant.equals(expense.getReceiver())) {
+                addParticipantCardToAvailableParticipantFlowPane(participant);
             }
         }
 
         // Populate current participants
         for (Person participant : expense.getParticipants()) {
-            addParticipantCardToDualFlowPane(currentParticipants, availableParticipants, participant);
+            addParticipantCardToCurrentParticipantFlowPane(participant);
         }
+
+
 
 
     }
 
     /**
-     * Createse a new Participant card for the dynamically scaled FlowPane, and allows switching to other flowpane.
+     * Createse a new Participant card for the dynamically scaled FlowPane, and allows
+     * switching to other flowpane.
      *
-     * @param flowPane
-     * @param complementFlowPane
-     * @param participant
-     *
+     * @param participant a participant
      * @return An anchor pane associated to the new card.
      */
-    private void addParticipantCardToDualFlowPane(FlowPane flowPane, FlowPane complementFlowPane, Person participant) {
+    private void addParticipantCardToCurrentParticipantFlowPane(Person participant) {
         AnchorPane card = new AnchorPane();
         card.setPrefSize(475, 50);
         card.setStyle(
             "-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;");
 
-        String participantRepresentation = participant.getFirstName().concat("#"
-            + participant.getId().substring(0,8));
+        String participantRepresentation = participant.getFirstName() + " "
+            + participant.getLastName();
         Label participantLabel = new Label(participantRepresentation);
         Font globalFont = new Font("System Bold", 24);
         participantLabel.setFont(globalFont);
         participantLabel.setLayoutX(12.5);
         participantLabel.setLayoutY(7.5);
+        participantLabel.setMaxWidth(401);
+
         participantLabel.setOnMousePressed(event -> {
-                if (this.expense.getParticipants().contains(participant)) {
-                    //push to available participant pane and remove from expense
-                    this.expense.getParticipants().remove(participant);
-                    flowPane.getChildren().remove(card);
-                    complementFlowPane.getChildren().add(card);
-                } else {
-                    //push to current participant pane and remove from available and add to expense
-                    this.expense.getParticipants().add(participant);
-                    flowPane.getChildren().add(card);
-                    complementFlowPane.getChildren().remove(card);
-                }
-                flowPane.requestLayout();
-                complementFlowPane.requestLayout();
+                //push to available participant pane and remove from expense
+                this.expense.getParticipants().remove(participant);
+                currentParticipants.getChildren().remove(card);
+                addParticipantCardToAvailableParticipantFlowPane(participant);
+
+                currentParticipants.requestLayout();
                 server.updateExpense(this.expense);
                 mainCtrl.updateAll();
             }
         );
 
         card.getChildren().add(participantLabel);
-        flowPane.getChildren().add(card);
+        currentParticipants.getChildren().add(card);
+    }
+
+    /**
+     * Creates a new Participant card for the dynamically scaled FlowPane.
+     *
+     * @param participant The participant
+     * @return An anchor pane
+     */
+    private AnchorPane createRecipientCard(Person participant) {
+        AnchorPane card = new AnchorPane();
+        card.setPrefSize(475, 50);
+        card.setStyle(
+            "-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;");
+
+        String participantRepresentation =
+            participant.getFirstName() + " " + participant.getLastName();
+        System.out.println(participant.getId());
+        System.out.println(expense.getReceiver().getId());
+        participantRepresentation = participantRepresentation.concat(" (Recipient)");
+        Label participantLabel = new Label(participantRepresentation);
+        Font globalFont = new Font("System Bold", 24);
+        participantLabel.setTextFill(Color.valueOf("#636363"));
+        participantLabel.setFont(globalFont);
+        participantLabel.setLayoutX(12.5);
+        participantLabel.setMaxWidth(401);
+
+        participantLabel.setLayoutY(7.5);
+
+        ImageView lockedImage = new ImageView(new Image("client/icons/locked.png"));
+        lockedImage.setLayoutX(426);
+        lockedImage.setLayoutY(13);
+        lockedImage.setFitHeight(24);
+        lockedImage.setFitWidth(24);
+        card.getChildren().add(lockedImage);
+
+        card.getChildren().add(participantLabel);
+        return card;
+    }
+
+    /**
+     * Creates a new Participant card for the dynamically scaled FlowPane,
+     * and allows switching to other flowpane.
+     *
+     * @param participant participant
+     * @return An anchor pane associated to the new card.
+     */
+    private void addParticipantCardToAvailableParticipantFlowPane(Person participant) {
+        AnchorPane card = new AnchorPane();
+        card.setPrefSize(475, 50);
+        card.setStyle(
+            "-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;");
+
+        String participantRepresentation = participant.getFirstName() + " "
+            +
+            participant.getLastName();
+        Label participantLabel = new Label(participantRepresentation);
+        Font globalFont = new Font("System Bold", 24);
+        participantLabel.setFont(globalFont);
+        participantLabel.setLayoutX(12.5);
+        participantLabel.setLayoutY(7.5);
+        participantLabel.setMaxWidth(401);
+        participantLabel.setOnMousePressed(event -> {
+                //push to current participant pane and remove from available and add to expense
+                this.expense.getParticipants().add(participant);
+                availableParticipants.getChildren().remove(card);
+                addParticipantCardToCurrentParticipantFlowPane(participant);
+
+
+                availableParticipants.requestLayout();
+                currentParticipants.requestLayout();
+
+                server.updateExpense(this.expense);
+                mainCtrl.updateAll();
+            }
+        );
+
+        card.getChildren().add(participantLabel);
+        availableParticipants.getChildren().add(card);
     }
 
     public void setExpense(Expense expense) {
