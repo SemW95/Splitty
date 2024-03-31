@@ -15,19 +15,19 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane prefHeight="600.0" prefWidth="1022.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.EventOverviewCtrl">
+<Pane prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.EventOverviewCtrl">
    <children>
       <Pane layoutX="19.0" layoutY="101.0" prefHeight="144.0" prefWidth="825.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="148.0" stroke="BLACK" strokeType="INSIDE" width="825.0" />
-            <Label fx:id="eventNameLabel" layoutX="11.0" onMouseClicked="#clickChangeEventName" prefHeight="33.0" prefWidth="156.0" text="Event Name">
+            <Label fx:id="eventNameLabel" layoutX="11.0" prefHeight="33.0" prefWidth="156.0" text="Event Name">
                <font>
                   <Font size="28.0" />
                </font>
             </Label>
             <Text fx:id="eventDescription" layoutX="11.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed pharetra velit. Suspendisse potenti. Praesent at tortor elementum, condimentum diam a, fringilla nisi. Nullam convallis cursus dolor, at imperdiet urna maximus nec. Suspendisse porta gravida nisi, ut feugiat turpis laoreet eget. Quisque iaculis laoreet sodales. Mauris dapibus, dolor non auctor mattis, diam nisl feugiat lacus, a eleifend neque felis ac ligula. Fusce lacinia dictum dolor id consectetur." wrappingWidth="680.2699146270752" />
             <Button layoutX="679.0" layoutY="114.0" mnemonicParsing="false" onAction="#handleManageTags" prefHeight="25.0" prefWidth="140.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #CF9FFF;" text="MANAGE TAGS" />
-            <Text fx:id="eventNameText" layoutX="11.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Name" visible="false" wrappingWidth="247.2033748626709">
+            <Text fx:id="eventNameText" layoutX="11.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Name" wrappingWidth="247.2033748626709">
                <font>
                   <Font size="28.0" />
                </font>
@@ -77,61 +77,48 @@
             </ScrollPane>
          </children>
       </Pane>
-      <Pane prefHeight="84.0" prefWidth="1023.0">
+      <Pane prefHeight="84.0" prefWidth="1001.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="83.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1023.0">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="83.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1000.0">
                <effect>
                   <DropShadow height="26.93" radius="6.2325" width="0.0" />
                </effect>
             </Rectangle>
-            <Button layoutX="12.0" layoutY="19.0" mnemonicParsing="false" onAction="#handleHome" prefHeight="44.0" prefWidth="281.0" style="-fx-background-color: transparent; -fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 20;" text="SPLITTY: Going Dutch">
+            <Button layoutX="-18.0" layoutY="19.0" mnemonicParsing="false" onAction="#handleHome" prefHeight="44.0" prefWidth="281.0" style="-fx-background-color: transparent; -fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 20;" text="SPLITTY: Going Dutch">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <ComboBox fx:id="dropDown" layoutX="293.0" layoutY="27.0" prefWidth="150.0" style="-fx-background-color: white;">
+            <ComboBox fx:id="dropDown" layoutX="250.0" layoutY="27.0" prefWidth="150.0" style="-fx-background-color: white;">
                <effect>
                   <DropShadow color="#00000068" height="22.24" radius="10.25" width="20.76" />
                </effect>
             </ComboBox>
-            <Button fx:id="copyInviteCode" layoutX="680.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleCopyInviteCode" style="-fx-background-color: transparent;">
-               <graphic>
-                  <ImageView fitHeight="28.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/copy.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="28.0" layoutX="470.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
-            <Label fx:id="inviteCode" layoutX="476.0" layoutY="25.0" prefHeight="30.0" prefWidth="126.0" text="Invite Code">
+            <ImageView fitHeight="28.0" fitWidth="35.0" layoutX="642.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/copy.png" />
+               </image>
+            </ImageView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="28.0" layoutX="437.0" layoutY="25.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+            <Label fx:id="inviteCode" layoutX="444.0" layoutY="24.0" prefHeight="17.0" prefWidth="185.0" text="Invite Code">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <Button layoutX="15.0" layoutY="29.0" mnemonicParsing="false" onMouseClicked="#clickReturn" prefHeight="25.0" prefWidth="14.0" style="-fx-background-color: transparent;">
+            <Button fx:id="language" layoutX="934.0" layoutY="23.0" mnemonicParsing="false" onAction="#handleLanguage" style="-fx-background-color: transparent;">
                <graphic>
-                  <ImageView fitHeight="16.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/back.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button layoutX="907.0" layoutY="23.0" mnemonicParsing="false" onAction="#handleCurrency" style="-fx-background-color: transparent;">
-               <graphic>
-                  <ImageView fx:id="currency" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: transparent;">
-                     <image>
-                        <Image url="@../icons/currency.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button layoutX="959.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleLanguage" prefHeight="33.0" prefWidth="45.0" style="-fx-background-color: transparent;">
-               <graphic>
-                  <ImageView fx:id="language" fitHeight="40.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/language.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="currency" layoutX="884.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleCurrency" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: transparent;">
+                     <image>
+                        <Image url="@../icons/currency.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -155,16 +142,16 @@
       </Text>
       <Button layoutX="107.0" layoutY="262.0" mnemonicParsing="false" onAction="#handleAddExpenses" prefHeight="25.0" prefWidth="30.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="+" />
       <Button layoutX="149.0" layoutY="262.0" mnemonicParsing="false" onAction="#handleManageExpenses" prefHeight="25.0" prefWidth="126.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #CF9FFF;" text="MANAGE" />
-      <Button layoutX="982.0" layoutY="100.0" mnemonicParsing="false" onAction="#handleAddParticipants" prefHeight="25.0" prefWidth="30.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="+" />
-      <Button layoutX="983.0" layoutY="168.0" mnemonicParsing="false" onAction="#handleAddPayments" prefHeight="25.0" prefWidth="30.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="+" />
-      <Button layoutX="848.0" layoutY="134.0" mnemonicParsing="false" onAction="#handleManageParticipants" prefHeight="25.0" prefWidth="168.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #CF9FFF;" text="MANAGE" />
-      <Button layoutX="848.0" layoutY="199.0" mnemonicParsing="false" onAction="#handleManagePayments" prefHeight="25.0" prefWidth="168.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #CF9FFF;" text="MANAGE" />
+      <Button layoutX="957.0" layoutY="100.0" mnemonicParsing="false" onAction="#handleAddParticipants" prefHeight="25.0" prefWidth="30.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="+" />
+      <Button layoutX="956.0" layoutY="168.0" mnemonicParsing="false" onAction="#handleAddPayments" prefHeight="25.0" prefWidth="30.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="+" />
+      <Button layoutX="848.0" layoutY="134.0" mnemonicParsing="false" onAction="#handleManageParticipants" prefHeight="25.0" prefWidth="139.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #CF9FFF;" text="MANAGE" />
+      <Button layoutX="848.0" layoutY="199.0" mnemonicParsing="false" onAction="#handleManagePayments" prefHeight="25.0" prefWidth="139.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #CF9FFF;" text="MANAGE" />
       <Button layoutX="313.0" layoutY="261.0" mnemonicParsing="false" onAction="#handleOpenDebts" prefHeight="25.0" prefWidth="126.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #FFE761;" text="OPEN DEBTS" />
       <Button layoutX="447.0" layoutY="260.0" mnemonicParsing="false" onAction="#handlePaidOffDebts" prefHeight="25.0" prefWidth="126.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #FFE761;" text="PAID OFF DEBTS" />
       <Pane layoutX="593.0" layoutY="257.0" prefHeight="327.0" prefWidth="411.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="325.0" stroke="BLACK" strokeType="INSIDE" width="415.0" />
-            <PieChart fx:id="expensePieChart" prefHeight="325.0" prefWidth="411.0" title="Statistics" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="325.0" stroke="BLACK" strokeType="INSIDE" width="396.0" />
+            <PieChart fx:id="expensePieChart" prefHeight="325.0" prefWidth="396.0" title="Statistics" />
          </children>
       </Pane>
    </children>

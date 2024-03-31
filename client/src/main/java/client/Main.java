@@ -18,19 +18,7 @@ package client;
 
 import static com.google.inject.Guice.createInjector;
 
-import client.scenes.AddParticipantCtrl;
-import client.scenes.AdminCredentialsCtrl;
-import client.scenes.AdminOverviewCtrl;
-import client.scenes.DeleteEventConfirmationCtrl;
-import client.scenes.DeleteParticipantConfirmationCtrl;
-import client.scenes.EditParticipantCtrl;
-import client.scenes.EventOverviewCtrl;
-import client.scenes.ExpenseOverviewCtrl;
-import client.scenes.ExpenseAddParticipantCtrl;
-import client.scenes.HomeCtrl;
 import client.scenes.MainCtrl;
-import client.scenes.ManageExpenseCtrl;
-import client.scenes.ManageParticipantsCtrl;
 import com.google.inject.Injector;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -41,7 +29,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private static final Injector INJECTOR = createInjector(new MyModule());
-    private static final MyFXML FXML = new MyFXML(INJECTOR);
+    public static final MyFXML FXML = new MyFXML(INJECTOR);
     public static final ConfigManager configManager = new ConfigManager();
 
     public static void main(String[] args) {
@@ -50,38 +38,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        // Scenes
-        var home = FXML.load(HomeCtrl.class, "client", "scenes", "Home.fxml");
-        var adminCredentials =
-            FXML.load(AdminCredentialsCtrl.class,
-                "client", "scenes", "AdminCredentials.fxml");
-        var expenseOverview = FXML.load(ExpenseOverviewCtrl.class, "client", "scenes",
-            "ExpenseOverview.fxml");
-        var eventOverview = FXML.load(EventOverviewCtrl.class,
-            "client", "scenes", "EventOverview.fxml");
-        var manageExpense = FXML.load(ManageExpenseCtrl.class, "client", "scenes",
-            "ManageExpense.fxml");
-        var expenseAddParticipant = FXML.load(ExpenseAddParticipantCtrl.class,"client", "scenes", "ExpenseAddParticipant.fxml");
-        var addParticipant = FXML.load(AddParticipantCtrl.class,
-            "client", "scenes", "AddParticipant.fxml");
-        var manageParticipants = FXML.load(ManageParticipantsCtrl.class,
-            "client", "scenes", "ManageParticipants.fxml");
-        var editParticipant = FXML.load(EditParticipantCtrl.class,
-            "client", "scenes", "EditParticipant.fxml");
-        var deleteParticipantConfirmation = FXML.load(DeleteParticipantConfirmationCtrl.class,
-            "client", "scenes", "DeleteParticipantConfirmation.fxml");
-        var adminOverview = FXML.load(AdminOverviewCtrl.class,
-            "client", "scenes", "AdminOverview.fxml");
-        var deleteEventConfirmation = FXML.load(DeleteEventConfirmationCtrl.class,
-            "client", "scenes", "DeleteEventConfirmation.fxml");
-
-        //step 6 add new page here
-
-
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, FXML, home, adminCredentials, expenseOverview, expenseAddParticipant,
-            eventOverview,
-            manageExpense, addParticipant, manageParticipants, editParticipant,
-            deleteParticipantConfirmation, adminOverview, deleteEventConfirmation);
+        mainCtrl.initialize(primaryStage, FXML);
     }
 }

@@ -6,6 +6,7 @@ import commons.Person;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -13,7 +14,7 @@ import javafx.scene.control.TextField;
 /**
  * EditParticipant popup.
  */
-public class EditParticipantCtrl {
+public class EditParticipantCtrl implements Initializable {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
     private ResourceBundle resources;
@@ -24,7 +25,7 @@ public class EditParticipantCtrl {
         this.mainCtrl = mainCtrl;
     }
 
-    //@Override
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
     }
@@ -34,9 +35,6 @@ public class EditParticipantCtrl {
 
     @FXML
     private TextField bicTextField;
-
-    @FXML
-    private Button cross;
 
     @FXML
     private Button editBic;
@@ -89,11 +87,7 @@ public class EditParticipantCtrl {
     @FXML
     private Button save;
 
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String iban;
-    private String bic;
+    private Person person;
 
     @FXML
     private void editFirstName() {
@@ -136,52 +130,93 @@ public class EditParticipantCtrl {
         bicTextField.requestFocus(); // Set focus to TextField
     }
 
-    @SuppressWarnings("checkstyle:EmptyBlock")
     @FXML
     private void save() {
         System.out.println("Save.");
         if (firstNameTextField.isVisible()) {
-            firstName = firstNameTextField.getText();
+            person.setFirstName(firstNameTextField.getText());
+            server.updatePerson(person);
+            populate();
+            mainCtrl.updateAll();
+            firstNameTextField.setVisible(false);
+            firstNameLabel.setVisible(true);
         }
         if (lastNameTextField.isVisible()) {
-            lastName = lastNameTextField.getText();
+            person.setLastName(lastNameTextField.getText());
+            server.updatePerson(person);
+            populate();
+            mainCtrl.updateAll();
+            lastNameTextField.setVisible(false);
+            lastNameLabel.setVisible(true);
         }
         if (emailTextField.isVisible()) {
-            if (Person.emailCheck(emailTextField.getText())) {
-                email = emailTextField.getText();
+            if (emailTextField.getText().isBlank() || Person.emailCheck(emailTextField.getText())) {
+                person.setEmail(emailTextField.getText());
+                server.updatePerson(person);
+                populate();
+                mainCtrl.updateAll();
+                emailTextField.setVisible(false);
+                emailLabel.setVisible(true);
                 invalidEmailMessage.setVisible(false);
             } else {
                 invalidEmailMessage.setVisible(true);
             }
         }
         if (ibanTextField.isVisible()) {
-            if (ibanTextField.getText().isEmpty() || Person.ibanCheckSum(ibanTextField.getText())) {
-                iban = ibanTextField.getText();
+            if (ibanTextField.getText().isBlank() || Person.ibanCheckSum(ibanTextField.getText())) {
+                person.setIban(ibanTextField.getText());
+                server.updatePerson(person);
+                populate();
+                mainCtrl.updateAll();
+                ibanTextField.setVisible(false);
+                ibanLabel.setVisible(true);
                 invalidIbanMessage.setVisible(false);
             } else {
                 invalidIbanMessage.setVisible(true);
             }
         }
         if (bicTextField.isVisible()) {
-            if (bicTextField.getText().isEmpty() || Person.bicCheck(bicTextField.getText())) {
-                bic = bicTextField.getText();
+            if (bicTextField.getText().isBlank() || Person.bicCheck(bicTextField.getText())) {
+                person.setBic(bicTextField.getText());
+                server.updatePerson(person);
+                populate();
+                mainCtrl.updateAll();
+                bicTextField.setVisible(false);
+                bicLabel.setVisible(true);
                 invalidBicMessage.setVisible(false);
             } else {
                 invalidBicMessage.setVisible(true);
             }
         }
+    }
 
-        if (!invalidEmailMessage.isVisible()
-                && !invalidIbanMessage.isVisible()
-                && !invalidBicMessage.isVisible()) {
-            // TODO: Store the updated Participant in this Event.
-            // TODO: Go back to the ManageParticipants scene.
+    /**
+     * Populate the screen.
+     */
+    public void populate() {
+        if (this.person == null) {
+            return;
         }
+        firstNameLabel.setText(person.getFirstName());
+        lastNameLabel.setText(person.getLastName());
+        emailLabel.setText(person.getEmail());
+        ibanLabel.setText(person.getIban());
+        bicLabel.setText(person.getBic());
     }
 
-    @FXML
-    private void cross() {
-        // TODO: Go back to the ManageParticipants scene.
+    /**
+     * Update the current person.
+     */
+    public void refetch() {
+        if (this.person == null) {
+            return;
+        }
+        this.person = server.getPersonById(person.getId());
+        populate();
     }
 
+    public void update(Person person) {
+        this.person = person;
+        populate();
+    }
 }

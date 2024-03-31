@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +25,8 @@ not initialized anywhere. This ignores unknown fields.*/
 public class Expense {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    String id;
     String description;
     @ManyToMany
     List<Person> participants;
@@ -128,9 +129,11 @@ public class Expense {
      * @return the share a person needs to pay for this expense;
      */
     public BigDecimal getShare() {
-        int totalNoParticipants = participants.size() + 1;
-        // TODO: return (Money) paid/totalNoParticipants
-        return null;
+        BigDecimal totalNoParticipants = new BigDecimal(participants.size() + 1);
+        // TODO:
+        // what should it return when it's 10/3? 3.33 or maybe use a fraction?
+        // if not then what is the scale?
+        return paid.divide(totalNoParticipants, 2, RoundingMode.HALF_UP);
     }
 
     @Override
@@ -195,7 +198,7 @@ public class Expense {
         this.paymentDateTime = dateOfPayment;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 }

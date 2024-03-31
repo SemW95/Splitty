@@ -12,8 +12,8 @@ import java.util.Objects;
 @Entity
 public class Colour {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    String id;
     int red;
     int green;
     int blue;
@@ -166,7 +166,7 @@ public class Colour {
         return "Colour{" + "red=" + red + ", green=" + green + ", blue=" + blue + '}';
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 }

@@ -25,7 +25,7 @@ public class EventService {
     }
 
     /**
-     * null checks the searched event.
+     * Finds an event by its code. May return null
      *
      * @param code of the event
      * @return Event that was searched
@@ -34,16 +34,10 @@ public class EventService {
         Optional<Event> optionalEvent = eventRepository
             .findByCode(code);
 
-        if (optionalEvent.isEmpty()) {
-            throw new IllegalStateException(
-                "There is no event with this code"
-            );
-        }
-
-        return optionalEvent.get();
+        return optionalEvent.orElse(null);
     }
 
-    public void deleteEvent(Long id) {
+    public void deleteEvent(String id) {
         eventRepository.deleteById(id);
     }
 
@@ -52,9 +46,18 @@ public class EventService {
      *
      * @param event the event to be created.
      */
-    public void createEvent(Event event) {
-        if (eventRepository.findById(event.getId()).isEmpty()) {
-            eventRepository.save(event);
+    public Event createEvent(Event event) {
+        if (event.getId() == null || !eventRepository.existsById(event.getId())) {
+            return eventRepository.save(event);
         }
+        return null;
+    }
+
+    public Event getEventById(String id) {
+        return eventRepository.findById(id).orElse(null);
+    }
+
+    public void updateEvent(Event event) {
+        eventRepository.save(event);
     }
 }

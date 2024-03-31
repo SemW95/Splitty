@@ -23,7 +23,7 @@ public class ExpenseService {
         return expenseRepository.findAll();
     }
 
-    public void deleteExpense(long id) {
+    public void deleteExpense(String id) {
         expenseRepository.deleteById(id);
     }
 
@@ -33,7 +33,7 @@ public class ExpenseService {
      * @param expense the expense to be created.
      */
     public void createExpense(Expense expense) {
-        if (expenseRepository.findById(expense.getId()).isEmpty()) {
+        if (expense.getId() != null || expenseRepository.findById(expense.getId()).isEmpty()) {
             expenseRepository.save(expense);
         }
     }
@@ -46,5 +46,9 @@ public class ExpenseService {
     public void updateExpense(Expense expense) {
         expenseRepository.save(expense);
 
+    }
+
+    public Expense getExpenseById(String id) {
+        return expenseRepository.findById(id).orElse(null);
     }
 }

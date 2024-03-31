@@ -33,7 +33,7 @@ public class ColourRepositoryTest {
 
     @Test
     void findColourById() {
-        Colour colour = colourRepository.findColourById(colourTest.getId()).orElse(null);
+        Colour colour = colourRepository.findById(colourTest.getId()).orElse(null);
         assertNotNull(colour);
         assertEquals(colourTest.getRed(), colour.getRed());
         assertEquals(colourTest.getGreen(), colour.getGreen());
