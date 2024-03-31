@@ -24,20 +24,49 @@ public class EventService {
         return eventRepository.findAll();
     }
 
-    /**
-     * Finds an event by its code. May return null
+    /** Finds an event by its code.
+     *
+     * @param id of the event
+     * @return Event that was searched
+     * @throws IllegalStateException When no Event with the given id is present
+     */
+    public Event getEventById(String id) {
+        Optional<Event> optionalEvent = eventRepository
+            .findById(id);
+
+        if (optionalEvent.isEmpty()) {
+            throw new IllegalStateException("There is no Event with this id");
+        }
+
+        return optionalEvent.get();
+    }
+
+    /** Finds an event by its code.
      *
      * @param code of the event
      * @return Event that was searched
+     * @throws IllegalStateException When no Event with the given id is present
      */
-    public Event getEventByCode(String code) {
+    public Event getEventByCode(String code) throws IllegalStateException {
         Optional<Event> optionalEvent = eventRepository
             .findByCode(code);
 
-        return optionalEvent.orElse(null);
+        if (optionalEvent.isEmpty()) {
+            throw new IllegalStateException("There is no Event with this id");
+        }
+
+        return optionalEvent.get();
     }
 
+    /** Deletes an Event based on its id.
+     *
+     * @param id The id of the Event that should be deleted
+     */
     public void deleteEvent(String id) {
+        if (eventRepository.existsById(id)) {
+            throw new IllegalStateException("There isn't an Event with this code");
+        }
+
         eventRepository.deleteById(id);
     }
 
@@ -51,10 +80,6 @@ public class EventService {
             return eventRepository.save(event);
         }
         return null;
-    }
-
-    public Event getEventById(String id) {
-        return eventRepository.findById(id).orElse(null);
     }
 
     public void updateEvent(Event event) {
