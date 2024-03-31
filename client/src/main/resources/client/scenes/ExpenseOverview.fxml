@@ -11,18 +11,18 @@
 
 <AnchorPane fx:id="rootAnchorPane" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.ExpenseOverviewCtrl">
    <children>
-      <Label fx:id="expenseNameLabel" contentDisplay="RIGHT" graphicTextGap="12.5" layoutX="25.0" layoutY="25.0" text="Expense Name">
+      <Label fx:id="expenseNameLabel" contentDisplay="RIGHT" graphicTextGap="12.5" layoutX="74.0" layoutY="25.0" text="Expense Name">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="expenseAmountLabel" layoutX="25.0" layoutY="60.0" text="\$ 230,15">
+      <Label fx:id="expenseAmountLabel" layoutX="74.0" layoutY="60.0" text="\$ 230,15">
          <font>
             <Font size="32.0" />
          </font>
       </Label>
-      <Button onAction="#onAddParticipantClicked" fx:id="addParticipantButton" layoutX="525.0" layoutY="550.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="450.0" style="-fx-background-color: #c4fffe; -fx-padding: 4px 8px; -fx-text-fill: #769e9d; -fx-border-radius: 12px; -fx-background-radius: 12px;" text="ADD PARTICIPANT" textFill="#769e9d" />
-      <Button onAction="#onManageClicked" fx:id="manageButton" layoutX="25.0" layoutY="550.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="450.0" style="-fx-background-color: ffde83; -fx-padding: 4px 8px; -fx-text-fill: #867544; -fx-border-radius: 12px; -fx-background-radius: 12px;" text="MANAGE" textFill="#867544" />
+      <Button fx:id="addParticipantButton" layoutX="525.0" layoutY="550.0" mnemonicParsing="false" onAction="#onAddParticipantClicked" prefHeight="25.0" prefWidth="450.0" style="-fx-background-color: #c4fffe; -fx-padding: 4px 8px; -fx-text-fill: #769e9d; -fx-border-radius: 12px; -fx-background-radius: 12px;" text="ADD PARTICIPANT" textFill="#769e9d" />
+      <Button fx:id="manageButton" layoutX="25.0" layoutY="550.0" mnemonicParsing="false" onAction="#onManageClicked" prefHeight="25.0" prefWidth="450.0" style="-fx-background-color: ffde83; -fx-padding: 4px 8px; -fx-text-fill: #867544; -fx-border-radius: 12px; -fx-background-radius: 12px;" text="MANAGE" textFill="#867544" />
       <Label fx:id="participantCountLabel" contentDisplay="RIGHT" layoutX="935.0" layoutY="60.0" text="5">
          <font>
             <Font size="24.0" />
@@ -30,7 +30,7 @@
          <graphic>
             <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../icons/users.png" />
+                  <Image url="@client/icons/users.png" />
                </image>
             </ImageView>
          </graphic>
@@ -40,5 +40,14 @@
             <FlowPane fx:id="participantsFlowPane" layoutX="25.0" layoutY="132.0" prefHeight="400.0" prefWidth="950.0" />
          </content>
       </ScrollPane>
+      <Button fx:id="backButton" layoutX="25.0" layoutY="25.0" mnemonicParsing="false" onMouseClicked="#handleExit" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@client/icons/back.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>
