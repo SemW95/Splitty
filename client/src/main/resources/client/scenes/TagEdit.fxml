@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="259.0" prefWidth="440.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.TagEditCtrl">
+   <children>
+      <Label layoutX="45.0" layoutY="38.0" text="Name of the tag" />
+      <TextField fx:id="nameTextField" layoutX="162.0" layoutY="34.0" />
+      <Label layoutX="45.0" layoutY="78.0" text="Colour of the tag" />
+      <TextField fx:id="colourTextField" layoutX="162.0" layoutY="83.0" />
+      <Label layoutX="47.0" layoutY="92.0" text="(use Hex String)" />
+      <Button fx:id="save" layoutX="315.0" layoutY="174.0" mnemonicParsing="false" text="Save" />
+      <Button fx:id="close" layoutX="387.0" layoutY="10.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0">
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/close.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>
