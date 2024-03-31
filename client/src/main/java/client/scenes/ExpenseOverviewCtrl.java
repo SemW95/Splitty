@@ -12,8 +12,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 /**
@@ -101,6 +104,19 @@ public class ExpenseOverviewCtrl implements Initializable {
         Font globalFont = new Font("System Bold", 24);
         participantLabel.setFont(globalFont);
         participantLabel.setLayoutX(12.5);
+        participantLabel.setMaxWidth(401);
+
+
+        ImageView lockedImage = new ImageView(new Image("client/icons/locked.png"));
+        lockedImage.setLayoutX(426);
+        lockedImage.setLayoutY(13);
+        lockedImage.setFitHeight(24);
+        lockedImage.setFitWidth(24);
+        card.getChildren().add(lockedImage);
+
+        participantLabel.setTextFill(Color.valueOf("#636363"));
+
+
         participantLabel.setLayoutY(7.5);
 
         card.getChildren().add(participantLabel);
@@ -127,6 +143,8 @@ public class ExpenseOverviewCtrl implements Initializable {
         participantLabel.setFont(globalFont);
         participantLabel.setLayoutX(12.5);
         participantLabel.setLayoutY(7.5);
+        participantLabel.setMaxWidth(401);
+
 
         card.getChildren().add(participantLabel);
         return card;
@@ -135,9 +153,7 @@ public class ExpenseOverviewCtrl implements Initializable {
 
     @FXML
     private void onAddParticipantClicked() {
-        // TODO go to add participant UI
-        System.out.println("Pressed add participant button.");
-        handleExit();
+        mainCtrl.showExpenseAddParticipantPopup(expense, event);
     }
 
     @FXML
@@ -174,4 +190,6 @@ public class ExpenseOverviewCtrl implements Initializable {
         this.event = event;
         populate();
     }
+
+
 }
