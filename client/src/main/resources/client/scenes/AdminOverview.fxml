@@ -15,9 +15,9 @@
       fx:controller="client.scenes.AdminOverviewCtrl">
     <children>
         <Label layoutX="151.0" layoutY="90.0" text="Order by"/>
-        <ChoiceBox fx:id="orderByChoiceBox" onAction="#populate" layoutX="151.0" layoutY="106.0" prefWidth="150.0"/>
+        <ChoiceBox fx:id="orderByChoiceBox" onAction="#refetch" layoutX="151.0" layoutY="106.0" prefWidth="150.0"/>
         <Label layoutX="316.0" layoutY="90.0" text="Direction"/>
-        <ChoiceBox fx:id="directionChoiceBox" onAction="#populate" layoutX="316.0" layoutY="106.0" prefWidth="150.0"/>
+        <ChoiceBox fx:id="directionChoiceBox" onAction="#refetch" layoutX="316.0" layoutY="106.0" prefWidth="150.0"/>
         <Button layoutX="710.0" layoutY="106.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="140.0"
                 text="Import event" onAction="#handleImportEvent"/>
         <ImageView fitHeight="31.0" fitWidth="31.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true"

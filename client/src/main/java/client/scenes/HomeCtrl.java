@@ -16,11 +16,14 @@
 
 package client.scenes;
 
+import static client.utils.PaneCreator.createEventItem;
 
+import client.Main;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Event;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -29,8 +32,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
-
+import javafx.scene.layout.VBox;
 
 /**
  * Home screen.
@@ -42,11 +44,11 @@ public class HomeCtrl implements Initializable {
     private ResourceBundle resources;
 
     @FXML
-    private ListView<Event> listView;
-    private List<Event> eventList;
+    private ComboBox<String> dropDown;
 
     @FXML
-    private ComboBox<String> dropDown;
+    private VBox eventList;
+    private List<Event> events;
 
     @Inject
     public HomeCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -60,7 +62,7 @@ public class HomeCtrl implements Initializable {
 
         /*
         Makes options for the dropdown menu
-        TODO should call actual servers and handle these options
+        TODO should set a new server in the config file and ask to reboot
         */
         ObservableList<String> options = FXCollections.observableArrayList(
             "Server 1",
@@ -73,10 +75,37 @@ public class HomeCtrl implements Initializable {
 
     /**
      * Gets called on showHome to request data.
+     * It reads all stored event codes from config files and iterates through them.
      */
-    public void getData() {
-        eventList = server.getEvents();
-        listView.getItems().addAll(eventList);
+    public void refetch() {
+        events = new ArrayList<>();
+
+        for (String code : Main.configManager.getCodes()) {
+            Event event = server.getEventByCode(code);
+            if (event != null) {
+                events.add(event);
+            } else {
+                Main.configManager.removeCode(code);
+            }
+        }
+
+        populate();
+    }
+
+    /**
+     * Populate the screen.
+     */
+    public void populate() {
+        if (events == null) {
+            return;
+        }
+        eventList.getChildren()
+            .setAll(
+                events.stream().map(e -> createEventItem(e, this::handleClickEvent)).toList());
+    }
+
+    private void handleClickEvent(Event event) {
+        mainCtrl.showEventOverview(event, false);
     }
 
     /**

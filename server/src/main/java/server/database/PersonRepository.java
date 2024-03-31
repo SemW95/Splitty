@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
  * Repository Interface for the Person Class.
  */
 @Repository
-public interface PersonRepository extends JpaRepository<Person, Long> {
+public interface PersonRepository extends JpaRepository<Person, String> {
 
     List<Person> findByFirstName(String firstName);
 

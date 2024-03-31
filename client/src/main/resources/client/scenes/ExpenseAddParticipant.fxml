@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootAnchorPane" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.ExpenseAddParticipantCtrl">
+   <children>
+      <Label fx:id="expenseNameLabel" contentDisplay="RIGHT" graphicTextGap="12.5" layoutX="25.0" layoutY="25.0" text="Expense Name">
+         <font>
+            <Font name="System Bold" size="48.0" />
+         </font>
+      </Label>
+      <Label layoutX="25.0" layoutY="100.0" text="Available participants">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <ScrollPane layoutX="25.0" layoutY="150.0" prefHeight="400.0" prefWidth="475.0" style="-fx-vbar-policy: NEVER; -fx-hbar-policy: never;">
+         <content>
+            <FlowPane fx:id="availableParticipants" layoutX="25.0" layoutY="150.0" prefHeight="400.0" prefWidth="475.0" />
+         </content>
+      </ScrollPane>
+      <Label layoutX="500.0" layoutY="100.0" text="Current Participants">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <ScrollPane layoutX="500.0" layoutY="150.0" prefHeight="400.0" prefWidth="475.0" style="-fx-vbar-policy: NEVER; -fx-hbar-policy: never;">
+         <content>
+            <FlowPane fx:id="currentParticipants" layoutX="25.0" layoutY="150.0" prefHeight="400.0" prefWidth="475.0" />
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

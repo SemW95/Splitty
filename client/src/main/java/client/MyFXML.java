@@ -16,6 +16,7 @@
 
 package client;
 
+import client.utils.CsPair;
 import com.google.inject.Injector;
 import java.io.IOException;
 import java.net.URL;
@@ -59,13 +60,35 @@ public class MyFXML {
      * @param <T>   type of the controller class, I think
      * @return a pair of a controller and scene
      */
-    public <T> Pair<T, Parent> load(Class<T> c, String... parts) {
+    public <T> CsPair<T> load(Class<T> c, String... parts) {
         try {
             var loader = new FXMLLoader(getLocation(parts), bundle, null, new MyFactory(),
                 StandardCharsets.UTF_8);
             Parent parent = loader.load();
             T ctrl = loader.getController();
-            return new Pair<>(ctrl, parent);
+            return new CsPair<>(ctrl, parent);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Loads components.
+     *
+     * @param c     The controller
+     * @param parts An array of strings representing the location of the FXML file
+     *              and any additional parts.
+     * @return      A Pair containing the loaded controller of type T and the root node
+     *              of the loaded component.
+     */
+
+    public <T> Pair<T, Parent> loadComponent(Class<T> c, String... parts) {
+        var loader = new FXMLLoader(getLocation(parts), bundle);
+        T controller = injector.getInstance(c);
+        loader.setController(controller);
+        try {
+            Parent parent = loader.load();
+            return new Pair<>(controller, parent);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

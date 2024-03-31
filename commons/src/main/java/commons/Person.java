@@ -42,14 +42,14 @@ import java.util.regex.Pattern;
 public class Person {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
-    public String firstName;
-    public String lastName;
-    public String email;
-    public String iban;
-    public String bic;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String iban;
+    private String bic;
 
     /**
      * Makes the Person class.
@@ -63,20 +63,9 @@ public class Person {
     public Person(String firstName, String lastName, String email, String iban, String bic) {
         this.firstName = firstName;
         this.lastName = lastName;
-        if (!emailCheck(email)) {
-            throw new IllegalArgumentException("invalid email syntax");
-        }
-        this.email = email;
-
-        if (!ibanCheckSum(iban)) {
-            throw new IllegalArgumentException("invalid iban syntax");
-        }
-        this.iban = iban;
-
-        if (!bicCheck(bic)) {
-            throw new IllegalArgumentException("invalid bic syntax");
-        }
-        this.bic = bic;
+        setEmail(email);
+        setIban(iban);
+        setBic(bic);
     }
 
 
@@ -124,24 +113,29 @@ public class Person {
         return checkSum % 97 == 1;
     }
 
-
-    /** Validates a given BIC and only uses the API when the api is available.
+    /**
+     * Validates the structure of a given BIC using Regex.
      *
      * @param bic takes a bic number
      * @return a boolean if it is a correct/existing bic.
      */
     public static boolean bicCheck(String bic) {
-        return bicCheck(bic, false);
+        // https://en.wikipedia.org/wiki/ISO_9362#Structure
+        String bicRegex = "^[A-Za-z]{4}[A-Za-z]{2}[A-Za-z0-9]{2}([A-Za-z0-9]{3})?$";
+        Pattern pattern = Pattern.compile(bicRegex);
+        Matcher bicMatcher = pattern.matcher(bic);
+        return bicMatcher.matches();
     }
 
-
-    /** Validates a given BIC.
+    /**
+     * Validates a given BIC with an API. So it takes a while
+     * Calling this method many times in a short period
+     * will cause it get rate limited.
      *
      * @param bic takes a bic number
-     * @param reqApi throws an error if the API cannot be reached
      * @return a boolean if it is a correct/existing bic.
      */
-    public static boolean bicCheck(String bic, boolean reqApi) {
+    public static boolean additionalBicCheck(String bic) {
         String apiToken = "0b410729c58bc9485ff66701376d7ecab989b125";
         String urlString = "https://aaapis.com/api/v1/validate/bic/";
         String jsonInputString = "{\"bic_number\": \"" + bic + "\"}";
@@ -154,14 +148,7 @@ public class Person {
                 return jsonResponse.contains("\"valid\":true");
             }
         } catch (Exception e) {
-            if (reqApi) {
-                throw new RuntimeException();
-            }
-            // https://en.wikipedia.org/wiki/ISO_9362#Structure
-            String bicRegex = "^[A-Za-z]{4}[A-Za-z]{2}[A-Za-z0-9]{2}([A-Za-z0-9]{3})?$";
-            Pattern pattern = Pattern.compile(bicRegex);
-            Matcher bicMatcher = pattern.matcher(bic);
-            return bicMatcher.matches();
+            throw new RuntimeException(e);
         }
     }
 
@@ -191,7 +178,7 @@ public class Person {
      */
     public static boolean emailCheck(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]"
-                + "+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+            + "+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         Pattern pattern = Pattern.compile(emailRegex);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
@@ -229,8 +216,8 @@ public class Person {
      * @param iban new iban for person
      */
     public void setIban(String iban) {
-        if (ibanCheckSum(iban)) {
-            this.iban = iban;
+        if (iban == null || iban.isBlank() || ibanCheckSum(iban)) {
+            this.iban = iban == null ? "" : iban;
         } else {
             throw new IllegalArgumentException("This is not a valid IBAN");
         }
@@ -246,14 +233,14 @@ public class Person {
      * @param bic new BIC of person.
      */
     public void setBic(String bic) {
-        if (bicCheck(bic)) {
-            this.bic = bic;
+        if (bic == null || bic.isBlank() || bicCheck(bic)) {
+            this.bic = bic == null ? "" : bic;
         } else {
             throw new IllegalArgumentException("This is an incorrect BIC");
         }
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
@@ -283,9 +270,8 @@ public class Person {
      * @param email new email for Person
      */
     public void setEmail(String email) {
-        boolean check = emailCheck(email);
-        if (check) {
-            this.email = email;
+        if (email == null || email.isBlank() || emailCheck(email)) {
+            this.email = email == null ? "" : email;
         } else {
             throw new IllegalArgumentException("The provided email is not a valid email");
         }
@@ -310,5 +296,14 @@ public class Person {
     @Override
     public int hashCode() {
         return Objects.hash(firstName, lastName, email, iban, bic);
+    }
+
+    /**
+     * Set the id. Should be only used for testing purposes.
+     *
+     * @param id the new id
+     */
+    public void setId(String id) {
+        this.id = id;
     }
 }
