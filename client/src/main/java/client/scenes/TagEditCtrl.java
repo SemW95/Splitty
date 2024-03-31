@@ -6,6 +6,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+/**
+ * Controller of TagEdit Popup.
+ */
 public class TagEditCtrl {
     @FXML
     private Button close;
