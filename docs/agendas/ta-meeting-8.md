@@ -1,68 +1,87 @@
-| Key | Value                              |
-| --- |------------------------------------|
-| Date: | 02-04-2024                         |
-| Time: | 13:45 - 14:30 (45 min)             |
-| Location: | Drebbelweg-PC Hall 1 Cubicle nr. 7 |
-| Chair | Wing Wong                          |
+| Key          | Value                              |
+| ------------ | ---------------------------------- |
+| Date:        | 02-04-2024                         |
+| Time:        | 13:45 - 14:30 (45 min)             |
+| Location:    | Drebbelweg-PC Hall 1 Cubicle nr. 7 |
+| Chair        | Wing Wong                          |
 | Minute Taker | Rens Pols                          |
-| Attendees: | Wing Wong                          |
-|            | Xiaoyu Du                          |
-|            | Rens Pols                          |
-|            | Lukas Milieška                     |
-|            | Sem van der Weijden                |
-|            | Eva Miesen                         |
+| Attendees:   | Wing Wong                          |
+|              | Xiaoyu Du                          |
+|              | Rens Pols                          |
+|              | Lukas Milieška                     |
+|              | Sem van der Weijden                |
+|              | Eva Miesen                         |
+
 ## START (5 min) 13:45
+
 - **Opening by chair (1 min)**
-- **Check-in: How is everyone doing? (1 min)**
-    - Did everybody's task feel managable?
-- **Any unaddressed announcements by the team (2 min)**
-- **Summary of work (3 min)**
-    - Connecting Scenes to one another
-- **Remaining Gitlab Issues (2 min)**
-    - !LOOK AT ISSUES IN GITLAB
+- **Check-in: How is everyone doing? (1 min)- Did everybody's task feel managable?**
 - **Approval of last minutes - Did everyone read the minutes from the previous meeting? (1 min)**
-    - Are there any questions?
+- **Remaining Gitlab Issues (2 min)**
+
+  - !LOOK AT ISSUES IN GITLAB
+
 - **Announcements by the TA (1 min)**
 
 ## Talking Points (35 min) 13:50
-- **Vital goals (5 min)**
-  - MVP by sixth of April - is this still a realistic goal?
-  - Final coding deadline end of week 9 -> 14 April?
+
+- **Summary of work (3 min)**
+  - Initialize Tag Creation UI (Xiaoyu Du)
+  - DEMO Home Screen UI (Sem van der Weijden)
+  - Integration Testing (Rens Pols & Sem)
+  - DEMO Finalize Event Overview (Eva Miesen) - Making a seperate component for the expense card (since high detail)
+  - DEMO Finalize Expense Overview & Manager - address last weeks remarks + improvements (Wing Wong)
+  - DEMO Initialize and Finalize new Expense Add Participant (Wing Wong)
+  - Config file for storage of persistence of events by their code (Sem van der Weijden)
+  - DEMO Connecting Scenes & Simplified pop-ups and scene handling (Lukas Milieška)
+- **Bigger Picture (5 min)**
+  - Final coding deadline 14 April (end of week 9) - Can the TA confirm this official deadline?
   - Final Product Pitch 18th April 14:40
-- **Human Computer Interactions(5 min)**
-  - Keyboard Shortcuts
-  - Keyboard Navigation
-  - Supporting Undo Actions
-  - Error Messages
-    - related to illegal characters in forms?
-  - Informative Feedback
-    - Confirmation dialogue pop-ups
-- **Technology(10 min)**
-    - Spring Boot
-      - @Services are defined, encapsulating business logic or shared states
-    - JavaFX
-      - JavaFX controllers for dependency Injection
-    - Communication
-      - Define all REST and webservice endpoints through Spring
-      - Use a client library like Jersey (Rest) or Stomp (Webservice) (These two simplify server requests)
-- **Testing(10 min)**
-    - Coverage
-      - Code coverage above 80%
-    - Unit Testing
-      - Configurable subclasses to replace components we depend on in tests, for most tests
-    - Endpoint Testing
-      - Automated tests that cover regular & exceptional usage of endpoints
-- Unfinished Business from Last Week's Sprint
-  - Connecting Scenes finished?
-- What will be done by whom, when?
-  - focus-1
-  - focus-2
-  - focus-3
+  - What did we fail on, except what we have already addressed?
+    - **Human Computer Interactions(5 min)**
+      - Keyboard Navigation - Tab navigation
+      - Supporting Undo Actions - Ctrl + Z
+      - Error Messages - Invalid Syntax warning
+      - Informative Feedback - Confirmation dialogue pop-ups
+    - **Technology** (Done)
+    - **Testing(10 min)**
+      - Coverage
+        - Test coverage above 80% (high priority (as stressed by TA))
+      - Unit Testing
+        - Configurable subclasses to replace components we depend on in tests, for most tests - Ask TA what is meant
+      - Endpoint Testing
+        - Automated tests that cover regular & exceptional usage of endpoints - no progress yet
+- **This week's sprint ordered by importance and star difficulty rating**
+
+  - Join by invite code ★☆☆☆☆(person)
+  - Event Creation UI ★★☆☆☆(person)
+  - Event Rename UI ★★☆☆☆(person)
+  - Event Manage Participants UI ★★☆☆☆ (person)
+  - Debt logic and UI ★★★★☆(person)
+  - Server address in config ★☆☆☆☆ (person)
+  - Language Switching ★★★★☆(person)
+  - Websockets and long-polling ★★★☆☆ (person x2)
+  - Endpoint Testing ★★★☆☆(everyone should learn this)
+  - Keyboard Shortcuts:
+    - Keyboard Undo ★★★★★(person) - ctrl z
+    - Keyboard Navigation ★★★★☆(person) tab, enter, escape
+  - Expand error alert coverage ★★☆☆☆ (everyone should add it to the UI's they made)
+  - Confirm pop-ups ★★☆☆☆ (everyone should add it to the UI's they made) for Informative Feedback Rubric
+  - Switch all ImageView elements ★☆☆☆☆(person) to use class path
+  - Clientside Testing (everyone) TestFX
+
+  Sprint W9 expectations
+
+  - Finalize Product Pitch ★★★★☆ Slides, Demo, Script(Sem, Eva, Lukas, Xiaoyu, Rens, Wing)
+
+  - MVP by sixth of April - is this still a realistic goal?
+
 - **NOTE: anything that was skipped or unclear will be discussed in detail after the TA meeting.**
 
-
 ## Wrapping Up (5 min) 13:25
+
 - **Next Chair and Minute Taker**
 - **Feedback round: What went well this sprint and what can be improved for the next sprint? (3 min)**
+- address what large-scale changes we would make if we could start over
 - **Any Questions?: Does anyone have anything to add before the meeting closes? (2 min)**
 - **Closure (1 min)**
