@@ -124,8 +124,10 @@ public class ExpenseAddParticipantCtrl implements Initializable {
                 currentParticipants.getChildren().remove(card);
                 addParticipantCardToAvailableParticipantFlowPane(participant);
 
-                statusLabel.setText("Successfully removed " +
-                    participant.getFirstName() +
+                statusLabel.setText("Successfully removed "
+                    +
+                    participant.getFirstName()
+                    +
                     " from this expense.");
 
                 currentParticipants.requestLayout();
@@ -206,8 +208,10 @@ public class ExpenseAddParticipantCtrl implements Initializable {
 
                 availableParticipants.requestLayout();
                 currentParticipants.requestLayout();
-                statusLabel.setText("Successfully added " +
-                    participant.getFirstName() +
+                statusLabel.setText("Successfully added "
+                    +
+                    participant.getFirstName()
+                    +
                     " to this expense.");
 
                 server.updateExpense(this.expense);
@@ -236,7 +240,7 @@ public class ExpenseAddParticipantCtrl implements Initializable {
         populate();
     }
 
-    public void defaultStatus (){
+    public void defaultStatus() {
         statusLabel.setText("No pending changes have been made.");
     }
 }
