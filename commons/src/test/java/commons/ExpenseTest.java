@@ -24,9 +24,11 @@ class ExpenseTest {
         person1 = new Person("Alice", "needs a surname", "Alice@domain.com",
             "AL35202111090000000001234567",
             "ZUOBJEO6XXX");
+        person1.setId("person1");
         person2 = new Person("John", "needs a surname", "Alice@domain.com",
             "AD1400080001001234567890",
             "ZUOBJEO6XXX");
+        person2.setId("person2");
 
         tag1 = new Tag("Food", new Colour("#0000FF"));
         tag2 = new Tag("Drinks", new Colour("#FFC0CB"));

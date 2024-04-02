@@ -88,6 +88,7 @@ server:service:test:
       - TEST_CLASS:
           - "PersonServiceTest"
           - "PaymentServiceTest"
+          - "ExpenseServiceTest"
 
 server:controller:test:
   stage: test
@@ -100,6 +101,7 @@ server:controller:test:
       - TEST_CLASS:
           - "PersonControllerTest"
           - "PaymentControllerTest"
+          - "ExpenseControllerTest"
 
 coverageReport:
   stage: coverageReport

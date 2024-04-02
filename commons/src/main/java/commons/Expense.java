@@ -75,6 +75,25 @@ public class Expense {
     }
 
     /**
+     * Creates the Expense class with a date and a Tag.
+     *
+     * @param receiver        The Person that has paid for the Expense.
+     * @param paid            The amount that the Person paid for the Expense.
+     * @param paymentDateTime Creation date of the Expense.
+     * @param tag             The Tag for the Expense
+     */
+    public Expense(Person receiver, BigDecimal paid, Instant paymentDateTime, Tag tag) {
+        this(
+            "",
+            new ArrayList<Person>(),
+            receiver,
+            paid,
+            tag,
+            paymentDateTime
+        );
+    }
+
+    /**
      * The Expense constructor used for imports.
      *
      * @param description     The description of this Expense
@@ -129,7 +148,7 @@ public class Expense {
      * @throws IllegalStateException When there already is a Person with that id present
      */
     public void addParticipant(Person participant) throws IllegalStateException {
-        if (containsPersonWithId(participant.getId())) {
+        if (!containsPersonWithId(participant.getId())) {
             participants.add(participant);
         } else {
             throw new IllegalStateException(
@@ -244,8 +263,16 @@ public class Expense {
         this.paid = paid;
     }
 
-    public Tag getTag() {
-        return tag;
+    /** Returns the Tag when it isn't null, otherwise throws a NullPointerException.
+     *
+     * @return The Tag of this Expense
+     * @throws NullPointerException When no Tag is present in this Expense
+     */
+    public Tag getTag() throws NullPointerException {
+        if (tag != null) {
+            return tag;
+        }
+        throw new NullPointerException("This Expense does not have a Tag");
     }
 
     public void setTag(Tag tag) {
@@ -262,5 +289,9 @@ public class Expense {
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

@@ -132,7 +132,7 @@ public class AdminOverviewCtrl implements Initializable {
             String eventJson =
                 new ObjectMapper().registerModule(new JavaTimeModule()).writeValueAsString(event);
 
-            File file = mainCtrl.createSaveFile(String.format("event_%d.json", event.getId()));
+            File file = mainCtrl.createSaveFile(String.format("event_%s.json", event.getId()));
             if (file == null) {
                 return;
             }

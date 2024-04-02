@@ -29,6 +29,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
@@ -183,7 +184,7 @@ public class ManageExpenseCtrl implements Initializable {
      */
     private AnchorPane createRecipientCard(Person participant) {
         AnchorPane card = new AnchorPane();
-        card.setPrefSize(475, 50);
+        card.setPrefSize(350, 50);
         card.setStyle(
             "-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;");
 
@@ -193,10 +194,22 @@ public class ManageExpenseCtrl implements Initializable {
         System.out.println(expense.getReceiver().getId());
         participantRepresentation = participantRepresentation.concat(" (Recipient)");
         Label participantLabel = new Label(participantRepresentation);
+        participantLabel.setMaxWidth(276);
         Font globalFont = new Font("System Bold", 24);
         participantLabel.setFont(globalFont);
         participantLabel.setLayoutX(12.5);
         participantLabel.setLayoutY(7.5);
+
+
+        participantLabel.setTextFill(Color.valueOf("#636363"));
+        ImageView lockedImage = new ImageView(new Image("client/icons/locked.png"));
+        lockedImage.setLayoutX(301);
+        lockedImage.setLayoutY(13);
+        lockedImage.setFitHeight(24);
+        lockedImage.setFitWidth(24);
+        card.getChildren().add(lockedImage);
+
+
 
         card.getChildren().add(participantLabel);
         return card;
@@ -223,6 +236,7 @@ public class ManageExpenseCtrl implements Initializable {
         participantLabel.setFont(globalFont);
         participantLabel.setLayoutX(12.5);
         participantLabel.setLayoutY(7.5);
+        participantLabel.setMaxWidth(276);
         if (participantLabel.isVisible()) {
             participantLabel.setOnMouseEntered(
                 event -> participantLabel.setTextFill(Paint.valueOf("red")));
