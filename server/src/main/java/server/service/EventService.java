@@ -95,9 +95,9 @@ public class EventService {
      * @param event the event to be created.
      * @throws IllegalStateException When there already is an Event with this id
      */
-    public Event createEvent(Event event) throws IllegalStateException {
+    public String createEvent(Event event) throws IllegalStateException {
         if (event.getId() == null || !eventRepository.existsById(event.getId())) {
-            return eventRepository.save(event);
+            return eventRepository.save(event).getId();
         }
         throw new IllegalStateException("There already is an Event with this id");
     }
