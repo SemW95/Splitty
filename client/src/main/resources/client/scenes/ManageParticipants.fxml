@@ -14,20 +14,11 @@
    <children>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="24.0">
          <children>
-            <Label prefHeight="50.0" prefWidth="598.0" text=" Manage Participants" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Label layoutX="55.0" prefHeight="50.0" prefWidth="897.0" text=" Manage Participants" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="35.0" />
                </font>
             </Label>
-            <Button fx:id="cross" layoutX="904.0" layoutY="7.0" mnemonicParsing="false" onAction="#cross" prefHeight="24.0" prefWidth="16.0">
-               <graphic>
-                  <ImageView fitHeight="17.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/close.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="800.0" prefWidth="1100.0" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="54.0">
@@ -52,5 +43,14 @@
 <!--               </font></Button>-->
          </children>
       </AnchorPane>
+      <Button fx:id="backButton" layoutX="35.0" layoutY="35.0" mnemonicParsing="false" onAction="#backButton" onMouseClicked="#backButton" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/client/icons/back.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

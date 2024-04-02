@@ -34,8 +34,15 @@ public class ManageParticipantsCtrl implements Initializable {
     private AnchorPane rootAnchorPane;
     @FXML
     private FlowPane participantsFlowPane;
+    @FXML
+    private Button backButton;
+    @FXML
+    private Button deleteParticipant;
+    @FXML
+    private Button editParticipant;
     private ResourceBundle resources;
     private Event event;
+
 
     @Inject
     public ManageParticipantsCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -48,11 +55,6 @@ public class ManageParticipantsCtrl implements Initializable {
         this.resources = resources;
     }
 
-    @FXML
-    private Button deleteParticipant;
-
-    @FXML
-    private Button editParticipant;
 
     @FXML
     private void editParticipant() {
@@ -101,7 +103,7 @@ public class ManageParticipantsCtrl implements Initializable {
     }
 
     @FXML
-    private void cross() {
+    private void backButton() {
         mainCtrl.showEventOverview(event, false);
     }
 
