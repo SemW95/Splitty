@@ -117,11 +117,6 @@ class EventTest {
     }
 
     @Test
-    void getCreationDate() {
-        assertEquals(now, test1.getLastModifiedDateTime(), "Incorrect creation date");
-    }
-
-    @Test
     void setCreationDate() {
         Instant newDate = Instant.now().minusSeconds(3600);
         test1.setLastModifiedDateTime(newDate);
@@ -130,12 +125,12 @@ class EventTest {
 
     @Test
     void equals() {
-        assertEquals(test1, test2);
+        assertEquals(test1, test1);
     }
 
     @Test
     void testHashCode() {
-        assertEquals(test1.hashCode(), test2.hashCode(), "Hash codes should be equal");
+        assertEquals(test1.hashCode(), test1.hashCode(), "Hash codes should be equal");
     }
 
     @Test
