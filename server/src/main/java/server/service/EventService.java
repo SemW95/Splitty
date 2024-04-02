@@ -439,6 +439,4 @@ public class EventService {
         event.setLastModifiedDateTime(lastModifiedDateTime);
         eventRepository.save(event);
     }
-
-
 }
