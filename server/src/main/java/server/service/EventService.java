@@ -121,7 +121,11 @@ public class EventService {
      * @param endDate     The end date of the Event.
      * @return The saved Event's id
      */
-    public String createEvent(String title, String description, LocalDate startDate, LocalDate endDate) {
+    public String createEvent(
+        String title,
+        String description,
+        LocalDate startDate,
+        LocalDate endDate) {
         Event event = new Event(title, description, startDate, endDate);
         return eventRepository.save(event).getId();
     }
@@ -149,7 +153,12 @@ public class EventService {
      * @param endDate     The end date of the Event.
      * @return The saved Event's id
      */
-    public String createEventWithTagsAndDates(String title, String description, ArrayList<Tag> tags, LocalDate startDate, LocalDate endDate) {
+    public String createEventWithTagsAndDates(
+        String title,
+        String description,
+        ArrayList<Tag> tags,
+        LocalDate startDate,
+        LocalDate endDate) {
         Event event = new Event(title, description, tags, startDate, endDate);
         return eventRepository.save(event).getId();
     }
