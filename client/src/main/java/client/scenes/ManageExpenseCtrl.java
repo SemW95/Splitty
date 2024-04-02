@@ -481,4 +481,16 @@ public class ManageExpenseCtrl implements Initializable {
         
 
     }
+    public void defaultStatus(){
+        indicatorAmountModified.setImage(new Image("/client/icons/edit_idle.png"));
+        indicatorDateModified.setImage(new Image("/client/icons/edit_idle.png"));
+        indicatorNameModified.setImage(new Image("/client/icons/edit_idle.png"));
+        indicatorAmountModified.setImage(new Image("/client/icons/edit_idle.png"));
+        indicatorRecipientModified.setImage(new Image("/client/icons/edit_idle.png"));
+        confirmRecipient.setText("");
+        confirmName.setText("");
+        confirmAmount.setText("");
+        confirmDate.setText("");
+        confirmTag.setText("");
+    }
 }

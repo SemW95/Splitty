@@ -339,6 +339,7 @@ public class MainCtrl {
         popup.setResizable(false);
         manageExpensePair.ctrl.update(expense, event);
         popup.show();
+        manageExpensePair.ctrl.defaultStatus();
     }
 
     /**
