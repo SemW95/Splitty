@@ -50,15 +50,17 @@ public class CreateEventCtrl {
         
         Event event = new Event(name, description);
         callback.accept(event);
+        mainCtrl.closePopup();
+        mainCtrl.showEventOverview(event, true);
 
     }
 
     public void handleCancel(ActionEvent actionEvent) {
-        mainCtrl.showHome();
+        mainCtrl.closePopup();
     }
 
     public void handleCross(ActionEvent actionEvent) {
-        mainCtrl.showHome();
+        mainCtrl.closePopup();
     }
 
     public void setCallback(Consumer<Event> callback) {
