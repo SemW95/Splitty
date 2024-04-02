@@ -5,22 +5,18 @@ import com.google.inject.Inject;
 import commons.Event;
 import commons.Person;
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
+import commons.Tag;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.text.Font;
 import javafx.stage.Modality;
-import javafx.util.StringConverter;
 
 
 /**
@@ -30,13 +26,11 @@ public class ManageParticipantsCtrl implements Initializable {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
     @FXML
-    private ComboBox<Person> comboBox;
-    @FXML
-    private ListView<String> listView;
+    private ComboBox<Person> participantMenu;
     @FXML
     private AnchorPane rootAnchorPane;
     @FXML
-    private FlowPane participantFlowPane;
+    private FlowPane participantsFlowPane;
     private ResourceBundle resources;
     private Event event;
 
@@ -59,13 +53,13 @@ public class ManageParticipantsCtrl implements Initializable {
 
     @FXML
     private void editParticipant() {
-        Person selectedParticipant = comboBox.getValue();
+        Person selectedParticipant = participantMenu.getValue();
         mainCtrl.showEditParticipantPopup(selectedParticipant);
     }
 
     @FXML
     private void deleteParticipant() {
-        Person selectedParticipant = comboBox.getValue();
+        Person selectedParticipant = participantMenu.getValue();
         mainCtrl.showDeleteParticipantConfirmationPopup(() -> {
             if (event.getExpenses().stream().anyMatch(ex ->
                     ex.getReceiver().equals(selectedParticipant)
@@ -96,7 +90,11 @@ public class ManageParticipantsCtrl implements Initializable {
             event.getPeople().remove(selectedParticipant);
             server.updateEvent(event);
             server.deletePerson(selectedParticipant);
+            server.updateEvent(event);
+            populate();
+            mainCtrl.updateAll();
         });
+
     }
 
     @FXML
@@ -113,42 +111,82 @@ public class ManageParticipantsCtrl implements Initializable {
         }
         List<Person> personList = event.getPeople();
 
-        // initialize the Listview
-        ObservableList<String> items = FXCollections.observableArrayList();
-        for (Person person : personList) {
-            items.add(person.getFirstName() + " " + person.getLastName());
+
+        // Populate participants
+        participantsFlowPane.getChildren().setAll();
+        for (Person participant : personList) {
+            AnchorPane participantCard = createParticipantCard(participant);
+            participantsFlowPane.getChildren().add(participantCard);
         }
-        listView = new ListView<>(items);
 
-//        // Populate participants
-//        participantsFlowPane.getChildren().setAll();
-//        for (Person participant : expense.getParticipants()) {
-//            AnchorPane participantCard = createParticipantCard(participant);
-//            participantsFlowPane.getChildren().add(participantCard);
-//        }
+//        // initialize the ComboBox
+//        comboBox = new ComboBox<>();
+//        comboBox.setItems(FXCollections.observableArrayList(personList));
+//        comboBox.setConverter(new StringConverter<Person>() {
+//            @Override
+//            public String toString(Person person) {
+//                if (person == null) {
+//                    return "";
+//                } else {
+//                    return person.getFirstName() + " " + person.getLastName();
+//                }
+//            }
+//
+//            @Override
+//            public Person fromString(String string) {
+//                return null;
+//            }
+//        });
 
 
-
-        // initialize the ComboBox
-        comboBox = new ComboBox<>();
-        comboBox.setItems(FXCollections.observableArrayList(personList));
-        comboBox.setConverter(new StringConverter<Person>() {
+        participantMenu.getItems().setAll(personList);
+        participantMenu.setCellFactory(p -> new ListCell<>() {
             @Override
-            public String toString(Person person) {
-                if (person == null) {
-                    return "";
+            protected void updateItem(Person p1, boolean empty) {
+                super.updateItem(p1, empty);
+                if (p1 != null) {
+                    setText(p1.getFirstName() + " " + p1.getLastName());
                 } else {
-                    return person.getFirstName() + " " + person.getLastName();
+                    setText(null);
                 }
-            }
-
-            @Override
-            public Person fromString(String string) {
-                return null;
             }
         });
 
+        for (Person person : personList) {
+            participantMenu.getSelectionModel().select(person);
+        }
+        participantMenu.setButtonCell(new ListCell<>() {
+            @Override
+            protected void updateItem(Person person, boolean empty) {
+                super.updateItem(person, empty);
+                if (person != null) {
+                    setText(person.getFirstName() + " " + person.getLastName());
+                } else {
+                    setText(null);
+                }
+            }
+        });
 
+    }
+
+    private AnchorPane createParticipantCard(Person participant) {
+        AnchorPane card = new AnchorPane();
+        card.setPrefSize(475, 50);
+        card.setStyle(
+                "-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;");
+
+        String participantRepresentation =
+                participant.getFirstName() + " " + participant.getLastName();
+        Label participantLabel = new Label(participantRepresentation);
+        Font globalFont = new Font("System Bold", 24);
+        participantLabel.setFont(globalFont);
+        participantLabel.setLayoutX(12.5);
+        participantLabel.setLayoutY(7.5);
+        participantLabel.setMaxWidth(401);
+
+
+        card.getChildren().add(participantLabel);
+        return card;
     }
 
     /**
