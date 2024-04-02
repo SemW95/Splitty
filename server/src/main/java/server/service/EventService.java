@@ -5,10 +5,12 @@ import commons.Expense;
 import commons.Payment;
 import commons.Person;
 import commons.Tag;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -212,6 +214,229 @@ public class EventService {
             throw new IllegalStateException("There isn't an Event with this code");
         }
 
+        eventRepository.save(event);
+    }
+
+    /**
+     * Updates the last modified date time of an event.
+     *
+     * @param eventId The id of the event to be updated.
+     */
+    public void updateEventLastModified(String eventId) {
+        Event event = getEventById(eventId);
+        event.updateLastModifiedDateTime();
+        eventRepository.save(event);
+    }
+
+    /**
+     * Calculates and returns the total debt sum for a person within an event.
+     *
+     * @param eventId The id of the event.
+     * @param person The person whose debt sum is to be calculated.
+     * @return The total debt sum.
+     */
+    public BigDecimal calculateDebtSumForPerson(String eventId, Person person) {
+        Event event = getEventById(eventId);
+        return event.calculateDebtSum(person);
+    }
+
+    /**
+     * Calculates what payments are needed to settle everyone's debts in an event.
+     *
+     * @param eventId The id of the event.
+     * @return A list of payments required to settle debts.
+     */
+    public List<Payment> calculateSettlementsForEvent(String eventId) {
+        Event event = getEventById(eventId);
+        return event.calculateSettlements();
+    }
+
+    /**
+     * Calculates the detailed debt information for a person within an event.
+     *
+     * @param eventId The id of the event.
+     * @param person The person for whom the debt information is calculated.
+     * @return A map of people to the amount of debt owed.
+     */
+    public Map<Person, BigDecimal> calculateDebtForPerson(String eventId, Person person) {
+        Event event = getEventById(eventId);
+        return event.calculateDebt(person);
+    }
+
+    /**
+     * Calculates the total amount spent for an event.
+     *
+     * @param eventId The id of the event.
+     * @return The total amount spent.
+     */
+    public BigDecimal calculateTotalAmountSpentForEvent(String eventId) {
+        Event event = getEventById(eventId);
+        return event.totalAmountSpent();
+    }
+
+    // Getter methods for Event fields
+    public String getEventId(String eventId) {
+        return getEventById(eventId).getId();
+    }
+
+    public String getEventCode(String eventId) {
+        return getEventById(eventId).getCode();
+    }
+
+    public String getEventTitle(String eventId) {
+        return getEventById(eventId).getTitle();
+    }
+
+    public String getEventDescription(String eventId) {
+        return getEventById(eventId).getDescription();
+    }
+
+    public List<Person> getEventPeople(String eventId) {
+        return getEventById(eventId).getPeople();
+    }
+
+    public List<Tag> getEventTags(String eventId) {
+        return getEventById(eventId).getTags();
+    }
+
+    public List<Expense> getEventExpenses(String eventId) {
+        return getEventById(eventId).getExpenses();
+    }
+
+    public List<Payment> getEventPayments(String eventId) {
+        return getEventById(eventId).getPayments();
+    }
+
+    public LocalDate getEventStartDate(String eventId) {
+        return getEventById(eventId).getStartDate();
+    }
+
+    public LocalDate getEventEndDate(String eventId) {
+        return getEventById(eventId).getEndDate();
+    }
+
+    public Instant getEventLastModifiedDateTime(String eventId) {
+        return getEventById(eventId).getLastModifiedDateTime();
+    }
+
+    // Setter methods for Event fields
+    /**
+     * Sets the code of an event and saves the update.
+     *
+     * @param eventId The ID of the event to update.
+     * @param code The new code to set for the event.
+     */
+    public void setEventCode(String eventId, String code) {
+        Event event = getEventById(eventId);
+        event.setCode(code);
+        eventRepository.save(event);
+    }
+
+    /**
+     * Sets the title of an event and saves the update.
+     *
+     * @param eventId The ID of the event to update.
+     * @param title The new title to set for the event.
+     */
+    public void setEventTitle(String eventId, String title) {
+        Event event = getEventById(eventId);
+        event.setTitle(title);
+        eventRepository.save(event);
+    }
+
+    /**
+     * Sets the description of an event and saves the update.
+     *
+     * @param eventId The ID of the event to update.
+     * @param description The new description to set for the event.
+     */
+    public void setEventDescription(String eventId, String description) {
+        Event event = getEventById(eventId);
+        event.setDescription(description);
+        eventRepository.save(event);
+    }
+
+    /**
+     * Sets the list of people associated with an event and saves the update.
+     *
+     * @param eventId The ID of the event to update.
+     * @param people The new list of people to associate with the event.
+     */
+    public void setEventPeople(String eventId, List<Person> people) {
+        Event event = getEventById(eventId);
+        event.setPeople(people);
+        eventRepository.save(event);
+    }
+
+    /**
+     * Sets the tags of an event and saves the update.
+     *
+     * @param eventId The ID of the event to update.
+     * @param tags The new tags to set for the event.
+     */
+    public void setEventTags(String eventId, List<Tag> tags) {
+        Event event = getEventById(eventId);
+        event.setTags(tags);
+        eventRepository.save(event);
+    }
+
+    /**
+     * Sets the expenses of an event and saves the update.
+     *
+     * @param eventId The ID of the event to update.
+     * @param expenses The new list of expenses to set for the event.
+     */
+    public void setEventExpenses(String eventId, List<Expense> expenses) {
+        Event event = getEventById(eventId);
+        event.setExpenses(expenses);
+        eventRepository.save(event);
+    }
+
+    /**
+     * Sets the payments of an event and saves the update.
+     *
+     * @param eventId The ID of the event to update.
+     * @param payments The new list of payments to set for the event.
+     */
+    public void setEventPayments(String eventId, List<Payment> payments) {
+        Event event = getEventById(eventId);
+        event.setPayments(payments);
+        eventRepository.save(event);
+    }
+
+    /**
+     * Sets the start date of an event and saves the update.
+     *
+     * @param eventId The ID of the event to update.
+     * @param startDate The new start date to set for the event.
+     */
+    public void setEventStartDate(String eventId, LocalDate startDate) {
+        Event event = getEventById(eventId);
+        event.setStartDate(startDate);
+        eventRepository.save(event);
+    }
+
+    /**
+     * Sets the end date of an event and saves the update.
+     *
+     * @param eventId The ID of the event to update.
+     * @param endDate The new end date to set for the event.
+     */
+    public void setEventEndDate(String eventId, LocalDate endDate) {
+        Event event = getEventById(eventId);
+        event.setEndDate(endDate);
+        eventRepository.save(event);
+    }
+
+    /**
+     * Sets the last modified date and time of an event and saves the update.
+     *
+     * @param eventId The ID of the event to update.
+     * @param lastModifiedDateTime The new last modified date and time to set for the event.
+     */
+    public void setEventLastModifiedDateTime(String eventId, Instant lastModifiedDateTime) {
+        Event event = getEventById(eventId);
+        event.setLastModifiedDateTime(lastModifiedDateTime);
         eventRepository.save(event);
     }
 
