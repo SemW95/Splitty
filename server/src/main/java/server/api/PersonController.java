@@ -238,14 +238,14 @@ public class PersonController {
         personService.deletePerson(id);
     }
 
+    @PutMapping(path = "/person")
+    public void updatePerson(@RequestBody Person person) {
+        personService.updatePerson(person);
+    }
+
     @ExceptionHandler(IllegalStateException.class)
     public ResponseEntity<Object> handleIllegalStateException(IllegalStateException ex) {
         // Return a ResponseEntity with the NOT_FOUND status
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @PutMapping(path = "/person")
-    public void updatePerson(@RequestBody Person person) {
-        personService.updatePerson(person);
     }
 }
