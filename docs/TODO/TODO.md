@@ -16,7 +16,8 @@ Make the presentation: What  is the rubric?
 
 ##### the system needs to illustrate the use of long-polling via REST and websockets.
 - Implement websockets
-- Implement long-polling (one example of each)
+- Implement long-polling 
+- (one example of  both)
 
 ##### It must be possible to connect at least 10 clients simultaneously and a change between clients should take less than a second
 - This depends on how we use sockets or long-polling

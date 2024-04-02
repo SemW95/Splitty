@@ -49,6 +49,7 @@ public class MainCtrl {
     private CsPair<ExpenseOverviewCtrl> expenseOverviewPair;
     private CsPair<EventOverviewCtrl> eventOverviewPair;
     private CsPair<ManageExpenseCtrl> manageExpensePair;
+    private CsPair<ExpenseAddParticipantCtrl> expenseAddParticipantPair;
     private CsPair<AddParticipantCtrl> addParticipantPair;
     private CsPair<ManageParticipantsCtrl> manageParticipantsPair;
     private CsPair<EditParticipantCtrl> editParticipantPair;
@@ -84,6 +85,8 @@ public class MainCtrl {
             "client", "scenes", "EventOverview.fxml");
         manageExpensePair = fxml.load(ManageExpenseCtrl.class, "client", "scenes",
             "ManageExpense.fxml");
+        expenseAddParticipantPair = fxml.load(ExpenseAddParticipantCtrl.class, "client",
+            "scenes", "ExpenseAddParticipant.fxml");
         addParticipantPair = fxml.load(AddParticipantCtrl.class,
             "client", "scenes", "AddParticipant.fxml");
         manageParticipantsPair = fxml.load(ManageParticipantsCtrl.class,
@@ -335,6 +338,23 @@ public class MainCtrl {
         popup.setScene(manageExpensePair.scene);
         popup.setResizable(false);
         manageExpensePair.ctrl.update(expense, event);
+        popup.show();
+    }
+
+    /**
+     * Show the manage expense popup.
+     *
+     * @param expense the expense to manage
+     * @param event   which event the expense belongs to
+     */
+    public void showExpenseAddParticipantPopup(Expense expense, Event event) {
+        popup = new Stage();
+        popup.initModality(Modality.APPLICATION_MODAL);
+        popup.initOwner(primaryStage);
+        popup.setTitle("Add Participant to expense");
+        popup.setScene(expenseAddParticipantPair.scene);
+        popup.setResizable(false);
+        expenseAddParticipantPair.ctrl.update(expense, event);
         popup.show();
     }
 }
