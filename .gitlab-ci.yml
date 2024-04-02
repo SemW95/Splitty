@@ -107,11 +107,6 @@ coverageReport:
   stage: coverageReport
   allow_failure: true
   needs: []
-#    - commons:test
-#    - client:test
-#    - server:database:test
-#    - server:service:test
-#    - server:controller:test
   script:
     - ./gradlew compileTestJava
     - ./gradlew AggregateJacocoReport
