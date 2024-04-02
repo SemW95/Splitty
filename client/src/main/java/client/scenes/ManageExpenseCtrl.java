@@ -270,8 +270,8 @@ public class ManageExpenseCtrl implements Initializable {
             server.updateExpense(this.expense);
             mainCtrl.updateAll();
             confirmLastDeleted.setText(
-                confirmLastDeleted.getText() + "\nDeleted " + participant.getFirstName() +
-                    " successfully.");
+                confirmLastDeleted.getText() + "\nRemoved " + participant.getFirstName() +
+                    " from this expense successfully.");
         });
 
         card.getChildren().add(participantLabel);
@@ -485,8 +485,8 @@ public class ManageExpenseCtrl implements Initializable {
         indicatorAmountModified.setImage(new Image("/client/icons/edit_idle.png"));
         indicatorDateModified.setImage(new Image("/client/icons/edit_idle.png"));
         indicatorNameModified.setImage(new Image("/client/icons/edit_idle.png"));
-        indicatorAmountModified.setImage(new Image("/client/icons/edit_idle.png"));
         indicatorRecipientModified.setImage(new Image("/client/icons/edit_idle.png"));
+        indicatorTagModified.setImage(new Image("/client/icons/edit_idle.png"));
         confirmRecipient.setText("");
         confirmName.setText("");
         confirmAmount.setText("");

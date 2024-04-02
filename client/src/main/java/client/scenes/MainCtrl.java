@@ -357,5 +357,6 @@ public class MainCtrl {
         popup.setResizable(false);
         expenseAddParticipantPair.ctrl.update(expense, event);
         popup.show();
+        expenseAddParticipantPair.ctrl.defaultStatus();
     }
 }
