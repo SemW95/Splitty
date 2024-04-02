@@ -18,6 +18,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.stage.Modality;
 import javafx.util.StringConverter;
 
@@ -34,6 +35,8 @@ public class ManageParticipantsCtrl implements Initializable {
     private ListView<String> listView;
     @FXML
     private AnchorPane rootAnchorPane;
+    @FXML
+    private FlowPane participantFlowPane;
     private ResourceBundle resources;
     private Event event;
 
@@ -74,7 +77,7 @@ public class ManageParticipantsCtrl implements Initializable {
                 dialog.initOwner(rootAnchorPane.getScene().getWindow()); // Set the owner
 
                 // Customize the dialog appearance
-                dialog.setTitle("Invalid Input Detected");
+                dialog.setTitle("Invalid Deleting Operation");
                 dialog.setContentText(
                         "This Participant is participating in an expense so you cannot delete it."
                                 +
@@ -116,10 +119,19 @@ public class ManageParticipantsCtrl implements Initializable {
             items.add(person.getFirstName() + " " + person.getLastName());
         }
         listView = new ListView<>(items);
-        comboBox = new ComboBox<>();
-        comboBox.setItems(FXCollections.observableArrayList(personList));
+
+//        // Populate participants
+//        participantsFlowPane.getChildren().setAll();
+//        for (Person participant : expense.getParticipants()) {
+//            AnchorPane participantCard = createParticipantCard(participant);
+//            participantsFlowPane.getChildren().add(participantCard);
+//        }
+
+
 
         // initialize the ComboBox
+        comboBox = new ComboBox<>();
+        comboBox.setItems(FXCollections.observableArrayList(personList));
         comboBox.setConverter(new StringConverter<Person>() {
             @Override
             public String toString(Person person) {
