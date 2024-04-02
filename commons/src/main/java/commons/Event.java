@@ -413,6 +413,7 @@ public class Event {
     }
 
     public void setCode(String code) {
+        updateLastModifiedDateTime();
         this.code = code;
     }
 
@@ -421,6 +422,7 @@ public class Event {
     }
 
     public void setTitle(String title) {
+        updateLastModifiedDateTime();
         this.title = title;
     }
 
@@ -429,6 +431,7 @@ public class Event {
     }
 
     public void setDescription(String description) {
+        updateLastModifiedDateTime();
         this.description = description;
     }
 
@@ -437,6 +440,7 @@ public class Event {
     }
 
     public void setPeople(List<Person> people) {
+        updateLastModifiedDateTime();
         this.people = people;
     }
 
@@ -445,6 +449,7 @@ public class Event {
     }
 
     public void setTags(List<Tag> tags) {
+        updateLastModifiedDateTime();
         this.tags = tags;
     }
 
@@ -453,6 +458,7 @@ public class Event {
     }
 
     public void setExpenses(List<Expense> expenses) {
+        updateLastModifiedDateTime();
         this.expenses = expenses;
     }
 
@@ -461,6 +467,7 @@ public class Event {
     }
 
     public void setPayments(List<Payment> payments) {
+        updateLastModifiedDateTime();
         this.payments = payments;
     }
 
@@ -469,6 +476,7 @@ public class Event {
     }
 
     public void setStartDate(LocalDate startDate) {
+        updateLastModifiedDateTime();
         this.startDate = startDate;
     }
 
@@ -477,6 +485,7 @@ public class Event {
     }
 
     public void setEndDate(LocalDate endDate) {
+        updateLastModifiedDateTime();
         this.endDate = endDate;
     }
 
