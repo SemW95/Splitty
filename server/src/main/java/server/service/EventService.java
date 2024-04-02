@@ -1,6 +1,13 @@
 package server.service;
 
 import commons.Event;
+import commons.Expense;
+import commons.Payment;
+import commons.Person;
+import commons.Tag;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +100,99 @@ public class EventService {
         throw new IllegalStateException("There already is an Event with this id");
     }
 
+    /**
+     * Creates a new Event without dates.
+     *
+     * @param title       The title of the Event.
+     * @param description The description of the Event.
+     * @return The saved Event's id
+     */
+    public String createEvent(String title, String description) {
+        Event event = new Event(title, description);
+        return eventRepository.save(event).getId();
+    }
+
+    /**
+     * Creates a new Event with specific start and end dates.
+     *
+     * @param title       The title of the Event.
+     * @param description The description of the Event.
+     * @param startDate   The start date of the Event.
+     * @param endDate     The end date of the Event.
+     * @return The saved Event's id
+     */
+    public String createEvent(String title, String description, LocalDate startDate, LocalDate endDate) {
+        Event event = new Event(title, description, startDate, endDate);
+        return eventRepository.save(event).getId();
+    }
+
+    /**
+     * Creates a new Event with predefined Tags and without dates.
+     *
+     * @param title       The title of the Event.
+     * @param description The description of the Event.
+     * @param tags        The Tags of the Event.
+     * @return The saved Event's id
+     */
+    public String createEventWithTags(String title, String description, ArrayList<Tag> tags) {
+        Event event = new Event(title, description, tags);
+        return eventRepository.save(event).getId();
+    }
+
+    /**
+     * Creates a new Event with predefined Tags and specific start and end dates.
+     *
+     * @param title       The title of the Event.
+     * @param description The description of the Event.
+     * @param tags        The Tags of the Event.
+     * @param startDate   The start date of the Event.
+     * @param endDate     The end date of the Event.
+     * @return The saved Event's id
+     */
+    public String createEventWithTagsAndDates(String title, String description, ArrayList<Tag> tags, LocalDate startDate, LocalDate endDate) {
+        Event event = new Event(title, description, tags, startDate, endDate);
+        return eventRepository.save(event).getId();
+    }
+
+    /**
+     * The Event constructor used for imports.
+     *
+     * @param title                The Event title.
+     * @param description          The Event description.
+     * @param people               The ArrayList with all Persons in the Event.
+     * @param tags                 The ArrayList with all the Tags in the Event.
+     * @param expenses             The ArrayList with all the Expenses in the Event.
+     * @param payments             The ArrayList with all the Payments in the Event.
+     * @param startDate            The date that this Event started.
+     * @param endDate              The date that this Event ended.
+     * @param lastModifiedDateTime The date of when this Event was last modified.
+     * @return The id of the created Event
+     */
+    public String createEventFromImport(
+        String title,
+        String description,
+        List<Person> people,
+        List<Tag> tags,
+        List<Expense> expenses,
+        List<Payment> payments,
+        LocalDate startDate,
+        LocalDate endDate,
+        Instant lastModifiedDateTime
+    ) {
+        Event event = new Event(
+            title,
+            description,
+            people,
+            tags,
+            expenses,
+            payments,
+            startDate,
+            endDate,
+            lastModifiedDateTime);
+        return eventRepository.save(event).getId();
+    }
+
+
     /** Updates an already existing Event.
      *
      * @param event The Event that should be updated
@@ -105,4 +205,6 @@ public class EventService {
 
         eventRepository.save(event);
     }
+
+
 }
