@@ -135,19 +135,23 @@ class EventTest {
 
     @Test
     void debtTest() {
-        List<Expense> expenses = new ArrayList<>();
-
         Person a =
             new Person("A", "", "email@email.com", "AD1400080001001234567890", "ZUOBJEO6XXX");
+        a.setId("personIdA");
         Person b =
             new Person("B", "", "email@email.com", "AD1400080001001234567890", "ZUOBJEO6XXX");
+        b.setId("personIdB");
         Person c =
             new Person("C", "", "email@email.com", "AD1400080001001234567890", "ZUOBJEO6XXX");
+        c.setId("personIdC");
         Person d =
             new Person("D", "", "email@email.com", "AD1400080001001234567890", "ZUOBJEO6XXX");
+        d.setId("personIdD");
         Person e =
             new Person("E", "", "email@email.com", "AD1400080001001234567890", "ZUOBJEO6XXX");
+        e.setId("personIdE");
 
+        List<Expense> expenses = new ArrayList<>();
         expenses.add(new Expense("", Arrays.asList(a, b, c), d, new BigDecimal("40"), null, null));
         expenses.add(new Expense("", Arrays.asList(a, c), b, new BigDecimal("21"), null, null));
         expenses.add(new Expense("", Arrays.asList(d, e), a, new BigDecimal("15"), null, null));
