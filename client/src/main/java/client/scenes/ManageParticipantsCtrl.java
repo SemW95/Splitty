@@ -5,14 +5,17 @@ import com.google.inject.Inject;
 import commons.Event;
 import commons.Person;
 import java.net.URL;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import commons.Tag;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Font;
@@ -111,7 +114,6 @@ public class ManageParticipantsCtrl implements Initializable {
         }
         List<Person> personList = event.getPeople();
 
-
         // Populate participants
         participantsFlowPane.getChildren().setAll();
         for (Person participant : personList) {
@@ -119,26 +121,7 @@ public class ManageParticipantsCtrl implements Initializable {
             participantsFlowPane.getChildren().add(participantCard);
         }
 
-//        // initialize the ComboBox
-//        comboBox = new ComboBox<>();
-//        comboBox.setItems(FXCollections.observableArrayList(personList));
-//        comboBox.setConverter(new StringConverter<Person>() {
-//            @Override
-//            public String toString(Person person) {
-//                if (person == null) {
-//                    return "";
-//                } else {
-//                    return person.getFirstName() + " " + person.getLastName();
-//                }
-//            }
-//
-//            @Override
-//            public Person fromString(String string) {
-//                return null;
-//            }
-//        });
-
-
+        // Initialize the ComboBox
         participantMenu.getItems().setAll(personList);
         participantMenu.setCellFactory(p -> new ListCell<>() {
             @Override
