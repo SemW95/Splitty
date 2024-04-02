@@ -43,6 +43,25 @@ public class ManageExpenseCtrl implements Initializable {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
     @FXML
+    private Label confirmAmount;
+
+    @FXML
+    private Label confirmDate;
+
+    @FXML
+    private Label confirmName;
+
+    @FXML
+    private Label confirmRecipient;
+
+    @FXML
+    private Label confirmTag;
+
+
+    @FXML
+    private Label confirmLastDeleted;
+
+    @FXML
     private TextField expenseAmountLabel;
 
     @FXML
@@ -210,7 +229,6 @@ public class ManageExpenseCtrl implements Initializable {
         card.getChildren().add(lockedImage);
 
 
-
         card.getChildren().add(participantLabel);
         return card;
     }
@@ -246,30 +264,74 @@ public class ManageExpenseCtrl implements Initializable {
         }
 
         participantLabel.setOnMousePressed(event -> {
-                this.expense.getParticipants().remove(participant);
-                participantsFlowPane.getChildren().remove(card);
-                participantsFlowPane.requestLayout();
-                server.updateExpense(this.expense);
-                mainCtrl.updateAll();
-            }
-        );
+            this.expense.getParticipants().remove(participant);
+            participantsFlowPane.getChildren().remove(card);
+            participantsFlowPane.requestLayout();
+            server.updateExpense(this.expense);
+            mainCtrl.updateAll();
+            confirmLastDeleted.setText(
+                confirmLastDeleted.getText() + "\nDeleted " + participant.getFirstName() +
+                    " successfully.");
+        });
 
         card.getChildren().add(participantLabel);
         return card;
     }
 
     @FXML
-    private void handleTagChange(ActionEvent actionEvent) {
-        Tag selectedTag = tagMenu.getSelectionModel().getSelectedItem();
-        if (selectedTag != null) {
-            if (selectedTag.equals(expense.getTag())) {
+    private void handleNameChange(ActionEvent actionEvent) {
+        String selectedName = expenseNameLabel.getText();
+        if (selectedName != null) {
+            if (selectedName.equals(expense.getDescription())) {
                 return;
             }
-            indicatorTagModified.setImage(new Image("client/icons/edit_done.png"));
-            this.expense.setTag(selectedTag);
+            indicatorNameModified.setImage(new Image("/client/icons/edit_done.png"));
+
+            setConfirmationLabels();
+            this.expense.setDescription(selectedName);
+
             server.updateExpense(this.expense);
             mainCtrl.updateAll();
         }
+    }
+
+    @FXML
+    private void handleAmountChange(ActionEvent actionEvent) {
+        //70.15.15 7015.15 70,15.15
+        String typedAmount = expenseAmountLabel.getText().replace(",", ".");
+        //70.15.15 7015.15 70.15.15
+        if (typedAmount.contains(".")) {
+            int lastIndex = typedAmount.lastIndexOf('.');
+            if (lastIndex != -1) { // Check if a dot exists
+                typedAmount = typedAmount.substring(0, lastIndex).replace(".", "") +
+                    typedAmount.substring(lastIndex);
+            }
+        }
+        //7015.15 7015.15 7015.15
+        char[] inChars = typedAmount.toCharArray();
+        for (char c : inChars) {
+            if (!Character.isDigit(c) && (c != '.')) {
+                //invalid
+                indicatorAmountModified.setImage(new Image("client/icons/edit_invalid.png"));
+
+                setConfirmationLabels();
+                return;
+            }
+        }
+
+
+        BigDecimal selectedAmount = new BigDecimal(typedAmount);
+        if (selectedAmount.equals(expense.getPaid())) {
+            indicatorAmountModified.setImage(new Image("client/icons/edit_done.png"));
+            setConfirmationLabels();
+            return;
+        }
+        indicatorAmountModified.setImage(new Image("client/icons/edit_done.png"));
+        setConfirmationLabels();
+        this.expense.setPaid(selectedAmount);
+        expenseAmountLabel.setText(selectedAmount.toPlainString());
+        server.updateExpense(this.expense);
+        mainCtrl.updateAll();
     }
 
 
@@ -284,6 +346,8 @@ public class ManageExpenseCtrl implements Initializable {
             }
             //new recipient
             indicatorRecipientModified.setImage(new Image("client/icons/edit_done.png"));
+
+            setConfirmationLabels();
             this.expense.setReceiver(selectedPerson);
             //if they used to be a participant, they are no longer, if they used to be an
             // event candidate, they are and won't be a participant, either way, make sure
@@ -306,60 +370,30 @@ public class ManageExpenseCtrl implements Initializable {
                 return;
             }
             indicatorDateModified.setImage(new Image("client/icons/edit_done.png"));
+
+            setConfirmationLabels();
             this.expense.setPaymentDateTime(selectedDateAsInstant);
             server.updateExpense(this.expense);
             mainCtrl.updateAll();
         }
     }
 
+
     @FXML
-    private void handleNameChange(ActionEvent actionEvent) {
-        String selectedName = expenseNameLabel.getText();
-        if (selectedName != null) {
-            if (selectedName.equals(expense.getDescription())) {
+    private void handleTagChange(ActionEvent actionEvent) {
+        Tag selectedTag = tagMenu.getSelectionModel().getSelectedItem();
+        if (selectedTag != null) {
+            if (selectedTag.equals(expense.getTag())) {
                 return;
             }
-            indicatorNameModified.setImage(new Image("client/icons/edit_done.png"));
-            this.expense.setDescription(selectedName);
-
+            indicatorTagModified.setImage(new Image("client/icons/edit_done.png"));
+            setConfirmationLabels();
+            this.expense.setTag(selectedTag);
             server.updateExpense(this.expense);
             mainCtrl.updateAll();
         }
     }
 
-    @FXML
-    private void handleAmountChange(ActionEvent actionEvent) {
-        //70.15.15 7015.15 70,15.15
-        String typedAmount = expenseAmountLabel.getText().replace(",", ".");
-        //70.15.15 7015.15 70.15.15
-        if (typedAmount.contains(".")) {
-            int lastIndex = typedAmount.lastIndexOf('.');
-            if (lastIndex != -1) { // Check if a dot exists
-                typedAmount = typedAmount.substring(0, lastIndex).replace(".", "")
-                    + typedAmount.substring(lastIndex);
-            }
-        }
-        //7015.15 7015.15 7015.15
-        char[] inChars = typedAmount.toCharArray();
-        for (char c : inChars) {
-            if (!Character.isDigit(c) && (c != '.')) {
-                //invalid
-                indicatorAmountModified.setImage(new Image("client/icons/edit_invalid.png"));
-                return;
-            }
-        }
-
-
-        BigDecimal selectedAmount = new BigDecimal(typedAmount);
-        if (selectedAmount.equals(expense.getPaid())) {
-            return;
-        }
-        indicatorAmountModified.setImage(new Image("client/icons/edit_done.png"));
-        this.expense.setPaid(selectedAmount);
-        expenseAmountLabel.setText(selectedAmount.toPlainString());
-        server.updateExpense(this.expense);
-        mainCtrl.updateAll();
-    }
 
     private void handleCloseRequest(WindowEvent event) {
         if (!amountHasCorrectSyntax()) {
@@ -373,10 +407,8 @@ public class ManageExpenseCtrl implements Initializable {
 
             // Customize the dialog appearance
             dialog.setTitle("Invalid Input Detected");
-            dialog.setContentText(
-                "You have unsaved changes with invalid syntax."
-                    +
-                    "\nPlease review that you have entered a valid amount of money.");
+            dialog.setContentText("You have unsaved changes with invalid syntax." +
+                "\nPlease review that you have entered a valid amount of money.");
 
             // Adding a custom close button inside the dialog, since default buttons are not used
             ButtonType closeButton = new ButtonType("Understood", ButtonBar.ButtonData.OK_DONE);
@@ -397,6 +429,7 @@ public class ManageExpenseCtrl implements Initializable {
                 System.err.println("    " + c + " is not a digit or a dot");
 
                 indicatorAmountModified.setImage(new Image("client/icons/edit_invalid.png"));
+                setConfirmationLabels();
                 return false;
             }
         }
@@ -425,5 +458,27 @@ public class ManageExpenseCtrl implements Initializable {
         this.expense = expense;
         this.event = event;
         populate();
+    }
+
+    public void setConfirmationLabels(){
+        if (indicatorNameModified.getImage().getUrl().contains("done")) {
+            confirmName.setText("Changed Successfully.");
+        }
+        if (indicatorAmountModified.getImage().getUrl().contains("done")) {
+            confirmAmount.setText("Changed Successfully.");
+        } else if (indicatorAmountModified.getImage().getUrl().contains("invalid")) {
+            confirmAmount.setText("Invalid Syntax!");
+        }
+        if (indicatorDateModified.getImage().getUrl().contains("done")) {
+            confirmDate.setText("Changed Successfully.");
+        }
+        if (indicatorTagModified.getImage().getUrl().contains("done")) {
+            confirmTag.setText("Changed Successfully.");
+        }if (indicatorRecipientModified.getImage().getUrl().contains("done")) {
+            confirmRecipient.setText("Changed Successfully.");
+        }
+
+        
+
     }
 }
