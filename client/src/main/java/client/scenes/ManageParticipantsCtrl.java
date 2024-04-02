@@ -5,10 +5,16 @@ import com.google.inject.Inject;
 import commons.Event;
 import commons.Person;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.util.StringConverter;
 
 
 /**
@@ -17,6 +23,12 @@ import javafx.scene.control.Button;
 public class ManageParticipantsCtrl implements Initializable {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
+    @FXML
+    private ComboBox<Person> comboBox;
+    @FXML
+    private ListView<String> listView;
+    @FXML
+    private AnchorPane rootAnchorPane;
     private ResourceBundle resources;
     private Event event;
 
@@ -39,32 +51,45 @@ public class ManageParticipantsCtrl implements Initializable {
 
     @FXML
     private void editParticipant() {
-        // TODO: get selected person
-        Person person = event.getPeople().getFirst();
-        mainCtrl.showEditParticipantPopup(person);
+        Person selectedParticipant = comboBox.getValue();
+        mainCtrl.showEditParticipantPopup(selectedParticipant);
     }
 
     @FXML
     private void deleteParticipant() {
-        // TODO: get selected person
-        Person person = event.getPeople().getFirst();
+        Person selectedParticipant = comboBox.getValue();
         mainCtrl.showDeleteParticipantConfirmationPopup(() -> {
             if (event.getExpenses().stream().anyMatch(ex ->
-                ex.getReceiver().equals(person) || ex.getParticipants().contains(person)
+                    ex.getReceiver().equals(selectedParticipant)
+                            || ex.getParticipants().contains(selectedParticipant)
             )) {
-                // TODO: show an alert that says that you cannot delete a participant which
-                // is participating in an expense
+                // Show a modal dialog to inform the user
+                Dialog<String> dialog = new Dialog<>();
+                dialog.initModality(Modality.APPLICATION_MODAL); // Make the dialog modal
+                dialog.initOwner(rootAnchorPane.getScene().getWindow()); // Set the owner
+
+                // Customize the dialog appearance
+                dialog.setTitle("Invalid Input Detected");
+                dialog.setContentText(
+                        "This Participant is participating in an expense so you cannot delete it."
+                                +
+                                "\nPlease choose another one.");
+
+                // Adding a custom close button inside the dialog,
+                // since default buttons are not used
+                ButtonType closeButton = new ButtonType("Understood", ButtonBar.ButtonData.OK_DONE);
+                dialog.getDialogPane().getButtonTypes().add(closeButton);
+
+                // Handling dialog result to perform actions if needed, but it's informational
+                dialog.showAndWait();
+
                 return;
             }
-            event.getPeople().remove(person);
+            event.getPeople().remove(selectedParticipant);
             server.updateEvent(event);
-            server.deletePerson(person);
+            server.deletePerson(selectedParticipant);
         });
     }
-
-    // @FXML
-    // private void save() {
-    // }
 
     @FXML
     private void cross() {
@@ -78,7 +103,35 @@ public class ManageParticipantsCtrl implements Initializable {
         if (event == null) {
             return;
         }
-        // TODO
+        List<Person> personList = event.getPeople();
+
+        // initialize the Listview
+        ObservableList<String> items = FXCollections.observableArrayList();
+        for (Person person : personList) {
+            items.add(person.getFirstName() + " " + person.getLastName());
+        }
+        listView = new ListView<>(items);
+        comboBox = new ComboBox<>();
+        comboBox.setItems(FXCollections.observableArrayList(personList));
+
+        // initialize the ComboBox
+        comboBox.setConverter(new StringConverter<Person>() {
+            @Override
+            public String toString(Person person) {
+                if (person == null) {
+                    return "";
+                } else {
+                    return person.getFirstName() + " " + person.getLastName();
+                }
+            }
+
+            @Override
+            public Person fromString(String string) {
+                return null;
+            }
+        });
+
+
     }
 
     /**
