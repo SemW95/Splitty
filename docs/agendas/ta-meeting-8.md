@@ -25,12 +25,13 @@
   - Initialize Tag Creation UI (Xiaoyu Du)
   - Integration Testing (Rens Pols & Sem)
   - Config file for storage of persistence of events by their code (Sem van der Weijden) 
+  - Finalize Event Overview (Eva Miesen) - Making a seperate component for the expense card (since high detail)
+  - Code of Conduct (Eva Miesen)
   - DEMO Home Screen UI (Sem van der Weijden)
-  - DEMO Finalize Event Overview (Eva Miesen) - Making a seperate component for the expense card (since high detail)
   - DEMO Finalize Expense Overview & Manager - address last weeks remarks + improvements (Wing Wong)
   - DEMO Initialize and Finalize new Expense Add Participant (Wing Wong)
-  
   - DEMO Connecting Scenes & Simplified pop-ups and scene handling (Lukas Milieška)
+
 - **Bigger Picture (10 min, starts 14:10)**
   - Final coding deadline 14 April (end of week 9) - Can the TA confirm this official deadline?
   - Final Product Pitch 18th April 14:40
