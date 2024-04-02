@@ -235,28 +235,43 @@ public class Event {
      * So you should not use the data directly to calculate settlements.
      * NOTE: negative values means that they are owed that amount.
      *
-     * @param person the person who owes others
-     * @return a map where the key is a person and the value is how much 'person' owes that person.
+     * @param person the Person who owes others
+     * @return a map where the key is a Person and the value is how much 'person' owes that person.
      */
     private Map<Person, BigDecimal> calculateDebtSimple(Person person) {
+        return calculateDebtSimple(person.getId());
+    }
+
+    /**
+     * Calculates how much 'person' owes everyone else (also takes "payments" into account).
+     * For example: A owes B 30€, B owes A 20€, A has paid B 5€.
+     * It will return that A owes B 5€.
+     * IMPORTANT: it calculates only direct debts.
+     * So you should not use the data directly to calculate settlements.
+     * NOTE: negative values means that they are owed that amount.
+     *
+     * @param personId the id of the Person who owes others
+     * @return a map where the key is a Person and the value is how much 'person' owes that person.
+     */
+    private Map<Person, BigDecimal> calculateDebtSimple(String personId) {
         HashMap<Person, BigDecimal> map = new HashMap<>();
 
         // Calculate debts for expenses
         for (Expense expense : expenses) {
-            if (expense.receiver.equals(person)) {
+            if (expense.receiver.getId().equals(personId)) {
                 for (Person participant : expense.participants) {
                     map.merge(participant, expense.getShare().negate(), BigDecimal::add);
                 }
-            } else if (expense.participants.contains(person)) {
+            } else if (expense.participantsContainId(personId)) {
                 map.merge(expense.receiver, expense.getShare(), BigDecimal::add);
             }
         }
 
         // Update debts with payments
         for (Payment payment : payments) {
-            if (payment.receiver.equals(person)) {
+            if (payment.receiver.getId().equals(personId)) {
                 map.merge(payment.payer, payment.amount, BigDecimal::add);
-            } else if (payment.payer.equals(person)) {
+            } else if (payment.payer.getId().equals(personId)) {
                 map.merge(payment.receiver, payment.amount.negate(), BigDecimal::add);
             }
         }
@@ -268,12 +283,23 @@ public class Event {
      * Calculates how much 'person' owes others in total.
      * If it's negative, it means 'person' is owed that amount.
      *
+     * @param personId the personId for who owes others
+     * @return the amount
+     */
+    public BigDecimal calculateDebtSum(String personId) {
+        Map<Person, BigDecimal> debts = calculateDebtSimple(personId);
+        return debts.values().stream().reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    /**
+     * Calculates how much 'person' owes others in total.
+     * If it's negative, it means 'person' is owed that amount.
+     *
      * @param person the person who owes others
      * @return the amount
      */
     public BigDecimal calculateDebtSum(Person person) {
-        Map<Person, BigDecimal> debts = calculateDebtSimple(person);
-        return debts.values().stream().reduce(BigDecimal.ZERO, BigDecimal::add);
+        return calculateDebtSum(person.getId());
     }
 
     /**
@@ -293,7 +319,7 @@ public class Event {
         List<Person> sorted =
             people.stream().sorted(Comparator.comparing(Person::getId)).toList();
         for (Person person : sorted) {
-            BigDecimal debt = calculateDebtSum(person);
+            BigDecimal debt = calculateDebtSum(person.getId());
             Pair<Person, BigDecimal> pair = new Pair<>(person, debt);
             if (debt.signum() == 1) {
                 positive.add(pair);
@@ -337,10 +363,24 @@ public class Event {
      * @return a map where the key is a person and the value is how much 'person' owes that person.
      */
     public Map<Person, BigDecimal> calculateDebt(Person person) {
+        return calculateDebt(person.getId());
+    }
+
+    /**
+     * Calculates how much 'person' needs to pay others to settle the debts.
+     * Takes all debts (and payments) into account so that
+     * there only n-1 payments are needed to be made to settle everything
+     * (where n is the amount of people).
+     * NOTE: does not return negative values.
+     *
+     * @param personId the id of the person who owes others
+     * @return a map where the key is a person and the value is how much 'person' owes that person.
+     */
+    public Map<Person, BigDecimal> calculateDebt(String personId) {
         HashMap<Person, BigDecimal> map = new HashMap<>();
 
         for (Payment settlement : calculateSettlements()) {
-            if (settlement.payer.equals(person)) {
+            if (settlement.payer.getId().equals(personId)) {
                 if (map.containsKey(settlement.receiver)) {
                     throw new RuntimeException("Map should not already contain a receiver");
                 }

@@ -232,12 +232,12 @@ public class EventService {
      * Calculates and returns the total debt sum for a person within an event.
      *
      * @param eventId The id of the event.
-     * @param person The person whose debt sum is to be calculated.
+     * @param personId The person whose debt sum is to be calculated.
      * @return The total debt sum.
      */
-    public BigDecimal calculateDebtSumForPerson(String eventId, Person person) {
+    public BigDecimal calculateDebtSumForPerson(String eventId, String personId) {
         Event event = getEventById(eventId);
-        return event.calculateDebtSum(person);
+        return event.calculateDebtSum(personId);
     }
 
     /**
@@ -255,12 +255,23 @@ public class EventService {
      * Calculates the detailed debt information for a person within an event.
      *
      * @param eventId The id of the event.
+     * @param personId The person for whom the debt information is calculated.
+     * @return A map of people to the amount of debt owed.
+     */
+    public Map<Person, BigDecimal> calculateDebtForPerson(String eventId, String personId) {
+        Event event = getEventById(eventId);
+        return event.calculateDebt(personId);
+    }
+
+    /**
+     * Calculates the detailed debt information for a person within an event.
+     *
+     * @param eventId The id of the event.
      * @param person The person for whom the debt information is calculated.
      * @return A map of people to the amount of debt owed.
      */
     public Map<Person, BigDecimal> calculateDebtForPerson(String eventId, Person person) {
-        Event event = getEventById(eventId);
-        return event.calculateDebt(person);
+        return calculateDebtForPerson(eventId, person.getId());
     }
 
     /**
@@ -272,11 +283,6 @@ public class EventService {
     public BigDecimal calculateTotalAmountSpentForEvent(String eventId) {
         Event event = getEventById(eventId);
         return event.totalAmountSpent();
-    }
-
-    // Getter methods for Event fields
-    public String getEventId(String eventId) {
-        return getEventById(eventId).getId();
     }
 
     public String getEventCode(String eventId) {
