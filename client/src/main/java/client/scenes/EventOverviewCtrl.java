@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -46,6 +47,8 @@ public class EventOverviewCtrl implements Initializable {
     private Label eventLastModified;
     @FXML
     private Label amountOfParticipants;
+    @FXML
+    private Button backButton;
     // TODO: make tags a component and add them + make field
 
     @FXML
@@ -234,7 +237,13 @@ public class EventOverviewCtrl implements Initializable {
         this.goBackToAdmin = goBackToAdmin;
     }
 
+    public void goBackToHome() {
+        mainCtrl.showHome();
+    }
+
     // TODO
     public void handleCopyInviteCode(ActionEvent actionEvent) {
     }
+
+
 }

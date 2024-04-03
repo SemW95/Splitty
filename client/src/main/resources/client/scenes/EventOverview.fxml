@@ -84,23 +84,23 @@
                   <DropShadow height="26.93" radius="6.2325" width="0.0" />
                </effect>
             </Rectangle>
-            <Button layoutX="-18.0" layoutY="19.0" mnemonicParsing="false" onAction="#handleHome" prefHeight="44.0" prefWidth="281.0" style="-fx-background-color: transparent; -fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 20;" text="SPLITTY: Going Dutch">
+            <Button layoutX="52.0" layoutY="19.0" mnemonicParsing="false" onAction="#handleHome" prefHeight="44.0" prefWidth="247.0" style="-fx-background-color: transparent; -fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 20;" text="SPLITTY: Going Dutch">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <ComboBox fx:id="dropDown" layoutX="250.0" layoutY="27.0" prefWidth="150.0" style="-fx-background-color: white;">
+            <ComboBox fx:id="dropDown" layoutX="322.0" layoutY="27.0" prefWidth="150.0" style="-fx-background-color: white;">
                <effect>
                   <DropShadow color="#00000068" height="22.24" radius="10.25" width="20.76" />
                </effect>
             </ComboBox>
-            <ImageView fitHeight="28.0" fitWidth="35.0" layoutX="642.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="28.0" fitWidth="35.0" layoutX="711.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../icons/copy.png" />
                </image>
             </ImageView>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="28.0" layoutX="437.0" layoutY="25.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
-            <Label fx:id="inviteCode" layoutX="444.0" layoutY="24.0" prefHeight="17.0" prefWidth="185.0" text="Invite Code">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="28.0" layoutX="506.0" layoutY="25.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+            <Label fx:id="inviteCode" layoutX="507.0" layoutY="24.0" prefHeight="17.0" prefWidth="185.0" text="Invite Code">
                <font>
                   <Font size="20.0" />
                </font>
@@ -119,6 +119,15 @@
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: transparent;">
                      <image>
                         <Image url="@../icons/currency.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="backButton" layoutX="19.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#goBackToHome" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fx:id="goBackToHome" fitHeight="24.0" fitWidth="24.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/client/icons/back.png" />
                      </image>
                   </ImageView>
                </graphic>
