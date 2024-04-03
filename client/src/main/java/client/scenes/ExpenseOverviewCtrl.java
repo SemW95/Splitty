@@ -12,8 +12,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 /**
@@ -24,6 +27,8 @@ public class ExpenseOverviewCtrl implements Initializable {
     private final MainCtrl mainCtrl;
     @FXML
     private AnchorPane rootAnchorPane;
+    @FXML
+    private Button backButton;
     @FXML
     private Label expenseNameLabel;
     @FXML
@@ -61,18 +66,63 @@ public class ExpenseOverviewCtrl implements Initializable {
         // Initialize UI with expense data
         expenseNameLabel.setText(expense.getDescription());
         expenseAmountLabel.setText("€ " + expense.getPaid().toString());
-        participantCountLabel.setText(Integer.toString(expense.getParticipants().size()));
+        participantCountLabel.setText(Integer.toString(expense.getParticipants().size() + 1));
 
         // Create tag
         expenseNameLabel.setGraphic(PaneCreator.createTagItem(expense.getTag()));
 
         // Populate participants
         participantsFlowPane.getChildren().setAll();
+        participantsFlowPane.getChildren().add(createRecipientCard(expense.getReceiver()));
+        System.out.println("Created a recipient card instead of a normal participant card");
         for (Person participant : expense.getParticipants()) {
-            AnchorPane participantCard = createParticipantCard(participant);
-            participantsFlowPane.getChildren().add(participantCard);
+            participantsFlowPane.getChildren().add(createParticipantCard(participant));
+            System.out.println("Created a regular participant card");
         }
+        participantsFlowPane.requestLayout();
+
     }
+
+    /**
+     * Creates a new Participant card for the dynamically scaled FlowPane.
+     *
+     * @param participant The participant
+     * @return An anchor pane
+     */
+    private AnchorPane createRecipientCard(Person participant) {
+        AnchorPane card = new AnchorPane();
+        card.setPrefSize(475, 50);
+        card.setStyle(
+            "-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;");
+
+        String participantRepresentation =
+            participant.getFirstName() + " " + participant.getLastName();
+        System.out.println(participant.getId());
+        System.out.println(expense.getReceiver().getId());
+        participantRepresentation = participantRepresentation.concat(" (Recipient)");
+        Label participantLabel = new Label(participantRepresentation);
+        Font globalFont = new Font("System Bold", 24);
+        participantLabel.setFont(globalFont);
+        participantLabel.setLayoutX(12.5);
+        participantLabel.setMaxWidth(401);
+
+
+        ImageView lockedImage = new ImageView(new Image("client/icons/locked.png"));
+        lockedImage.setLayoutX(426);
+        lockedImage.setLayoutY(13);
+        lockedImage.setFitHeight(24);
+        lockedImage.setFitWidth(24);
+        card.getChildren().add(lockedImage);
+
+        participantLabel.setTextFill(Color.valueOf("#636363"));
+
+
+        participantLabel.setLayoutY(7.5);
+
+        card.getChildren().add(participantLabel);
+        return card;
+    }
+
 
     /**
      * Creates a new Participant card for the dynamically scaled FlowPane.
@@ -93,6 +143,8 @@ public class ExpenseOverviewCtrl implements Initializable {
         participantLabel.setFont(globalFont);
         participantLabel.setLayoutX(12.5);
         participantLabel.setLayoutY(7.5);
+        participantLabel.setMaxWidth(401);
+
 
         card.getChildren().add(participantLabel);
         return card;
@@ -101,9 +153,7 @@ public class ExpenseOverviewCtrl implements Initializable {
 
     @FXML
     private void onAddParticipantClicked() {
-        // TODO go to add participant UI
-        System.out.println("Pressed add participant button.");
-        handleExit();
+        mainCtrl.showExpenseAddParticipantPopup(expense, event);
     }
 
     @FXML
@@ -140,4 +190,6 @@ public class ExpenseOverviewCtrl implements Initializable {
         this.event = event;
         populate();
     }
+
+
 }

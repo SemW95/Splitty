@@ -29,6 +29,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
@@ -161,13 +162,57 @@ public class ManageExpenseCtrl implements Initializable {
 
         // Populate participants
         participantsFlowPane.getChildren().setAll();
+        participantsFlowPane.getChildren().add(createRecipientCard(expense.getReceiver()));
+        System.out.println("Created a recipient card instead of a normal participant card");
         for (Person participant : expense.getParticipants()) {
             participantsFlowPane.getChildren().add(createParticipantCard(participant));
+            System.out.println("Created a regular participant card");
         }
+        participantsFlowPane.requestLayout();
+
 
         // Prevent window closure when there are unsaved changes with invalid syntax
         rootAnchorPane.getScene().getWindow()
             .addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::handleCloseRequest);
+    }
+
+    /**
+     * Creates a new Participant card for the dynamically scaled FlowPane.
+     *
+     * @param participant The participant
+     * @return An anchor pane
+     */
+    private AnchorPane createRecipientCard(Person participant) {
+        AnchorPane card = new AnchorPane();
+        card.setPrefSize(350, 50);
+        card.setStyle(
+            "-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;");
+
+        String participantRepresentation =
+            participant.getFirstName() + " " + participant.getLastName();
+        System.out.println(participant.getId());
+        System.out.println(expense.getReceiver().getId());
+        participantRepresentation = participantRepresentation.concat(" (Recipient)");
+        Label participantLabel = new Label(participantRepresentation);
+        participantLabel.setMaxWidth(276);
+        Font globalFont = new Font("System Bold", 24);
+        participantLabel.setFont(globalFont);
+        participantLabel.setLayoutX(12.5);
+        participantLabel.setLayoutY(7.5);
+
+
+        participantLabel.setTextFill(Color.valueOf("#636363"));
+        ImageView lockedImage = new ImageView(new Image("client/icons/locked.png"));
+        lockedImage.setLayoutX(301);
+        lockedImage.setLayoutY(13);
+        lockedImage.setFitHeight(24);
+        lockedImage.setFitWidth(24);
+        card.getChildren().add(lockedImage);
+
+
+
+        card.getChildren().add(participantLabel);
+        return card;
     }
 
     /**
@@ -184,11 +229,14 @@ public class ManageExpenseCtrl implements Initializable {
 
         String participantRepresentation =
             "Remove " + participant.getFirstName() + " " + participant.getLastName();
+        System.out.println(participant.getId());
+        System.out.println(expense.getReceiver().getId());
         Label participantLabel = new Label(participantRepresentation);
         Font globalFont = new Font("System Bold", 24);
         participantLabel.setFont(globalFont);
         participantLabel.setLayoutX(12.5);
         participantLabel.setLayoutY(7.5);
+        participantLabel.setMaxWidth(276);
         if (participantLabel.isVisible()) {
             participantLabel.setOnMouseEntered(
                 event -> participantLabel.setTextFill(Paint.valueOf("red")));
@@ -227,13 +275,21 @@ public class ManageExpenseCtrl implements Initializable {
 
     @FXML
     private void handleRecipientChange(ActionEvent actionEvent) {
+        Person previousRecipient = this.expense.getReceiver();
         Person selectedPerson = recipientMenu.getSelectionModel().getSelectedItem();
         if (selectedPerson != null) {
+            //already recipient
             if (selectedPerson.equals(expense.getReceiver())) {
                 return;
             }
+            //new recipient
             indicatorRecipientModified.setImage(new Image("client/icons/edit_done.png"));
             this.expense.setReceiver(selectedPerson);
+            //if they used to be a participant, they are no longer, if they used to be an
+            // event candidate, they are and won't be a participant, either way, make sure
+            // the recipient is not in list of participants
+            this.expense.getParticipants().remove(selectedPerson);
+            this.expense.getParticipants().add(previousRecipient);
             server.updateExpense(this.expense);
             mainCtrl.updateAll();
         }
