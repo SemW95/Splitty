@@ -362,8 +362,6 @@ public class MainCtrl {
 
     /**
      * Show the Event creation popup.
-     *
-     * @param callback function which will be called if the person is added successfully
      */
     // TODO: check if this is correct
     public void showEventCreationPopup() {

@@ -4,10 +4,8 @@ import client.Main;
 import client.utils.ServerUtils;
 import commons.Event;
 import jakarta.inject.Inject;
-import java.util.function.Consumer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
