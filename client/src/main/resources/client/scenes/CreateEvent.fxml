@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -30,8 +29,14 @@
                         <TextField fx:id="eventName" layoutX="101.0" layoutY="14.0" prefHeight="23.0" prefWidth="100.0" />
                         <Label layoutX="30.0" layoutY="42.0" prefHeight="25.0" prefWidth="71.0" text="Description:" />
                         <TextField fx:id="eventDescription" layoutX="101.0" layoutY="42.0" prefHeight="85.0" prefWidth="285.0" />
-                        <Button fx:id="create" layoutX="266.0" layoutY="148.0" mnemonicParsing="false" onAction="#handleCreate" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #228B22;" text="Create" textFill="WHITE" />
-                        <Button fx:id="cancel" layoutX="151.0" layoutY="148.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #cc0000;" text="Cancel" textFill="WHITE" />
+                        <Button fx:id="create" layoutX="266.0" layoutY="148.0" mnemonicParsing="false" onAction="#handleCreate" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #228B22;" text="Create" textFill="WHITE">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
+                        <Button fx:id="cancel" layoutX="151.0" layoutY="148.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #cc0000;" text="Cancel" textFill="WHITE">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
                         <Label fx:id="invalidFieldsMessage" layoutX="187.0" layoutY="128.0" prefHeight="18.0" prefWidth="114.0" text="Please fill in all fields!" textFill="#cc0000" visible="false" />
                      </children>
                   </AnchorPane>
@@ -39,14 +44,5 @@
             </SplitPane>
          </children>
       </AnchorPane>
-      <Button fx:id="cross" layoutX="399.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleCross" prefHeight="20.0" prefWidth="20.0" style="-fx-background-color: transparent;">
-         <graphic>
-            <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../icons/close.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
    </children>
 </AnchorPane>

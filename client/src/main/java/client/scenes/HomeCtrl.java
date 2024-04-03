@@ -144,8 +144,8 @@ public class HomeCtrl implements Initializable {
     /**
      * Logic for the "add event" button.
      */
-    // TODO
     public void addEvent() {
+        mainCtrl.showEventCreationPopup();
     }
 
     @FXML

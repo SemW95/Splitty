@@ -62,7 +62,6 @@ public class Event {
             LocalDate.now(),
             LocalDate.now()
         );
-        this.code = generateInviteCode();
     }
 
     /**
@@ -86,7 +85,6 @@ public class Event {
             startDate,
             endDate
         );
-        this.code = generateInviteCode();
     }
 
     /**
@@ -111,7 +109,6 @@ public class Event {
             LocalDate.now(),
             LocalDate.now()
         );
-        this.code = generateInviteCode();
     }
 
     /**
@@ -140,7 +137,6 @@ public class Event {
             startDate,
             endDate
         );
-        this.code = generateInviteCode();
     }
 
     /**

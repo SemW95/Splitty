@@ -365,11 +365,11 @@ public class MainCtrl {
      *
      * @param callback function which will be called if the person is added successfully
      */
-    public void showEventCreationPopup(Consumer<Event> callback) {
+    // TODO: check if this is correct
+    public void showEventCreationPopup() {
         popup = new Stage();
         popup.setTitle("Create Event");
         popup.setScene(createEventPair.scene);
-        createEventPair.ctrl.setCallback(callback);
         popup.initModality(Modality.APPLICATION_MODAL);
         popup.setResizable(false);
         popup.show();

@@ -1,5 +1,6 @@
 package client.scenes;
 
+import client.Main;
 import client.utils.ServerUtils;
 import commons.Event;
 import jakarta.inject.Inject;
@@ -25,13 +26,6 @@ public class CreateEventCtrl {
     private String description;
     @FXML
     private Label invalidFieldsMessage;
-    @FXML
-    private Button cross;
-    @FXML
-    private Button create;
-    @FXML
-    private Button cancel;
-    private Consumer<Event> callback;
 
     @Inject
     public CreateEventCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -41,30 +35,23 @@ public class CreateEventCtrl {
 
     @FXML
     private void handleCreate(ActionEvent actionEvent) {
-        if (eventName.getText().isBlank() || eventDescription.getText().isBlank()) {
+        if (!eventName.getText().isBlank() && !eventDescription.getText().isBlank()) {
             name = eventName.getText();
             description = eventDescription.getText();
             invalidFieldsMessage.setVisible(false);
+            Event event = new Event(name, description); // Invite code automatically generated
+            event = server.createEvent(event);
+            Main.configManager.addCode(event.getCode());
+            mainCtrl.updateAll();
+            mainCtrl.closePopup();
+            mainCtrl.showEventOverview(event, false);
         } else {
             invalidFieldsMessage.setVisible(true);
         }
-        
-        Event event = new Event(name, description); // Invite code automatically generated
-        callback.accept(event);
-        mainCtrl.closePopup();
-        mainCtrl.showEventOverview(event, true);
     }
 
     public void handleCancel(ActionEvent actionEvent) {
         mainCtrl.closePopup();
-    }
-
-    public void handleCross(ActionEvent actionEvent) {
-        mainCtrl.closePopup();
-    }
-
-    public void setCallback(Consumer<Event> callback) {
-        this.callback = callback;
     }
 
 }
