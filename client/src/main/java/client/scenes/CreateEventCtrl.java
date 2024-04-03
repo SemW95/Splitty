@@ -50,7 +50,7 @@ public class CreateEventCtrl {
             invalidFieldsMessage.setVisible(true);
         }
         
-        Event event = new Event(name, description);
+        Event event = new Event(name, description); // Invite code automatically generated
         callback.accept(event);
         mainCtrl.closePopup();
         mainCtrl.showEventOverview(event, true);

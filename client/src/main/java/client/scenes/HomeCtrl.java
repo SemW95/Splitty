@@ -138,7 +138,7 @@ public class HomeCtrl implements Initializable {
      * Logic for the home title.
      */
     public void clickHome() {
-        System.out.println("Pressed home.");
+        mainCtrl.showHome();
     }
 
     /**
