@@ -270,7 +270,8 @@ public class ManageExpenseCtrl implements Initializable {
             server.updateExpense(this.expense);
             mainCtrl.updateAll();
             confirmLastDeleted.setText(
-                confirmLastDeleted.getText() + "\nRemoved " + participant.getFirstName() +
+                confirmLastDeleted.getText() + "\nRemoved " + participant.getFirstName()
+                    +
                     " from this expense successfully.");
         });
 
@@ -303,7 +304,8 @@ public class ManageExpenseCtrl implements Initializable {
         if (typedAmount.contains(".")) {
             int lastIndex = typedAmount.lastIndexOf('.');
             if (lastIndex != -1) { // Check if a dot exists
-                typedAmount = typedAmount.substring(0, lastIndex).replace(".", "") +
+                typedAmount = typedAmount.substring(0, lastIndex).replace(".", "")
+                    +
                     typedAmount.substring(lastIndex);
             }
         }
@@ -407,7 +409,8 @@ public class ManageExpenseCtrl implements Initializable {
 
             // Customize the dialog appearance
             dialog.setTitle("Invalid Input Detected");
-            dialog.setContentText("You have unsaved changes with invalid syntax." +
+            dialog.setContentText("You have unsaved changes with invalid syntax."
+                +
                 "\nPlease review that you have entered a valid amount of money.");
 
             // Adding a custom close button inside the dialog, since default buttons are not used
@@ -460,7 +463,11 @@ public class ManageExpenseCtrl implements Initializable {
         populate();
     }
 
-    public void setConfirmationLabels(){
+    /**
+     * Sets all the labels confirming changes made by a user.
+     *
+     */
+    public void setConfirmationLabels() {
         if (indicatorNameModified.getImage().getUrl().contains("done")) {
             confirmName.setText("Changed Successfully.");
         }
@@ -474,14 +481,19 @@ public class ManageExpenseCtrl implements Initializable {
         }
         if (indicatorTagModified.getImage().getUrl().contains("done")) {
             confirmTag.setText("Changed Successfully.");
-        }if (indicatorRecipientModified.getImage().getUrl().contains("done")) {
+        }
+        if (indicatorRecipientModified.getImage().getUrl().contains("done")) {
             confirmRecipient.setText("Changed Successfully.");
         }
 
         
 
     }
-    public void defaultStatus(){
+
+    /**
+     * Sets the default for the status icons and status labels.
+     */
+    public void defaultStatus() {
         indicatorAmountModified.setImage(new Image("/client/icons/edit_idle.png"));
         indicatorDateModified.setImage(new Image("/client/icons/edit_idle.png"));
         indicatorNameModified.setImage(new Image("/client/icons/edit_idle.png"));
