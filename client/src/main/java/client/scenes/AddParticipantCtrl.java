@@ -36,7 +36,6 @@ public class AddParticipantCtrl implements Initializable {
     @FXML
     private TextField bicTextField;
 
-
     @FXML
     private TextField emailTextField;
 
