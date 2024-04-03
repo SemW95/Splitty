@@ -56,6 +56,7 @@ public class MainCtrl {
     private CsPair<DeleteParticipantConfirmationCtrl> deleteParticipantConfirmationPair;
     private CsPair<AdminOverviewCtrl> adminOverviewPair;
     private CsPair<DeleteEventConfirmationCtrl> deleteEventConfirmationPair;
+    private CsPair<CreateEventCtrl> createEventPair;
     // private Pair<ExpenseCardCtrl, Parent> expenseCard;
 
     /**
@@ -99,6 +100,7 @@ public class MainCtrl {
             "client", "scenes", "AdminOverview.fxml");
         deleteEventConfirmationPair = fxml.load(DeleteEventConfirmationCtrl.class,
             "client", "scenes", "DeleteEventConfirmation.fxml");
+        createEventPair = fxml.load(CreateEventCtrl.class, "client", "scenes", "CreateEvent.fxml");
     }
 
     /**
@@ -357,4 +359,20 @@ public class MainCtrl {
         expenseAddParticipantPair.ctrl.update(expense, event);
         popup.show();
     }
+
+    /**
+     * Show the Event creation popup.
+     *
+     * @param callback function which will be called if the person is added successfully
+     */
+    public void showEventCreationPopup(Consumer<Event> callback) {
+        popup = new Stage();
+        popup.setTitle("Create Event");
+        popup.setScene(createEventPair.scene);
+        createEventPair.ctrl.setCallback(callback);
+        popup.initModality(Modality.APPLICATION_MODAL);
+        popup.setResizable(false);
+        popup.show();
+    }
+
 }

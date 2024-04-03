@@ -31,7 +31,6 @@ public class CreateEventCtrl {
     private Button create;
     @FXML
     private Button cancel;
-
     private Consumer<Event> callback;
 
     @Inject

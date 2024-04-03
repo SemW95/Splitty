@@ -142,17 +142,10 @@ public class HomeCtrl implements Initializable {
     }
 
     /**
-     * Logic for the "settings" button.
-     */
-    public void clickSettings() {
-        System.out.println("Pressed settings.");
-    }
-
-    /**
      * Logic for the "add event" button.
      */
+    // TODO
     public void addEvent() {
-        System.out.println("Pressed add event");
     }
 
     @FXML
