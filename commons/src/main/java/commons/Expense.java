@@ -125,6 +125,21 @@ public class Expense {
     protected Expense() {
     }
 
+    /** Checks if a participant with the given id exists.
+     *
+     * @param personId The id that needs to be found
+     * @return if the id has been found
+     */
+    public boolean participantsContainId(String personId) {
+        for (Person participant : this.participants) {
+            if (participant.getId().equals(personId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     private boolean containsPersonWithId(String id) {
         for (Person participant : this.participants) {
             if (Objects.equals(participant.getId(), id)) {
