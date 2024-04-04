@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -222,5 +223,41 @@ class ExpenseServiceTest {
         BigDecimal share = expenseService.getShare("testId");
         assertThat(share).isNotNull();
         verify(expenseRepository).findById("testId");
+    }
+
+    @Test
+    void getExpenseByIdThrowsWhenNotFound() {
+        when(expenseRepository.findById(anyString())).thenReturn(Optional.empty());
+        assertThrows(
+            IllegalStateException.class,
+            () -> expenseService.getExpenseById("nonexistentId"),
+            "Expected getExpenseById() to throw, but it didn't");
+        verify(expenseRepository).findById("nonexistentId");
+    }
+
+    @Test
+    void deleteExpenseThrowsWhenNotFound() {
+        when(expenseRepository.findById("nonexistentId")).thenReturn(Optional.empty());
+        assertThrows(
+            IllegalStateException.class,
+            () -> expenseService.deleteExpense("nonexistentId"),
+            "Expected deleteExpense() to throw, but it didn't");
+        verify(expenseRepository).findById("nonexistentId");
+    }
+
+    @Test
+    void createExpenseThrowsWhenExpenseExists() {
+        when(expenseRepository.findById(anyString())).thenReturn(Optional.of(testExpense));
+        assertThrows(IllegalStateException.class, () -> expenseService.createExpense(testExpense),
+            "Expected createExpense() to throw due to existing expense, but it didn't");
+        verify(expenseRepository).findById(testExpense.getId());
+    }
+
+    @Test
+    void updateExpenseThrowsWhenExpenseNotFound() {
+        when(expenseRepository.findById(anyString())).thenReturn(Optional.empty());
+        assertThrows(IllegalStateException.class, () -> expenseService.updateExpense(testExpense),
+            "Expected updateExpense() to throw due to nonexistent expense, but it didn't");
+        verify(expenseRepository).findById(testExpense.getId());
     }
 }
