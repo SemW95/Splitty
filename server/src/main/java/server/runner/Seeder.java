@@ -148,7 +148,7 @@ public class Seeder implements CommandLineRunner {
         List<Expense> expenses = List.of(expense);
         List<Person> candidates = new ArrayList<>();
         candidates.addAll(participants);
-        //add someone who isnt in the expense to the event
+        //add someone who isn't in the expense to the event
         candidates.add(georgeBoole);
         candidates.add(alanTuring);
         Event dinner = new Event("Celebration Dinner", "Dinner and drinks with the group",
@@ -163,5 +163,12 @@ public class Seeder implements CommandLineRunner {
             new ArrayList<>(), start, end, now.minusSeconds(60 * 60 * 24 * 5));
         ride.setCode("5678");
         eventRepository.save(ride);
+
+        Event outing = new Event("Paintball", "Work paintball outing",
+            new ArrayList<>(), List.of(tagRepository.findTagByName("entrance fees").get()),
+            new ArrayList<>(),
+            new ArrayList<>(), start, end, now.minusSeconds(60 * 60 * 24 * 5));
+        outing.setCode("9101112");
+        eventRepository.save(outing);
     }
 }
