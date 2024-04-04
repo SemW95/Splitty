@@ -22,6 +22,7 @@ import client.Main;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Event;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javassist.NotFoundException;
 
 /**
  * Home screen.
@@ -157,16 +159,24 @@ public class HomeCtrl implements Initializable {
      * Adds a new event to the config and home screen based on input field.
      */
     public void joinEvent() {
-        String code = eventCodeTextField.getText();
-        eventCodeTextField.clear();
+        String code = "";
+        //checks if there is something in the input field
+        if (!eventCodeTextField.getText().isEmpty()) {
+            code = eventCodeTextField.getText();
+            eventCodeTextField.clear();
+        } else {
+            eventCodeTextField.setPromptText("Please enter a code!");
+            return;
+        }
 
         //checks if there is an event with the given code
         if (server.getEventByCode(code) == null) {
-            System.out.println("There is no event with this code");
+            eventCodeTextField.setPromptText("Event not found");
             return;
         }
 
         Main.configManager.addCode(code);
+        eventCodeTextField.setPromptText("Event added");
         refetch();
     }
 
