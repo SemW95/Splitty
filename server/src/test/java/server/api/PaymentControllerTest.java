@@ -169,6 +169,19 @@ public class PaymentControllerTest {
             .andExpect(content().string(String.valueOf(expectedReceiverId)));
     }
 
+    // Test for getting the receiver's ID of a payment
+    @Test
+    public void getAmountTest() throws Exception {
+        final String paymentId = "1";
+        final BigDecimal expectedAmount = payment.getAmount();
+
+        given(paymentService.getAmount(paymentId)).willReturn(expectedAmount);
+
+        mockMvc.perform(get("/payment/{id}/amount", paymentId))
+            .andExpect(status().isOk())
+            .andExpect(content().string(String.valueOf(expectedAmount.toString())));
+    }
+
     // Test for setting the payer of a payment
     @Test
     public void setPayerTest() throws Exception {
@@ -227,5 +240,16 @@ public class PaymentControllerTest {
 
         // Verifying the interaction with the mock service
         verify(paymentService).setAmount(eq(paymentId), eq(newAmount));
+    }
+
+    @Test
+    public void handleIllegalStateExceptionTest() throws Exception {
+        String invalidExpenseId = "nonExistingId";
+        given(paymentService.getPaymentById(invalidExpenseId)).willThrow(
+            new IllegalStateException("There is no Expense with this id")
+        );
+
+        mockMvc.perform(get("/payment/{id}", invalidExpenseId))
+            .andExpect(status().isNotFound());
     }
 }
