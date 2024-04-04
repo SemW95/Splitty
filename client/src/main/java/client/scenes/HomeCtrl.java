@@ -22,7 +22,6 @@ import client.Main;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Event;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +34,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javassist.NotFoundException;
 
 /**
  * Home screen.
