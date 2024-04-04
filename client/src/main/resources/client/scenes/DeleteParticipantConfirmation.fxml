@@ -14,13 +14,13 @@
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="43.0" prefWidth="438.0">
                      <children>
-                        <Label layoutX="8.0" layoutY="31.0" prefHeight="56.0" prefWidth="383.0" text="Are you sure to delete this Participant?">
+                        <Label layoutX="8.0" layoutY="31.0" prefHeight="56.0" prefWidth="383.0" text="%delete-participant-confirmation.confirmation">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Button fx:id="deleteParticipant" layoutX="117.0" layoutY="121.0" mnemonicParsing="false" onAction="#deleteParticipant" text="Yes" />
-                        <Button fx:id="goBackToManageScene" layoutX="229.0" layoutY="121.0" mnemonicParsing="false" onAction="#goBackToManageScene" text="No" />
+                        <Button fx:id="deleteParticipant" layoutX="117.0" layoutY="121.0" mnemonicParsing="false" onAction="#deleteParticipant" text="%delete-participant-confirmation.yes" />
+                        <Button fx:id="goBackToManageScene" layoutX="229.0" layoutY="121.0" mnemonicParsing="false" onAction="#goBackToManageScene" text="%delete-participant-confirmation.no" />
                      </children>
                   </AnchorPane>
               </items>

@@ -27,7 +27,7 @@
             <Insets right="1.0" />
          </padding>
       </TextField>
-      <Label contentDisplay="RIGHT" layoutX="400.0" layoutY="85.0" text="Amount: €">
+      <Label contentDisplay="RIGHT" layoutX="400.0" layoutY="85.0" text="%manage-expense.amount">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -42,28 +42,28 @@
             </TextField>
          </graphic>
       </Label>
-      <Label contentDisplay="RIGHT" layoutX="400.0" layoutY="205.0" text="On">
+      <Label contentDisplay="RIGHT" layoutX="400.0" layoutY="205.0" text="%manage-expense.date-on">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
          <graphic>
-            <DatePicker fx:id="expenseDate" onAction="#handleDateChange" prefHeight="34.0" prefWidth="374.0" promptText="Redate" />
+            <DatePicker fx:id="expenseDate" onAction="#handleDateChange" prefHeight="34.0" prefWidth="374.0" promptText="%manage-expense.redate" />
          </graphic>
       </Label>
-      <Label contentDisplay="RIGHT" layoutX="400.0" layoutY="145.0" text="Paid by">
+      <Label contentDisplay="RIGHT" layoutX="400.0" layoutY="145.0" text="%manage-expense.paid-by">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
          <graphic>
-            <ComboBox fx:id="recipientMenu" onAction="#handleRecipientChange" prefHeight="33.0" prefWidth="323.0" promptText="Select another " />
+            <ComboBox fx:id="recipientMenu" onAction="#handleRecipientChange" prefHeight="33.0" prefWidth="323.0" promptText="%manage-expense.select-another" />
          </graphic>
       </Label>
-      <Label contentDisplay="RIGHT" layoutX="400.0" layoutY="265.0" text="Tag:">
+      <Label contentDisplay="RIGHT" layoutX="400.0" layoutY="265.0" text="%manage-expense.tag">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
          <graphic>
-            <ComboBox fx:id="tagMenu" onAction="#handleTagChange" prefHeight="33.0" prefWidth="354.0" promptText="Select another " />
+            <ComboBox fx:id="tagMenu" onAction="#handleTagChange" prefHeight="33.0" prefWidth="354.0" promptText="%manage-expense.select-another" />
          </graphic>
       </Label>
       <ImageView fx:id="indicatorNameModified" fitHeight="24.0" fitWidth="24.0" layoutX="815.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">

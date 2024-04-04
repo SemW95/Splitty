@@ -237,4 +237,12 @@ public class EventOverviewCtrl implements Initializable {
     // TODO
     public void handleCopyInviteCode(ActionEvent actionEvent) {
     }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public boolean getGoBackToAdmin() {
+        return goBackToAdmin;
+    }
 }

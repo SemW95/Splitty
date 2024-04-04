@@ -7,12 +7,12 @@
 
 <Pane prefHeight="159.0" prefWidth="296.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.DeleteEventConfirmationCtrl">
    <children>
-      <Label prefHeight="108.0" prefWidth="300.0" text="Are you sure you want to delete this Event?" textAlignment="CENTER" wrapText="true">
+      <Label prefHeight="108.0" prefWidth="300.0" text="%delete-event-confirmation.confirmation" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Button layoutX="80.0" layoutY="120.0" mnemonicParsing="false" onAction="#handleYes" text="Yes" />
-      <Button layoutX="180.0" layoutY="120.0" mnemonicParsing="false" onAction="#handleNo" text="No" />
+      <Button layoutX="80.0" layoutY="120.0" mnemonicParsing="false" onAction="#handleYes" text="%delete-event-confirmation.yes" />
+      <Button layoutX="180.0" layoutY="120.0" mnemonicParsing="false" onAction="#handleNo" text="%delete-event-confirmation.no" />
    </children>
 </Pane>

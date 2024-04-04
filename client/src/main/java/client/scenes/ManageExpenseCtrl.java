@@ -192,7 +192,8 @@ public class ManageExpenseCtrl implements Initializable {
             participant.getFirstName() + " " + participant.getLastName();
         System.out.println(participant.getId());
         System.out.println(expense.getReceiver().getId());
-        participantRepresentation = participantRepresentation.concat(" (Recipient)");
+        participantRepresentation +=
+            " (" + resources.getString("manage-expense.recipient") + ")";
         Label participantLabel = new Label(participantRepresentation);
         participantLabel.setMaxWidth(276);
         Font globalFont = new Font("System Bold", 24);
@@ -208,7 +209,6 @@ public class ManageExpenseCtrl implements Initializable {
         lockedImage.setFitHeight(24);
         lockedImage.setFitWidth(24);
         card.getChildren().add(lockedImage);
-
 
 
         card.getChildren().add(participantLabel);
@@ -372,14 +372,13 @@ public class ManageExpenseCtrl implements Initializable {
             dialog.initOwner(rootAnchorPane.getScene().getWindow()); // Set the owner
 
             // Customize the dialog appearance
-            dialog.setTitle("Invalid Input Detected");
-            dialog.setContentText(
-                "You have unsaved changes with invalid syntax."
-                    +
-                    "\nPlease review that you have entered a valid amount of money.");
+            dialog.setTitle(resources.getString("manage-expense.invalid-input"));
+            dialog.setContentText(resources.getString("manage-expense.invalid-info"));
 
             // Adding a custom close button inside the dialog, since default buttons are not used
-            ButtonType closeButton = new ButtonType("Understood", ButtonBar.ButtonData.OK_DONE);
+            ButtonType closeButton =
+                new ButtonType(resources.getString("manage-expense.understood"),
+                    ButtonBar.ButtonData.OK_DONE);
             dialog.getDialogPane().getButtonTypes().add(closeButton);
 
             // Handling dialog result to perform actions if needed, but it's informational

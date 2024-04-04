@@ -21,8 +21,8 @@
             <Font size="32.0" />
          </font>
       </Label>
-      <Button fx:id="addParticipantButton" layoutX="525.0" layoutY="550.0" mnemonicParsing="false" onAction="#onAddParticipantClicked" prefHeight="25.0" prefWidth="450.0" style="-fx-background-color: #c4fffe; -fx-padding: 4px 8px; -fx-text-fill: #769e9d; -fx-border-radius: 12px; -fx-background-radius: 12px;" text="ADD PARTICIPANT" textFill="#769e9d" />
-      <Button fx:id="manageButton" layoutX="25.0" layoutY="550.0" mnemonicParsing="false" onAction="#onManageClicked" prefHeight="25.0" prefWidth="450.0" style="-fx-background-color: ffde83; -fx-padding: 4px 8px; -fx-text-fill: #867544; -fx-border-radius: 12px; -fx-background-radius: 12px;" text="MANAGE" textFill="#867544" />
+      <Button fx:id="addParticipantButton" layoutX="525.0" layoutY="550.0" mnemonicParsing="false" onAction="#onAddParticipantClicked" prefHeight="25.0" prefWidth="450.0" style="-fx-background-color: #c4fffe; -fx-padding: 4px 8px; -fx-text-fill: #769e9d; -fx-border-radius: 12px; -fx-background-radius: 12px;" text="%expense-overview.add-participant" textFill="#769e9d" />
+      <Button fx:id="manageButton" layoutX="25.0" layoutY="550.0" mnemonicParsing="false" onAction="#onManageClicked" prefHeight="25.0" prefWidth="450.0" style="-fx-background-color: ffde83; -fx-padding: 4px 8px; -fx-text-fill: #867544; -fx-border-radius: 12px; -fx-background-radius: 12px;" text="%expense-overview.manage" textFill="#867544" />
       <Label fx:id="participantCountLabel" contentDisplay="RIGHT" layoutX="935.0" layoutY="60.0" text="5">
          <font>
             <Font size="24.0" />

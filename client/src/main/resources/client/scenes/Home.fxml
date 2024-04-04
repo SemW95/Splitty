@@ -22,7 +22,7 @@
             <DropShadow height="26.93" radius="6.2325" width="0.0" />
          </effect>
       </Rectangle>
-      <Text layoutX="41.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 15; -fx-font-weight: bold;" text="Event Overview" />
+      <Text layoutX="41.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 15; -fx-font-weight: bold;" text="%home.event-overview" />
       <Button layoutX="782.0" layoutY="56.0" mnemonicParsing="false" onAction="#clickLanguage" prefHeight="25.0" prefWidth="65.0" text="%home.language" />
       <Button layoutX="896.0" layoutY="56.0" mnemonicParsing="false" onAction="#clickCurrency" prefHeight="25.0" prefWidth="59.0" text="%home.currency" />
       <Button layoutX="901.0" layoutY="520.0" mnemonicParsing="false" onAction="#clickAdminView" text="Admin view" />
@@ -31,7 +31,7 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="879.0" layoutY="152.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="25.0" prefWidth="94.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="Add Event" />
+      <Button layoutX="879.0" layoutY="152.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="25.0" prefWidth="94.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="%home.add-event" />
       <ComboBox fx:id="dropDown" layoutX="443.0" layoutY="62.0" prefWidth="150.0" style="-fx-background-color: white;">
          <effect>
             <DropShadow color="#00000068" height="22.24" radius="10.25" width="20.76" />

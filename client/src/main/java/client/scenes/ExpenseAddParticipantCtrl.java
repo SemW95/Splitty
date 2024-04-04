@@ -20,7 +20,6 @@ import javafx.scene.text.Font;
 
 /**
  * Controller class for adding a participant to an expense.
- *
  */
 public class ExpenseAddParticipantCtrl implements Initializable {
 
@@ -89,8 +88,6 @@ public class ExpenseAddParticipantCtrl implements Initializable {
         }
 
 
-
-
     }
 
     /**
@@ -147,7 +144,8 @@ public class ExpenseAddParticipantCtrl implements Initializable {
             participant.getFirstName() + " " + participant.getLastName();
         System.out.println(participant.getId());
         System.out.println(expense.getReceiver().getId());
-        participantRepresentation = participantRepresentation.concat(" (Recipient)");
+        participantRepresentation +=
+            " (" + resources.getString("expense-add-participant.recipient") + ")";
         Label participantLabel = new Label(participantRepresentation);
         Font globalFont = new Font("System Bold", 24);
         participantLabel.setTextFill(Color.valueOf("#636363"));

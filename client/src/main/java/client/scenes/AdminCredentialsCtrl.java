@@ -46,7 +46,7 @@ public class AdminCredentialsCtrl implements Initializable {
             mainCtrl.showAdminOverview();
         } else {
             // Show a warning to the user that the password was incorrect
-            incorrectPassword.setText("Password incorrect");
+            incorrectPassword.setText(resources.getString("admin-credentials.incorrect-password"));
         }
     }
 

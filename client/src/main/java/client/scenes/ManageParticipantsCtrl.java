@@ -67,8 +67,8 @@ public class ManageParticipantsCtrl implements Initializable {
         Person selectedParticipant = participantMenu.getValue();
         mainCtrl.showDeleteParticipantConfirmationPopup(() -> {
             if (event.getExpenses().stream().anyMatch(ex ->
-                    ex.getReceiver().equals(selectedParticipant)
-                            || ex.getParticipants().contains(selectedParticipant)
+                ex.getReceiver().equals(selectedParticipant)
+                    || ex.getParticipants().contains(selectedParticipant)
             )) {
                 // Show a modal dialog to inform the user
                 Dialog<String> dialog = new Dialog<>();
@@ -76,15 +76,15 @@ public class ManageParticipantsCtrl implements Initializable {
                 dialog.initOwner(rootAnchorPane.getScene().getWindow()); // Set the owner
 
                 // Customize the dialog appearance
-                dialog.setTitle("Invalid Deleting Operation");
+                dialog.setTitle(resources.getString("manage-participants.invalid-operation"));
                 dialog.setContentText(
-                        "This Participant is participating in an expense so you cannot delete it."
-                                +
-                                "\nPlease choose another one.");
+                    resources.getString("manage-participants.invalid-info"));
 
                 // Adding a custom close button inside the dialog,
                 // since default buttons are not used
-                ButtonType closeButton = new ButtonType("Understood", ButtonBar.ButtonData.OK_DONE);
+                ButtonType closeButton =
+                    new ButtonType(resources.getString("manage-participants.understood"),
+                        ButtonBar.ButtonData.OK_DONE);
                 dialog.getDialogPane().getButtonTypes().add(closeButton);
 
                 // Handling dialog result to perform actions if needed, but it's informational
@@ -158,10 +158,10 @@ public class ManageParticipantsCtrl implements Initializable {
         AnchorPane card = new AnchorPane();
         card.setPrefSize(475, 50);
         card.setStyle(
-                "-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;");
+            "-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;");
 
         String participantRepresentation =
-                participant.getFirstName() + " " + participant.getLastName();
+            participant.getFirstName() + " " + participant.getLastName();
         Label participantLabel = new Label(participantRepresentation);
         Font globalFont = new Font("System Bold", 24);
         participantLabel.setFont(globalFont);
@@ -188,5 +188,9 @@ public class ManageParticipantsCtrl implements Initializable {
     public void update(Event event) {
         this.event = event;
         populate();
+    }
+
+    public Event getEvent() {
+        return event;
     }
 }

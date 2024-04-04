@@ -14,12 +14,12 @@
       prefWidth="1000.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="client.scenes.AdminOverviewCtrl">
     <children>
-        <Label layoutX="151.0" layoutY="90.0" text="Order by"/>
+        <Label layoutX="151.0" layoutY="90.0" text="%admin-overview.order-by"/>
         <ChoiceBox fx:id="orderByChoiceBox" onAction="#refetch" layoutX="151.0" layoutY="106.0" prefWidth="150.0"/>
-        <Label layoutX="316.0" layoutY="90.0" text="Direction"/>
+        <Label layoutX="316.0" layoutY="90.0" text="%admin-overview.direction"/>
         <ChoiceBox fx:id="directionChoiceBox" onAction="#refetch" layoutX="316.0" layoutY="106.0" prefWidth="150.0"/>
         <Button layoutX="710.0" layoutY="106.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="140.0"
-                text="Import event" onAction="#handleImportEvent"/>
+                text="%admin-overview.import-event" onAction="#handleImportEvent"/>
         <ImageView fitHeight="31.0" fitWidth="31.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true"
                    preserveRatio="true" onMouseClicked="#handleExit">
             <image>

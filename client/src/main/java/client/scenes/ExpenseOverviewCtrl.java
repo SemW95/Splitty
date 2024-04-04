@@ -99,7 +99,8 @@ public class ExpenseOverviewCtrl implements Initializable {
             participant.getFirstName() + " " + participant.getLastName();
         System.out.println(participant.getId());
         System.out.println(expense.getReceiver().getId());
-        participantRepresentation = participantRepresentation.concat(" (Recipient)");
+        participantRepresentation +=
+            " (" + resources.getString("expense-overview.recipient") + ")";
         Label participantLabel = new Label(participantRepresentation);
         Font globalFont = new Font("System Bold", 24);
         participantLabel.setFont(globalFont);
@@ -191,5 +192,11 @@ public class ExpenseOverviewCtrl implements Initializable {
         populate();
     }
 
+    public Expense getExpense() {
+        return expense;
+    }
 
+    public Event getEvent() {
+        return event;
+    }
 }

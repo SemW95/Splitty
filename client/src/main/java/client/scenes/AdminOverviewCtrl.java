@@ -49,11 +49,16 @@ public class AdminOverviewCtrl implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
 
-        orderByChoiceBox.getItems().addAll("Title", "Creation date", "Last modified date");
+        String title = resources.getString("admin-overview.title");
+        String creationDate = resources.getString("admin-overview.creation-date");
+        String lastModifiedDate = resources.getString("admin-overview.last-modified-date");
+        orderByChoiceBox.getItems().addAll(title, creationDate, lastModifiedDate);
         //TODO: The order choice box gets called on "weird" occasions and creates errors.
         //orderByChoiceBox.getSelectionModel().selectFirst();
 
-        directionChoiceBox.getItems().addAll("Ascending", "Descending");
+        String ascending = resources.getString("admin-overview.ascending");
+        String descending = resources.getString("admin-overview.descending");
+        directionChoiceBox.getItems().addAll(ascending, descending);
         //TODO: The order choice box gets called on "weird" occasions and creates errors.
         //directionChoiceBox.getSelectionModel().selectFirst();
     }
