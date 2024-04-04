@@ -22,7 +22,6 @@ import client.Main;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Event;
-import java.awt.Rectangle;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +38,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 /**
  * Home screen.
