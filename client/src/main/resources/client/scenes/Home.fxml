@@ -24,7 +24,7 @@
          <graphic>
             <ImageView fitHeight="38.0" fitWidth="40.0">
                <image>
-                  <Image url="@../icons/admin.png" />
+                  <Image url="@/client/icons/admin.png" />
                </image>
             </ImageView>
          </graphic></Button>
@@ -65,7 +65,7 @@
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../icons/language.png" />
+                        <Image url="@/client/icons/language.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -73,9 +73,11 @@
             <Button fx:id="currency" layoutX="884.0" layoutY="22.0" mnemonicParsing="false" onAction="#clickCurrency" style="-fx-background-color: transparent;" />
             <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="883.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: transparent;">
                <image>
-                  <Image url="@../icons/currency.png" />
+                  <Image url="@/client/icons/currency.png" />
                </image>
             </ImageView>
+            <Label fx:id="serverStatus" alignment="CENTER" layoutX="773.0" layoutY="33.0" prefHeight="17.0" prefWidth="83.0" style="-fx-background-color: white;" text="Label" textOverrun="WORD_ELLIPSIS" />
+            <Text layoutX="695.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Server Status:" />
          </children>
       </Pane>
       <Button layoutX="666.0" layoutY="110.0" mnemonicParsing="false" onAction="#joinEvent" prefHeight="25.0" prefWidth="83.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="JOIN EVENT" />

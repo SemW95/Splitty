@@ -26,12 +26,16 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
@@ -54,6 +58,9 @@ public class HomeCtrl implements Initializable {
     @FXML
     private TextField eventCodeTextField;
 
+    @FXML
+    private Label serverStatus;
+
     @Inject
     public HomeCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.server = server;
@@ -75,6 +82,15 @@ public class HomeCtrl implements Initializable {
         );
         dropDown.setValue("Server 1");
         dropDown.setItems(options);
+
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    status();
+                });
+            }
+        }, 0, 1000);
     }
 
     /**
@@ -84,11 +100,15 @@ public class HomeCtrl implements Initializable {
     public void refetch() {
         events = new ArrayList<>();
 
+        /*
+            Will check if the event exists and add it, if it does not exist but the connection is
+            valid it means that should be removed from the config
+        */
         for (String code : Main.configManager.getCodes()) {
             Event event = server.getEventByCode(code);
             if (event != null) {
                 events.add(event);
-            } else {
+            } else if (server.getStatus() == 200) {
                 Main.configManager.removeCode(code);
             }
         }
@@ -142,6 +162,7 @@ public class HomeCtrl implements Initializable {
      * Logic for the home title.
      */
     public void clickHome() {
+        System.out.println("Pressed home.");
         mainCtrl.showHome();
     }
 
@@ -177,5 +198,21 @@ public class HomeCtrl implements Initializable {
     @FXML
     private void clickAdminView(ActionEvent actionEvent) {
         mainCtrl.showAdminCredentialsPopup();
+    }
+
+    /**
+     * Changes the label according to server status.
+     */
+    public void status() {
+        int response = server.getStatus();
+
+        if (response == 200) {
+            serverStatus.setStyle("-fx-background-color: #93c47d;");
+            serverStatus.setText("Connected");
+            return;
+        }
+
+        serverStatus.setStyle("-fx-background-color: #e06666;");
+        serverStatus.setText("Disconnected");
     }
 }
