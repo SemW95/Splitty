@@ -28,7 +28,7 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button layoutX="812.0" layoutY="110.0" mnemonicParsing="false" onAction="#createEvent" prefHeight="25.0" prefWidth="139.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="CREATE EVENT" />
+      <Button layoutX="847.0" layoutY="110.0" mnemonicParsing="false" onAction="#createEvent" prefHeight="25.0" prefWidth="139.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="CREATE EVENT" />
       <ScrollPane hbarPolicy="NEVER" layoutX="160.0" layoutY="155.0" prefHeight="445.0" prefWidth="700.0" vbarPolicy="ALWAYS">
          <content>
             <VBox fx:id="eventList" prefWidth="685.0" />
@@ -78,7 +78,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Button layoutX="509.0" layoutY="110.0" mnemonicParsing="false" onAction="#joinEvent" prefHeight="25.0" prefWidth="83.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="JOIN EVENT" />
-      <TextField fx:id="eventCodeTextField" layoutX="602.0" layoutY="110.0" promptText="Event Code" />
+      <Button layoutX="666.0" layoutY="110.0" mnemonicParsing="false" onAction="#joinEvent" prefHeight="25.0" prefWidth="83.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="JOIN EVENT" />
+      <TextField fx:id="eventCodeTextField" layoutX="510.0" layoutY="110.0" promptText="Event Code" />
    </children>
 </Pane>
