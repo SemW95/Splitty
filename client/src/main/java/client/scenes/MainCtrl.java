@@ -327,8 +327,6 @@ public class MainCtrl {
         eventOverviewPair.ctrl.update(event);
         if (fromAdmin) {
             eventOverviewPair.ctrl.setGoBackToAdmin(true);
-        } else {
-            eventOverviewPair.ctrl.setGoBackToAdmin(false);
         }
         primaryStage.setScene(eventOverviewPair.scene);
     }

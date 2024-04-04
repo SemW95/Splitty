@@ -177,7 +177,7 @@ public class EventOverviewCtrl implements Initializable {
      * Logic for the home title.
      */
     public void handleHome() {
-        mainCtrl.showHome();
+        handleExit();
     }
 
     /**
@@ -252,7 +252,7 @@ public class EventOverviewCtrl implements Initializable {
     }
 
     @FXML
-    private void clickReturn(MouseEvent mouseEvent) {
+    private void handleExit() {
         if (goBackToAdmin) {
             mainCtrl.showAdminOverview();
             goBackToAdmin = false;
@@ -268,15 +268,5 @@ public class EventOverviewCtrl implements Initializable {
     // TODO
     public void handleCopyInviteCode(ActionEvent actionEvent) {
 
-    }
-
-    @FXML
-    private void handleExit() {
-        if (goBackToAdmin) {
-            mainCtrl.showAdminOverview();
-            return;
-        }
-
-        mainCtrl.showHome();
     }
 }
