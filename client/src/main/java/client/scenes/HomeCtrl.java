@@ -168,6 +168,7 @@ public class HomeCtrl implements Initializable {
         Main.configManager.addCode(code);
         eventCodeTextField.setPromptText("Event added");
         refetch();
+    }
 
     public void createEvent() {
         mainCtrl.showEventCreationPopup();
