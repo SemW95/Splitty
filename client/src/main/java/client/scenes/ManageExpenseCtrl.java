@@ -97,22 +97,6 @@ public class ManageExpenseCtrl implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
 
-        // Add a global key event filter to handle navigation and actions
-        rootAnchorPane.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                Node focusedNode = rootAnchorPane.getScene().getFocusOwner();
-                if (focusedNode instanceof Button) {
-                    ((Button) focusedNode).fire();
-                    event.consume();
-                }
-//                if (focusedNode instanceof ComboBox<?>){
-//                    ((ComboBox) focusedNode).fire();
-//                    event.consume();
-//                }
-
-            }
-        });
-
         rootAnchorPane.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.ESCAPE) {
                 // Creating a confirmation dialog

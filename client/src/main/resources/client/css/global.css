@@ -1,0 +1,12 @@
+.button:focused {
+    /*-fx-focus-color: grey;*/
+    /*-fx-faint-focus-color: grey;*/
+    -fx-translate-x: -2px; /* Move the button 2 pixels to the left */
+    -fx-translate-y: -2px; /* Move the button 2 pixels up */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 3, 3);
+}
+.button:hover {
+    -fx-translate-x: -2px; /* Move the button 2 pixels to the left */
+    -fx-translate-y: -2px; /* Move the button 2 pixels up */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 3, 3);
+}
