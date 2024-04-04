@@ -19,6 +19,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -254,6 +255,9 @@ public class ManageExpenseCtrl implements Initializable {
      */
     private AnchorPane createParticipantCard(Person participant) {
         AnchorPane card = new AnchorPane();
+        card.setFocusTraversable(true);
+        card.setMouseTransparent(false);
+
         card.setPrefSize(475, 50);
         card.setStyle(
             "-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;");
@@ -263,6 +267,7 @@ public class ManageExpenseCtrl implements Initializable {
         System.out.println(participant.getId());
         System.out.println(expense.getReceiver().getId());
         Label participantLabel = new Label(participantRepresentation);
+        participantLabel.setFocusTraversable(true);
         Font globalFont = new Font("System Bold", 24);
         participantLabel.setFont(globalFont);
         participantLabel.setLayoutX(12.5);

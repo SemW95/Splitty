@@ -61,7 +61,7 @@
             <ComboBox fx:id="tagMenu" onAction="#handleTagChange" prefHeight="33.0" prefWidth="354.0" promptText="Select another " />
          </graphic>
       </Label>
-      <ScrollPane layoutX="25.0" layoutY="25.0" prefHeight="550.0" prefWidth="350.0" style="-fx-vbar-policy: NEVER; -fx-hbar-policy: never;">
+      <ScrollPane focusTraversable="false" layoutX="25.0" layoutY="25.0" prefHeight="550.0" prefWidth="350.0" style="-fx-vbar-policy: NEVER; -fx-hbar-policy: never;">
          <content>
             <FlowPane fx:id="participantsFlowPane" prefHeight="550.0" prefWidth="350.0" />
          </content>
