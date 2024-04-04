@@ -49,7 +49,7 @@ public class AdminOverviewCtrl implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
 
-        String title = resources.getString("admin-overview.title");
+        String title = resources.getString("admin-overview.by-title");
         String creationDate = resources.getString("admin-overview.creation-date");
         String lastModifiedDate = resources.getString("admin-overview.last-modified-date");
         orderByChoiceBox.getItems().addAll(title, creationDate, lastModifiedDate);

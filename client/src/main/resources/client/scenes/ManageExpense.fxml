@@ -91,5 +91,11 @@
             <Image url="@/client/icons/edit_idle.png" />
          </image>
       </ImageView>
+      <Label fx:id="confirmName" layoutX="845.0" layoutY="34.0" />
+      <Label fx:id="confirmAmount" layoutX="845.0" layoutY="94.0" />
+      <Label fx:id="confirmRecipient" layoutX="845.0" layoutY="154.0" />
+      <Label fx:id="confirmDate" layoutX="845.0" layoutY="214.0" />
+      <Label fx:id="confirmTag" layoutX="845.0" layoutY="274.0" />
+      <Label fx:id="confirmLastDeleted" layoutX="400.0" layoutY="330.0" />
    </children>
 </AnchorPane>

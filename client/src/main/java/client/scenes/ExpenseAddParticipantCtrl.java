@@ -29,6 +29,9 @@ public class ExpenseAddParticipantCtrl implements Initializable {
     private Label expenseNameLabel;
 
     @FXML
+    private Label statusLabel;
+
+    @FXML
     private FlowPane availableParticipants;
 
     @FXML
@@ -118,6 +121,12 @@ public class ExpenseAddParticipantCtrl implements Initializable {
                 currentParticipants.getChildren().remove(card);
                 addParticipantCardToAvailableParticipantFlowPane(participant);
 
+                statusLabel.setText("Successfully removed "
+                    +
+                    participant.getFirstName()
+                    +
+                    " from this expense.");
+
                 currentParticipants.requestLayout();
                 server.updateExpense(this.expense);
                 mainCtrl.updateAll();
@@ -197,6 +206,11 @@ public class ExpenseAddParticipantCtrl implements Initializable {
 
                 availableParticipants.requestLayout();
                 currentParticipants.requestLayout();
+                statusLabel.setText("Successfully added "
+                    +
+                    participant.getFirstName()
+                    +
+                    " to this expense.");
 
                 server.updateExpense(this.expense);
                 mainCtrl.updateAll();
@@ -222,5 +236,9 @@ public class ExpenseAddParticipantCtrl implements Initializable {
         this.expense = expense;
         this.event = event;
         populate();
+    }
+
+    public void defaultStatus() {
+        statusLabel.setText("No pending changes have been made.");
     }
 }
