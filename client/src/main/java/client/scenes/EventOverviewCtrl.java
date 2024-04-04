@@ -146,7 +146,7 @@ public class EventOverviewCtrl implements Initializable {
      * Logic for the home title.
      */
     public void handleHome() {
-        System.out.println("Pressed home.");
+        mainCtrl.showHome();
     }
 
     /**

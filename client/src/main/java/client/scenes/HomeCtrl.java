@@ -142,15 +142,7 @@ public class HomeCtrl implements Initializable {
      * Logic for the home title.
      */
     public void clickHome() {
-        System.out.println("Pressed home.");
-    }
-
-
-    /**
-     * Logic for the "create event" button.
-     */
-    public void createEvent() {
-        System.out.println("Pressed add event");
+        mainCtrl.showHome();
     }
 
     /**
@@ -176,6 +168,9 @@ public class HomeCtrl implements Initializable {
         Main.configManager.addCode(code);
         eventCodeTextField.setPromptText("Event added");
         refetch();
+
+    public void createEvent() {
+        mainCtrl.showEventCreationPopup();
     }
 
     @FXML
