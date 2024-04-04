@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
-      prefWidth="1000.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="client.scenes.AdminOverviewCtrl">
+
+<Pane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.AdminOverviewCtrl">
     <children>
-        <Label layoutX="151.0" layoutY="90.0" text="%admin-overview.order-by"/>
-        <ChoiceBox fx:id="orderByChoiceBox" onAction="#refetch" layoutX="151.0" layoutY="106.0" prefWidth="150.0"/>
-        <Label layoutX="316.0" layoutY="90.0" text="%admin-overview.direction"/>
-        <ChoiceBox fx:id="directionChoiceBox" onAction="#refetch" layoutX="316.0" layoutY="106.0" prefWidth="150.0"/>
-        <Button layoutX="710.0" layoutY="106.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="140.0"
-                text="%admin-overview.import-event" onAction="#handleImportEvent"/>
-        <ImageView fitHeight="31.0" fitWidth="31.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true"
-                   preserveRatio="true" onMouseClicked="#handleExit">
-            <image>
-                <Image url="@/client/icons/back.png"/>
-            </image>
+        <Button fx:id="backButton" layoutX="25.0" layoutY="25.0" mnemonicParsing="false" onAction="#handleExit">
+            <graphic>
+                <ImageView fx:id="handleExit" fitHeight="24.0" fitWidth="24.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@/client/icons/back.png" />
+                    </image>
+
+                </ImageView>
+            </graphic>
             <cursor>
-                <Cursor fx:constant="HAND"/>
+                <Cursor fx:constant="HAND" />
             </cursor>
-        </ImageView>
-        <ScrollPane hbarPolicy="NEVER" layoutX="150.0" layoutY="173.0" prefHeight="420.0" prefWidth="700.0"
-                    vbarPolicy="ALWAYS">
+        </Button>
+        <Label layoutX="151.0" layoutY="90.0" text="Order by" />
+        <ChoiceBox fx:id="orderByChoiceBox" layoutX="151.0" layoutY="106.0" onAction="#refetch" prefWidth="150.0" />
+        <Label layoutX="316.0" layoutY="90.0" text="Direction" />
+        <ChoiceBox fx:id="directionChoiceBox" layoutX="316.0" layoutY="106.0" onAction="#refetch" prefWidth="150.0" />
+        <Button layoutX="710.0" layoutY="106.0" mnemonicParsing="false" onAction="#handleImportEvent" prefHeight="24.0" prefWidth="140.0" text="Import event" />
+        <ScrollPane hbarPolicy="NEVER" layoutX="150.0" layoutY="173.0" prefHeight="420.0" prefWidth="700.0" vbarPolicy="ALWAYS">
             <content>
                 <VBox fx:id="eventList" prefWidth="685.0">
                     <!--               <children>-->

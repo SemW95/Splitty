@@ -1,22 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.chart.*?>
 <?import javafx.scene.image.*?>
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.HomeCtrl">
    <children>
       <Text layoutX="97.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 20; -fx-font-weight: bold;" text="%home.event-overview" />
@@ -30,6 +18,7 @@
          </graphic></Button>
       <Button layoutX="847.0" layoutY="110.0" mnemonicParsing="false" onAction="#createEvent" prefHeight="25.0" prefWidth="139.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="%home.create-event" />
       <ScrollPane hbarPolicy="NEVER" layoutX="160.0" layoutY="155.0" prefHeight="445.0" prefWidth="700.0" vbarPolicy="ALWAYS">
+
          <content>
             <VBox fx:id="eventList" prefWidth="685.0" />
          </content>

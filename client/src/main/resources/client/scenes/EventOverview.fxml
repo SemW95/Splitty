@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.EventOverviewCtrl">
+<Pane fx:id="root"  prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.EventOverviewCtrl">
    <children>
       <Pane layoutX="19.0" layoutY="101.0" prefHeight="144.0" prefWidth="825.0">
          <children>
@@ -140,12 +140,12 @@
             <Font size="19.0" />
          </font>
       </Text>
+      <Button layoutX="957.0" layoutY="100.0" mnemonicParsing="false" onAction="#handleAddParticipants" prefHeight="25.0" prefWidth="30.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253); -fx-focus-color: blue; -fx-background-insets: 0, 1, 2;" text="+" />
+      <Button layoutX="848.0" layoutY="134.0" mnemonicParsing="false" onAction="#handleManageParticipants" prefHeight="25.0" prefWidth="139.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #CF9FFF;" text="%event-overview.manage" />
+      <Button layoutX="956.0" layoutY="168.0" mnemonicParsing="false" onAction="#handleAddPayments" prefHeight="25.0" prefWidth="30.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="+" />
+      <Button layoutX="848.0" layoutY="199.0" mnemonicParsing="false" onAction="#handleManagePayments" prefHeight="25.0" prefWidth="139.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #CF9FFF;" text="%event-overview.manage" />
       <Button layoutX="107.0" layoutY="262.0" mnemonicParsing="false" onAction="#handleAddExpenses" prefHeight="25.0" prefWidth="30.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="+" />
       <Button layoutX="149.0" layoutY="262.0" mnemonicParsing="false" onAction="#handleManageExpenses" prefHeight="25.0" prefWidth="126.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #CF9FFF;" text="%event-overview.manage" />
-      <Button layoutX="957.0" layoutY="100.0" mnemonicParsing="false" onAction="#handleAddParticipants" prefHeight="25.0" prefWidth="30.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="+" />
-      <Button layoutX="956.0" layoutY="168.0" mnemonicParsing="false" onAction="#handleAddPayments" prefHeight="25.0" prefWidth="30.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="+" />
-      <Button layoutX="848.0" layoutY="134.0" mnemonicParsing="false" onAction="#handleManageParticipants" prefHeight="25.0" prefWidth="139.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #CF9FFF;" text="%event-overview.manage" />
-      <Button layoutX="848.0" layoutY="199.0" mnemonicParsing="false" onAction="#handleManagePayments" prefHeight="25.0" prefWidth="139.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #CF9FFF;" text="%event-overview.manage" />
       <Button layoutX="313.0" layoutY="261.0" mnemonicParsing="false" onAction="#handleOpenDebts" prefHeight="25.0" prefWidth="126.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #FFE761;" text="%event-overview.open-debts" />
       <Button layoutX="447.0" layoutY="260.0" mnemonicParsing="false" onAction="#handlePaidOffDebts" prefHeight="25.0" prefWidth="126.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #FFE761;" text="%event-overview.paid-off-debts" />
       <Pane layoutX="593.0" layoutY="257.0" prefHeight="327.0" prefWidth="411.0">
