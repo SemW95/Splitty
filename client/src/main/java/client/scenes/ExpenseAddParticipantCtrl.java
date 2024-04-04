@@ -1,22 +1,19 @@
 package client.scenes;
 
 import client.utils.PaneCreator;
+import client.utils.ScreenUtils;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Event;
 import commons.Expense;
 import commons.Person;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
@@ -25,7 +22,6 @@ import javafx.scene.text.Font;
 
 /**
  * Controller class for adding a participant to an expense.
- *
  */
 public class ExpenseAddParticipantCtrl implements Initializable {
 
@@ -62,28 +58,8 @@ public class ExpenseAddParticipantCtrl implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
-        rootAnchorPane.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.ESCAPE) {
-                // Creating a confirmation dialog
-                Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
-                confirmAlert.setTitle("Confirmation");
-                confirmAlert.setHeaderText(null); // Optional: No header
-                confirmAlert.setContentText("You have pressed Escape, "
-                    +
-                    "\nare you sure you want to go back?");
-
-                // This will show the dialog and wait for the user response
-                Optional<ButtonType> result = confirmAlert.showAndWait();
-
-                // Checking the user's decision
-                if (result.isPresent() && result.get() == ButtonType.OK) {
-                    // If user clicks OK, then perform the action to go back/close
-                    mainCtrl.closePopup();
-                }
-                event.consume(); // Prevents the event from propagating further
-            }
-        });
-
+        rootAnchorPane.addEventFilter(KeyEvent.KEY_PRESSED,
+            ScreenUtils.exitHandler(resources, mainCtrl::closePopup));
     }
 
     /**
@@ -118,8 +94,6 @@ public class ExpenseAddParticipantCtrl implements Initializable {
         for (Person participant : expense.getParticipants()) {
             addParticipantCardToCurrentParticipantFlowPane(participant);
         }
-
-
 
 
     }
@@ -184,7 +158,8 @@ public class ExpenseAddParticipantCtrl implements Initializable {
             participant.getFirstName() + " " + participant.getLastName();
         System.out.println(participant.getId());
         System.out.println(expense.getReceiver().getId());
-        participantRepresentation = participantRepresentation.concat(" (Recipient)");
+        participantRepresentation +=
+            " (" + resources.getString("expense-add-participant.recipient") + ")";
         Label participantLabel = new Label(participantRepresentation);
         Font globalFont = new Font("System Bold", 24);
         participantLabel.setTextFill(Color.valueOf("#636363"));

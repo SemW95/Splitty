@@ -7,7 +7,7 @@
 <?import javafx.scene.text.*?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.HomeCtrl">
    <children>
-      <Text layoutX="97.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 20; -fx-font-weight: bold;" text="Event Overview" />
+      <Text layoutX="97.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 20; -fx-font-weight: bold;" text="%home.event-overview" />
       <Button layoutX="933.0" layoutY="541.0" mnemonicParsing="false" onAction="#clickAdminView" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="38.0" fitWidth="40.0">
@@ -16,7 +16,7 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button layoutX="847.0" layoutY="110.0" mnemonicParsing="false" onAction="#createEvent" prefHeight="25.0" prefWidth="139.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="CREATE EVENT" />
+      <Button layoutX="847.0" layoutY="110.0" mnemonicParsing="false" onAction="#createEvent" prefHeight="25.0" prefWidth="139.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="%home.create-event" />
       <ScrollPane hbarPolicy="NEVER" layoutX="160.0" layoutY="155.0" prefHeight="445.0" prefWidth="700.0" vbarPolicy="ALWAYS">
 
          <content>
@@ -56,10 +56,10 @@
                </image>
             </ImageView>
             <Label fx:id="serverStatus" alignment="CENTER" layoutX="773.0" layoutY="33.0" prefHeight="17.0" prefWidth="83.0" style="-fx-background-color: white;" text="Label" textOverrun="WORD_ELLIPSIS" />
-            <Text layoutX="695.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Server Status:" />
+            <Text layoutX="695.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%home.server-status" />
          </children>
       </Pane>
-      <Button layoutX="666.0" layoutY="110.0" mnemonicParsing="false" onAction="#joinEvent" prefHeight="25.0" prefWidth="83.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="JOIN EVENT" />
-      <TextField fx:id="eventCodeTextField" layoutX="510.0" layoutY="110.0" promptText="Event Code" />
+      <Button layoutX="666.0" layoutY="110.0" mnemonicParsing="false" onAction="#joinEvent" prefHeight="25.0" prefWidth="83.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="%home.join-event" />
+      <TextField fx:id="eventCodeTextField" layoutX="510.0" layoutY="110.0" promptText="%home.event-code" />
    </children>
 </Pane>

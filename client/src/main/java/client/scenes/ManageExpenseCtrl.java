@@ -1,5 +1,6 @@
 package client.scenes;
 
+import client.utils.ScreenUtils;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Event;
@@ -13,12 +14,10 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -29,7 +28,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
@@ -114,31 +112,14 @@ public class ManageExpenseCtrl implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
 
-        rootAnchorPane.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.ESCAPE) {
-                // Creating a confirmation dialog
-                Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
-                confirmAlert.setTitle("Confirmation");
-                confirmAlert.setHeaderText(null); // Optional: No header
-                confirmAlert.setContentText("You have pressed Escape, "
-                    +
-                    "\nare you sure you want to go back?");
-
-                // This will show the dialog and wait for the user response
-                Optional<ButtonType> result = confirmAlert.showAndWait();
-
-                // Checking the user's decision
-                if (result.isPresent() && result.get() == ButtonType.OK) {
-                    // If user clicks OK, then perform the action to go back/close
-                    if (amountHasCorrectSyntax()) {
-                        mainCtrl.closePopup();
-                    } else {
-                        showUnsavedChangesDialog();
-                    }
+        rootAnchorPane.addEventFilter(KeyEvent.KEY_PRESSED,
+            ScreenUtils.exitHandler(resources, () -> {
+                if (amountHasCorrectSyntax()) {
+                    mainCtrl.closePopup();
+                } else {
+                    showUnsavedChangesDialog();
                 }
-                event.consume(); // Prevents the event from propagating further
-            }
-        });
+            }));
     }
 
 
@@ -242,7 +223,8 @@ public class ManageExpenseCtrl implements Initializable {
             participant.getFirstName() + " " + participant.getLastName();
         System.out.println(participant.getId());
         System.out.println(expense.getReceiver().getId());
-        participantRepresentation = participantRepresentation.concat(" (Recipient)");
+        participantRepresentation +=
+            " (" + resources.getString("manage-expense.recipient") + ")";
         Label participantLabel = new Label(participantRepresentation);
         participantLabel.setMaxWidth(276);
         Font globalFont = new Font("System Bold", 24);
@@ -444,13 +426,13 @@ public class ManageExpenseCtrl implements Initializable {
             dialog.initOwner(rootAnchorPane.getScene().getWindow()); // Set the owner
 
             // Customize the dialog appearance
-            dialog.setTitle("Invalid Input Detected");
-            dialog.setContentText("You have unsaved changes with invalid syntax."
-                +
-                "\nPlease review that you have entered a valid amount of money.");
+            dialog.setTitle(resources.getString("manage-expense.invalid-input"));
+            dialog.setContentText(resources.getString("manage-expense.invalid-info"));
 
             // Adding a custom close button inside the dialog, since default buttons are not used
-            ButtonType closeButton = new ButtonType("Understood", ButtonBar.ButtonData.OK_DONE);
+            ButtonType closeButton =
+                new ButtonType(resources.getString("manage-expense.understood"),
+                    ButtonBar.ButtonData.OK_DONE);
             dialog.getDialogPane().getButtonTypes().add(closeButton);
 
             // Handling dialog result to perform actions if needed, but it's informational
@@ -522,7 +504,6 @@ public class ManageExpenseCtrl implements Initializable {
 
     /**
      * Sets all the labels confirming changes made by a user.
-     *
      */
     public void setConfirmationLabels() {
         if (indicatorNameModified.getImage().getUrl().contains("done")) {
@@ -543,7 +524,6 @@ public class ManageExpenseCtrl implements Initializable {
             confirmRecipient.setText("Changed Successfully.");
         }
 
-        
 
     }
 

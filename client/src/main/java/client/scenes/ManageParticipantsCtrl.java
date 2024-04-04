@@ -1,16 +1,15 @@
 package client.scenes;
 
+import client.utils.ScreenUtils;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Event;
 import commons.Person;
 import java.net.URL;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
@@ -18,7 +17,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
@@ -57,27 +55,8 @@ public class ManageParticipantsCtrl implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
-        rootAnchorPane.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.ESCAPE) {
-                // Creating a confirmation dialog
-                Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
-                confirmAlert.setTitle("Confirmation");
-                confirmAlert.setHeaderText(null); // Optional: No header
-                confirmAlert.setContentText("You have pressed Escape, "
-                    +
-                    "\nare you sure you want to go back?");
-
-                // This will show the dialog and wait for the user response
-                Optional<ButtonType> result = confirmAlert.showAndWait();
-
-                // Checking the user's decision
-                if (result.isPresent() && result.get() == ButtonType.OK) {
-                    // If user clicks OK, then perform the action to go back/close
-                    handleExit(); // Now handleExit() is called only after user confirmation
-                }
-                event.consume(); // Prevents the event from propagating further
-            }
-        });
+        rootAnchorPane.addEventFilter(KeyEvent.KEY_PRESSED,
+            ScreenUtils.exitHandler(resources, this::handleExit));
     }
 
     private void handleExit() {
@@ -97,8 +76,8 @@ public class ManageParticipantsCtrl implements Initializable {
         Person selectedParticipant = participantMenu.getValue();
         mainCtrl.showDeleteParticipantConfirmationPopup(() -> {
             if (event.getExpenses().stream().anyMatch(ex ->
-                    ex.getReceiver().equals(selectedParticipant)
-                            || ex.getParticipants().contains(selectedParticipant)
+                ex.getReceiver().equals(selectedParticipant)
+                    || ex.getParticipants().contains(selectedParticipant)
             )) {
                 // Show a modal dialog to inform the user
                 Dialog<String> dialog = new Dialog<>();
@@ -106,15 +85,15 @@ public class ManageParticipantsCtrl implements Initializable {
                 dialog.initOwner(rootAnchorPane.getScene().getWindow()); // Set the owner
 
                 // Customize the dialog appearance
-                dialog.setTitle("Invalid Deleting Operation");
+                dialog.setTitle(resources.getString("manage-participants.invalid-operation"));
                 dialog.setContentText(
-                        "This Participant is participating in an expense so you cannot delete it."
-                                +
-                                "\nPlease choose another one.");
+                    resources.getString("manage-participants.invalid-info"));
 
                 // Adding a custom close button inside the dialog,
                 // since default buttons are not used
-                ButtonType closeButton = new ButtonType("Understood", ButtonBar.ButtonData.OK_DONE);
+                ButtonType closeButton =
+                    new ButtonType(resources.getString("manage-participants.understood"),
+                        ButtonBar.ButtonData.OK_DONE);
                 dialog.getDialogPane().getButtonTypes().add(closeButton);
 
                 // Handling dialog result to perform actions if needed, but it's informational
@@ -188,10 +167,10 @@ public class ManageParticipantsCtrl implements Initializable {
         AnchorPane card = new AnchorPane();
         card.setPrefSize(475, 50);
         card.setStyle(
-                "-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;");
+            "-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;");
 
         String participantRepresentation =
-                participant.getFirstName() + " " + participant.getLastName();
+            participant.getFirstName() + " " + participant.getLastName();
         Label participantLabel = new Label(participantRepresentation);
         Font globalFont = new Font("System Bold", 24);
         participantLabel.setFont(globalFont);
@@ -218,5 +197,9 @@ public class ManageParticipantsCtrl implements Initializable {
     public void update(Event event) {
         this.event = event;
         populate();
+    }
+
+    public Event getEvent() {
+        return event;
     }
 }
