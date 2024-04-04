@@ -3,6 +3,7 @@ package client.scenes;
 
 import client.Main;
 import client.utils.ExpenseCardCtrl;
+import client.utils.ScreenUtils;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Event;
@@ -16,8 +17,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
 
@@ -54,6 +57,9 @@ public class EventOverviewCtrl implements Initializable {
     @FXML
     private FlowPane expensesFlowPane;
 
+    @FXML
+    private Pane root;
+
     @Inject
     public EventOverviewCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.server = server;
@@ -75,6 +81,9 @@ public class EventOverviewCtrl implements Initializable {
         );
         dropDown.setValue("Server 1");
         dropDown.setItems(options);
+
+        root.addEventFilter(KeyEvent.KEY_PRESSED,
+            ScreenUtils.exitHandler(resources, this::handleExit));
     }
 
     /**
@@ -146,7 +155,7 @@ public class EventOverviewCtrl implements Initializable {
      * Logic for the home title.
      */
     public void handleHome() {
-        System.out.println("Pressed home.");
+        handleExit();
     }
 
     /**
@@ -221,7 +230,7 @@ public class EventOverviewCtrl implements Initializable {
     }
 
     @FXML
-    private void clickReturn(MouseEvent mouseEvent) {
+    private void handleExit() {
         if (goBackToAdmin) {
             mainCtrl.showAdminOverview();
             goBackToAdmin = false;
@@ -236,5 +245,14 @@ public class EventOverviewCtrl implements Initializable {
 
     // TODO
     public void handleCopyInviteCode(ActionEvent actionEvent) {
+
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public boolean getGoBackToAdmin() {
+        return goBackToAdmin;
     }
 }

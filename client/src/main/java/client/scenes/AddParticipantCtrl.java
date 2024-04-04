@@ -1,5 +1,6 @@
 package client.scenes;
 
+import client.utils.ScreenUtils;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Person;
@@ -11,6 +12,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 
 
 /**
@@ -31,11 +34,12 @@ public class AddParticipantCtrl implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
+        rootAnchorPane.addEventFilter(KeyEvent.KEY_PRESSED,
+            ScreenUtils.exitHandler(resources, mainCtrl::closePopup));
     }
 
     @FXML
     private TextField bicTextField;
-
 
     @FXML
     private TextField emailTextField;
@@ -57,6 +61,9 @@ public class AddParticipantCtrl implements Initializable {
 
     @FXML
     private TextField lastNameTextField;
+
+    @FXML
+    private AnchorPane rootAnchorPane;
 
     @FXML
     private Button save;
