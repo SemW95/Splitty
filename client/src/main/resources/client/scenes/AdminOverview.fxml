@@ -10,11 +10,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.AdminOverviewCtrl">
+<Pane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.AdminOverviewCtrl">
     <children>
         <Button fx:id="backButton" layoutX="25.0" layoutY="25.0" mnemonicParsing="false" onAction="#handleExit">
             <graphic>
-                <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="handleExit" fitHeight="24.0" fitWidth="24.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@/client/icons/back.png" />
                     </image>

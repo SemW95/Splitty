@@ -9,10 +9,8 @@ import commons.Person;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -68,7 +66,9 @@ public class ExpenseOverviewCtrl implements Initializable {
                 Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
                 confirmAlert.setTitle("Confirmation");
                 confirmAlert.setHeaderText(null); // Optional: No header
-                confirmAlert.setContentText("You have pressed Escape, are you sure you want to go back?");
+                confirmAlert.setContentText("You have pressed Escape, "
+                    +
+                    "\nare you sure you want to go back?");
 
                 // This will show the dialog and wait for the user response
                 Optional<ButtonType> result = confirmAlert.showAndWait();

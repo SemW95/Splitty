@@ -25,14 +25,10 @@ import java.io.File;
 import java.util.Locale;
 import java.util.Stack;
 import java.util.function.Consumer;
-import javafx.application.Platform;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 /**
  * This is the main controller, which holds references to all controllers and scenes.
@@ -331,6 +327,8 @@ public class MainCtrl {
         eventOverviewPair.ctrl.update(event);
         if (fromAdmin) {
             eventOverviewPair.ctrl.setGoBackToAdmin(true);
+        } else {
+            eventOverviewPair.ctrl.setGoBackToAdmin(false);
         }
         primaryStage.setScene(eventOverviewPair.scene);
     }

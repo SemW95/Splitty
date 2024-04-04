@@ -18,9 +18,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -103,7 +101,9 @@ public class ManageExpenseCtrl implements Initializable {
                 Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
                 confirmAlert.setTitle("Confirmation");
                 confirmAlert.setHeaderText(null); // Optional: No header
-                confirmAlert.setContentText("You have pressed Escape, are you sure you want to go back?");
+                confirmAlert.setContentText("You have pressed Escape, "
+                    +
+                    "\nare you sure you want to go back?");
 
                 // This will show the dialog and wait for the user response
                 Optional<ButtonType> result = confirmAlert.showAndWait();
@@ -113,8 +113,7 @@ public class ManageExpenseCtrl implements Initializable {
                     // If user clicks OK, then perform the action to go back/close
                     if (amountHasCorrectSyntax()) {
                         mainCtrl.closePopup();
-                    }
-                    else {
+                    } else {
                         showUnsavedChangesDialog();
                     }
                 }
@@ -418,6 +417,7 @@ public class ManageExpenseCtrl implements Initializable {
             dialog.showAndWait();
         }
     }
+
     private void showUnsavedChangesDialog() {
         // Show a modal dialog to inform the user
         Dialog<String> dialog = new Dialog<>();
