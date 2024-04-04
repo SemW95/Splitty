@@ -20,7 +20,6 @@ import javafx.scene.Cursor;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -59,7 +58,7 @@ public class AdminOverviewCtrl implements Initializable {
     }
 
     @FXML
-    private void handleExit(MouseEvent actionEvent) {
+    private void handleExit(ActionEvent actionEvent) {
         mainCtrl.showHome();
     }
 
