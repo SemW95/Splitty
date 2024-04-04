@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -115,12 +116,12 @@ public class EventController {
      * @param tags        The Tags of the Event.
      * @return The saved Event's id
      */
-    @PostMapping(path = "/event/{title}/{desc}/{tags}")
+    @PostMapping(path = "/event/{title}/{desc}/tags")
     @ResponseBody
     public String createEventWithTags(
         @PathVariable(name = "title") String title,
         @PathVariable(name = "desc") String description,
-        @PathVariable(name = "tags") ArrayList<Tag> tags) {
+        @RequestBody ArrayList<Tag> tags) {
         return eventService.createEventWithTags(title, description, tags);
     }
 
@@ -134,64 +135,17 @@ public class EventController {
      * @param endDate     The end date of the Event.
      * @return The saved Event's id
      */
-    @PostMapping(path = "/event/{title}/{desc}/{tags}/{startDate}/{endDate}")
+    @PostMapping(path = "/event/{title}/{desc}/tags/{startDate}/{endDate}")
     @ResponseBody
     public String createEventWithTagsAndDates(
         @PathVariable(name = "title") String title,
         @PathVariable(name = "desc") String description,
-        @PathVariable(name = "tags") ArrayList<Tag> tags,
-        @PathVariable(name = "startDate") LocalDate startDate,
-        @PathVariable(name = "endDate") LocalDate endDate) {
+        @RequestBody ArrayList<Tag> tags,
+        @PathVariable(name = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd")
+        LocalDate startDate,
+        @PathVariable(name = "endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate) {
         return eventService.createEventWithTagsAndDates(
             title, description, tags, startDate, endDate);
-    }
-
-    /**
-     * The Event constructor used for imports.
-     *
-     * @param title                The Event title.
-     * @param description          The Event description.
-     * @param people               The ArrayList with all Persons in the Event.
-     * @param tags                 The ArrayList with all the Tags in the Event.
-     * @param expenses             The ArrayList with all the Expenses in the Event.
-     * @param payments             The ArrayList with all the Payments in the Event.
-     * @param startDate            The date that this Event started.
-     * @param endDate              The date that this Event ended.
-     * @param lastModifiedDateTime The date of when this Event was last modified.
-     * @return The id of the created Event
-     */
-    @PostMapping(path = "/event"
-            + "/{title}"
-            + "/{desc}"
-            + "/{people}"
-            + "/{tags}"
-            + "/{expenses}"
-            + "/{payments}"
-            + "/{startDate}"
-            + "/{endDate}"
-            + "/{lastModified}")
-    @ResponseBody
-    public String createEventFromImport(
-        @PathVariable(name = "title") String title,
-        @PathVariable(name = "desc") String description,
-        @PathVariable(name = "people") List<Person> people,
-        @PathVariable(name = "tags") List<Tag> tags,
-        @PathVariable(name = "expenses") List<Expense> expenses,
-        @PathVariable(name = "payments") List<Payment> payments,
-        @PathVariable(name = "startDate") LocalDate startDate,
-        @PathVariable(name = "endDate") LocalDate endDate,
-        @PathVariable(name = "lastModified") Instant lastModifiedDateTime
-    ) {
-        return eventService.createEventFromImport(
-            title,
-            description,
-            people,
-            tags,
-            expenses,
-            payments,
-            startDate,
-            endDate,
-            lastModifiedDateTime);
     }
 
     @PutMapping(path = "/event")
@@ -223,7 +177,7 @@ public class EventController {
     /**
      * Calculates and returns the total debt sum for a person within an event.
      *
-     * @param eventId The id of the event.
+     * @param eventId  The id of the event.
      * @param personId The person whose debt sum is to be calculated.
      * @return The total debt sum.
      */
@@ -249,7 +203,7 @@ public class EventController {
     /**
      * Calculates the detailed debt information for a person within an event.
      *
-     * @param eventId The id of the event.
+     * @param eventId  The id of the event.
      * @param personId The id of the person for whom the debt information is calculated.
      * @return A map of people to the amount of debt owed.
      */
