@@ -82,7 +82,7 @@ public class EventService {
      * @throws IllegalStateException When there isn't an Event with this id
      */
     public void deleteEvent(String id) throws IllegalStateException {
-        if (eventRepository.existsById(id)) {
+        if (!eventRepository.existsById(id)) {
             throw new IllegalStateException("There isn't an Event with this id");
         }
 
