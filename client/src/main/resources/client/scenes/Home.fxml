@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
@@ -15,33 +17,68 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.HomeCtrl">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.HomeCtrl">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="144.0" layoutX="-5.0" layoutY="-4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1009.0">
-         <effect>
-            <DropShadow height="26.93" radius="6.2325" width="0.0" />
-         </effect>
-      </Rectangle>
-      <Text layoutX="41.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 15; -fx-font-weight: bold;" text="Event Overview" />
-      <Button layoutX="782.0" layoutY="56.0" mnemonicParsing="false" onAction="#clickLanguage" prefHeight="25.0" prefWidth="65.0" text="%home.language" />
-      <Button layoutX="896.0" layoutY="56.0" mnemonicParsing="false" onAction="#clickCurrency" prefHeight="25.0" prefWidth="59.0" text="%home.currency" />
-      <Button layoutX="901.0" layoutY="520.0" mnemonicParsing="false" onAction="#clickAdminView" text="Admin view" />
-      <Button layoutX="907.0" layoutY="561.0" mnemonicParsing="false" onAction="#clickSettings" prefHeight="25.0" prefWidth="65.0" text="Settings" />
-      <Button layoutY="53.0" mnemonicParsing="false" onAction="#clickHome" prefHeight="44.0" prefWidth="281.0" style="-fx-background-color: transparent; -fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 20;" text="SPLITY: Going Dutch">
-          <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
-      <Button layoutX="879.0" layoutY="152.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="25.0" prefWidth="94.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="Add Event" />
-      <ComboBox fx:id="dropDown" layoutX="443.0" layoutY="62.0" prefWidth="150.0" style="-fx-background-color: white;">
-         <effect>
-            <DropShadow color="#00000068" height="22.24" radius="10.25" width="20.76" />
-         </effect>
-      </ComboBox>
-      <ScrollPane hbarPolicy="NEVER" layoutX="160.0" layoutY="183.0" prefHeight="420.0" prefWidth="700.0" vbarPolicy="ALWAYS">
+      <Text layoutX="97.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 20; -fx-font-weight: bold;" text="Event Overview" />
+      <Button layoutX="933.0" layoutY="541.0" mnemonicParsing="false" onAction="#clickAdminView" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="38.0" fitWidth="40.0">
+               <image>
+                  <Image url="@../icons/admin.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button layoutX="812.0" layoutY="110.0" mnemonicParsing="false" onAction="#createEvent" prefHeight="25.0" prefWidth="139.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="CREATE EVENT" />
+      <ScrollPane hbarPolicy="NEVER" layoutX="160.0" layoutY="155.0" prefHeight="445.0" prefWidth="700.0" vbarPolicy="ALWAYS">
          <content>
             <VBox fx:id="eventList" prefWidth="685.0" />
          </content>
       </ScrollPane>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="83.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1000.0">
+         <effect>
+            <DropShadow height="26.93" radius="6.2325" width="0.0" />
+         </effect>
+      </Rectangle>
+      <Button layoutY="20.0" mnemonicParsing="false" onAction="#clickHome" prefHeight="44.0" prefWidth="281.0" style="-fx-background-color: transparent; -fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 20;" text="SPLITY: Going Dutch">
+          <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Pane prefHeight="84.0" prefWidth="1001.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="83.0" layoutY="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1000.0">
+               <effect>
+                  <DropShadow height="26.93" radius="6.2325" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Button layoutY="18.0" mnemonicParsing="false" onAction="#clickHome" prefHeight="44.0" prefWidth="281.0" style="-fx-background-color: transparent; -fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 20;" text="SPLITTY: Going Dutch">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <ComboBox fx:id="dropDown" layoutX="268.0" layoutY="30.0" prefWidth="150.0" style="-fx-background-color: white;">
+               <effect>
+                  <DropShadow color="#00000068" height="22.24" radius="10.25" width="20.76" />
+               </effect>
+            </ComboBox>
+            <Button fx:id="language1" layoutX="934.0" layoutY="23.0" mnemonicParsing="false" onAction="#clickLanguage" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/language.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="currency" layoutX="884.0" layoutY="22.0" mnemonicParsing="false" onAction="#clickCurrency" style="-fx-background-color: transparent;" />
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="883.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: transparent;">
+               <image>
+                  <Image url="@../icons/currency.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Button layoutX="509.0" layoutY="110.0" mnemonicParsing="false" onAction="#joinEvent" prefHeight="25.0" prefWidth="83.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="JOIN EVENT" />
+      <TextField fx:id="eventCodeTextField" layoutX="602.0" layoutY="110.0" promptText="Event Code" />
    </children>
 </Pane>

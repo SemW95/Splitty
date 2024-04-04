@@ -32,6 +32,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 /**
@@ -49,6 +50,9 @@ public class HomeCtrl implements Initializable {
     @FXML
     private VBox eventList;
     private List<Event> events;
+
+    @FXML
+    private TextField eventCodeTextField;
 
     @Inject
     public HomeCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -141,18 +145,29 @@ public class HomeCtrl implements Initializable {
         System.out.println("Pressed home.");
     }
 
+
     /**
-     * Logic for the "settings" button.
+     * Logic for the "create event" button.
      */
-    public void clickSettings() {
-        System.out.println("Pressed settings.");
+    public void createEvent() {
+        System.out.println("Pressed add event");
     }
 
     /**
-     * Logic for the "add event" button.
+     * Adds a new event to the config and home screen based on input field.
      */
-    public void addEvent() {
-        System.out.println("Pressed add event");
+    public void joinEvent() {
+        String code = eventCodeTextField.getText();
+        eventCodeTextField.clear();
+
+        //checks if there is an event with the given code
+        if (server.getEventByCode(code) == null) {
+            System.out.println("There is no event with this code");
+            return;
+        }
+
+        Main.configManager.addCode(code);
+        refetch();
     }
 
     @FXML
