@@ -12,15 +12,19 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -36,6 +40,8 @@ public class AdminOverviewCtrl implements Initializable {
     private ChoiceBox<String> directionChoiceBox;
     @FXML
     private VBox eventList;
+    @FXML
+    private Pane root;
     private ResourceBundle resources;
     private List<Event> events;
 
@@ -56,10 +62,32 @@ public class AdminOverviewCtrl implements Initializable {
         directionChoiceBox.getItems().addAll("Ascending", "Descending");
         //TODO: The order choice box gets called on "weird" occasions and creates errors.
         //directionChoiceBox.getSelectionModel().selectFirst();
+
+        root.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                // Creating a confirmation dialog
+                Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                confirmAlert.setTitle("Confirmation");
+                confirmAlert.setHeaderText(null); // Optional: No header
+                confirmAlert.setContentText("You have pressed Escape, "
+                    +
+                    "\nare you sure you want to go back?");
+
+                // This will show the dialog and wait for the user response
+                Optional<ButtonType> result = confirmAlert.showAndWait();
+
+                // Checking the user's decision
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    // If user clicks OK, then perform the action to go back/close
+                    handleExit(); // Now handleExit() is called only after user confirmation
+                }
+                event.consume(); // Prevents the event from propagating further
+            }
+        });
     }
 
     @FXML
-    private void handleExit(MouseEvent actionEvent) {
+    private void handleExit() {
         mainCtrl.showHome();
     }
 

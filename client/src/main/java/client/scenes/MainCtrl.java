@@ -77,30 +77,55 @@ public class MainCtrl {
 
     private void loadAllPairs() {
         homePair = fxml.load(HomeCtrl.class, "client", "scenes", "Home.fxml");
+        homePair.scene.getStylesheets().add("/client/css/global.css");
+
         adminCredentialsPair =
             fxml.load(AdminCredentialsCtrl.class,
                 "client", "scenes", "AdminCredentials.fxml");
+        adminCredentialsPair.scene.getStylesheets().add("/client/css/global.css");
+
         expenseOverviewPair = fxml.load(ExpenseOverviewCtrl.class, "client", "scenes",
             "ExpenseOverview.fxml");
+        expenseOverviewPair.scene.getStylesheets().add("/client/css/global.css");
+
         eventOverviewPair = fxml.load(EventOverviewCtrl.class,
             "client", "scenes", "EventOverview.fxml");
+        eventOverviewPair.scene.getStylesheets().add("/client/css/global.css");
+
         manageExpensePair = fxml.load(ManageExpenseCtrl.class, "client", "scenes",
             "ManageExpense.fxml");
+        manageExpensePair.scene.getStylesheets().add("/client/css/global.css");
+
         expenseAddParticipantPair = fxml.load(ExpenseAddParticipantCtrl.class, "client",
             "scenes", "ExpenseAddParticipant.fxml");
+        expenseAddParticipantPair.scene.getStylesheets().add("/client/css/global.css");
+
         addParticipantPair = fxml.load(AddParticipantCtrl.class,
             "client", "scenes", "AddParticipant.fxml");
+        addParticipantPair.scene.getStylesheets().add("/client/css/global.css");
+
         manageParticipantsPair = fxml.load(ManageParticipantsCtrl.class,
             "client", "scenes", "ManageParticipants.fxml");
+        manageParticipantsPair.scene.getStylesheets().add("/client/css/global.css");
+
         editParticipantPair = fxml.load(EditParticipantCtrl.class,
             "client", "scenes", "EditParticipant.fxml");
+        editParticipantPair.scene.getStylesheets().add("/client/css/global.css");
+
         deleteParticipantConfirmationPair = fxml.load(DeleteParticipantConfirmationCtrl.class,
             "client", "scenes", "DeleteParticipantConfirmation.fxml");
+        deleteParticipantConfirmationPair.scene.getStylesheets().add("/client/css/global.css");
+
         adminOverviewPair = fxml.load(AdminOverviewCtrl.class,
             "client", "scenes", "AdminOverview.fxml");
+        adminOverviewPair.scene.getStylesheets().add("/client/css/global.css");
+
         deleteEventConfirmationPair = fxml.load(DeleteEventConfirmationCtrl.class,
             "client", "scenes", "DeleteEventConfirmation.fxml");
+        deleteEventConfirmationPair.scene.getStylesheets().add("/client/css/global.css");
+
         createEventPair = fxml.load(CreateEventCtrl.class, "client", "scenes", "CreateEvent.fxml");
+        createEventPair.scene.getStylesheets().add("/client/css/global.css");
     }
 
     /**
