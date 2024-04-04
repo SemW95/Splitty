@@ -89,6 +89,7 @@ server:service:test:
           - "PersonServiceTest"
           - "PaymentServiceTest"
           - "ExpenseServiceTest"
+          - "EventServiceTest"
 
 server:controller:test:
   stage: test
@@ -102,6 +103,7 @@ server:controller:test:
           - "PersonControllerTest"
           - "PaymentControllerTest"
           - "ExpenseControllerTest"
+          - "EventControllerTest"
 
 coverageReport:
   stage: coverageReport
