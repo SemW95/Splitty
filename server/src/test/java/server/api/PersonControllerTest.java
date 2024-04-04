@@ -2,8 +2,10 @@ package server.api;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -23,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import server.service.PersonService;
@@ -266,6 +269,34 @@ public class PersonControllerTest {
 
         mockMvc.perform(put("/person/{id}/bic/{bic}", personId, newBic))
             .andExpect(status().isOk());
+    }
+
+    @Test
+    public void updatePersonTest() throws Exception {
+        // Create a Person object to update
+        Person personToUpdate = new Person(
+            "Alice",
+            "Smith",
+            "alice.smith@example.com",
+            "FR9312739000703455722884M28",
+            "AGRIFRPP");
+        ReflectionTestUtils.setField(personToUpdate, "id", "2"); // Example ID
+
+        // Perform a PUT request with the personToUpdate as the request body
+        mockMvc.perform(put("/person")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(personToUpdate)))
+            .andExpect(status().isOk());
+
+        // Verify that the service method was called with the correct person
+        verify(personService).updatePerson(argThat(person ->
+            person.getId().equals(personToUpdate.getId())
+                && person.getFirstName().equals(personToUpdate.getFirstName())
+                && person.getLastName().equals(personToUpdate.getLastName())
+                && person.getEmail().equals(personToUpdate.getEmail())
+                && person.getIban().equals(personToUpdate.getIban())
+                && person.getBic().equals(personToUpdate.getBic())
+        ));
     }
 
     /**
