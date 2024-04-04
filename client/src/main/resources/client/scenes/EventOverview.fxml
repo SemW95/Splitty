@@ -43,7 +43,7 @@
                <graphic>
                   <ImageView fitHeight="21.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../icons/calendar.png" />
+                        <Image url="@/client/icons/calendar.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -52,7 +52,7 @@
                <graphic>
                   <ImageView fitHeight="21.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../icons/time.png" />
+                        <Image url="@/client/icons/time.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -61,7 +61,7 @@
                <graphic>
                   <ImageView fitHeight="28.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../icons/users.png" />
+                        <Image url="@/client/icons/users.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -96,7 +96,7 @@
             </ComboBox>
             <ImageView fitHeight="28.0" fitWidth="35.0" layoutX="642.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../icons/copy.png" />
+                  <Image url="@/client/icons/copy.png" />
                </image>
             </ImageView>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="28.0" layoutX="437.0" layoutY="25.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
@@ -109,7 +109,7 @@
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../icons/language.png" />
+                        <Image url="@/client/icons/language.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -118,7 +118,7 @@
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: transparent;">
                      <image>
-                        <Image url="@../icons/currency.png" />
+                        <Image url="@/client/icons/currency.png" />
                      </image>
                   </ImageView>
                </graphic>
