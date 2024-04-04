@@ -15,6 +15,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import commons.Colour;
+import commons.Expense;
 import commons.Person;
 import commons.Tag;
 import java.math.BigDecimal;
@@ -327,6 +329,121 @@ public class ExpenseControllerTest {
 
         mockMvc.perform(delete("/expense/{id}", expenseId))
             .andExpect(status().isOk());
+    }
+
+    @Test
+    public void getAllExpenseTest() throws Exception {
+        Person receiver = new Person(
+            "John",
+            "Doe",
+            "john.doe@example.com",
+            "NL64ABNA1208552090",
+            "BANKNL2A");
+        BigDecimal paid = new BigDecimal("100.00");
+        Instant paymentDateTime = Instant.parse("2020-12-03T10:15:30.00Z");
+        Tag tag = new Tag("Food", 50, 100, 150);
+
+        List<Expense> expenses = Arrays.asList(
+            new Expense(receiver, paid, paymentDateTime, tag),
+            new Expense(receiver, paid, paymentDateTime, tag)
+        );
+        given(expenseService.getAllExpense()).willReturn(expenses);
+
+        mockMvc.perform(get("/expense"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$", hasSize(2)));
+        // Further assertions can be added to validate expense details
+    }
+
+
+    @Test
+    public void getExpenseByIdTest() throws Exception {
+        String expenseId = "uniqueId123";
+        Person receiver = new Person(
+            "Jane",
+            "Doe",
+            "jane.doe@example.com",
+            "NL90INGB1957558601",
+            "BANKNL2B");
+        BigDecimal paid = new BigDecimal("200.00");
+        Instant paymentDateTime = Instant.parse("2021-01-03T11:25:30.00Z");
+        Tag tag = new Tag("Travel", 50, 100, 150);
+        Expense expense = new Expense(receiver, paid, paymentDateTime, tag);
+        expense.setId(expenseId);
+
+        given(expenseService.getExpenseById(expenseId)).willReturn(expense);
+
+        mockMvc.perform(get("/expense/{id}", expenseId))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.id", is(expenseId)));
+        // Additional assertions to validate expense details
+    }
+
+    @Test
+    public void createExpenseTest() throws Exception {
+        Person receiver = new Person(
+            "Alice",
+            "Wonder",
+            "alice.wonder@example.com",
+            "NL38INGB3367466468",
+            "ABNANL2A");
+        BigDecimal paid = new BigDecimal("300.00");
+        Instant paymentDateTime = Instant.now();
+        Expense expense = new Expense(
+            receiver,
+            paid,
+            paymentDateTime,
+            new Tag(
+                "tag1",
+                new Colour(
+                    50,
+                    100,
+                    150)
+            )
+        );
+
+        doNothing().when(expenseService).createExpense(any(Expense.class));
+
+        mockMvc.perform(post("/expense")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(expense)))
+            .andExpect(status().isOk());
+    }
+
+    @Test
+    public void updateExpenseTest() throws Exception {
+        String expenseId = "uniqueId456";
+        Person receiver = new Person(
+            "Bob",
+            "Builder",
+            "bob.builder@example.com",
+            "NL05ABNA4734538751",
+            "ABNANL2B");
+        BigDecimal paid = new BigDecimal("150.00");
+        Instant paymentDateTime = Instant.now();
+        Tag tag = new Tag("Entertainment", 50, 100, 150);
+        Expense expense = new Expense(receiver, paid, paymentDateTime, tag);
+        expense.setId(expenseId);
+
+        doNothing().when(expenseService).updateExpense(any(Expense.class));
+
+        mockMvc.perform(put("/expense")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(expense)))
+            .andExpect(status().isOk());
+    }
+
+    @Test
+    public void handleIllegalStateExceptionTest() throws Exception {
+        String invalidExpenseId = "nonExistingId";
+        given(expenseService.getExpenseById(invalidExpenseId)).willThrow(
+            new IllegalStateException("There is no Expense with this id")
+        );
+
+        mockMvc.perform(get("/expense/{id}", invalidExpenseId))
+            .andExpect(status().isNotFound());
     }
 
 }
