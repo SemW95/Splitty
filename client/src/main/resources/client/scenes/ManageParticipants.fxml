@@ -1,49 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.ManageParticipantsCtrl">
+<AnchorPane fx:id="rootAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.ManageParticipantsCtrl">
    <children>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="24.0">
          <children>
-            <Label prefHeight="50.0" prefWidth="598.0" text=" Manage Participants" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Label layoutX="55.0" prefHeight="50.0" prefWidth="897.0" text="%manage-participants.manage-participants" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="35.0" />
                </font>
             </Label>
-            <Button fx:id="cross" layoutX="904.0" layoutY="7.0" mnemonicParsing="false" onAction="#cross" prefHeight="24.0" prefWidth="16.0">
-               <graphic>
-                  <ImageView fitHeight="17.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/close.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="800.0" prefWidth="1100.0" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="54.0">
          <children>
-            <ListView layoutY="1.0" prefHeight="340.0" prefWidth="600.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="50.0" />
-            <Button fx:id="editParticipant" layoutX="753.0" layoutY="271.0" mnemonicParsing="false" onAction="#editParticipant" prefHeight="50.0" prefWidth="90.0" text="Edit">
+            <Button fx:id="editParticipant" layoutX="596.0" layoutY="266.0" mnemonicParsing="false" onAction="#editParticipant" prefHeight="29.0" prefWidth="65.0" text="%manage-participants.edit">
                <font>
-                  <Font size="24.0" />
+                  <Font size="18.0" />
                </font></Button>
-            <Button fx:id="deleteParticipant" layoutX="734.0" layoutY="347.0" mnemonicParsing="false" onAction="#deleteParticipant" prefHeight="50.0" prefWidth="120.0" text="Delete">
+            <Button fx:id="deleteParticipant" layoutX="751.0" layoutY="266.0" mnemonicParsing="false" onAction="#deleteParticipant" prefHeight="36.0" prefWidth="82.0" text="%manage-participants.delete">
                <font>
-                  <Font size="24.0" />
+                  <Font size="18.0" />
                </font></Button>
+            <ComboBox fx:id="participantMenu" layoutX="531.0" layoutY="114.0" prefHeight="38.0" prefWidth="374.0" promptText="%manage-participants.choose-participant" />
+            <ScrollPane layoutY="31.0" prefHeight="491.0" prefWidth="471.0">
+               <content>
+                  <FlowPane fx:id="participantsFlowPane" prefHeight="485.0" prefWidth="471.0" />
+               </content>
+            </ScrollPane>
 <!--            <Button fx:id="save" layoutX="753.0" layoutY="425.0" mnemonicParsing="false" onAction="#save" prefHeight="50.0" prefWidth="90.0" text="Save">-->
 <!--               <font>-->
 <!--                  <Font size="24.0" />-->
 <!--               </font></Button>-->
          </children>
       </AnchorPane>
+      <Button fx:id="backButton" layoutX="35.0" layoutY="35.0" mnemonicParsing="false" onAction="#backButton" onMouseClicked="#backButton" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/client/icons/back.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

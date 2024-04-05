@@ -1,5 +1,6 @@
 package client.scenes;
 
+import client.utils.ScreenUtils;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import java.net.URL;
@@ -8,6 +9,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
 /**
@@ -22,6 +25,9 @@ public class AdminCredentialsCtrl implements Initializable {
     @FXML
     private Text incorrectPassword;
 
+    @FXML
+    private Pane root;
+
     @Inject
     public AdminCredentialsCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.server = server;
@@ -31,6 +37,8 @@ public class AdminCredentialsCtrl implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
+        root.addEventFilter(KeyEvent.KEY_PRESSED,
+            ScreenUtils.exitHandler(resources, mainCtrl::closePopup));
     }
 
     @FXML
@@ -46,7 +54,7 @@ public class AdminCredentialsCtrl implements Initializable {
             mainCtrl.showAdminOverview();
         } else {
             // Show a warning to the user that the password was incorrect
-            incorrectPassword.setText("Password incorrect");
+            incorrectPassword.setText(resources.getString("admin-credentials.incorrect-password"));
         }
     }
 

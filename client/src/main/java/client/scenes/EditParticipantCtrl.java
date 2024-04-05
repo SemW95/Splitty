@@ -1,5 +1,6 @@
 package client.scenes;
 
+import client.utils.ScreenUtils;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Person;
@@ -10,6 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * EditParticipant popup.
@@ -18,6 +21,8 @@ public class EditParticipantCtrl implements Initializable {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
     private ResourceBundle resources;
+    @FXML
+    private AnchorPane root;
 
     @Inject
     public EditParticipantCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -28,6 +33,8 @@ public class EditParticipantCtrl implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
+        root.addEventFilter(KeyEvent.KEY_PRESSED,
+            ScreenUtils.exitHandler(resources, mainCtrl::closePopup));
     }
 
     @FXML
@@ -92,42 +99,42 @@ public class EditParticipantCtrl implements Initializable {
     @FXML
     private void editFirstName() {
         System.out.println("Edit First Name.");
-        firstNameLabel.setVisible(false); // Hide the Label
-        firstNameTextField.setVisible(true); // Show the TextField
-        firstNameTextField.requestFocus(); // Set focus to TextField
+        firstNameLabel.setVisible(false); // Hide the firstNameLabel
+        firstNameTextField.setVisible(true); // Show the firstNameTextField
+        firstNameTextField.requestFocus(); // Set focus to firstNameTextField
     }
 
     @FXML
     private void editLastName() {
         System.out.println("Edit Last Name.");
-        lastNameLabel.setVisible(false); // Hide the Label
-        lastNameTextField.setVisible(true); // Show the TextField
-        lastNameTextField.requestFocus(); // Set focus to TextField
+        lastNameLabel.setVisible(false); // Hide the lastNameLabel
+        lastNameTextField.setVisible(true); // Show the lastNameTextField
+        lastNameTextField.requestFocus(); // Set focus to lastNameTextField
 
     }
 
     @FXML
     private void editEmail() {
         System.out.println("Edit Email.");
-        emailLabel.setVisible(false); // Hide the Label
-        emailTextField.setVisible(true); // Show the TextField
-        emailTextField.requestFocus(); // Set focus to TextField
+        emailLabel.setVisible(false); // Hide the emailLabel
+        emailTextField.setVisible(true); // Show the emailTextField
+        emailTextField.requestFocus(); // Set focus to emailTextField
     }
 
     @FXML
     private void editIban() {
         System.out.println("Edit IBAN.");
-        ibanLabel.setVisible(false); // Hide the Label
-        ibanTextField.setVisible(true); // Show the TextField
-        ibanTextField.requestFocus(); // Set focus to TextField
+        ibanLabel.setVisible(false); // Hide the ibanLabel
+        ibanTextField.setVisible(true); // Show the ibanTextField
+        ibanTextField.requestFocus(); // Set focus to ibanTextField
     }
 
     @FXML
     private void editBic() {
         System.out.println("Edit BIC.");
-        bicLabel.setVisible(false); // Hide the Label
-        bicTextField.setVisible(true); // Show the TextField
-        bicTextField.requestFocus(); // Set focus to TextField
+        bicLabel.setVisible(false); // Hide the bicLabel
+        bicTextField.setVisible(true); // Show the bicTextField
+        bicTextField.requestFocus(); // Set focus to bicTextField
     }
 
     @FXML
