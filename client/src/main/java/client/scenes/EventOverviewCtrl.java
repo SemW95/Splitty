@@ -12,14 +12,18 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.text.Text;
+
 
 
 // TODO: add a way such that the tags of the event can be changed in quantity, colour and text
@@ -38,9 +42,7 @@ public class EventOverviewCtrl implements Initializable {
     @FXML
     private Label eventNameLabel;
     @FXML
-    public Text eventNameText;
-    @FXML
-    private Text eventDescription;
+    private TextField eventNameTextField;
     @FXML
     private Label eventDates;
     @FXML
@@ -48,7 +50,10 @@ public class EventOverviewCtrl implements Initializable {
     @FXML
     private Label amountOfParticipants;
     @FXML
-    private Button backButton;
+    private Label descriptionLabel;
+    @FXML
+    private TextField descriptionTextField;
+
     // TODO: make tags a component and add them + make field
 
     @FXML
@@ -56,6 +61,7 @@ public class EventOverviewCtrl implements Initializable {
 
     @FXML
     private FlowPane expensesFlowPane;
+
 
     @Inject
     public EventOverviewCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -92,10 +98,10 @@ public class EventOverviewCtrl implements Initializable {
             this.eventNameLabel.setText(event.getTitle());
         }
         if (event.getTitle() != null) {
-            this.eventNameText.setText(event.getTitle());
+            this.eventNameTextField.setText(event.getTitle());
         }
         if (event.getDescription() != null) {
-            this.eventDescription.setText(event.getDescription());
+            this.descriptionLabel.setText(event.getDescription());
         }
         if (event.getStartDate() != null & event.getEndDate() != null) {
             String dates = event.getStartDate().toString() + " - " + event.getEndDate().toString();
@@ -186,6 +192,60 @@ public class EventOverviewCtrl implements Initializable {
      */
     public void handleAddExpenses(ActionEvent actionEvent) {
         System.out.println("Pressed add expense.");
+    }
+
+    @FXML
+    private void editEventName() {
+        System.out.println("Edit Event Name.");
+        eventNameLabel.setVisible(false); // Hide the Label
+        eventNameTextField.setVisible(true); // Show the TextField
+        eventNameTextField.setText(eventNameLabel.getText()); // Set the initialized text
+        eventNameTextField.requestFocus(); // Set focus to TextField
+
+        // Set a key event handler for eventNameTextField
+        eventNameTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.ENTER) {
+                    handleEditAndSaveEventName(); // Save and switch back to Label display when Enter is pressed
+                }
+            }
+        });
+    }
+
+    private void handleEditAndSaveEventName() {
+        // Get the content of textField and update EventName
+        String newName = eventNameTextField.getText();
+        eventNameLabel.setText(newName);
+        eventNameLabel.setVisible(true); // Show the Label
+        eventNameTextField.setVisible(false); // Hide the TextField
+    }
+    @FXML
+    private void editDescription() {
+        System.out.println("Edit Description.");
+        descriptionLabel.setVisible(false); // Hide the Label
+        descriptionTextField.setVisible(true); // Show the TextField
+        descriptionTextField.setText(descriptionLabel.getText()); // Set the initialized text
+        descriptionTextField.requestFocus(); // Set focus to TextField
+
+        // Set a key event handler for descriptionTextField
+        descriptionTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.ENTER) {
+                    handleEditAndSaveDescription(); // Save and switch back to Label display when Enter is pressed
+                }
+            }
+        });
+    }
+
+
+    private void handleEditAndSaveDescription() {
+        // Get the content of textField and update EventName
+        String newName = descriptionTextField.getText();
+        descriptionLabel.setText(newName);
+        descriptionLabel.setVisible(true); // Show the Label
+        descriptionTextField.setVisible(false); // Hide the TextField
     }
 
     // TODO: go to manage expenses

@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -20,18 +21,42 @@
       <Pane layoutX="19.0" layoutY="101.0" prefHeight="144.0" prefWidth="825.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="148.0" stroke="BLACK" strokeType="INSIDE" width="825.0" />
-            <Label fx:id="eventNameLabel" layoutX="11.0" prefHeight="33.0" prefWidth="156.0" text="Event Name">
+            <Button fx:id="goBackToHome" mnemonicParsing="false" onAction="#goBackToHome" onMouseClicked="#goBackToHome" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/client/icons/back.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Label fx:id="eventNameLabel" layoutX="53.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="37.0" prefWidth="274.0" text="Event Name">
                <font>
                   <Font size="28.0" />
                </font>
             </Label>
-            <Text fx:id="eventDescription" layoutX="11.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed pharetra velit. Suspendisse potenti. Praesent at tortor elementum, condimentum diam a, fringilla nisi. Nullam convallis cursus dolor, at imperdiet urna maximus nec. Suspendisse porta gravida nisi, ut feugiat turpis laoreet eget. Quisque iaculis laoreet sodales. Mauris dapibus, dolor non auctor mattis, diam nisl feugiat lacus, a eleifend neque felis ac ligula. Fusce lacinia dictum dolor id consectetur." wrappingWidth="680.2699146270752" />
+            <TextField fx:id="eventNameTextField" layoutX="53.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="37.0" prefWidth="274.0" visible="false" />
+            <Button fx:id="editEventName" layoutX="341.0" mnemonicParsing="false" onAction="#editEventName" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/client/icons/edit.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Label fx:id="descriptionLabel" layoutX="10.0" layoutY="37.0" prefHeight="66.0" prefWidth="633.0" wrapText="true" />
+            <TextField fx:id="descriptionTextField" layoutX="10.0" layoutY="35.0" prefHeight="66.0" prefWidth="629.0" visible="false" />
+            <Button fx:id="editDescription" layoutX="636.0" layoutY="75.0" mnemonicParsing="false" onAction="#editDescription" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fx:id="editDescription" fitHeight="24.0" fitWidth="24.0" onDragDetected="#editDescription" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/client/icons/edit.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
             <Button layoutX="679.0" layoutY="114.0" mnemonicParsing="false" onAction="#handleManageTags" prefHeight="25.0" prefWidth="140.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #CF9FFF;" text="MANAGE TAGS" />
-            <Text fx:id="eventNameText" layoutX="11.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Name" wrappingWidth="247.2033748626709">
-               <font>
-                  <Font size="28.0" />
-               </font>
-            </Text>
             <HBox layoutX="10.0" layoutY="112.0" spacing="10.0">
                <children>
                   <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" style="-fx-background-color: #FFA500; -fx-padding: 4px 8px; -fx-text-fill: #000000; -fx-border-radius: 12px; -fx-background-radius: 12px;" text="FOOD" />
@@ -43,7 +68,7 @@
                <graphic>
                   <ImageView fitHeight="21.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../icons/calendar.png" />
+                        <Image url="@/client/icons/calendar.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -52,7 +77,7 @@
                <graphic>
                   <ImageView fitHeight="21.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../icons/time.png" />
+                        <Image url="@/client/icons/time.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -61,7 +86,7 @@
                <graphic>
                   <ImageView fitHeight="28.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../icons/users.png" />
+                        <Image url="@/client/icons/users.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -96,7 +121,7 @@
             </ComboBox>
             <ImageView fitHeight="28.0" fitWidth="35.0" layoutX="711.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../icons/copy.png" />
+                  <Image url="@/client/icons/copy.png" />
                </image>
             </ImageView>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="28.0" layoutX="506.0" layoutY="25.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
@@ -109,7 +134,7 @@
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../icons/language.png" />
+                        <Image url="@/client/icons/language.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -118,16 +143,7 @@
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: transparent;">
                      <image>
-                        <Image url="@../icons/currency.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="backButton" layoutX="19.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#goBackToHome" style="-fx-background-color: transparent;">
-               <graphic>
-                  <ImageView fx:id="goBackToHome" fitHeight="24.0" fitWidth="24.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@/client/icons/back.png" />
+                        <Image url="@/client/icons/currency.png" />
                      </image>
                   </ImageView>
                </graphic>
