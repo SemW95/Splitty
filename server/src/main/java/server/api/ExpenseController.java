@@ -3,10 +3,7 @@ package server.api;
 import commons.Expense;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -47,13 +44,6 @@ public class ExpenseController {
     @PutMapping(path = "/expense")
     public void updateExpense(@RequestBody Expense expense) {
         expenseService.updateExpense(expense);
-    }
-
-    @MessageMapping("/expense")
-    @SendTo("/topic/expense")
-    public Expense updateExpenseWS(Expense expense){
-        updateExpense(expense);
-        return expense;
     }
 
 }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.inject.Inject;
 import commons.Event;
-import commons.Expense;
 import java.io.File;
 import java.io.PrintWriter;
 import java.net.URL;
@@ -57,10 +56,6 @@ public class AdminOverviewCtrl implements Initializable {
         directionChoiceBox.getItems().addAll("Ascending", "Descending");
         //TODO: The order choice box gets called on "weird" occasions and creates errors.
         //directionChoiceBox.getSelectionModel().selectFirst();
-
-        server.registerForMessages("/topic/event", Event.class, event -> {
-            refetch();
-        });
     }
 
     @FXML
