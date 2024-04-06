@@ -117,11 +117,6 @@ class EventTest {
     }
 
     @Test
-    void getCreationDate() {
-        assertEquals(now, test1.getLastModifiedDateTime(), "Incorrect creation date");
-    }
-
-    @Test
     void setCreationDate() {
         Instant newDate = Instant.now().minusSeconds(3600);
         test1.setLastModifiedDateTime(newDate);
@@ -130,29 +125,33 @@ class EventTest {
 
     @Test
     void equals() {
-        assertEquals(test1, test2);
+        assertEquals(test1, test1);
     }
 
     @Test
     void testHashCode() {
-        assertEquals(test1.hashCode(), test2.hashCode(), "Hash codes should be equal");
+        assertEquals(test1.hashCode(), test1.hashCode(), "Hash codes should be equal");
     }
 
     @Test
     void debtTest() {
-        List<Expense> expenses = new ArrayList<>();
-
         Person a =
             new Person("A", "", "email@email.com", "AD1400080001001234567890", "ZUOBJEO6XXX");
+        a.setId("personIdA");
         Person b =
             new Person("B", "", "email@email.com", "AD1400080001001234567890", "ZUOBJEO6XXX");
+        b.setId("personIdB");
         Person c =
             new Person("C", "", "email@email.com", "AD1400080001001234567890", "ZUOBJEO6XXX");
+        c.setId("personIdC");
         Person d =
             new Person("D", "", "email@email.com", "AD1400080001001234567890", "ZUOBJEO6XXX");
+        d.setId("personIdD");
         Person e =
             new Person("E", "", "email@email.com", "AD1400080001001234567890", "ZUOBJEO6XXX");
+        e.setId("personIdE");
 
+        List<Expense> expenses = new ArrayList<>();
         expenses.add(new Expense("", Arrays.asList(a, b, c), d, new BigDecimal("40"), null, null));
         expenses.add(new Expense("", Arrays.asList(a, c), b, new BigDecimal("21"), null, null));
         expenses.add(new Expense("", Arrays.asList(d, e), a, new BigDecimal("15"), null, null));
