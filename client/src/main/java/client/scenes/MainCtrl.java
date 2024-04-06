@@ -16,8 +16,10 @@
 
 package client.scenes;
 
+import client.Main;
 import client.MyFXML;
 import client.utils.CsPair;
+import client.utils.WebSocketClient;
 import commons.Event;
 import commons.Expense;
 import commons.Person;
@@ -25,6 +27,7 @@ import java.io.File;
 import java.util.Locale;
 import java.util.Stack;
 import java.util.function.Consumer;
+import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -58,6 +61,7 @@ public class MainCtrl {
     private CsPair<DeleteEventConfirmationCtrl> deleteEventConfirmationPair;
     private CsPair<CreateEventCtrl> createEventPair;
     // private Pair<ExpenseCardCtrl, Parent> expenseCard;
+    private WebSocketClient websocketClient;
 
     /**
      * Main controller initialization.
@@ -73,6 +77,9 @@ public class MainCtrl {
         showHome();
         primaryStage.setResizable(false);
         primaryStage.show();
+
+        websocketClient = new WebSocketClient(Main.configManager.getWsServer(),
+            () -> Platform.runLater(this::updateAll));
     }
 
     private void loadAllPairs() {

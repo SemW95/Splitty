@@ -22,11 +22,6 @@ import client.scenes.MainCtrl;
 import com.google.inject.Injector;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketSession;
-import org.springframework.web.socket.client.WebSocketClient;
-import org.springframework.web.socket.client.standard.StandardWebSocketClient;
-import org.springframework.web.socket.handler.AbstractWebSocketHandler;
 
 /**
  * This is the entry point for the client.
@@ -43,22 +38,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        WebSocketClient client = new StandardWebSocketClient();
-        var handler = new MyWebSocketHandler();
-        try {
-            WebSocketSession session =
-                client.execute(handler, "ws://localhost:8080/websocket").get();
-
-            session.sendMessage(new TextMessage("testing"));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         mainCtrl.initialize(primaryStage, FXML);
-    }
-
-    private class MyWebSocketHandler extends AbstractWebSocketHandler {
-
     }
 }
