@@ -208,11 +208,11 @@ public class HomeCtrl implements Initializable {
 
         if (response == 200) {
             serverStatus.setStyle("-fx-background-color: #93c47d;");
-            serverStatus.setText("Connected");
+            serverStatus.setText(resources.getString("home.connected"));
             return;
         }
 
         serverStatus.setStyle("-fx-background-color: #e06666;");
-        serverStatus.setText("Disconnected");
+        serverStatus.setText(resources.getString("home.disconnected"));
     }
 }

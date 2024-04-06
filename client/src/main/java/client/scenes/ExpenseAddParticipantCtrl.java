@@ -1,6 +1,7 @@
 package client.scenes;
 
 import client.utils.PaneCreator;
+import client.utils.ScreenUtils;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Event;
@@ -13,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
@@ -20,7 +22,6 @@ import javafx.scene.text.Font;
 
 /**
  * Controller class for adding a participant to an expense.
- *
  */
 public class ExpenseAddParticipantCtrl implements Initializable {
 
@@ -47,6 +48,7 @@ public class ExpenseAddParticipantCtrl implements Initializable {
     private Expense expense;
     private Event event;
 
+
     @Inject
     public ExpenseAddParticipantCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.server = server;
@@ -56,6 +58,8 @@ public class ExpenseAddParticipantCtrl implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
+        rootAnchorPane.addEventFilter(KeyEvent.KEY_PRESSED,
+            ScreenUtils.exitHandler(resources, mainCtrl::closePopup));
     }
 
     /**
@@ -90,8 +94,6 @@ public class ExpenseAddParticipantCtrl implements Initializable {
         for (Person participant : expense.getParticipants()) {
             addParticipantCardToCurrentParticipantFlowPane(participant);
         }
-
-
 
 
     }
@@ -155,7 +157,8 @@ public class ExpenseAddParticipantCtrl implements Initializable {
             participant.getFirstName() + " " + participant.getLastName();
         System.out.println(participant.getId());
         System.out.println(expense.getReceiver().getId());
-        participantRepresentation = participantRepresentation.concat(" (Recipient)");
+        participantRepresentation +=
+            " (" + resources.getString("expense-add-participant.recipient") + ")";
         Label participantLabel = new Label(participantRepresentation);
         Font globalFont = new Font("System Bold", 24);
         participantLabel.setTextFill(Color.valueOf("#636363"));

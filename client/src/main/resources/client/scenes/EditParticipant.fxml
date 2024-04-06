@@ -10,11 +10,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="259.0" prefWidth="440.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.EditParticipantCtrl">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="259.0" prefWidth="440.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.EditParticipantCtrl">
    <children>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="24.0">
          <children>
-            <Label prefHeight="25.0" prefWidth="598.0" text=" Edit Participant" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Label prefHeight="25.0" prefWidth="598.0" text="%edit-participant.edit-participant" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="20.0" />
                </font>
@@ -27,34 +27,34 @@
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="43.0" prefWidth="438.0">
                      <children>
-                        <Label layoutX="7.0" layoutY="13.0" prefHeight="25.0" prefWidth="71.0" text="First Name:" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="13.0" />
+                        <Label layoutX="7.0" layoutY="13.0" prefHeight="25.0" prefWidth="71.0" text="%edit-participant.first-name" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="13.0" />
                         <Label fx:id="firstNameLabel" layoutX="74.0" layoutY="15.0" prefHeight="23.0" prefWidth="100.0" />
                         <TextField fx:id="firstNameTextField" layoutX="74.0" layoutY="15.0" prefHeight="23.0" prefWidth="100.0" visible="false" />
-                        <Button fx:id="editFirstName" layoutX="189.0" layoutY="15.0" mnemonicParsing="false" onAction="#editFirstName" text="Edit" />
-                        <Label layoutX="6.0" layoutY="42.0" prefHeight="25.0" prefWidth="71.0" text="Last Name:" />
+                        <Button fx:id="editFirstName" layoutX="189.0" layoutY="15.0" mnemonicParsing="false" onAction="#editFirstName" text="%edit-participant.edit" />
+                        <Label layoutX="6.0" layoutY="42.0" prefHeight="25.0" prefWidth="71.0" text="%edit-participant.last-name" />
                         <Label fx:id="lastNameLabel" layoutX="74.0" layoutY="44.0" prefHeight="23.0" prefWidth="100.0">
                            <opaqueInsets>
                               <Insets top="-14.0" />
                            </opaqueInsets>
                         </Label>
                         <TextField fx:id="lastNameTextField" layoutX="74.0" layoutY="44.0" prefHeight="23.0" prefWidth="100.0" visible="false" AnchorPane.bottomAnchor="112.0" AnchorPane.leftAnchor="74.0" AnchorPane.rightAnchor="216.0" AnchorPane.topAnchor="44.0" />
-                        <Button fx:id="editLastName" layoutX="189.0" layoutY="44.0" mnemonicParsing="false" onAction="#editLastName" text="Edit" />
-                        <Label layoutX="6.0" layoutY="74.0" prefHeight="25.0" prefWidth="40.0" text="Email:" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="74.0" />
+                        <Button fx:id="editLastName" layoutX="189.0" layoutY="44.0" mnemonicParsing="false" onAction="#editLastName" text="%edit-participant.edit" />
+                        <Label layoutX="6.0" layoutY="74.0" prefHeight="25.0" prefWidth="40.0" text="%edit-participant.email" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="74.0" />
                         <Label fx:id="emailLabel" layoutX="47.0" layoutY="74.0" prefHeight="25.0" prefWidth="168.0" />
                         <TextField fx:id="emailTextField" layoutX="46.0" layoutY="77.0" prefHeight="23.0" prefWidth="156.0" visible="false" />
-                        <Button fx:id="editEmail" layoutX="208.0" layoutY="78.0" mnemonicParsing="false" onAction="#editEmail" text="Edit" />
-                        <Label layoutX="6.0" layoutY="104.0" prefHeight="25.0" prefWidth="40.0" text="IBAN:" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="104.0" />
+                        <Button fx:id="editEmail" layoutX="208.0" layoutY="78.0" mnemonicParsing="false" onAction="#editEmail" text="%edit-participant.edit" />
+                        <Label layoutX="6.0" layoutY="104.0" prefHeight="25.0" prefWidth="40.0" text="%edit-participant.iban" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="104.0" />
                         <Label fx:id="ibanLabel" layoutX="39.0" layoutY="104.0" prefHeight="25.0" prefWidth="168.0" />
                         <TextField fx:id="ibanTextField" layoutX="38.0" layoutY="105.0" prefHeight="23.0" prefWidth="156.0" visible="false" />
-                        <Button fx:id="editIban" layoutX="208.0" layoutY="105.0" mnemonicParsing="false" onAction="#editIban" text="Edit" />
-                        <Label layoutX="7.0" layoutY="136.0" prefHeight="25.0" prefWidth="40.0" text="BIC:" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="136.0" />
+                        <Button fx:id="editIban" layoutX="208.0" layoutY="105.0" mnemonicParsing="false" onAction="#editIban" text="%edit-participant.edit" />
+                        <Label layoutX="7.0" layoutY="136.0" prefHeight="25.0" prefWidth="40.0" text="%edit-participant.bic" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="136.0" />
                         <Label fx:id="bicLabel" layoutX="38.0" layoutY="136.0" prefHeight="25.0" prefWidth="168.0" />
                         <TextField fx:id="bicTextField" layoutX="38.0" layoutY="137.0" prefHeight="23.0" prefWidth="156.0" visible="false" />
-                        <Button fx:id="editBic" layoutX="208.0" layoutY="137.0" mnemonicParsing="false" onAction="#editBic" text="Edit" />
-                        <Button fx:id="save" layoutX="344.0" layoutY="153.0" mnemonicParsing="false" onAction="#save" text="Save" />
-                        <Label fx:id="invalidEmailMessage" layoutX="252.0" layoutY="78.0" prefHeight="23.0" prefWidth="128.0" text="Invalid email address!" textFill="#f00000" visible="false" />
-                        <Label fx:id="invalidIbanMessage" layoutX="252.0" layoutY="107.0" prefHeight="25.0" prefWidth="128.0" text="Invalid IBAN!" textFill="#f00000" visible="false" />
-                        <Label fx:id="invalidBicMessage" layoutX="252.0" layoutY="136.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="23.0" prefWidth="84.0" text="Invalid BIC!" textFill="#f00000" visible="false" />
+                        <Button fx:id="editBic" layoutX="208.0" layoutY="137.0" mnemonicParsing="false" onAction="#editBic" text="%edit-participant.edit" />
+                        <Button fx:id="save" layoutX="344.0" layoutY="153.0" mnemonicParsing="false" onAction="#save" text="%edit-participant.save" />
+                        <Label fx:id="invalidEmailMessage" layoutX="252.0" layoutY="78.0" prefHeight="23.0" prefWidth="128.0" text="%edit-participant.invalid-email" textFill="#f00000" visible="false" />
+                        <Label fx:id="invalidIbanMessage" layoutX="252.0" layoutY="107.0" prefHeight="25.0" prefWidth="128.0" text="%edit-participant.invalid-iban" textFill="#f00000" visible="false" />
+                        <Label fx:id="invalidBicMessage" layoutX="252.0" layoutY="136.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="23.0" prefWidth="84.0" text="%edit-participant.invalid-bic" textFill="#f00000" visible="false" />
                      </children>
                   </AnchorPane>
               </items>

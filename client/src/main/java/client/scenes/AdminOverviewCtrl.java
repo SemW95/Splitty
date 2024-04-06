@@ -1,6 +1,7 @@
 package client.scenes;
 
 import client.utils.PaneCreator;
+import client.utils.ScreenUtils;
 import client.utils.ServerUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -20,7 +21,7 @@ import javafx.scene.Cursor;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -36,6 +37,8 @@ public class AdminOverviewCtrl implements Initializable {
     private ChoiceBox<String> directionChoiceBox;
     @FXML
     private VBox eventList;
+    @FXML
+    private Pane root;
     private ResourceBundle resources;
     private List<Event> events;
 
@@ -49,17 +52,25 @@ public class AdminOverviewCtrl implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
 
-        orderByChoiceBox.getItems().addAll("Title", "Creation date", "Last modified date");
+        String title = resources.getString("admin-overview.by-title");
+        String creationDate = resources.getString("admin-overview.creation-date");
+        String lastModifiedDate = resources.getString("admin-overview.last-modified-date");
+        orderByChoiceBox.getItems().addAll(title, creationDate, lastModifiedDate);
         //TODO: The order choice box gets called on "weird" occasions and creates errors.
         //orderByChoiceBox.getSelectionModel().selectFirst();
 
-        directionChoiceBox.getItems().addAll("Ascending", "Descending");
+        String ascending = resources.getString("admin-overview.ascending");
+        String descending = resources.getString("admin-overview.descending");
+        directionChoiceBox.getItems().addAll(ascending, descending);
         //TODO: The order choice box gets called on "weird" occasions and creates errors.
         //directionChoiceBox.getSelectionModel().selectFirst();
+
+        root.addEventFilter(KeyEvent.KEY_PRESSED,
+            ScreenUtils.exitHandler(resources, this::handleExit));
     }
 
     @FXML
-    private void handleExit(MouseEvent actionEvent) {
+    private void handleExit() {
         mainCtrl.showHome();
     }
 
