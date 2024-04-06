@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import server.WebSocketConfig;
 import server.service.AdminService;
 import server.service.EventService;
 
@@ -16,11 +17,14 @@ import server.service.EventService;
 public class AdminController {
     private final AdminService adminService;
     private final EventService eventService;
+    private final WebSocketConfig webSocketConfig;
 
     @Autowired
-    public AdminController(AdminService adminService, EventService eventService) {
+    public AdminController(AdminService adminService, EventService eventService,
+                           WebSocketConfig webSocketConfig) {
         this.adminService = adminService;
         this.eventService = eventService;
+        this.webSocketConfig = webSocketConfig;
     }
 
     /**
@@ -28,6 +32,7 @@ public class AdminController {
      */
     @GetMapping(path = "/admin/validate/{password}")
     public boolean validatePassword(@PathVariable String password) {
+        webSocketConfig.getWebSocketController().sendUpdateMessage();
         return adminService.validatePassword(password);
     }
 
