@@ -54,6 +54,9 @@ public class ExpenseOverviewCtrl implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
+        server.registerForMessages("/topic/expense", Expense.class, expense -> {
+            refetch();
+        });
     }
 
     /**
