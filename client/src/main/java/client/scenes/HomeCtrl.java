@@ -29,15 +29,17 @@ import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 
 /**
  * Home screen.
@@ -49,9 +51,6 @@ public class HomeCtrl implements Initializable {
     private ResourceBundle resources;
 
     @FXML
-    private ComboBox<String> dropDown;
-
-    @FXML
     private VBox eventList;
     private List<Event> events;
 
@@ -60,6 +59,9 @@ public class HomeCtrl implements Initializable {
 
     @FXML
     private Label serverStatus;
+
+    @FXML
+    Pane rootPane;
 
     @Inject
     public HomeCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -70,18 +72,6 @@ public class HomeCtrl implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
-
-        /*
-        Makes options for the dropdown menu
-        TODO should set a new server in the config file and ask to reboot
-        */
-        ObservableList<String> options = FXCollections.observableArrayList(
-            "Server 1",
-            "Server 2",
-            "Server 3"
-        );
-        dropDown.setValue("Server 1");
-        dropDown.setItems(options);
 
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -133,21 +123,9 @@ public class HomeCtrl implements Initializable {
     }
 
     /**
-     * Testing function for language switch.
-     */
-    public void testing() {
-        if (mainCtrl.getCurrentLanguage().equals("en")) {
-            mainCtrl.changeLanguage("lt");
-        } else {
-            mainCtrl.changeLanguage("en");
-        }
-    }
-
-    /**
      * Logic for the "language" button on home.
      */
     public void clickLanguage() {
-        System.out.println("Pressed language");
         mainCtrl.showLanguageSelectPopup();
     }
 
@@ -155,15 +133,24 @@ public class HomeCtrl implements Initializable {
      * Logic for the "currency" button on home.
      */
     public void clickCurrency() {
-        System.out.println("Pressed currency.");
-    }
 
-    /**
-     * Logic for the home title.
-     */
-    public void clickHome() {
-        System.out.println("Pressed home.");
-        mainCtrl.showHome();
+        // Show a modal dialog to inform the user
+        Dialog<String> dialog = new Dialog<>();
+        dialog.initModality(Modality.APPLICATION_MODAL); // Make the dialog modal
+        dialog.initOwner(rootPane.getScene().getWindow()); // Set the owner
+
+        // Customize the dialog appearance
+        dialog.setTitle(resources.getString("home.soon"));
+        dialog.setContentText(resources.getString("home.soon-text"));
+
+        // Adding a custom close button inside the dialog, since default buttons are not used
+        ButtonType closeButton =
+            new ButtonType(resources.getString("manage-expense.understood"),
+                ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().add(closeButton);
+
+        // Handling dialog result to perform actions if needed, but it's informational
+        dialog.showAndWait();
     }
 
     /**
@@ -176,18 +163,18 @@ public class HomeCtrl implements Initializable {
             code = eventCodeTextField.getText();
             eventCodeTextField.clear();
         } else {
-            eventCodeTextField.setPromptText("Please enter a code!");
+            eventCodeTextField.setPromptText(resources.getString("home.enter-code"));
             return;
         }
 
         //checks if there is an event with the given code
         if (server.getEventByCode(code) == null) {
-            eventCodeTextField.setPromptText("Event not found");
+            eventCodeTextField.setPromptText(resources.getString("home.event-not-found"));
             return;
         }
 
         Main.configManager.addCode(code);
-        eventCodeTextField.setPromptText("Event added");
+        eventCodeTextField.setPromptText(resources.getString("home.event-added"));
         refetch();
     }
 

@@ -63,7 +63,7 @@ public class ExpenseAddParticipantCtrl implements Initializable {
     }
 
     /**
-     * populates the UI with appropiate data from the expense object.
+     * populates the UI with appropriate data from the expense object.
      */
     public void populate() {
         Event event = server.getEvents().getFirst();
@@ -126,11 +126,8 @@ public class ExpenseAddParticipantCtrl implements Initializable {
                 currentParticipants.getChildren().remove(card);
                 addParticipantCardToAvailableParticipantFlowPane(participant);
 
-                statusLabel.setText("Successfully removed "
-                    +
-                    participant.getFirstName()
-                    +
-                    " from this expense.");
+                statusLabel.setText(resources.getString("expense-add-participants.removed")
+                    + " " + participant.getFirstName());
 
                 currentParticipants.requestLayout();
                 server.updateExpense(this.expense);
@@ -211,11 +208,8 @@ public class ExpenseAddParticipantCtrl implements Initializable {
 
                 availableParticipants.requestLayout();
                 currentParticipants.requestLayout();
-                statusLabel.setText("Successfully added "
-                    +
-                    participant.getFirstName()
-                    +
-                    " to this expense.");
+                statusLabel.setText(resources.getString("expense-add-participants.added")
+                    + " " + participant.getFirstName());
 
                 server.updateExpense(this.expense);
                 mainCtrl.updateAll();
@@ -244,6 +238,6 @@ public class ExpenseAddParticipantCtrl implements Initializable {
     }
 
     public void defaultStatus() {
-        statusLabel.setText("No pending changes have been made.");
+        statusLabel.setText(resources.getString("expense-add-participants.no-changes"));
     }
 }

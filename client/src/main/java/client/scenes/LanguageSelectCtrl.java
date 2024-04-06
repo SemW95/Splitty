@@ -36,17 +36,14 @@ public class LanguageSelectCtrl implements Initializable {
     }
 
     public void setDutch() {
-        System.out.println("selected dutch");
-        //mainCtrl.changeLanguage("nl");
+        mainCtrl.changeLanguage("nl");
     }
 
     public void setEnglish() {
-        System.out.println("selected english");
         mainCtrl.changeLanguage("en");
     }
 
     public void setLith() {
-        System.out.println("selected lithuanian");
         mainCtrl.changeLanguage("lt");
     }
 

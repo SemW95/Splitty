@@ -288,9 +288,8 @@ public class ManageExpenseCtrl implements Initializable {
             server.updateExpense(this.expense);
             mainCtrl.updateAll();
             confirmLastDeleted.setText(
-                confirmLastDeleted.getText() + "\nRemoved " + participant.getFirstName()
-                    +
-                    " from this expense successfully.");
+                confirmLastDeleted.getText() + "\n" + resources.getString("manage-expense.removed")
+                    + " " + participant.getFirstName());
         });
 
         card.getChildren().add(participantLabel);
@@ -447,11 +446,8 @@ public class ManageExpenseCtrl implements Initializable {
         dialog.initOwner(rootAnchorPane.getScene().getWindow()); // Set the owner
 
         // Customize the dialog appearance
-        dialog.setTitle("Invalid Input Detected");
-        dialog.setContentText(
-            "You have unsaved changes with invalid syntax."
-                +
-                "\nPlease review that you have entered a valid amount of money.");
+        dialog.setTitle(resources.getString("manage-expense.invalid-input"));
+        dialog.setContentText(resources.getString("manage-expense.invalid-info"));
 
         // Adding a custom close button inside the dialog, since default buttons are not used
         ButtonType closeButton = new ButtonType("Understood", ButtonBar.ButtonData.OK_DONE);
@@ -507,21 +503,21 @@ public class ManageExpenseCtrl implements Initializable {
      */
     public void setConfirmationLabels() {
         if (indicatorNameModified.getImage().getUrl().contains("done")) {
-            confirmName.setText("Changed Successfully.");
+            confirmName.setText(resources.getString("manage-expense.changed"));
         }
         if (indicatorAmountModified.getImage().getUrl().contains("done")) {
-            confirmAmount.setText("Changed Successfully.");
+            confirmAmount.setText(resources.getString("manage-expense.changed"));
         } else if (indicatorAmountModified.getImage().getUrl().contains("invalid")) {
-            confirmAmount.setText("Invalid Syntax!");
+            confirmAmount.setText(resources.getString("manage-expense.invalid"));
         }
         if (indicatorDateModified.getImage().getUrl().contains("done")) {
-            confirmDate.setText("Changed Successfully.");
+            confirmDate.setText(resources.getString("manage-expense.changed"));
         }
         if (indicatorTagModified.getImage().getUrl().contains("done")) {
-            confirmTag.setText("Changed Successfully.");
+            confirmTag.setText(resources.getString("manage-expense.changed"));
         }
         if (indicatorRecipientModified.getImage().getUrl().contains("done")) {
-            confirmRecipient.setText("Changed Successfully.");
+            confirmRecipient.setText(resources.getString("manage-expense.changed"));
         }
 
 

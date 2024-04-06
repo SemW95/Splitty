@@ -198,6 +198,8 @@ public class MainCtrl {
                 showHome();
             }
         }
+
+        showLanguageSelectPopup();
     }
 
     /**
@@ -230,12 +232,16 @@ public class MainCtrl {
      * Should never be called twice before closing one of the popups.
      */
     public void showLanguageSelectPopup() {
-        popup = new Stage();
-        popup.initModality(Modality.APPLICATION_MODAL);
-        popup.initOwner(primaryStage);
+        if (popup == null) {
+            popup = new Stage();
+            popup.initModality(Modality.APPLICATION_MODAL);
+            popup.initOwner(primaryStage);
+            System.out.println("something");
+            popup.setResizable(false);
+        }
+
         popup.setTitle(fxml.getBundle().getString("language-select.title"));
         popup.setScene(languageSelectPair.scene);
-        popup.setResizable(false);
         popup.show();
     }
 
@@ -440,6 +446,7 @@ public class MainCtrl {
         popup.setScene(createEventPair.scene);
         popup.initModality(Modality.APPLICATION_MODAL);
         popup.setResizable(false);
+        popup.initOwner(primaryStage);
         popup.show();
     }
 
