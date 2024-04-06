@@ -113,7 +113,7 @@ public class MainCtrl {
     /**
      * Updates all screens with data from the database.
      */
-    public void updateAll() {
+    private void updateAll() {
         homePair.ctrl.refetch();
         expenseOverviewPair.ctrl.refetch();
         eventOverviewPair.ctrl.refetch();

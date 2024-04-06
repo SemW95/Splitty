@@ -196,7 +196,6 @@ public class EventOverviewCtrl implements Initializable {
             person = server.createPerson(person);
             event.getPeople().add(person);
             server.updateEvent(event);
-            mainCtrl.updateAll();
         });
     }
 
