@@ -148,7 +148,7 @@ public class HomeCtrl implements Initializable {
      */
     public void clickLanguage() {
         System.out.println("Pressed language");
-        testing();
+        mainCtrl.showLanguageSelectPopup();
     }
 
     /**

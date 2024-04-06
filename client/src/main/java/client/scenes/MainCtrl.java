@@ -55,6 +55,7 @@ public class MainCtrl {
     private CsPair<AdminOverviewCtrl> adminOverviewPair;
     private CsPair<DeleteEventConfirmationCtrl> deleteEventConfirmationPair;
     private CsPair<CreateEventCtrl> createEventPair;
+    private CsPair<LanguageSelectCtrl> languageSelectPair;
     private Initializable currentCtrl;
     // private Pair<ExpenseCardCtrl, Parent> expenseCard;
 
@@ -77,6 +78,11 @@ public class MainCtrl {
     private void loadAllPairs() {
         homePair = fxml.load(HomeCtrl.class, "client", "scenes", "Home.fxml");
         homePair.scene.getStylesheets().add("/client/css/global.css");
+
+        languageSelectPair =
+            fxml.load(LanguageSelectCtrl.class,
+                "client", "scenes", "LanguageSelection.fxml");
+        languageSelectPair.scene.getStylesheets().add("client/css/globals.css");
 
         adminCredentialsPair =
             fxml.load(AdminCredentialsCtrl.class,
@@ -215,6 +221,20 @@ public class MainCtrl {
         // This was the only way I found that fixed that problem
         // (Except the .setMaximized(true), which makes the window flash when it appears)
         // Also, this might be a linux issue only
+        popup.setResizable(false);
+        popup.show();
+    }
+
+    /**
+     * Creates an language selection popup (dialog window) that blocks other windows.
+     * Should never be called twice before closing one of the popups.
+     */
+    public void showLanguageSelectPopup() {
+        popup = new Stage();
+        popup.initModality(Modality.APPLICATION_MODAL);
+        popup.initOwner(primaryStage);
+        popup.setTitle(fxml.getBundle().getString("language-select.title"));
+        popup.setScene(languageSelectPair.scene);
         popup.setResizable(false);
         popup.show();
     }
