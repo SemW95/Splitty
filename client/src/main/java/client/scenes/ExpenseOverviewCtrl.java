@@ -70,23 +70,35 @@ public class ExpenseOverviewCtrl implements Initializable {
             return;
         }
         // Initialize UI with expense data
-        expenseNameLabel.setText(expense.getDescription());
-        expenseAmountLabel.setText("€ " + expense.getPaid().toString());
-        participantCountLabel.setText(Integer.toString(expense.getParticipants().size() + 1));
-
-        // Create tag
-        expenseNameLabel.setGraphic(PaneCreator.createTagItem(expense.getTag()));
+        if (expense.getDescription() != null) {
+            expenseNameLabel.setText(expense.getDescription());
+        }
+        if (expense.getPaid() != null) {
+            expenseAmountLabel.setText("€ " + expense.getPaid().toString());
+        }
+        if (expense.getTag() != null) {
+            // Create tag
+            expenseNameLabel.setGraphic(PaneCreator.createTagItem(expense.getTag()));
+        } else {
+            // remove tag if there isn't any
+            expenseNameLabel.setGraphic(null);
+        }
 
         // Populate participants
         participantsFlowPane.getChildren().setAll();
-        participantsFlowPane.getChildren().add(createRecipientCard(expense.getReceiver()));
-        System.out.println("Created a recipient card instead of a normal participant card");
-        for (Person participant : expense.getParticipants()) {
-            participantsFlowPane.getChildren().add(createParticipantCard(participant));
-            System.out.println("Created a regular participant card");
+        if (expense.getReceiver() != null) {
+            participantsFlowPane.getChildren().add(createRecipientCard(expense.getReceiver()));
+            System.out.println("Created a recipient card instead of a normal participant card");
         }
-        participantsFlowPane.requestLayout();
-
+        if (expense.getParticipants() != null) {
+            int participantAmount =
+                expense.getParticipants().size() + (expense.getReceiver() == null ? 0 : 1);
+            participantCountLabel.setText(Integer.toString(participantAmount));
+            for (Person participant : expense.getParticipants()) {
+                participantsFlowPane.getChildren().add(createParticipantCard(participant));
+                System.out.println("Created a regular participant card");
+            }
+        }
     }
 
     /**

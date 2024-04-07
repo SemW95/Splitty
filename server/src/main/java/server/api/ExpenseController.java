@@ -45,8 +45,8 @@ public class ExpenseController {
     }
 
     @PostMapping(path = "/expense")
-    public void createExpense(@RequestBody Expense expense) {
-        expenseService.createExpense(expense);
+    public Expense createExpense(@RequestBody Expense expense) {
+        return expenseService.createExpense(expense);
     }
 
     @PutMapping(path = "/expense")

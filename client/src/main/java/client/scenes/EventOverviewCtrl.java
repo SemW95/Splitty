@@ -3,12 +3,18 @@ package client.scenes;
 
 import client.Main;
 import client.utils.ExpenseCardCtrl;
+import client.utils.PaneCreator;
 import client.utils.ScreenUtils;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Event;
 import commons.Expense;
+import java.math.BigDecimal;
 import java.net.URL;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +30,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 
@@ -59,14 +66,11 @@ public class EventOverviewCtrl implements Initializable {
     @FXML
     private Pane root;
     @FXML
-    public Label totalAmountSpent;
-
-
-    // TODO: make tags a component and add them + make field
-
+    private Label totalAmountSpent;
+    @FXML
+    private HBox tagsBox;
     @FXML
     private ComboBox<String> dropDown;
-
     @FXML
     private FlowPane expensesFlowPane;
 
@@ -129,8 +133,16 @@ public class EventOverviewCtrl implements Initializable {
             this.inviteCode.setText(event.getCode());
         }
 
+        tagsBox.getChildren().setAll(event.getTags().stream()
+            .map(PaneCreator::createTagItem).toList());
+
+        List<Expense> sortedExpenses =
+            event.getExpenses().stream()
+                .sorted(Comparator.comparing(Expense::getPaymentDateTime).reversed())
+                .toList();
+
         expensesFlowPane.getChildren().setAll();
-        for (Expense expense : event.getExpenses()) {
+        for (Expense expense : sortedExpenses) {
             var expenseCard = Main.FXML.loadComponent(ExpenseCardCtrl.class,
                 "client", "components", "ExpenseCard.fxml");
             expenseCard.getKey().setExpense(expense);
@@ -202,7 +214,13 @@ public class EventOverviewCtrl implements Initializable {
      * Logic for the "+" button next to "Expenses".
      */
     public void handleAddExpenses(ActionEvent actionEvent) {
-        System.out.println("Pressed add expense.");
+        Expense expense = new Expense("New expense", new ArrayList<>(), null, BigDecimal.ZERO, null,
+            Instant.now());
+        expense = server.createExpense(expense);
+        event.getExpenses().add(expense);
+        server.updateEvent(event);
+        mainCtrl.showExpenseOverview(expense, event);
+        mainCtrl.showManageExpensePopup(expense, event);
     }
 
     /**

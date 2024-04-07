@@ -13,7 +13,6 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -131,14 +130,16 @@ public class ManageExpenseCtrl implements Initializable {
             return;
         }
 
-        List<Tag> allTags = event.getTags();
-
         // Initialize UI with expense data
         expenseNameLabel.setText(expense.getDescription());
         expenseAmountLabel.setText(expense.getPaid().toString());
-        tagMenu.getItems().setAll(allTags);
-        List<Person> allPeople = event.getPeople();
-        recipientMenu.getItems().setAll(allPeople);
+
+        tagMenu.getSelectionModel().clearSelection();
+        recipientMenu.getSelectionModel().clearSelection();
+
+        tagMenu.getItems().setAll(event.getTags());
+        recipientMenu.getItems().setAll(event.getPeople());
+
         expenseDate.setPromptText(Date.from(expense.getPaymentDateTime()).toString());
         tagMenu.setCellFactory(p -> new ListCell<>() {
             @Override
@@ -163,8 +164,12 @@ public class ManageExpenseCtrl implements Initializable {
             }
         });
 
-        tagMenu.getSelectionModel().select(expense.getTag());
-        recipientMenu.getSelectionModel().select(expense.getReceiver());
+        if (expense.getTag() != null) {
+            tagMenu.getSelectionModel().select(expense.getTag());
+        }
+        if (expense.getReceiver() != null) {
+            recipientMenu.getSelectionModel().select(expense.getReceiver());
+        }
 
 
         tagMenu.setButtonCell(new ListCell<>() {
@@ -193,14 +198,17 @@ public class ManageExpenseCtrl implements Initializable {
 
         // Populate participants
         participantsFlowPane.getChildren().setAll();
-        participantsFlowPane.getChildren().add(createRecipientCard(expense.getReceiver()));
-        System.out.println("Created a recipient card instead of a normal participant card");
+        if (expense.getReceiver() != null) {
+            participantsFlowPane.getChildren().add(createRecipientCard(expense.getReceiver()));
+            System.out.println("Created a recipient card instead of a normal participant card");
+        }
+
         for (Person participant : expense.getParticipants()) {
+            System.out.println("HERE");
+            System.out.println(participant);
             participantsFlowPane.getChildren().add(createParticipantCard(participant));
             System.out.println("Created a regular participant card");
         }
-        participantsFlowPane.requestLayout();
-
 
         // Prevent window closure when there are unsaved changes with invalid syntax
         rootAnchorPane.getScene().getWindow()
@@ -370,7 +378,9 @@ public class ManageExpenseCtrl implements Initializable {
             // event candidate, they are and won't be a participant, either way, make sure
             // the recipient is not in list of participants
             this.expense.getParticipants().remove(selectedPerson);
-            this.expense.getParticipants().add(previousRecipient);
+            if (previousRecipient != null) {
+                this.expense.getParticipants().add(previousRecipient);
+            }
             server.updateExpense(this.expense);
         }
     }

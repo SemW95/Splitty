@@ -247,10 +247,10 @@ class ExpenseServiceTest {
 
     @Test
     void createExpenseThrowsWhenExpenseExists() {
-        when(expenseRepository.findById(anyString())).thenReturn(Optional.of(testExpense));
+        when(expenseRepository.existsById(anyString())).thenReturn(true);
         assertThrows(IllegalStateException.class, () -> expenseService.createExpense(testExpense),
             "Expected createExpense() to throw due to existing expense, but it didn't");
-        verify(expenseRepository).findById(testExpense.getId());
+        verify(expenseRepository).existsById(testExpense.getId());
     }
 
     @Test
