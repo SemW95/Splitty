@@ -226,6 +226,10 @@ public class EventOverviewCtrl implements Initializable {
         // Get the content of textField and update EventName
         String newName = eventNameTextField.getText();
         eventNameLabel.setText(newName);
+        event.setTitle(newName);
+        server.updateEvent(event);
+        populate();
+        mainCtrl.updateAll();
         eventNameLabel.setVisible(true); // Show the Label
         eventNameTextField.setVisible(false); // Hide the TextField
     }
@@ -252,9 +256,13 @@ public class EventOverviewCtrl implements Initializable {
 
 
     private void handleEditAndSaveDescription() {
-        // Get the content of textField and update EventName
-        String newName = descriptionTextField.getText();
-        descriptionLabel.setText(newName);
+        // Get the content of textField and update description
+        String newDescription = descriptionTextField.getText();
+        descriptionLabel.setText(newDescription);
+        event.setDescription(newDescription);
+        server.updateEvent(event);
+        populate();
+        mainCtrl.updateAll();
         descriptionLabel.setVisible(true); // Show the Label
         descriptionTextField.setVisible(false); // Hide the TextField
     }
