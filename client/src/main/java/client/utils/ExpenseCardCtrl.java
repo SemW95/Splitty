@@ -1,16 +1,20 @@
 package client.utils;
 
 import commons.Expense;
+import commons.Person;
 import java.util.function.Consumer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * ExpenseCard component.
  */
 public class ExpenseCardCtrl {
 
+    @FXML
+    private AnchorPane rootAnchorPane;
     @FXML
     Label expenseDescription;
     @FXML
@@ -19,8 +23,6 @@ public class ExpenseCardCtrl {
     Label expenseDate;
     @FXML
     Label expenseAmount;
-    @FXML
-    Button expenseTag;
     @FXML
     Label expenseParticipants;
     private Expense expense;
@@ -44,11 +46,14 @@ public class ExpenseCardCtrl {
             this.expenseAmount.setText(expense.getPaid().toString());
         }
         if (expense.getTag() != null) {
-            this.expenseTag.setText(expense.getTag().toString());
+            Label tagLabel = PaneCreator.createTagItem(expense.getTag());
+            tagLabel.setLayoutX(11);
+            tagLabel.setLayoutY(114);
+            rootAnchorPane.getChildren().add(tagLabel);
         }
         if (expense.getParticipants() != null) {
             this.expenseParticipants.setText(
-                expense.getParticipants().stream().map(p -> p.getFirstName()).toList().toString());
+                expense.getParticipants().stream().map(Person::getFirstName).toList().toString());
         }
     }
 

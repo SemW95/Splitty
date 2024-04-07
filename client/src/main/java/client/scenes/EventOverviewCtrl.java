@@ -8,7 +8,12 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Event;
 import commons.Expense;
+import java.math.BigDecimal;
 import java.net.URL;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -114,8 +119,13 @@ public class EventOverviewCtrl implements Initializable {
             this.amountOfParticipants.setText(event.getPeople().toString());
         }
 
+        List<Expense> sortedExpenses =
+            event.getExpenses().stream()
+                .sorted(Comparator.comparing(Expense::getPaymentDateTime).reversed())
+                .toList();
+
         expensesFlowPane.getChildren().setAll();
-        for (Expense expense : event.getExpenses()) {
+        for (Expense expense : sortedExpenses) {
             var expenseCard = Main.FXML.loadComponent(ExpenseCardCtrl.class,
                 "client", "components", "ExpenseCard.fxml");
             expenseCard.getKey().setExpense(expense);
@@ -188,11 +198,18 @@ public class EventOverviewCtrl implements Initializable {
     }
 
     // TODO
+
     /**
      * Logic for the "+" button next to "Expenses".
      */
     public void handleAddExpenses(ActionEvent actionEvent) {
-        System.out.println("Pressed add expense.");
+        Expense expense = new Expense("New expense", new ArrayList<>(), null, BigDecimal.ZERO, null,
+            Instant.now());
+        expense = server.createExpense(expense);
+        event.getExpenses().add(expense);
+        server.updateEvent(event);
+        mainCtrl.showExpenseOverview(expense, event);
+        mainCtrl.showManageExpensePopup(expense, event);
     }
 
     // TODO: go to manage expenses

@@ -29,7 +29,8 @@ public class ExpenseService {
         return expenseRepository.findAll();
     }
 
-    /** Gets an Expense by its ID.
+    /**
+     * Gets an Expense by its ID.
      *
      * @param id The ID of the Expense that is requested
      * @return The requested Expense
@@ -44,7 +45,8 @@ public class ExpenseService {
         return optionalExpense.get();
     }
 
-    /** Deletes an Expense.
+    /**
+     * Deletes an Expense.
      *
      * @param id The id of the Expense that should be deleted
      */
@@ -58,21 +60,20 @@ public class ExpenseService {
         expenseRepository.deleteById(id);
     }
 
-    /** Creates an expense. Fails if an expense exists with the same id or invite code.
+    /**
+     * Creates an expense. Fails if an expense exists with the same id or invite code.
      *
      * @param expense the expense to be created.
      */
-    public void createExpense(Expense expense) {
-        Optional<Expense> optionalExpense = expenseRepository.findById(expense.getId());
-
-        if (optionalExpense.isPresent()) {
-            throw new IllegalStateException("There already exists an Expense with this id");
+    public Expense createExpense(Expense expense) {
+        if (expense.getId() == null || !expenseRepository.existsById(expense.getId())) {
+            return expenseRepository.save(expense);
         }
-
-        expenseRepository.save(expense);
+        throw new IllegalStateException("There already exists an Expense with this id");
     }
 
-    /** Updates an expense.
+    /**
+     * Updates an expense.
      *
      * @param expense expense
      */
@@ -86,7 +87,8 @@ public class ExpenseService {
         expenseRepository.save(expense);
     }
 
-    /** Returns a description for a specified Expense.
+    /**
+     * Returns a description for a specified Expense.
      *
      * @param id The id of the Expense for which the description should be returned
      * @return The requested description
@@ -95,7 +97,8 @@ public class ExpenseService {
         return getExpenseById(id).getParticipants();
     }
 
-    /** Returns the description for the specified Expense.
+    /**
+     * Returns the description for the specified Expense.
      *
      * @param id The id of the Expense for which the description should be returned
      * @return The requested description
@@ -104,7 +107,8 @@ public class ExpenseService {
         return getExpenseById(id).getDescription();
     }
 
-    /** Returns the receiver for the specified Expense.
+    /**
+     * Returns the receiver for the specified Expense.
      *
      * @param id The id of the Expense for which the receiver should be returned
      * @return The requested receiver
@@ -113,7 +117,8 @@ public class ExpenseService {
         return getExpenseById(id).getReceiver();
     }
 
-    /** Returns the paid variable for the specified Expense.
+    /**
+     * Returns the paid variable for the specified Expense.
      *
      * @param id The id of the Expense for which the paid variable should be returned
      * @return The requested paid variable
@@ -122,7 +127,8 @@ public class ExpenseService {
         return getExpenseById(id).getPaid();
     }
 
-    /** Returns the tag for the specified Expense.
+    /**
+     * Returns the tag for the specified Expense.
      *
      * @param id The id of the Expense for which the tag should be returned
      * @return The requested tag
@@ -131,7 +137,8 @@ public class ExpenseService {
         return getExpenseById(id).getTag();
     }
 
-    /** Returns the paymentDateTime for the specified Expense.
+    /**
+     * Returns the paymentDateTime for the specified Expense.
      *
      * @param id The id of the Expense for which the paymentDateTime should be returned
      * @return The requested paymentDateTime
@@ -140,7 +147,8 @@ public class ExpenseService {
         return getExpenseById(id).getPaymentDateTime();
     }
 
-    /** Sets a description for a specified Expense.
+    /**
+     * Sets a description for a specified Expense.
      *
      * @param id The id of the Expense for which the description should be set
      */
@@ -150,7 +158,8 @@ public class ExpenseService {
         expenseRepository.save(expense);
     }
 
-    /** Sets the description for the specified Expense.
+    /**
+     * Sets the description for the specified Expense.
      *
      * @param id The id of the Expense for which the description should be set
      */
@@ -160,7 +169,8 @@ public class ExpenseService {
         expenseRepository.save(expense);
     }
 
-    /** Sets the receiver for the specified Expense.
+    /**
+     * Sets the receiver for the specified Expense.
      *
      * @param id The id of the Expense for which the receiver should be set
      */
@@ -170,7 +180,8 @@ public class ExpenseService {
         expenseRepository.save(expense);
     }
 
-    /** Sets the paid variable for the specified Expense.
+    /**
+     * Sets the paid variable for the specified Expense.
      *
      * @param id The id of the Expense for which the paid variable should be set
      */
@@ -180,7 +191,8 @@ public class ExpenseService {
         expenseRepository.save(expense);
     }
 
-    /** Sets the tag for the specified Expense.
+    /**
+     * Sets the tag for the specified Expense.
      *
      * @param id The id of the Expense for which the tag should be set
      */
@@ -190,7 +202,8 @@ public class ExpenseService {
         expenseRepository.save(expense);
     }
 
-    /** Sets the paymentDateTime for the specified Expense.
+    /**
+     * Sets the paymentDateTime for the specified Expense.
      *
      * @param id The id of the Expense for which the paymentDateTime should be set
      */
@@ -200,9 +213,10 @@ public class ExpenseService {
         expenseRepository.save(expense);
     }
 
-    /** Removes a participant from an Expense.
+    /**
+     * Removes a participant from an Expense.
      *
-     * @param id The id of the Expense
+     * @param id             The id of the Expense
      * @param newParticipant The id of the participant that should be added
      */
     public void addParticipant(String id, Person newParticipant) {
@@ -211,9 +225,10 @@ public class ExpenseService {
         expenseRepository.save(expense);
     }
 
-    /** Removes a participant from an Expense.
+    /**
+     * Removes a participant from an Expense.
      *
-     * @param id The id of the Expense
+     * @param id              The id of the Expense
      * @param newParticipants The List of the participants that should be added
      */
 
@@ -223,9 +238,10 @@ public class ExpenseService {
         expenseRepository.save(expense);
     }
 
-    /** Removes a participant from an Expense.
+    /**
+     * Removes a participant from an Expense.
      *
-     * @param expenseId The id of the Expense
+     * @param expenseId     The id of the Expense
      * @param participantId The id of the participant that should be removed
      */
     public void removeParticipant(String expenseId, String participantId) {
@@ -235,6 +251,6 @@ public class ExpenseService {
     }
 
     public BigDecimal getShare(String id) {
-        return getExpenseById(id).getShare();
+        return getExpenseById(id).calculateShare();
     }
 }

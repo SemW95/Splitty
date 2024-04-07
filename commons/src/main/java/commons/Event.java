@@ -260,10 +260,10 @@ public class Event {
         for (Expense expense : expenses) {
             if (expense.receiver.getId().equals(personId)) {
                 for (Person participant : expense.participants) {
-                    map.merge(participant, expense.getShare().negate(), BigDecimal::add);
+                    map.merge(participant, expense.calculateShare().negate(), BigDecimal::add);
                 }
             } else if (expense.participantsContainId(personId)) {
-                map.merge(expense.receiver, expense.getShare(), BigDecimal::add);
+                map.merge(expense.receiver, expense.calculateShare(), BigDecimal::add);
             }
         }
 
@@ -446,6 +446,10 @@ public class Event {
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getCode() {

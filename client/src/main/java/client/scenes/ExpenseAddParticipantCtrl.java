@@ -63,29 +63,31 @@ public class ExpenseAddParticipantCtrl implements Initializable {
     }
 
     /**
-     * populates the UI with appropiate data from the expense object.
+     * populates the UI with appropriate data from the expense object.
      */
     public void populate() {
-        Event event = server.getEvents().getFirst();
-        this.expense = event.getExpenses().getFirst();
-
         // Initialize UI with expense data
         expenseNameLabel.setText(expense.getDescription());
 
-        // Create tag
-        expenseNameLabel.setGraphic(PaneCreator.createTagItem(expense.getTag()));
-
+        if (expense.getTag() != null) {
+            // Create tag
+            expenseNameLabel.setGraphic(PaneCreator.createTagItem(expense.getTag()));
+        } else {
+            // remove tag if there isn't any
+            expenseNameLabel.setGraphic(null);
+        }
 
         currentParticipants.getChildren().setAll();
         availableParticipants.getChildren().setAll();
 
-        currentParticipants.getChildren().add(createRecipientCard(expense.getReceiver()));
+        if (expense.getReceiver() != null) {
+            currentParticipants.getChildren().add(createRecipientCard(expense.getReceiver()));
+        }
 
         // Populate available participants
         for (Person participant : event.getPeople()) {
             if (!expense.getParticipants().contains(participant)
-                &&
-                !participant.equals(expense.getReceiver())) {
+                && !participant.equals(expense.getReceiver())) {
                 addParticipantCardToAvailableParticipantFlowPane(participant);
             }
         }
@@ -94,12 +96,10 @@ public class ExpenseAddParticipantCtrl implements Initializable {
         for (Person participant : expense.getParticipants()) {
             addParticipantCardToCurrentParticipantFlowPane(participant);
         }
-
-
     }
 
     /**
-     * Createse a new Participant card for the dynamically scaled FlowPane, and allows
+     * Creates a new Participant card for the dynamically scaled FlowPane, and allows
      * switching to other flowpane.
      *
      * @param participant a participant
