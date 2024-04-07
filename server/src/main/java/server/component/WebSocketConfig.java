@@ -8,13 +8,13 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 /**
  * A websocket config component which handles all websocket servers.
  */
-@Component
 @EnableWebSocket
+@Component
 public class WebSocketConfig implements WebSocketConfigurer {
     private final MyWebSocketHandler webSocketHandler;
 
-    public WebSocketConfig(MyWebSocketHandler webSocketController) {
-        this.webSocketHandler = webSocketController;
+    public WebSocketConfig(MyWebSocketHandler webSocketHandler) {
+        this.webSocketHandler = webSocketHandler;
     }
 
     @Override

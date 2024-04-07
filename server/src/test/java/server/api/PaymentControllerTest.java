@@ -28,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import server.service.PaymentService;
@@ -35,6 +36,7 @@ import server.service.PaymentService;
 /** The test class for the PaymentController.
  */
 @WebMvcTest(PaymentController.class)
+@ActiveProfiles("test")
 public class PaymentControllerTest {
 
     @Autowired
