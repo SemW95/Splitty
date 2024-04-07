@@ -3,6 +3,7 @@ package client.scenes;
 
 import client.Main;
 import client.utils.ExpenseCardCtrl;
+import client.utils.PaneCreator;
 import client.utils.ScreenUtils;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
@@ -29,6 +30,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 
@@ -63,6 +65,8 @@ public class EventOverviewCtrl implements Initializable {
     private Label inviteCode;
     @FXML
     private Pane root;
+    @FXML
+    private HBox tagsBox;
 
     // TODO: make tags a component and add them + make field
 
@@ -95,7 +99,7 @@ public class EventOverviewCtrl implements Initializable {
         dropDown.setValue("Server 1");
         dropDown.setItems(options);
         root.addEventFilter(KeyEvent.KEY_PRESSED,
-                ScreenUtils.exitHandler(resources, this::handleExit));
+            ScreenUtils.exitHandler(resources, this::handleExit));
 
 
     }
@@ -130,6 +134,9 @@ public class EventOverviewCtrl implements Initializable {
         if (event.getCode() != null) {
             this.inviteCode.setText(event.getCode());
         }
+
+        tagsBox.getChildren().setAll(event.getTags().stream()
+            .map(PaneCreator::createTagItem).toList());
 
         List<Expense> sortedExpenses =
             event.getExpenses().stream()
