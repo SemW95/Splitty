@@ -134,7 +134,6 @@ public class ExpenseAddParticipantCtrl implements Initializable {
 
                 currentParticipants.requestLayout();
                 server.updateExpense(this.expense);
-                mainCtrl.updateAll();
             }
         );
 
@@ -218,7 +217,6 @@ public class ExpenseAddParticipantCtrl implements Initializable {
                     " to this expense.");
 
                 server.updateExpense(this.expense);
-                mainCtrl.updateAll();
             }
         );
 
