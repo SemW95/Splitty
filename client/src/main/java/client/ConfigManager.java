@@ -105,11 +105,20 @@ public class ConfigManager {
             return configServer;
         }
 
-        String initialServer = "http://localhost:8080/";
+        String initialServer = "localhost:8080";
         properties.setProperty("server", initialServer);
         save();
 
         return initialServer;
+    }
+
+    public String getHttpServer() {
+        return "http://" + getServer();
+    }
+
+    public String getWsServer() {
+        // TODO: could maybe use some url builder
+        return "ws://" + getServer() + "/websocket";
     }
 
     /**

@@ -286,7 +286,6 @@ public class ManageExpenseCtrl implements Initializable {
             participantsFlowPane.getChildren().remove(card);
             participantsFlowPane.requestLayout();
             server.updateExpense(this.expense);
-            mainCtrl.updateAll();
             confirmLastDeleted.setText(
                 confirmLastDeleted.getText() + "\nRemoved " + participant.getFirstName()
                     +
@@ -310,7 +309,6 @@ public class ManageExpenseCtrl implements Initializable {
             this.expense.setDescription(selectedName);
 
             server.updateExpense(this.expense);
-            mainCtrl.updateAll();
         }
     }
 
@@ -351,7 +349,6 @@ public class ManageExpenseCtrl implements Initializable {
         this.expense.setPaid(selectedAmount);
         expenseAmountLabel.setText(selectedAmount.toPlainString());
         server.updateExpense(this.expense);
-        mainCtrl.updateAll();
     }
 
 
@@ -375,7 +372,6 @@ public class ManageExpenseCtrl implements Initializable {
             this.expense.getParticipants().remove(selectedPerson);
             this.expense.getParticipants().add(previousRecipient);
             server.updateExpense(this.expense);
-            mainCtrl.updateAll();
         }
     }
 
@@ -394,7 +390,6 @@ public class ManageExpenseCtrl implements Initializable {
             setConfirmationLabels();
             this.expense.setPaymentDateTime(selectedDateAsInstant);
             server.updateExpense(this.expense);
-            mainCtrl.updateAll();
         }
     }
 
@@ -410,7 +405,6 @@ public class ManageExpenseCtrl implements Initializable {
             setConfirmationLabels();
             this.expense.setTag(selectedTag);
             server.updateExpense(this.expense);
-            mainCtrl.updateAll();
         }
     }
 
