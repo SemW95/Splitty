@@ -2,12 +2,16 @@ package server.component;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
  * An interceptor that will send websocket update messages after receiving POST, PUT, DELETE.
  */
+@Component
+@Profile("!test") // This bean will be loaded when the profile is not "test"
 public class UpdateInterceptor implements HandlerInterceptor {
     private final WebSocketConfig webSocketConfig;
 
