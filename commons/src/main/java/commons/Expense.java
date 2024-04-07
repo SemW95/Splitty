@@ -1,6 +1,5 @@
 package commons;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,9 +18,6 @@ import java.util.Objects;
  * The class that contains all the info for an expense.
  */
 @Entity
-/*Had to add this because JSON parser found a field "share" and broke, but share is
-not initialized anywhere. This ignores unknown fields.*/
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Expense {
 
     @Id
@@ -212,7 +208,7 @@ public class Expense {
      *
      * @return the share a person needs to pay for this expense
      */
-    public BigDecimal getShare() {
+    public BigDecimal calculateShare() {
         BigDecimal totalNoParticipants = new BigDecimal(participants.size() + 1);
         return paid.divide(totalNoParticipants, 2, RoundingMode.CEILING);
     }
@@ -278,16 +274,12 @@ public class Expense {
         this.paid = paid;
     }
 
-    /** Returns the Tag when it isn't null, otherwise throws a NullPointerException.
+    /** Returns the Tag.
      *
      * @return The Tag of this Expense
-     * @throws NullPointerException When no Tag is present in this Expense
      */
-    public Tag getTag() throws NullPointerException {
-        if (tag != null) {
-            return tag;
-        }
-        throw new NullPointerException("This Expense does not have a Tag");
+    public Tag getTag() {
+        return tag;
     }
 
     public void setTag(Tag tag) {

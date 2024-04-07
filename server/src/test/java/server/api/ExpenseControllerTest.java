@@ -406,7 +406,7 @@ public class ExpenseControllerTest {
             )
         );
 
-        doNothing().when(expenseService).createExpense(any(Expense.class));
+        given(expenseService.createExpense(any(Expense.class))).willReturn(null);
 
         mockMvc.perform(post("/expense")
                 .contentType(MediaType.APPLICATION_JSON)
