@@ -34,7 +34,7 @@ import org.glassfish.jersey.client.ClientConfig;
  * A singleton that contains some server utility methods.
  */
 public class ServerUtils {
-    private final String server = Main.configManager.getServer();
+    private final String server = Main.configManager.getHttpServer();
 
     /**
      * Validates an admin password.

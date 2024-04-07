@@ -49,7 +49,6 @@ public class CreateEventCtrl implements Initializable {
             Event event = new Event(name, description); // Invite code automatically generated
             event = server.createEvent(event);
             Main.configManager.addCode(event.getCode());
-            mainCtrl.updateAll();
             mainCtrl.closePopup();
             mainCtrl.showEventOverview(event, false);
         } else {

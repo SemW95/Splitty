@@ -183,10 +183,11 @@ public class EventOverviewCtrl implements Initializable {
         //  repository and display on the label
     }
 
-    // TODO
+    // TODO Extension
     public void handleManageTags(ActionEvent actionEvent) {
     }
 
+    // TODO
     /**
      * Logic for the "+" button next to "Expenses".
      */
@@ -204,7 +205,6 @@ public class EventOverviewCtrl implements Initializable {
             person = server.createPerson(person);
             event.getPeople().add(person);
             server.updateEvent(event);
-            mainCtrl.updateAll();
         });
     }
 
