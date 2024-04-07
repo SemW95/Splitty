@@ -13,7 +13,6 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -131,8 +130,6 @@ public class ManageExpenseCtrl implements Initializable {
             return;
         }
 
-        List<Tag> allTags = event.getTags();
-
         // Initialize UI with expense data
         expenseNameLabel.setText(expense.getDescription());
         expenseAmountLabel.setText(expense.getPaid().toString());
@@ -140,7 +137,7 @@ public class ManageExpenseCtrl implements Initializable {
         tagMenu.getSelectionModel().clearSelection();
         recipientMenu.getSelectionModel().clearSelection();
 
-        tagMenu.getItems().setAll(allTags);
+        tagMenu.getItems().setAll(event.getTags());
         recipientMenu.getItems().setAll(event.getPeople());
 
         expenseDate.setPromptText(Date.from(expense.getPaymentDateTime()).toString());
