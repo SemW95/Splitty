@@ -75,6 +75,25 @@ public class Expense {
     }
 
     /**
+     * Creates the Expense class with a date and a Tag.
+     *
+     * @param receiver        The Person that has paid for the Expense.
+     * @param paid            The amount that the Person paid for the Expense.
+     * @param paymentDateTime Creation date of the Expense.
+     * @param tag             The Tag for the Expense
+     */
+    public Expense(Person receiver, BigDecimal paid, Instant paymentDateTime, Tag tag) {
+        this(
+            "",
+            new ArrayList<Person>(),
+            receiver,
+            paid,
+            tag,
+            paymentDateTime
+        );
+    }
+
+    /**
      * The Expense constructor used for imports.
      *
      * @param description     The description of this Expense
@@ -106,6 +125,29 @@ public class Expense {
     protected Expense() {
     }
 
+    /** Checks if a participant with the given id exists.
+     *
+     * @param personId The id that needs to be found
+     * @return if the id has been found
+     */
+    public boolean participantsContainId(String personId) {
+        for (Person participant : this.participants) {
+            if (participant.getId().equals(personId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    private boolean containsPersonWithId(String id) {
+        for (Person participant : this.participants) {
+            if (Objects.equals(participant.getId(), id)) {
+                return true; // Found a participant with the same ID
+            }
+        }
+        return false; // No participant with the same ID found
+    }
 
     public String getDescription() {
         return description;
@@ -115,25 +157,64 @@ public class Expense {
         this.description = description;
     }
 
-    public void addParticipant(Person participant) {
-        participants.add(participant);
+    /** Adds a participant to an Expense.
+     *
+     * @param participant The participant that should be added
+     * @throws IllegalStateException When there already is a Person with that id present
+     */
+    public void addParticipant(Person participant) throws IllegalStateException {
+        if (!containsPersonWithId(participant.getId())) {
+            participants.add(participant);
+        } else {
+            throw new IllegalStateException(
+                "There already is a Person with this id in the participants ArrayList"
+            );
+        }
     }
 
+    /** Adds participants to an Expense.
+     *
+     * @param newParticipants The participants that should be added
+     * @throws IllegalStateException When there is one duplicate id
+     */
+    public void addParticipants(List<Person> newParticipants) throws IllegalStateException {
+        for (Person participant : newParticipants) {
+            if (containsPersonWithId(participant.getId())) {
+                throw new IllegalStateException(
+                    "There already is a Person with this id in the participants ArrayList"
+                );
+            }
+        }
+        for (Person participant : newParticipants) {
+            addParticipant(participant);
+        }
+    }
+
+    /** Removes a participant.
+     *
+     * @param participant The participant that should be removed
+     */
     public void removeParticipant(Person participant) {
         participants.remove(participant);
     }
 
-    /**
-     * gets the share that should be paid /person.
+    /** Removes a participant.
      *
-     * @return the share a person needs to pay for this expense;
+     * @param id The id of the participant that should be removed
+     */
+    public void removeParticipant(String id) {
+        if (containsPersonWithId(id)) {
+            participants.remove(getParticipantById(id));
+        }
+    }
+
+    /** gets the share that should be paid /person (rounded up to a cent).
+     *
+     * @return the share a person needs to pay for this expense
      */
     public BigDecimal getShare() {
         BigDecimal totalNoParticipants = new BigDecimal(participants.size() + 1);
-        // TODO:
-        // what should it return when it's 10/3? 3.33 or maybe use a fraction?
-        // if not then what is the scale?
-        return paid.divide(totalNoParticipants, 2, RoundingMode.HALF_UP);
+        return paid.divide(totalNoParticipants, 2, RoundingMode.CEILING);
     }
 
     @Override
@@ -145,7 +226,7 @@ public class Expense {
             return false;
         }
         Expense expense = (Expense) o;
-        return id == expense.id && Objects.equals(description, expense.description)
+        return Objects.equals(id, expense.id) && Objects.equals(description, expense.description)
             && Objects.equals(participants, expense.participants)
             && Objects.equals(receiver, expense.receiver)
             && Objects.equals(paid, expense.paid)
@@ -160,6 +241,21 @@ public class Expense {
 
     public List<Person> getParticipants() {
         return participants;
+    }
+
+    /** Gets a participant by it's id.
+     *
+     * @param id The id of the participant that should be returned
+     * @return The requested participant
+     * @throws IllegalStateException When there isn't a participant with this id
+     */
+    public Person getParticipantById(String id) throws IllegalStateException {
+        for (Person participant : this.participants) {
+            if (participant.getId().equals(id)) {
+                return participant;
+            }
+        }
+        throw new IllegalStateException("There is no participant with this id");
     }
 
     public void setParticipants(ArrayList<Person> participants) {
@@ -182,8 +278,16 @@ public class Expense {
         this.paid = paid;
     }
 
-    public Tag getTag() {
-        return tag;
+    /** Returns the Tag when it isn't null, otherwise throws a NullPointerException.
+     *
+     * @return The Tag of this Expense
+     * @throws NullPointerException When no Tag is present in this Expense
+     */
+    public Tag getTag() throws NullPointerException {
+        if (tag != null) {
+            return tag;
+        }
+        throw new NullPointerException("This Expense does not have a Tag");
     }
 
     public void setTag(Tag tag) {
@@ -200,5 +304,9 @@ public class Expense {
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

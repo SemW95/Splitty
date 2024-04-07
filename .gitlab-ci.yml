@@ -60,7 +60,7 @@ client:test:
       - TEST_CLASS:
           - "MainCtrlTest"
 
-server:test:
+server:database:test:
   stage: test
   needs:
     - compile
@@ -77,14 +77,40 @@ server:test:
           - "PersonRepositoryTest"
           - "TagRepositoryTest"
 
+server:service:test:
+  stage: test
+  needs:
+    - compile
+  script:
+    - ./gradlew :server:test --tests server.service.$TEST_CLASS
+  parallel:
+    matrix:
+      - TEST_CLASS:
+          - "PersonServiceTest"
+          - "PaymentServiceTest"
+          - "ExpenseServiceTest"
+          - "EventServiceTest"
+
+server:controller:test:
+  stage: test
+  needs:
+    - compile
+  script:
+    - ./gradlew :server:test --tests server.api.$TEST_CLASS
+  parallel:
+    matrix:
+      - TEST_CLASS:
+          - "PersonControllerTest"
+          - "PaymentControllerTest"
+          - "ExpenseControllerTest"
+          - "EventControllerTest"
+
 coverageReport:
   stage: coverageReport
   allow_failure: true
-  needs:
-    - commons:test
-    - client:test
-    - server:test
+  needs: []
   script:
+    - ./gradlew compileTestJava
     - ./gradlew AggregateJacocoReport
     - mv build/reports/jacoco/aggregate/html ./coverage
     - mv build/reports/jacoco/aggregate/jacocoTestReport.xml ./coverage/report.xml
