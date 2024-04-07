@@ -15,10 +15,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -53,6 +54,8 @@ public class EventOverviewCtrl implements Initializable {
     private Label descriptionLabel;
     @FXML
     private TextField descriptionTextField;
+    @FXML
+    private Label inviteCode;
 
     // TODO: make tags a component and add them + make field
 
@@ -112,6 +115,9 @@ public class EventOverviewCtrl implements Initializable {
         }
         if (event.getPeople() != null) {
             this.amountOfParticipants.setText(event.getPeople().toString());
+        }
+        if (event.getCode() != null) {
+            this.inviteCode.setText(event.getCode());
         }
 
         expensesFlowPane.getChildren().setAll();
@@ -174,15 +180,6 @@ public class EventOverviewCtrl implements Initializable {
         System.out.println("Pressed currency.");
     }
 
-    public void clickChangeEventName(MouseEvent mouseEvent) {
-        // TODO: use the following to control the visibility of the label and the textLabel.
-        // eventNameLabel.setVisible(false); // Hide the Label
-        // eventNameText.setVisible(true); // Show the TextField
-        // eventNameText.requestFocus(); // Set focus to TextField
-        // TODO: use the content in the textField by emailTextField.getText() to save in the
-        //  repository and display on the label
-    }
-
     // TODO
     public void handleManageTags(ActionEvent actionEvent) {
     }
@@ -192,6 +189,17 @@ public class EventOverviewCtrl implements Initializable {
      */
     public void handleAddExpenses(ActionEvent actionEvent) {
         System.out.println("Pressed add expense.");
+    }
+
+    /**
+     * Copy the invite code to the clipboard.
+     */
+    @FXML
+    public void getInviteCode() {
+        Clipboard clipboard = Clipboard.getSystemClipboard();
+        ClipboardContent content = new ClipboardContent();
+        content.putString(inviteCode.getText());
+        clipboard.setContent(content);
     }
 
     @FXML
@@ -207,7 +215,8 @@ public class EventOverviewCtrl implements Initializable {
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode() == KeyCode.ENTER) {
-                    handleEditAndSaveEventName(); // Save and switch back to Label display when Enter is pressed
+                    handleEditAndSaveEventName();
+                    // Save and switch back to Label display when Enter is pressed
                 }
             }
         });
@@ -220,6 +229,7 @@ public class EventOverviewCtrl implements Initializable {
         eventNameLabel.setVisible(true); // Show the Label
         eventNameTextField.setVisible(false); // Hide the TextField
     }
+
     @FXML
     private void editDescription() {
         System.out.println("Edit Description.");
@@ -233,7 +243,8 @@ public class EventOverviewCtrl implements Initializable {
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode() == KeyCode.ENTER) {
-                    handleEditAndSaveDescription(); // Save and switch back to Label display when Enter is pressed
+                    handleEditAndSaveDescription();
+                    // Save and switch back to Label display when Enter is pressed
                 }
             }
         });
@@ -262,7 +273,6 @@ public class EventOverviewCtrl implements Initializable {
         });
     }
 
-    // TODO: go to manage participants
     public void handleManageParticipants(ActionEvent actionEvent) {
         mainCtrl.showManageParticipantsScreen(event);
     }
@@ -301,9 +311,11 @@ public class EventOverviewCtrl implements Initializable {
         mainCtrl.showHome();
     }
 
-    // TODO
-    public void handleCopyInviteCode(ActionEvent actionEvent) {
+    public Event getEvent() {
+        return event;
     }
 
-
+    public boolean getGoBackToAdmin() {
+        return goBackToAdmin;
+    }
 }

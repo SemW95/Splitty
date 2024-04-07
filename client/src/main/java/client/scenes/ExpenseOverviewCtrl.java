@@ -71,7 +71,7 @@ public class ExpenseOverviewCtrl implements Initializable {
         }
         // Initialize UI with expense data
         expenseNameLabel.setText(expense.getDescription());
-        expenseAmountLabel.setText("\u20ac " + expense.getPaid().toString());
+        expenseAmountLabel.setText("€ " + expense.getPaid().toString());
         participantCountLabel.setText(Integer.toString(expense.getParticipants().size() + 1));
 
         // Create tag
