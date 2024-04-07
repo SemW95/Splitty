@@ -235,6 +235,7 @@ public class EventOverviewCtrl implements Initializable {
         eventNameLabel.setText(newName);
         event.setTitle(newName);
         server.updateEvent(event);
+        populate();
         eventNameLabel.setVisible(true); // Show the Label
         eventNameTextField.setVisible(false); // Hide the TextField
     }
@@ -266,6 +267,7 @@ public class EventOverviewCtrl implements Initializable {
         descriptionLabel.setText(newDescription);
         event.setDescription(newDescription);
         server.updateEvent(event);
+        populate();
         descriptionLabel.setVisible(true); // Show the Label
         descriptionTextField.setVisible(false); // Hide the TextField
     }
