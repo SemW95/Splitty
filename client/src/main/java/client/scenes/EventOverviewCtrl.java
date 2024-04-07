@@ -58,6 +58,9 @@ public class EventOverviewCtrl implements Initializable {
     private Label inviteCode;
     @FXML
     private Pane root;
+    @FXML
+    public Label totalAmountSpent;
+
 
     // TODO: make tags a component and add them + make field
 
@@ -90,7 +93,7 @@ public class EventOverviewCtrl implements Initializable {
         dropDown.setValue("Server 1");
         dropDown.setItems(options);
         root.addEventFilter(KeyEvent.KEY_PRESSED,
-                ScreenUtils.exitHandler(resources, this::handleExit));
+            ScreenUtils.exitHandler(resources, this::handleExit));
 
 
     }
@@ -134,6 +137,9 @@ public class EventOverviewCtrl implements Initializable {
             expenseCard.getKey().setOnClick((e) -> mainCtrl.showExpenseOverview(e, event));
             expensesFlowPane.getChildren().add(expenseCard.getValue());
         }
+
+        String spent = "€" + event.totalAmountSpent().toPlainString();
+        totalAmountSpent.setText(spent);
     }
 
     /**
@@ -191,6 +197,7 @@ public class EventOverviewCtrl implements Initializable {
     }
 
     // TODO
+
     /**
      * Logic for the "+" button next to "Expenses".
      */

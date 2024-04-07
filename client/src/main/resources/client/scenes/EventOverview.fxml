@@ -82,6 +82,12 @@
                   </ImageView>
                </graphic>
             </Label>
+            <Label fx:id="totalAmountSpent" alignment="CENTER_RIGHT" layoutX="685.0" layoutY="79.0" prefWidth="112.0" text="?" />
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="799.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/client/icons/total_money.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
       <Pane layoutX="20.0" layoutY="292.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="293.0" prefWidth="548.0">
