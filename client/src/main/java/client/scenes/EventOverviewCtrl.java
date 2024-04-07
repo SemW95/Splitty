@@ -3,6 +3,7 @@ package client.scenes;
 
 import client.Main;
 import client.utils.ExpenseCardCtrl;
+import client.utils.ScreenUtils;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Event;
@@ -22,9 +23,8 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
-
+import javafx.scene.layout.Pane;
 
 
 // TODO: add a way such that the tags of the event can be changed in quantity, colour and text
@@ -56,6 +56,8 @@ public class EventOverviewCtrl implements Initializable {
     private TextField descriptionTextField;
     @FXML
     private Label inviteCode;
+    @FXML
+    private Pane root;
 
     // TODO: make tags a component and add them + make field
 
@@ -87,6 +89,10 @@ public class EventOverviewCtrl implements Initializable {
         );
         dropDown.setValue("Server 1");
         dropDown.setItems(options);
+        root.addEventFilter(KeyEvent.KEY_PRESSED,
+                ScreenUtils.exitHandler(resources, this::handleExit));
+
+
     }
 
     /**
@@ -161,7 +167,7 @@ public class EventOverviewCtrl implements Initializable {
      * Logic for the home title.
      */
     public void handleHome() {
-        mainCtrl.showHome();
+        handleExit();
     }
 
     /**
@@ -302,7 +308,7 @@ public class EventOverviewCtrl implements Initializable {
     }
 
     @FXML
-    private void clickReturn(MouseEvent mouseEvent) {
+    private void handleExit() {
         if (goBackToAdmin) {
             mainCtrl.showAdminOverview();
             goBackToAdmin = false;
@@ -313,10 +319,6 @@ public class EventOverviewCtrl implements Initializable {
 
     public void setGoBackToAdmin(boolean goBackToAdmin) {
         this.goBackToAdmin = goBackToAdmin;
-    }
-
-    public void goBackToHome() {
-        mainCtrl.showHome();
     }
 
     public Event getEvent() {
