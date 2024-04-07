@@ -154,17 +154,17 @@
             </Button>
          </children>
       </Pane>
-      <Text layoutX="851.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="event-overview.participants" wrappingWidth="121.33675193786621">
+      <Text layoutX="851.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%event-overview.participants" wrappingWidth="121.33675193786621">
          <font>
             <Font size="19.0" />
          </font>
       </Text>
-      <Text layoutX="850.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Payments" wrappingWidth="121.33675193786621">
+      <Text layoutX="850.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%event-overview.payments" wrappingWidth="121.33675193786621">
          <font>
             <Font size="19.0" />
          </font>
       </Text>
-      <Text layoutX="19.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Expenses" wrappingWidth="121.33675193786621">
+      <Text layoutX="19.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%event-overview.expenses" wrappingWidth="121.33675193786621">
          <font>
             <Font size="19.0" />
          </font>
@@ -180,7 +180,7 @@
       <Pane layoutX="593.0" layoutY="257.0" prefHeight="327.0" prefWidth="411.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="325.0" stroke="BLACK" strokeType="INSIDE" width="396.0" />
-            <PieChart fx:id="expensePieChart" prefHeight="325.0" prefWidth="396.0" title="event-overview.statistics" />
+            <PieChart fx:id="expensePieChart" prefHeight="325.0" prefWidth="396.0" title="%event-overview.statistics" />
          </children>
       </Pane>
    </children>
