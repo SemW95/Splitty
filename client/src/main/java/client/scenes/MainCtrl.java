@@ -25,6 +25,8 @@ import commons.Expense;
 import commons.Person;
 import java.io.File;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.function.Consumer;
 import javafx.application.Platform;
 import javafx.fxml.Initializable;
@@ -79,6 +81,16 @@ public class MainCtrl {
 
         websocketClient = new WebSocketClient(Main.configManager.getWsServer(),
             () -> Platform.runLater(this::updateAll));
+
+        var timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println("START");
+                boolean statusOk = server.serverOnline();
+                Platform.runLater(() -> updateStatus(statusOk));
+            }
+        }, 0, 1000);
     }
 
     private void loadAllPairs() {

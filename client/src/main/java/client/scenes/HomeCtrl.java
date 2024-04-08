@@ -23,6 +23,7 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Event;
 import java.net.URL;
+import java.rmi.ServerException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -82,15 +83,6 @@ public class HomeCtrl implements Initializable {
         );
         dropDown.setValue("Server 1");
         dropDown.setItems(options);
-
-        new Timer().scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(() -> {
-                    status();
-                });
-            }
-        }, 0, 1000);
     }
 
     /**
@@ -105,11 +97,15 @@ public class HomeCtrl implements Initializable {
             valid it means that should be removed from the config
         */
         for (String code : Main.configManager.getCodes()) {
-            Event event = server.getEventByCode(code);
-            if (event != null) {
-                events.add(event);
-            } else if (server.getStatus() == 200) {
-                Main.configManager.removeCode(code);
+            try {
+                Event event = server.getEventByCode(code);
+                if (event != null) {
+                    events.add(event);
+                } else {
+                    Main.configManager.removeCode(code);
+                }
+            } catch (Exception e) {
+                System.err.println("Couldn't get event from server: " + e);
             }
         }
 
@@ -181,8 +177,14 @@ public class HomeCtrl implements Initializable {
         }
 
         //checks if there is an event with the given code
-        if (server.getEventByCode(code) == null) {
-            eventCodeTextField.setPromptText("Event not found");
+        try {
+            if (server.getEventByCode(code) == null) {
+                eventCodeTextField.setPromptText("Event not found");
+                return;
+            }
+        } catch (ServerException e) {
+            System.err.println("Couldn't get event from server: " + e);
+            eventCodeTextField.setPromptText("Server error");
             return;
         }
 
@@ -203,16 +205,14 @@ public class HomeCtrl implements Initializable {
     /**
      * Changes the label according to server status.
      */
-    public void status() {
-        int response = server.getStatus();
-
-        if (response == 200) {
+    public void updateStatus(boolean statusOk) {
+        System.out.println("updating to " + statusOk);
+        if (statusOk) {
             serverStatus.setStyle("-fx-background-color: #93c47d;");
             serverStatus.setText(resources.getString("home.connected"));
-            return;
+        } else {
+            serverStatus.setStyle("-fx-background-color: #e06666;");
+            serverStatus.setText(resources.getString("home.disconnected"));
         }
-
-        serverStatus.setStyle("-fx-background-color: #e06666;");
-        serverStatus.setText(resources.getString("home.disconnected"));
     }
 }

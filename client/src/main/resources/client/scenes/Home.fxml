@@ -30,7 +30,7 @@
                   <DropShadow height="26.93" radius="6.2325" width="0.0" />
                </effect>
             </Rectangle>
-            <Button layoutY="18.0" mnemonicParsing="false" onAction="#clickHome" prefHeight="44.0" prefWidth="281.0" style="-fx-background-color: transparent; -fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 20;" text="SPLITTY: Going Dutch">
+            <Button layoutY="18.0" mnemonicParsing="false" onAction="#clickHome" prefHeight="44.0" prefWidth="281.0" style="-fx-background-color: transparent; -fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 20;" text="SPLITTY: Going Dutchz">
                <font>
                   <Font size="14.0" />
                </font>
