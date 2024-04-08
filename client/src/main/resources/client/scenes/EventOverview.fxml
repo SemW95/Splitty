@@ -108,16 +108,7 @@
                   <DropShadow height="26.93" radius="6.2325" width="0.0" />
                </effect>
             </Rectangle>
-            <Button layoutX="52.0" layoutY="19.0" mnemonicParsing="false" onAction="#handleHome" prefHeight="44.0" prefWidth="247.0" style="-fx-background-color: transparent; -fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 20;" text="SPLITTY: Going Dutch">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
-            <ComboBox fx:id="dropDown" layoutX="322.0" layoutY="27.0" prefWidth="150.0" style="-fx-background-color: white;">
-               <effect>
-                  <DropShadow color="#00000068" height="22.24" radius="10.25" width="20.76" />
-               </effect>
-            </ComboBox>
+            <Label layoutX="38.0" layoutY="25.0" style="-fx-font-weight: bold; -fx-font-size: 20;" text="SPLITTY: Going Dutch" />
             <Button fx:id="getInviteCode" layoutX="706.0" layoutY="26.0" mnemonicParsing="false" onAction="#getInviteCode" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="21.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
