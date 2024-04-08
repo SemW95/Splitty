@@ -89,7 +89,7 @@ public class MainCtrl {
         languageSelectPair =
             fxml.load(LanguageSelectCtrl.class,
                 "client", "scenes", "LanguageSelection.fxml");
-        languageSelectPair.scene.getStylesheets().add("client/css/globals.css");
+        languageSelectPair.scene.getStylesheets().add("/client/css/globals.css");
 
         adminCredentialsPair =
             fxml.load(AdminCredentialsCtrl.class,
