@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -84,22 +82,8 @@ public class EventOverviewCtrl implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
-
-        /*
-        Makes options for the dropdown menu
-        TODO should call actual servers and handle these options
-        */
-        ObservableList<String> options = FXCollections.observableArrayList(
-            "Server 1",
-            "Server 2",
-            "Server 3"
-        );
-        dropDown.setValue("Server 1");
-        dropDown.setItems(options);
         root.addEventFilter(KeyEvent.KEY_PRESSED,
             ScreenUtils.exitHandler(resources, this::handleExit));
-
-
     }
 
     /**
@@ -171,17 +155,6 @@ public class EventOverviewCtrl implements Initializable {
     }
 
     /**
-     * Testing function for language switch.
-     */
-    public void testing() {
-        if (mainCtrl.getCurrentLanguage().equals("en")) {
-            mainCtrl.changeLanguage("lt");
-        } else {
-            mainCtrl.changeLanguage("en");
-        }
-    }
-
-    /**
      * Logic for the home title.
      */
     public void handleHome() {
@@ -194,7 +167,6 @@ public class EventOverviewCtrl implements Initializable {
 
     public void handleLanguage() {
         System.out.println("Pressed language");
-        testing();
     }
 
     /**

@@ -31,6 +31,7 @@ public class PaneCreator {
         pane.setPrefHeight(150);
         pane.setPrefWidth(685);
         pane.setStyle("-fx-border-color: #000000; -fx-border-width: 0 0 1 0;");
+        pane.setOnMouseClicked((e) -> handleClick.accept(event));
 
         //Event name
         Label eventName = new Label(event.getTitle());
@@ -40,7 +41,6 @@ public class PaneCreator {
         eventName.setMaxWidth(300);
         eventName.setFont(Font.font(18));
         eventName.setCursor(Cursor.HAND);
-        eventName.setOnMouseClicked((e) -> handleClick.accept(event));
 
         //Event code
         Label eventCode = new Label(event.getCode());
