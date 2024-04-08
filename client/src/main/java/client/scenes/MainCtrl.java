@@ -16,14 +16,17 @@
 
 package client.scenes;
 
+import client.Main;
 import client.MyFXML;
 import client.utils.CsPair;
+import client.utils.WebSocketClient;
 import commons.Event;
 import commons.Expense;
 import commons.Person;
 import java.io.File;
 import java.util.Locale;
 import java.util.function.Consumer;
+import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -58,6 +61,7 @@ public class MainCtrl {
     private CsPair<LanguageSelectCtrl> languageSelectPair;
     private Initializable currentCtrl;
     // private Pair<ExpenseCardCtrl, Parent> expenseCard;
+    private WebSocketClient websocketClient;
 
     /**
      * Main controller initialization.
@@ -73,6 +77,9 @@ public class MainCtrl {
         showHome();
         primaryStage.setResizable(false);
         primaryStage.show();
+
+        websocketClient = new WebSocketClient(Main.configManager.getWsServer(),
+            () -> Platform.runLater(this::updateAll));
     }
 
     private void loadAllPairs() {
@@ -136,7 +143,7 @@ public class MainCtrl {
     /**
      * Updates all screens with data from the database.
      */
-    public void updateAll() {
+    private void updateAll() {
         homePair.ctrl.refetch();
         expenseOverviewPair.ctrl.refetch();
         eventOverviewPair.ctrl.refetch();

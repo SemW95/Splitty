@@ -143,16 +143,12 @@ public class EditParticipantCtrl implements Initializable {
         if (firstNameTextField.isVisible()) {
             person.setFirstName(firstNameTextField.getText());
             server.updatePerson(person);
-            populate();
-            mainCtrl.updateAll();
             firstNameTextField.setVisible(false);
             firstNameLabel.setVisible(true);
         }
         if (lastNameTextField.isVisible()) {
             person.setLastName(lastNameTextField.getText());
             server.updatePerson(person);
-            populate();
-            mainCtrl.updateAll();
             lastNameTextField.setVisible(false);
             lastNameLabel.setVisible(true);
         }
@@ -160,8 +156,6 @@ public class EditParticipantCtrl implements Initializable {
             if (emailTextField.getText().isBlank() || Person.emailCheck(emailTextField.getText())) {
                 person.setEmail(emailTextField.getText());
                 server.updatePerson(person);
-                populate();
-                mainCtrl.updateAll();
                 emailTextField.setVisible(false);
                 emailLabel.setVisible(true);
                 invalidEmailMessage.setVisible(false);
@@ -173,8 +167,6 @@ public class EditParticipantCtrl implements Initializable {
             if (ibanTextField.getText().isBlank() || Person.ibanCheckSum(ibanTextField.getText())) {
                 person.setIban(ibanTextField.getText());
                 server.updatePerson(person);
-                populate();
-                mainCtrl.updateAll();
                 ibanTextField.setVisible(false);
                 ibanLabel.setVisible(true);
                 invalidIbanMessage.setVisible(false);
@@ -186,8 +178,6 @@ public class EditParticipantCtrl implements Initializable {
             if (bicTextField.getText().isBlank() || Person.bicCheck(bicTextField.getText())) {
                 person.setBic(bicTextField.getText());
                 server.updatePerson(person);
-                populate();
-                mainCtrl.updateAll();
                 bicTextField.setVisible(false);
                 bicLabel.setVisible(true);
                 invalidBicMessage.setVisible(false);
