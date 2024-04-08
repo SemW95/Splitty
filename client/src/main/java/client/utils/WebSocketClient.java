@@ -50,6 +50,11 @@ public class WebSocketClient {
         @Override
         public void afterConnectionEstablished(WebSocketSession newSession) throws Exception {
             System.err.println("Websocket connection established");
+            // Try to run the onUpdate because something could have changed while the socket
+            // was offline
+            if (onUpdate != null) {
+                onUpdate.run();
+            }
         }
 
         @Override
