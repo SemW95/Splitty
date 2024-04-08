@@ -27,9 +27,6 @@ import java.rmi.ServerException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -206,7 +203,6 @@ public class HomeCtrl implements Initializable {
      * Changes the label according to server status.
      */
     public void updateStatus(boolean statusOk) {
-        System.out.println("updating to " + statusOk);
         if (statusOk) {
             serverStatus.setStyle("-fx-background-color: #93c47d;");
             serverStatus.setText(resources.getString("home.connected"));

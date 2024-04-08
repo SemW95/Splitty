@@ -48,15 +48,18 @@ public class WebSocketClient {
 
     private class MyWebSocketHandler extends AbstractWebSocketHandler {
         @Override
-        public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
-            System.err.println("Websocket connection was closed. Status: " + status);
-            session = null;
-            // TODO: check status of session in the long polling loop
-            // if it is null, try to reconnect
+        public void afterConnectionEstablished(WebSocketSession newSession) throws Exception {
+            System.err.println("Websocket connection established");
         }
 
         @Override
-        public void handleTextMessage(WebSocketSession session, TextMessage message) {
+        public void afterConnectionClosed(WebSocketSession closeSession, CloseStatus status) {
+            System.err.println("Websocket connection was closed. Status: " + status);
+            session = null;
+        }
+
+        @Override
+        public void handleTextMessage(WebSocketSession currentSession, TextMessage message) {
             String payload = message.getPayload();
             System.err.println("Got a message from ws. Payload: " + payload);
             if ("update".equals(payload)) {
