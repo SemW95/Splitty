@@ -37,7 +37,7 @@
                         <Label fx:id="invalidEmailMessage" layoutX="251.0" layoutY="79.0" text="%add-participant.invalid-email" textFill="#f00000" visible="false" />
                         <Label fx:id="invalidIbanMessage" layoutX="251.0" layoutY="110.0" text="%add-participant.invalid-iban" textFill="#f00000" visible="false" />
                         <Label fx:id="invalidBicMessage" layoutX="251.0" layoutY="141.0" text="%add-participant.invalid-bic" textFill="#f00000" visible="false" />
-                        <Button fx:id="save" layoutX="344.0" layoutY="153.0" mnemonicParsing="false" onAction="#save" text="%add-participant.save" />
+                        <Button layoutX="344.0" layoutY="153.0" mnemonicParsing="false" onAction="#save" text="%add-participant.save" />
                      </children>
                   </AnchorPane>
               </items>

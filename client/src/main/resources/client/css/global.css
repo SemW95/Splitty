@@ -10,3 +10,6 @@
     -fx-translate-y: -2px; /* Move the button 2 pixels up */
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 2, 2);
 }
+*.combo-box>*.list-cell {
+    -fx-text-fill: inherit;
+}

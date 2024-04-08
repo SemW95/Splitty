@@ -36,12 +36,6 @@ public class DeleteParticipantConfirmationCtrl implements Initializable {
     }
 
     @FXML
-    private Button deleteParticipant;
-
-    @FXML
-    private Button goBackToManageScene;
-
-    @FXML
     private void deleteParticipant() {
         callback.run();
         mainCtrl.closePopup();

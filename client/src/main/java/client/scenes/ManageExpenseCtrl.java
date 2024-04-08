@@ -157,7 +157,7 @@ public class ManageExpenseCtrl implements Initializable {
             protected void updateItem(Person p1, boolean empty) {
                 super.updateItem(p1, empty);
                 if (p1 != null) {
-                    setText(p1.getFirstName() + "-" + p1.getId());
+                    setText(p1.getFirstName() + " " + p1.getLastName());
                 } else {
                     setText(null);
                 }
@@ -178,8 +178,6 @@ public class ManageExpenseCtrl implements Initializable {
                 super.updateItem(tag, empty);
                 if (tag != null) {
                     setText(tag.getName());
-                } else {
-                    setText(null);
                 }
             }
         });
@@ -188,7 +186,7 @@ public class ManageExpenseCtrl implements Initializable {
             protected void updateItem(Person person, boolean empty) {
                 super.updateItem(person, empty);
                 if (person != null) {
-                    setText(person.getFirstName() + "-" + person.getLastName());
+                    setText(person.getFirstName() + " " + person.getLastName());
                 } else {
                     setText(null);
                 }
@@ -210,9 +208,11 @@ public class ManageExpenseCtrl implements Initializable {
             System.out.println("Created a regular participant card");
         }
 
-        // Prevent window closure when there are unsaved changes with invalid syntax
-        rootAnchorPane.getScene().getWindow()
-            .addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::handleCloseRequest);
+        if (rootAnchorPane.getScene().getWindow() != null) {
+            // Prevent window closure when there are unsaved changes with invalid syntax
+            rootAnchorPane.getScene().getWindow()
+                .addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::handleCloseRequest);
+        }
     }
 
     /**
