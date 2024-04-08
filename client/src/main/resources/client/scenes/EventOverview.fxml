@@ -108,7 +108,7 @@
                   <DropShadow height="26.93" radius="6.2325" width="0.0" />
                </effect>
             </Rectangle>
-            <Label layoutX="38.0" layoutY="25.0" style="-fx-font-weight: bold; -fx-font-size: 20;" text="SPLITTY: Going Dutch" />
+            <Label layoutX="74.0" layoutY="27.0" style="-fx-font-weight: bold; -fx-font-size: 20;" text="SPLITTY: Going Dutch" />
             <Button fx:id="getInviteCode" layoutX="706.0" layoutY="26.0" mnemonicParsing="false" onAction="#getInviteCode" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="21.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
@@ -142,7 +142,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="handleExit" layoutX="20.0" layoutY="25.0" mnemonicParsing="false" onAction="#handleExit" onMouseClicked="#handleExit" style="-fx-background-color: transparent;">
+            <Button layoutX="20.0" layoutY="25.0" mnemonicParsing="false" onAction="#handleExit" style="-fx-background-color: transparant;">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
