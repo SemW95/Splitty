@@ -272,7 +272,6 @@ public class ManageExpenseCtrl implements Initializable {
         String participantRepresentation =
             "Remove " + participant.getFirstName() + " " + participant.getLastName();
         System.out.println(participant.getId());
-        System.out.println(expense.getReceiver().getId());
         Label participantLabel = new Label(participantRepresentation);
         participantLabel.setFocusTraversable(true);
         Font globalFont = new Font("System Bold", 24);
