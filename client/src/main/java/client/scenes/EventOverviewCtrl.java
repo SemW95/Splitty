@@ -66,13 +66,11 @@ public class EventOverviewCtrl implements Initializable {
     @FXML
     private Pane root;
     @FXML
+    private Label totalAmountSpent;
+    @FXML
     private HBox tagsBox;
-
-    // TODO: make tags a component and add them + make field
-
     @FXML
     private ComboBox<String> dropDown;
-
     @FXML
     private FlowPane expensesFlowPane;
 
@@ -151,6 +149,9 @@ public class EventOverviewCtrl implements Initializable {
             expenseCard.getKey().setOnClick((e) -> mainCtrl.showExpenseOverview(e, event));
             expensesFlowPane.getChildren().add(expenseCard.getValue());
         }
+
+        String spent = "€" + event.totalAmountSpent().toPlainString();
+        totalAmountSpent.setText(spent);
     }
 
     /**
