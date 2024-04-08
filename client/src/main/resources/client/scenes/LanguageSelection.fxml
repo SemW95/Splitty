@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="203.0" minWidth="322.0" prefHeight="427.0" prefWidth="359.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.LanguageSelectCtrl">
+   <cursor>
+      <Cursor fx:constant="DEFAULT" />
+   </cursor>
+   <children>
+      <VBox layoutX="49.0" layoutY="71.0" prefHeight="260.0" prefWidth="263.0" style="-fx-background-color: #e7e7e7;">
+         <children>
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#setDutch" prefHeight="90.0" prefWidth="263.0" spacing="10.0">
+               <children>
+                  <ImageView fitHeight="48.0" fitWidth="48.0">
+                     <image>
+                        <Image url="@/client/icons/icon dutch.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="%language-select.dutch" />
+               </children>
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#setEnglish" prefHeight="90.0" prefWidth="263.0" spacing="10.0">
+               <children>
+                  <ImageView fitHeight="48.0" fitWidth="48.0">
+                     <image>
+                        <Image url="@/client/icons/icon english.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="%language-select.english" />
+               </children>
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#setLith" prefHeight="90.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <ImageView fitHeight="48.0" fitWidth="48.0">
+                     <image>
+                        <Image url="@/client/icons/icon lithuanian.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="%language-select.lith" />
+               </children>
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+      <Label alignment="CENTER" layoutX="105.0" layoutY="28.0" prefWidth="150.0" text="%language-select.select" />
+      <Button layoutX="130.0" layoutY="369.0" mnemonicParsing="false" onAction="#handleReturn" prefWidth="100.0" style="-fx-background-color: rgb(200, 237, 253);" text="%language-select.return" />
+   </children>
+</Pane>

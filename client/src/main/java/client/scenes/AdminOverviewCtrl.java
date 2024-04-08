@@ -18,12 +18,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Dialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 
 /**
  * Admin overview screen.
@@ -41,6 +45,7 @@ public class AdminOverviewCtrl implements Initializable {
     private Pane root;
     private ResourceBundle resources;
     private List<Event> events;
+
 
     @Inject
     public AdminOverviewCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -188,5 +193,35 @@ public class AdminOverviewCtrl implements Initializable {
         mainCtrl.showDeleteEventConfirmationPopup(() -> {
             server.deleteEvent(event, mainCtrl.getSavedAdminPassword());
         });
+    }
+
+    /**
+     * Logic for the "language" button on home.
+     */
+    public void clickLanguage() {
+        mainCtrl.showLanguageSelectPopup();
+    }
+
+    /**
+     * Logic for the "currency" button on home.
+     */
+    public void clickCurrency() {
+        // Show a modal dialog to inform the user
+        Dialog<String> dialog = new Dialog<>();
+        dialog.initModality(Modality.APPLICATION_MODAL); // Make the dialog modal
+        dialog.initOwner(root.getScene().getWindow()); // Set the owner
+
+        // Customize the dialog appearance
+        dialog.setTitle(resources.getString("home.soon"));
+        dialog.setContentText(resources.getString("home.soon-text"));
+
+        // Adding a custom close button inside the dialog, since default buttons are not used
+        ButtonType closeButton =
+            new ButtonType(resources.getString("manage-expense.understood"),
+                ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().add(closeButton);
+
+        // Handling dialog result to perform actions if needed, but it's informational
+        dialog.showAndWait();
     }
 }
