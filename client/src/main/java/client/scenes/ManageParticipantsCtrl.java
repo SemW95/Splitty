@@ -105,8 +105,6 @@ public class ManageParticipantsCtrl implements Initializable {
             server.updateEvent(event);
             server.deletePerson(selectedParticipant);
             server.updateEvent(event);
-            populate();
-            mainCtrl.updateAll();
         });
 
     }

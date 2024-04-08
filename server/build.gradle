@@ -23,4 +23,7 @@ dependencies {
             because 'version 3.2 allows us to use Instant'
         }
     }
+
+    // dependency for websockets
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
 }

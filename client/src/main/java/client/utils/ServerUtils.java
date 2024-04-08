@@ -34,7 +34,7 @@ import org.glassfish.jersey.client.ClientConfig;
  * A singleton that contains some server utility methods.
  */
 public class ServerUtils {
-    private final String server = Main.configManager.getServer();
+    private final String server = Main.configManager.getHttpServer();
 
     /**
      * Validates an admin password.
@@ -173,12 +173,14 @@ public class ServerUtils {
      */
     public Event createEvent(Event event) {
         try {
-            return ClientBuilder.newClient(new ClientConfig())
+            String newId = ClientBuilder.newClient(new ClientConfig())
                 .target(server).path("/event")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .post(Entity.json(event))
-                .readEntity(Event.class);
+                .readEntity(String.class);
+            event.setId(newId);
+            return event;
         } catch (Exception e) {
             return null;
         }
@@ -215,6 +217,26 @@ public class ServerUtils {
                 .accept(APPLICATION_JSON)
                 .get(Expense.class);
         } catch (Exception e) {
+            return null;
+        }
+    }
+
+    /**
+     * Tries to create an expense.
+     *
+     * @param expense the expense to be created.
+     * @return the created expense
+     */
+    public Expense createExpense(Expense expense) {
+        try {
+            return ClientBuilder.newClient(new ClientConfig())
+                .target(server).path("/expense")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.json(expense))
+                .readEntity(Expense.class);
+        } catch (Exception e) {
+            System.err.println("Couldn't create expense: " + e);
             return null;
         }
     }
