@@ -4,7 +4,6 @@ package client.scenes;
 import client.Main;
 import client.utils.ExpenseCardCtrl;
 import client.utils.PaneCreator;
-import client.utils.ScreenUtils;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Event;
@@ -84,22 +83,6 @@ public class EventOverviewCtrl implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
-
-        /*
-        Makes options for the dropdown menu
-        TODO should call actual servers and handle these options
-        */
-        ObservableList<String> options = FXCollections.observableArrayList(
-            "Server 1",
-            "Server 2",
-            "Server 3"
-        );
-        dropDown.setValue("Server 1");
-        dropDown.setItems(options);
-        root.addEventFilter(KeyEvent.KEY_PRESSED,
-            ScreenUtils.exitHandler(resources, this::handleExit));
-
-
     }
 
     /**
