@@ -13,7 +13,7 @@
             <Font name="System Bold" size="48.0" />
          </font>
       </Label>
-      <Label layoutX="25.0" layoutY="100.0" text="Available participants">
+      <Label layoutX="25.0" layoutY="100.0" text="%expense-add-participants.available-participants">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -23,7 +23,7 @@
             <FlowPane fx:id="availableParticipants" layoutX="25.0" layoutY="150.0" prefHeight="400.0" prefWidth="475.0" />
          </content>
       </ScrollPane>
-      <Label layoutX="500.0" layoutY="100.0" text="Current Participants">
+      <Label layoutX="500.0" layoutY="100.0" text="%expense-add-participants.current-participants">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -33,5 +33,6 @@
             <FlowPane fx:id="currentParticipants" layoutX="25.0" layoutY="150.0" prefHeight="400.0" prefWidth="475.0" />
          </content>
       </ScrollPane>
+      <Label fx:id="statusLabel" layoutX="486.0" layoutY="569.0" />
    </children>
 </AnchorPane>

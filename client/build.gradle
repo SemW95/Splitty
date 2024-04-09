@@ -28,4 +28,7 @@ dependencies {
 
     implementation group: 'jakarta.activation', name: 'jakarta.activation-api', version: '2.1.2'
     implementation 'com.google.inject:guice:7.0.0'
+
+    // dependency for websockets
+    implementation 'org.springframework.boot:spring-boot-starter-websocket:3.2.3'
 }

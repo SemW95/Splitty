@@ -3,22 +3,33 @@ package client.scenes;
 
 import client.Main;
 import client.utils.ExpenseCardCtrl;
+import client.utils.PaneCreator;
+import client.utils.ScreenUtils;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Event;
 import commons.Expense;
+import java.math.BigDecimal;
 import java.net.URL;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.TextField;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.text.Text;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 
 
 // TODO: add a way such that the tags of the event can be changed in quantity, colour and text
@@ -37,22 +48,30 @@ public class EventOverviewCtrl implements Initializable {
     @FXML
     private Label eventNameLabel;
     @FXML
-    public Text eventNameText;
-    @FXML
-    private Text eventDescription;
+    private TextField eventNameTextField;
     @FXML
     private Label eventDates;
     @FXML
     private Label eventLastModified;
     @FXML
     private Label amountOfParticipants;
-    // TODO: make tags a component and add them + make field
-
+    @FXML
+    private Label descriptionLabel;
+    @FXML
+    private TextField descriptionTextField;
+    @FXML
+    private Label inviteCode;
+    @FXML
+    private Pane root;
+    @FXML
+    private Label totalAmountSpent;
+    @FXML
+    private HBox tagsBox;
     @FXML
     private ComboBox<String> dropDown;
-
     @FXML
     private FlowPane expensesFlowPane;
+
 
     @Inject
     public EventOverviewCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -63,18 +82,8 @@ public class EventOverviewCtrl implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
-
-        /*
-        Makes options for the dropdown menu
-        TODO should call actual servers and handle these options
-        */
-        ObservableList<String> options = FXCollections.observableArrayList(
-            "Server 1",
-            "Server 2",
-            "Server 3"
-        );
-        dropDown.setValue("Server 1");
-        dropDown.setItems(options);
+        root.addEventFilter(KeyEvent.KEY_PRESSED,
+            ScreenUtils.exitHandler(resources, this::handleExit));
     }
 
     /**
@@ -89,10 +98,10 @@ public class EventOverviewCtrl implements Initializable {
             this.eventNameLabel.setText(event.getTitle());
         }
         if (event.getTitle() != null) {
-            this.eventNameText.setText(event.getTitle());
+            this.eventNameTextField.setText(event.getTitle());
         }
         if (event.getDescription() != null) {
-            this.eventDescription.setText(event.getDescription());
+            this.descriptionLabel.setText(event.getDescription());
         }
         if (event.getStartDate() != null & event.getEndDate() != null) {
             String dates = event.getStartDate().toString() + " - " + event.getEndDate().toString();
@@ -104,15 +113,29 @@ public class EventOverviewCtrl implements Initializable {
         if (event.getPeople() != null) {
             this.amountOfParticipants.setText(event.getPeople().toString());
         }
+        if (event.getCode() != null) {
+            this.inviteCode.setText(event.getCode());
+        }
+
+        tagsBox.getChildren().setAll(event.getTags().stream()
+            .map(PaneCreator::createTagItem).toList());
+
+        List<Expense> sortedExpenses =
+            event.getExpenses().stream()
+                .sorted(Comparator.comparing(Expense::getPaymentDateTime).reversed())
+                .toList();
 
         expensesFlowPane.getChildren().setAll();
-        for (Expense expense : event.getExpenses()) {
+        for (Expense expense : sortedExpenses) {
             var expenseCard = Main.FXML.loadComponent(ExpenseCardCtrl.class,
                 "client", "components", "ExpenseCard.fxml");
             expenseCard.getKey().setExpense(expense);
             expenseCard.getKey().setOnClick((e) -> mainCtrl.showExpenseOverview(e, event));
             expensesFlowPane.getChildren().add(expenseCard.getValue());
         }
+
+        String spent = "€" + event.totalAmountSpent().toPlainString();
+        totalAmountSpent.setText(spent);
     }
 
     /**
@@ -132,21 +155,10 @@ public class EventOverviewCtrl implements Initializable {
     }
 
     /**
-     * Testing function for language switch.
-     */
-    public void testing() {
-        if (mainCtrl.getCurrentLanguage().equals("en")) {
-            mainCtrl.changeLanguage("lt");
-        } else {
-            mainCtrl.changeLanguage("en");
-        }
-    }
-
-    /**
      * Logic for the home title.
      */
     public void handleHome() {
-        mainCtrl.showHome();
+        handleExit();
     }
 
     /**
@@ -155,7 +167,6 @@ public class EventOverviewCtrl implements Initializable {
 
     public void handleLanguage() {
         System.out.println("Pressed language");
-        testing();
     }
 
     /**
@@ -165,24 +176,97 @@ public class EventOverviewCtrl implements Initializable {
         System.out.println("Pressed currency.");
     }
 
-    public void clickChangeEventName(MouseEvent mouseEvent) {
-        // TODO: use the following to control the visibility of the label and the textLabel.
-        // eventNameLabel.setVisible(false); // Hide the Label
-        // eventNameText.setVisible(true); // Show the TextField
-        // eventNameText.requestFocus(); // Set focus to TextField
-        // TODO: use the content in the textField by emailTextField.getText() to save in the
-        //  repository and display on the label
-    }
-
     // TODO
     public void handleManageTags(ActionEvent actionEvent) {
     }
+
+    // TODO
 
     /**
      * Logic for the "+" button next to "Expenses".
      */
     public void handleAddExpenses(ActionEvent actionEvent) {
-        System.out.println("Pressed add expense.");
+        Expense expense = new Expense("New expense", new ArrayList<>(), null, BigDecimal.ZERO, null,
+            Instant.now());
+        expense = server.createExpense(expense);
+        event.getExpenses().add(expense);
+        server.updateEvent(event);
+        mainCtrl.showExpenseOverview(expense, event);
+        mainCtrl.showManageExpensePopup(expense, event);
+    }
+
+    /**
+     * Copy the invite code to the clipboard.
+     */
+    @FXML
+    public void getInviteCode() {
+        Clipboard clipboard = Clipboard.getSystemClipboard();
+        ClipboardContent content = new ClipboardContent();
+        content.putString(inviteCode.getText());
+        clipboard.setContent(content);
+    }
+
+    @FXML
+    private void editEventName() {
+        System.out.println("Edit Event Name.");
+        eventNameLabel.setVisible(false); // Hide the Label
+        eventNameTextField.setVisible(true); // Show the TextField
+        eventNameTextField.setText(eventNameLabel.getText()); // Set the initialized text
+        eventNameTextField.requestFocus(); // Set focus to TextField
+
+        // Set a key event handler for eventNameTextField
+        eventNameTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.ENTER) {
+                    handleEditAndSaveEventName();
+                    // Save and switch back to Label display when Enter is pressed
+                }
+            }
+        });
+    }
+
+    private void handleEditAndSaveEventName() {
+        // Get the content of textField and update EventName
+        String newName = eventNameTextField.getText();
+        eventNameLabel.setText(newName);
+        event.setTitle(newName);
+        server.updateEvent(event);
+        populate();
+        eventNameLabel.setVisible(true); // Show the Label
+        eventNameTextField.setVisible(false); // Hide the TextField
+    }
+
+    @FXML
+    private void editDescription() {
+        System.out.println("Edit Description.");
+        descriptionLabel.setVisible(false); // Hide the Label
+        descriptionTextField.setVisible(true); // Show the TextField
+        descriptionTextField.setText(descriptionLabel.getText()); // Set the initialized text
+        descriptionTextField.requestFocus(); // Set focus to TextField
+
+        // Set a key event handler for descriptionTextField
+        descriptionTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.ENTER) {
+                    handleEditAndSaveDescription();
+                    // Save and switch back to Label display when Enter is pressed
+                }
+            }
+        });
+    }
+
+
+    private void handleEditAndSaveDescription() {
+        // Get the content of textField and update description
+        String newDescription = descriptionTextField.getText();
+        descriptionLabel.setText(newDescription);
+        event.setDescription(newDescription);
+        server.updateEvent(event);
+        populate();
+        descriptionLabel.setVisible(true); // Show the Label
+        descriptionTextField.setVisible(false); // Hide the TextField
     }
 
     // TODO: go to manage expenses
@@ -195,11 +279,9 @@ public class EventOverviewCtrl implements Initializable {
             person = server.createPerson(person);
             event.getPeople().add(person);
             server.updateEvent(event);
-            mainCtrl.updateAll();
         });
     }
 
-    // TODO: go to manage participants
     public void handleManageParticipants(ActionEvent actionEvent) {
         mainCtrl.showManageParticipantsScreen(event);
     }
@@ -221,7 +303,7 @@ public class EventOverviewCtrl implements Initializable {
     }
 
     @FXML
-    private void clickReturn(MouseEvent mouseEvent) {
+    private void handleExit() {
         if (goBackToAdmin) {
             mainCtrl.showAdminOverview();
             goBackToAdmin = false;
@@ -234,7 +316,11 @@ public class EventOverviewCtrl implements Initializable {
         this.goBackToAdmin = goBackToAdmin;
     }
 
-    // TODO
-    public void handleCopyInviteCode(ActionEvent actionEvent) {
+    public Event getEvent() {
+        return event;
+    }
+
+    public boolean getGoBackToAdmin() {
+        return goBackToAdmin;
     }
 }

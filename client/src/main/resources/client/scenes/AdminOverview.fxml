@@ -1,36 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
-      prefWidth="1000.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="client.scenes.AdminOverviewCtrl">
+
+<Pane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.AdminOverviewCtrl">
     <children>
-        <Label layoutX="151.0" layoutY="90.0" text="Order by"/>
-        <ChoiceBox fx:id="orderByChoiceBox" onAction="#refetch" layoutX="151.0" layoutY="106.0" prefWidth="150.0"/>
-        <Label layoutX="316.0" layoutY="90.0" text="Direction"/>
-        <ChoiceBox fx:id="directionChoiceBox" onAction="#refetch" layoutX="316.0" layoutY="106.0" prefWidth="150.0"/>
-        <Button layoutX="710.0" layoutY="106.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="140.0"
-                text="Import event" onAction="#handleImportEvent"/>
-        <ImageView fitHeight="31.0" fitWidth="31.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true"
-                   preserveRatio="true" onMouseClicked="#handleExit">
-            <image>
-                <Image url="@../icons/back.png"/>
-            </image>
-            <cursor>
-                <Cursor fx:constant="HAND"/>
-            </cursor>
-        </ImageView>
-        <ScrollPane hbarPolicy="NEVER" layoutX="150.0" layoutY="173.0" prefHeight="420.0" prefWidth="700.0"
-                    vbarPolicy="ALWAYS">
+      <Button layoutX="190.0" layoutY="298.0" mnemonicParsing="false" text="Tab Holder" />
+      <Pane prefHeight="84.0" prefWidth="1001.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="83.0" layoutY="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1000.0">
+               <effect>
+                  <DropShadow height="26.93" radius="6.2325" width="0.0" />
+               </effect>
+            </Rectangle>
+              <Button fx:id="backButton" layoutX="18.0" layoutY="25.0" mnemonicParsing="false" onAction="#handleExit" style="-fx-background-color: transparant;">
+                  <graphic>
+                      <ImageView fx:id="handleExit" fitHeight="24.0" fitWidth="24.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                              <Image url="@/client/icons/back.png" />
+                          </image>
+      
+                                  </ImageView>
+                  </graphic>
+                  <cursor>
+                      <Cursor fx:constant="HAND" />
+                  </cursor>
+              </Button>
+            <Label layoutX="74.0" layoutY="27.0" style="-fx-font-weight: bold; -fx-font-size: 20;" text="SPLITTY: Going Dutch" />
+            <Button fx:id="currency" layoutX="884.0" layoutY="22.0" mnemonicParsing="false" onAction="#clickCurrency" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: transparent;">
+                     <image>
+                        <Image url="@/client/icons/currency.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="language1" layoutX="934.0" layoutY="23.0" mnemonicParsing="false" onAction="#clickLanguage" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/client/icons/language.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+        <Label layoutX="147.0" layoutY="106.0" text="%admin-overview.order-by" />
+        <ChoiceBox fx:id="orderByChoiceBox" layoutX="147.0" layoutY="122.0" onAction="#refetch" prefWidth="150.0" />
+        <Label layoutX="316.0" layoutY="106.0" text="%admin-overview.direction" />
+        <ChoiceBox fx:id="directionChoiceBox" layoutX="316.0" layoutY="122.0" onAction="#refetch" prefWidth="150.0" />
+        <Button layoutX="710.0" layoutY="122.0" mnemonicParsing="false" onAction="#handleImportEvent" prefHeight="24.0" prefWidth="140.0" text="%admin-overview.import-event" />
+        <ScrollPane hbarPolicy="NEVER" layoutX="150.0" layoutY="173.0" prefHeight="429.0" prefWidth="700.0" vbarPolicy="ALWAYS">
             <content>
                 <VBox fx:id="eventList" prefWidth="685.0">
                     <!--               <children>-->
@@ -59,7 +96,7 @@
                     <!--                        </Label>-->
                     <!--                        <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="647.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">-->
                     <!--                           <image>-->
-                    <!--                              <Image url="@../icons/users.png" />-->
+                    <!--                              <Image url="@/client/icons/users.png" />-->
                     <!--                           </image>-->
                     <!--                        </ImageView>-->
                     <!--                        <Label alignment="CENTER_RIGHT" layoutX="614.0" layoutY="49.0" prefHeight="21.0" prefWidth="30.0" text="6">-->
@@ -69,13 +106,13 @@
                     <!--                        </Label>-->
                     <!--                        <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="647.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true">-->
                     <!--                           <image>-->
-                    <!--                              <Image url="@../icons/users.png" />-->
+                    <!--                              <Image url="@/client/icons/users.png" />-->
                     <!--                           </image>-->
                     <!--                        </ImageView>-->
                     <!--                        <Label layoutX="14.0" layoutY="46.0" prefHeight="50.0" prefWidth="500.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit" wrapText="true" />-->
                     <!--                        <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="647.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">-->
                     <!--                           <image>-->
-                    <!--                              <Image url="@../icons/trashcan.png" />-->
+                    <!--                              <Image url="@/client/icons/trashcan.png" />-->
                     <!--                           </image>-->
                     <!--                           <cursor>-->
                     <!--                              <Cursor fx:constant="HAND" />-->
@@ -83,7 +120,7 @@
                     <!--                        </ImageView>-->
                     <!--                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="644.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true">-->
                     <!--                           <image>-->
-                    <!--                              <Image url="@../icons/download.png" />-->
+                    <!--                              <Image url="@/client/icons/download.png" />-->
                     <!--                           </image>-->
                     <!--                           <cursor>-->
                     <!--                              <Cursor fx:constant="HAND" />-->

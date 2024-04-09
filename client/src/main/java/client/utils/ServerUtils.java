@@ -26,6 +26,7 @@ import commons.Tag;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
+import java.util.ArrayList;
 import java.util.List;
 import org.glassfish.jersey.client.ClientConfig;
 
@@ -33,7 +34,7 @@ import org.glassfish.jersey.client.ClientConfig;
  * A singleton that contains some server utility methods.
  */
 public class ServerUtils {
-    private final String server = Main.configManager.getServer();
+    private final String server = Main.configManager.getHttpServer();
 
     /**
      * Validates an admin password.
@@ -42,11 +43,16 @@ public class ServerUtils {
      * @return whether the admin password is correct
      */
     public boolean validateAdminPassword(String password) {
-        return ClientBuilder.newClient(new ClientConfig())
-            .target(server).path("/admin/validate/" + password)
-            .request(APPLICATION_JSON)
-            .accept(APPLICATION_JSON)
-            .get(Boolean.class);
+        try {
+            return ClientBuilder.newClient(new ClientConfig())
+                .target(server).path("/admin/validate/" + password)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(Boolean.class);
+        } catch (Exception e) {
+            return false;
+        }
+
     }
 
     /**
@@ -90,12 +96,17 @@ public class ServerUtils {
      * @return list of events
      */
     public List<Event> getEvents() {
-        return ClientBuilder.newClient(new ClientConfig())
-            .target(server).path("/event")
-            .request(APPLICATION_JSON)
-            .accept(APPLICATION_JSON)
-            .get(new GenericType<>() {
-            });
+        try {
+            return ClientBuilder.newClient(new ClientConfig())
+                .target(server).path("/event")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<>() {
+                });
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
+
     }
 
     /**
@@ -104,11 +115,16 @@ public class ServerUtils {
      * @return list of events
      */
     public Event getEventByCode(String code) {
-        return ClientBuilder.newClient(new ClientConfig())
-            .target(server).path("/event/code/" + code)
-            .request(APPLICATION_JSON)
-            .accept(APPLICATION_JSON)
-            .get(Event.class);
+        try {
+            return ClientBuilder.newClient(new ClientConfig())
+                .target(server).path("/event/code/" + code)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(Event.class);
+        } catch (Exception e) {
+            return null;
+        }
+
     }
 
     /**
@@ -118,11 +134,16 @@ public class ServerUtils {
      * @return the event
      */
     public Event getEventById(String id) {
-        return ClientBuilder.newClient(new ClientConfig())
-            .target(server).path("/event/id/" + id)
-            .request(APPLICATION_JSON)
-            .accept(APPLICATION_JSON)
-            .get(Event.class);
+        try {
+            return ClientBuilder.newClient(new ClientConfig())
+                .target(server).path("/event/id/" + id)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(Event.class);
+        } catch (Exception e) {
+            return null;
+        }
+
     }
 
     /**
@@ -133,12 +154,16 @@ public class ServerUtils {
      * @param adminPassword the admin password
      */
     public void deleteEvent(Event event, String adminPassword) {
-        ClientBuilder.newClient(new ClientConfig())
-            .target(server).path("/admin/event/" + event.getId())
-            .queryParam("password", adminPassword)
-            .request(APPLICATION_JSON)
-            .accept(APPLICATION_JSON)
-            .delete();
+        try {
+            ClientBuilder.newClient(new ClientConfig())
+                .target(server).path("/admin/event/" + event.getId())
+                .queryParam("password", adminPassword)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .delete();
+        } catch (Exception e) {
+            System.err.println("Server did not respond");
+        }
     }
 
     /**
@@ -147,12 +172,19 @@ public class ServerUtils {
      * @param event the event to be created.
      */
     public Event createEvent(Event event) {
-        return ClientBuilder.newClient(new ClientConfig())
-            .target(server).path("/event")
-            .request(APPLICATION_JSON)
-            .accept(APPLICATION_JSON)
-            .post(Entity.json(event))
-            .readEntity(Event.class);
+        try {
+            String newId = ClientBuilder.newClient(new ClientConfig())
+                .target(server).path("/event")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.json(event))
+                .readEntity(String.class);
+            event.setId(newId);
+            return event;
+        } catch (Exception e) {
+            return null;
+        }
+
     }
 
     /**
@@ -161,10 +193,14 @@ public class ServerUtils {
      * @param expense the expense to update
      */
     public void updateExpense(Expense expense) {
-        ClientBuilder.newClient(new ClientConfig())
-            .target(server).path("/expense")
-            .request(APPLICATION_JSON)
-            .put(Entity.json(expense));
+        try {
+            ClientBuilder.newClient(new ClientConfig())
+                .target(server).path("/expense")
+                .request(APPLICATION_JSON)
+                .put(Entity.json(expense));
+        } catch (Exception e) {
+            System.err.println("Server did not respond");
+        }
     }
 
     /**
@@ -174,11 +210,35 @@ public class ServerUtils {
      * @return the expense
      */
     public Expense getExpenseById(String id) {
-        return ClientBuilder.newClient(new ClientConfig())
-            .target(server).path("/expense/" + id)
-            .request(APPLICATION_JSON)
-            .accept(APPLICATION_JSON)
-            .get(Expense.class);
+        try {
+            return ClientBuilder.newClient(new ClientConfig())
+                .target(server).path("/expense/" + id)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(Expense.class);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    /**
+     * Tries to create an expense.
+     *
+     * @param expense the expense to be created.
+     * @return the created expense
+     */
+    public Expense createExpense(Expense expense) {
+        try {
+            return ClientBuilder.newClient(new ClientConfig())
+                .target(server).path("/expense")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.json(expense))
+                .readEntity(Expense.class);
+        } catch (Exception e) {
+            System.err.println("Couldn't create expense: " + e);
+            return null;
+        }
     }
 
     /**
@@ -187,10 +247,15 @@ public class ServerUtils {
      * @param event the event to update
      */
     public void updateEvent(Event event) {
-        ClientBuilder.newClient(new ClientConfig())
-            .target(server).path("/event")
-            .request(APPLICATION_JSON)
-            .put(Entity.json(event));
+        try {
+            ClientBuilder.newClient(new ClientConfig())
+                .target(server).path("/event")
+                .request(APPLICATION_JSON)
+                .put(Entity.json(event));
+        } catch (Exception e) {
+            System.err.println("Server did not respond");
+        }
+
     }
 
     /**
@@ -200,13 +265,17 @@ public class ServerUtils {
      * @return the created person with updated fields (id is created)
      */
     public Person createPerson(Person person) {
-        return ClientBuilder.newClient(new ClientConfig())
-            .target(server).path("/person")
-            .request(APPLICATION_JSON)
-            .accept(APPLICATION_JSON)
-            .accept(APPLICATION_JSON)
-            .post(Entity.json(person))
-            .readEntity(Person.class);
+        try {
+            return ClientBuilder.newClient(new ClientConfig())
+                .target(server).path("/person")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.json(person))
+                .readEntity(Person.class);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**
@@ -215,10 +284,15 @@ public class ServerUtils {
      * @param person the person to persist
      */
     public void updatePerson(Person person) {
-        ClientBuilder.newClient(new ClientConfig())
-            .target(server).path("/person")
-            .request(APPLICATION_JSON)
-            .put(Entity.json(person));
+        try {
+            ClientBuilder.newClient(new ClientConfig())
+                .target(server).path("/person")
+                .request(APPLICATION_JSON)
+                .put(Entity.json(person));
+        } catch (Exception e) {
+            System.err.println("Server did not respond");
+        }
+
     }
 
     /**
@@ -228,11 +302,16 @@ public class ServerUtils {
      * @return the requested person
      */
     public Person getPersonById(String id) {
-        return ClientBuilder.newClient(new ClientConfig())
-            .target(server).path("/person/" + id)
-            .request(APPLICATION_JSON)
-            .accept(APPLICATION_JSON)
-            .get(Person.class);
+        try {
+            return ClientBuilder.newClient(new ClientConfig())
+                .target(server).path("/person/" + id)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(Person.class);
+        } catch (Exception e) {
+            return null;
+        }
+
     }
 
     /**
@@ -241,9 +320,29 @@ public class ServerUtils {
      * @param person the person to delete
      */
     public void deletePerson(Person person) {
-        ClientBuilder.newClient(new ClientConfig())
-            .target(server).path("/person/" + person.getId())
-            .request(APPLICATION_JSON)
-            .delete();
+        try {
+            ClientBuilder.newClient(new ClientConfig())
+                .target(server).path("/person/" + person.getId())
+                .request(APPLICATION_JSON)
+                .delete();
+        } catch (Exception e) {
+            System.err.println("Server did not respond");
+        }
+
+    }
+
+    /**
+     * Gets status of the server.
+     */
+    public int getStatus() {
+        try {
+            return ClientBuilder.newClient(new ClientConfig())
+                .target(server).path("/status")
+                .request()
+                .get()
+                .getStatus();
+        } catch (Exception e) {
+            return 404;
+        }
     }
 }

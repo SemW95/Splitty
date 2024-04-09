@@ -1,5 +1,6 @@
 package client.scenes;
 
+import client.utils.ScreenUtils;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Person;
@@ -10,6 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * EditParticipant popup.
@@ -18,6 +21,8 @@ public class EditParticipantCtrl implements Initializable {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
     private ResourceBundle resources;
+    @FXML
+    private AnchorPane root;
 
     @Inject
     public EditParticipantCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -28,6 +33,8 @@ public class EditParticipantCtrl implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
+        root.addEventFilter(KeyEvent.KEY_PRESSED,
+            ScreenUtils.exitHandler(resources, mainCtrl::closePopup));
     }
 
     @FXML
@@ -136,16 +143,12 @@ public class EditParticipantCtrl implements Initializable {
         if (firstNameTextField.isVisible()) {
             person.setFirstName(firstNameTextField.getText());
             server.updatePerson(person);
-            populate();
-            mainCtrl.updateAll();
             firstNameTextField.setVisible(false);
             firstNameLabel.setVisible(true);
         }
         if (lastNameTextField.isVisible()) {
             person.setLastName(lastNameTextField.getText());
             server.updatePerson(person);
-            populate();
-            mainCtrl.updateAll();
             lastNameTextField.setVisible(false);
             lastNameLabel.setVisible(true);
         }
@@ -153,8 +156,6 @@ public class EditParticipantCtrl implements Initializable {
             if (emailTextField.getText().isBlank() || Person.emailCheck(emailTextField.getText())) {
                 person.setEmail(emailTextField.getText());
                 server.updatePerson(person);
-                populate();
-                mainCtrl.updateAll();
                 emailTextField.setVisible(false);
                 emailLabel.setVisible(true);
                 invalidEmailMessage.setVisible(false);
@@ -166,8 +167,6 @@ public class EditParticipantCtrl implements Initializable {
             if (ibanTextField.getText().isBlank() || Person.ibanCheckSum(ibanTextField.getText())) {
                 person.setIban(ibanTextField.getText());
                 server.updatePerson(person);
-                populate();
-                mainCtrl.updateAll();
                 ibanTextField.setVisible(false);
                 ibanLabel.setVisible(true);
                 invalidIbanMessage.setVisible(false);
@@ -179,8 +178,6 @@ public class EditParticipantCtrl implements Initializable {
             if (bicTextField.getText().isBlank() || Person.bicCheck(bicTextField.getText())) {
                 person.setBic(bicTextField.getText());
                 server.updatePerson(person);
-                populate();
-                mainCtrl.updateAll();
                 bicTextField.setVisible(false);
                 bicLabel.setVisible(true);
                 invalidBicMessage.setVisible(false);

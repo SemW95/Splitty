@@ -1,6 +1,7 @@
 package client.scenes;
 
 import client.utils.PaneCreator;
+import client.utils.ScreenUtils;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Event;
@@ -14,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
@@ -54,7 +56,11 @@ public class ExpenseOverviewCtrl implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
+
+        rootAnchorPane.addEventFilter(KeyEvent.KEY_PRESSED,
+            ScreenUtils.exitHandler(resources, this::handleExit));
     }
+
 
     /**
      * Populates the UI with appropriate data from the expense object.
@@ -64,23 +70,35 @@ public class ExpenseOverviewCtrl implements Initializable {
             return;
         }
         // Initialize UI with expense data
-        expenseNameLabel.setText(expense.getDescription());
-        expenseAmountLabel.setText("€ " + expense.getPaid().toString());
-        participantCountLabel.setText(Integer.toString(expense.getParticipants().size() + 1));
-
-        // Create tag
-        expenseNameLabel.setGraphic(PaneCreator.createTagItem(expense.getTag()));
+        if (expense.getDescription() != null) {
+            expenseNameLabel.setText(expense.getDescription());
+        }
+        if (expense.getPaid() != null) {
+            expenseAmountLabel.setText("€ " + expense.getPaid().toString());
+        }
+        if (expense.getTag() != null) {
+            // Create tag
+            expenseNameLabel.setGraphic(PaneCreator.createTagItem(expense.getTag()));
+        } else {
+            // remove tag if there isn't any
+            expenseNameLabel.setGraphic(null);
+        }
 
         // Populate participants
         participantsFlowPane.getChildren().setAll();
-        participantsFlowPane.getChildren().add(createRecipientCard(expense.getReceiver()));
-        System.out.println("Created a recipient card instead of a normal participant card");
-        for (Person participant : expense.getParticipants()) {
-            participantsFlowPane.getChildren().add(createParticipantCard(participant));
-            System.out.println("Created a regular participant card");
+        if (expense.getReceiver() != null) {
+            participantsFlowPane.getChildren().add(createRecipientCard(expense.getReceiver()));
+            System.out.println("Created a recipient card instead of a normal participant card");
         }
-        participantsFlowPane.requestLayout();
-
+        if (expense.getParticipants() != null) {
+            int participantAmount =
+                expense.getParticipants().size() + (expense.getReceiver() == null ? 0 : 1);
+            participantCountLabel.setText(Integer.toString(participantAmount));
+            for (Person participant : expense.getParticipants()) {
+                participantsFlowPane.getChildren().add(createParticipantCard(participant));
+                System.out.println("Created a regular participant card");
+            }
+        }
     }
 
     /**
@@ -99,7 +117,8 @@ public class ExpenseOverviewCtrl implements Initializable {
             participant.getFirstName() + " " + participant.getLastName();
         System.out.println(participant.getId());
         System.out.println(expense.getReceiver().getId());
-        participantRepresentation = participantRepresentation.concat(" (Recipient)");
+        participantRepresentation +=
+            " (" + resources.getString("expense-overview.recipient") + ")";
         Label participantLabel = new Label(participantRepresentation);
         Font globalFont = new Font("System Bold", 24);
         participantLabel.setFont(globalFont);
@@ -191,5 +210,11 @@ public class ExpenseOverviewCtrl implements Initializable {
         populate();
     }
 
+    public Expense getExpense() {
+        return expense;
+    }
 
+    public Event getEvent() {
+        return event;
+    }
 }

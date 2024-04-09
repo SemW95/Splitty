@@ -1,6 +1,7 @@
 package client.scenes;
 
 import client.utils.PaneCreator;
+import client.utils.ScreenUtils;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Event;
@@ -13,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
@@ -20,7 +22,6 @@ import javafx.scene.text.Font;
 
 /**
  * Controller class for adding a participant to an expense.
- *
  */
 public class ExpenseAddParticipantCtrl implements Initializable {
 
@@ -28,6 +29,9 @@ public class ExpenseAddParticipantCtrl implements Initializable {
     private final MainCtrl mainCtrl;
     @FXML
     private Label expenseNameLabel;
+
+    @FXML
+    private Label statusLabel;
 
     @FXML
     private FlowPane availableParticipants;
@@ -44,6 +48,7 @@ public class ExpenseAddParticipantCtrl implements Initializable {
     private Expense expense;
     private Event event;
 
+
     @Inject
     public ExpenseAddParticipantCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.server = server;
@@ -53,32 +58,36 @@ public class ExpenseAddParticipantCtrl implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
+        rootAnchorPane.addEventFilter(KeyEvent.KEY_PRESSED,
+            ScreenUtils.exitHandler(resources, mainCtrl::closePopup));
     }
 
     /**
-     * populates the UI with appropiate data from the expense object.
+     * populates the UI with appropriate data from the expense object.
      */
     public void populate() {
-        Event event = server.getEvents().getFirst();
-        this.expense = event.getExpenses().getFirst();
-
         // Initialize UI with expense data
         expenseNameLabel.setText(expense.getDescription());
 
-        // Create tag
-        expenseNameLabel.setGraphic(PaneCreator.createTagItem(expense.getTag()));
-
+        if (expense.getTag() != null) {
+            // Create tag
+            expenseNameLabel.setGraphic(PaneCreator.createTagItem(expense.getTag()));
+        } else {
+            // remove tag if there isn't any
+            expenseNameLabel.setGraphic(null);
+        }
 
         currentParticipants.getChildren().setAll();
         availableParticipants.getChildren().setAll();
 
-        currentParticipants.getChildren().add(createRecipientCard(expense.getReceiver()));
+        if (expense.getReceiver() != null) {
+            currentParticipants.getChildren().add(createRecipientCard(expense.getReceiver()));
+        }
 
         // Populate available participants
         for (Person participant : event.getPeople()) {
             if (!expense.getParticipants().contains(participant)
-                &&
-                !participant.equals(expense.getReceiver())) {
+                && !participant.equals(expense.getReceiver())) {
                 addParticipantCardToAvailableParticipantFlowPane(participant);
             }
         }
@@ -87,14 +96,10 @@ public class ExpenseAddParticipantCtrl implements Initializable {
         for (Person participant : expense.getParticipants()) {
             addParticipantCardToCurrentParticipantFlowPane(participant);
         }
-
-
-
-
     }
 
     /**
-     * Createse a new Participant card for the dynamically scaled FlowPane, and allows
+     * Creates a new Participant card for the dynamically scaled FlowPane, and allows
      * switching to other flowpane.
      *
      * @param participant a participant
@@ -121,9 +126,11 @@ public class ExpenseAddParticipantCtrl implements Initializable {
                 currentParticipants.getChildren().remove(card);
                 addParticipantCardToAvailableParticipantFlowPane(participant);
 
+                statusLabel.setText(resources.getString("expense-add-participants.removed")
+                    + " " + participant.getFirstName());
+
                 currentParticipants.requestLayout();
                 server.updateExpense(this.expense);
-                mainCtrl.updateAll();
             }
         );
 
@@ -147,7 +154,8 @@ public class ExpenseAddParticipantCtrl implements Initializable {
             participant.getFirstName() + " " + participant.getLastName();
         System.out.println(participant.getId());
         System.out.println(expense.getReceiver().getId());
-        participantRepresentation = participantRepresentation.concat(" (Recipient)");
+        participantRepresentation +=
+            " (" + resources.getString("expense-add-participant.recipient") + ")";
         Label participantLabel = new Label(participantRepresentation);
         Font globalFont = new Font("System Bold", 24);
         participantLabel.setTextFill(Color.valueOf("#636363"));
@@ -199,9 +207,10 @@ public class ExpenseAddParticipantCtrl implements Initializable {
 
                 availableParticipants.requestLayout();
                 currentParticipants.requestLayout();
+                statusLabel.setText(resources.getString("expense-add-participants.added")
+                    + " " + participant.getFirstName());
 
                 server.updateExpense(this.expense);
-                mainCtrl.updateAll();
             }
         );
 
@@ -224,5 +233,9 @@ public class ExpenseAddParticipantCtrl implements Initializable {
         this.expense = expense;
         this.event = event;
         populate();
+    }
+
+    public void defaultStatus() {
+        statusLabel.setText(resources.getString("expense-add-participants.no-changes"));
     }
 }

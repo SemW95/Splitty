@@ -26,13 +26,20 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.util.Timer;
+import java.util.TimerTask;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 
 /**
  * Home screen.
@@ -44,11 +51,17 @@ public class HomeCtrl implements Initializable {
     private ResourceBundle resources;
 
     @FXML
-    private ComboBox<String> dropDown;
-
-    @FXML
     private VBox eventList;
     private List<Event> events;
+
+    @FXML
+    private TextField eventCodeTextField;
+
+    @FXML
+    private Label serverStatus;
+
+    @FXML
+    Pane rootPane;
 
     @Inject
     public HomeCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -60,17 +73,14 @@ public class HomeCtrl implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
 
-        /*
-        Makes options for the dropdown menu
-        TODO should set a new server in the config file and ask to reboot
-        */
-        ObservableList<String> options = FXCollections.observableArrayList(
-            "Server 1",
-            "Server 2",
-            "Server 3"
-        );
-        dropDown.setValue("Server 1");
-        dropDown.setItems(options);
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    status();
+                });
+            }
+        }, 0, 1000);
     }
 
     /**
@@ -80,11 +90,15 @@ public class HomeCtrl implements Initializable {
     public void refetch() {
         events = new ArrayList<>();
 
+        /*
+            Will check if the event exists and add it, if it does not exist but the connection is
+            valid it means that should be removed from the config
+        */
         for (String code : Main.configManager.getCodes()) {
             Event event = server.getEventByCode(code);
             if (event != null) {
                 events.add(event);
-            } else {
+            } else if (server.getStatus() == 200) {
                 Main.configManager.removeCode(code);
             }
         }
@@ -109,47 +123,83 @@ public class HomeCtrl implements Initializable {
     }
 
     /**
-     * Testing function for language switch.
-     */
-    public void testing() {
-        if (mainCtrl.getCurrentLanguage().equals("en")) {
-            mainCtrl.changeLanguage("lt");
-        } else {
-            mainCtrl.changeLanguage("en");
-        }
-    }
-
-    /**
      * Logic for the "language" button on home.
      */
     public void clickLanguage() {
-        System.out.println("Pressed language");
-        testing();
+        mainCtrl.showLanguageSelectPopup();
     }
 
     /**
      * Logic for the "currency" button on home.
      */
     public void clickCurrency() {
-        System.out.println("Pressed currency.");
+
+        // Show a modal dialog to inform the user
+        Dialog<String> dialog = new Dialog<>();
+        dialog.initModality(Modality.APPLICATION_MODAL); // Make the dialog modal
+        dialog.initOwner(rootPane.getScene().getWindow()); // Set the owner
+
+        // Customize the dialog appearance
+        dialog.setTitle(resources.getString("home.soon"));
+        dialog.setContentText(resources.getString("home.soon-text"));
+
+        // Adding a custom close button inside the dialog, since default buttons are not used
+        ButtonType closeButton =
+            new ButtonType(resources.getString("manage-expense.understood"),
+                ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().add(closeButton);
+
+        // Handling dialog result to perform actions if needed, but it's informational
+        dialog.showAndWait();
     }
 
     /**
-     * Logic for the home title.
+     * Adds a new event to the config and home screen based on input field.
      */
-    public void clickHome() {
-        mainCtrl.showHome();
+    public void joinEvent() {
+        String code = "";
+        //checks if there is something in the input field
+        if (!eventCodeTextField.getText().isEmpty()) {
+            code = eventCodeTextField.getText();
+            eventCodeTextField.clear();
+        } else {
+            eventCodeTextField.setPromptText(resources.getString("home.enter-code"));
+            return;
+        }
+
+        //checks if there is an event with the given code
+        if (server.getEventByCode(code) == null) {
+            eventCodeTextField.setPromptText(resources.getString("home.event-not-found"));
+            return;
+        }
+
+        Main.configManager.addCode(code);
+        eventCodeTextField.setPromptText(resources.getString("home.event-added"));
+        refetch();
     }
 
-    /**
-     * Logic for the "add event" button.
-     */
-    public void addEvent() {
+    public void createEvent() {
         mainCtrl.showEventCreationPopup();
     }
 
     @FXML
     private void clickAdminView(ActionEvent actionEvent) {
         mainCtrl.showAdminCredentialsPopup();
+    }
+
+    /**
+     * Changes the label according to server status.
+     */
+    public void status() {
+        int response = server.getStatus();
+
+        if (response == 200) {
+            serverStatus.setStyle("-fx-background-color: #93c47d;");
+            serverStatus.setText(resources.getString("home.connected"));
+            return;
+        }
+
+        serverStatus.setStyle("-fx-background-color: #e06666;");
+        serverStatus.setText(resources.getString("home.disconnected"));
     }
 }
