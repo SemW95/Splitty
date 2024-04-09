@@ -498,14 +498,10 @@ public class MainCtrl {
      * Show the DeleteExpenseConfirmation popup.
      */
     public void showDeleteExpenseConfirmationPopup(Runnable callback) {
-        popup = new Stage();
-        popup.setTitle(fxml.getBundle().getString("delete-expense-confirmation.title"));
-        popup.setScene(deleteExpenseConfirmationPair.scene);
-        popup.initModality(Modality.APPLICATION_MODAL);
-        popup.initOwner(primaryStage);
+        popupStage.setTitle(fxml.getBundle().getString("delete-expense-confirmation.title"));
+        popupStage.setScene(deleteExpenseConfirmationPair.scene);
         deleteExpenseConfirmationPair.ctrl.setCallback(callback);
-        popup.show();
-        popup.setResizable(false);
+        popupStage.show();
     }
 
 }
