@@ -92,7 +92,8 @@
             - On going from an event overview to the home screen, '-fx-text-background-color' errors are received (person)
             - On startup there are enum warnings (person)
             - On language change "client/css/globals.css" not found (person)
-            **NOTE: anything that was skipped or unclear will be discussed in detail after the TA meeting.**
+
+        **NOTE: anything that was skipped or unclear will be discussed in detail after the TA meeting.**
 
 ## Wrapping Up (5 min)
 - **Summarize action points: Who , what , when? (2 min)**
