@@ -7,7 +7,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -34,12 +33,6 @@ public class DeleteParticipantConfirmationCtrl implements Initializable {
         root.addEventFilter(KeyEvent.KEY_PRESSED,
             ScreenUtils.exitHandler(resources, mainCtrl::closePopup));
     }
-
-    @FXML
-    private Button deleteParticipant;
-
-    @FXML
-    private Button goBackToManageScene;
 
     @FXML
     private void deleteParticipant() {

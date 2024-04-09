@@ -51,6 +51,23 @@ public class PersonService {
      *
      * @param person that is to be added
      */
+    public Person createPerson(Person person) {
+        if (person.getId() == null || !personRepository.existsById(person.getId())) {
+            return personRepository.save(person);
+        }
+
+        throw new IllegalStateException(
+            "There already is a person with this id"
+        );
+    }
+
+    /**
+     * Adds a person object to the database,
+     * throws exception if person already exists.
+     *
+     * @param person that is to be added
+     */
+    @Deprecated
     public void addPerson(Person person) {
         Optional<Person> optionalPerson = personRepository
             .findById(person.getId());
@@ -70,9 +87,10 @@ public class PersonService {
         personRepository.save(new Person(firstName, lastName, email, iban, bic));
     }
 
-    /** Gets the email of a person with the given id.
+    /**
+     * Gets the email of a person with the given id.
      *
-     * @param id        The id of the person whose email is retrieved.
+     * @param id The id of the person whose email is retrieved.
      */
     public String getFirstName(String id) {
         // Use existing method to get the person by ID
@@ -81,9 +99,10 @@ public class PersonService {
         return person.getFirstName();
     }
 
-    /** Gets the email of a person with the given id.
+    /**
+     * Gets the email of a person with the given id.
      *
-     * @param id        The id of the person whose email is retrieved.
+     * @param id The id of the person whose email is retrieved.
      */
     public String getLastName(String id) {
         // Use existing method to get the person by ID
@@ -92,9 +111,10 @@ public class PersonService {
         return person.getLastName();
     }
 
-    /** Gets the email of a person with the given id.
+    /**
+     * Gets the email of a person with the given id.
      *
-     * @param id    The id of the person whose email is to be retrieved.
+     * @param id The id of the person whose email is to be retrieved.
      */
     public String getEmail(String id) {
         // Use existing method to get the person by ID
@@ -103,9 +123,10 @@ public class PersonService {
         return person.getEmail();
     }
 
-    /** Gets the email of a person with the given id.
+    /**
+     * Gets the email of a person with the given id.
      *
-     * @param id        The id of the person whose email is retrieved.
+     * @param id The id of the person whose email is retrieved.
      */
     public String getIban(String id) {
         // Use existing method to get the person by ID
@@ -114,9 +135,10 @@ public class PersonService {
         return person.getIban();
     }
 
-    /** Gets the email of a person with the given id.
+    /**
+     * Gets the email of a person with the given id.
      *
-     * @param id        The id of the person whose email is retrieved.
+     * @param id The id of the person whose email is retrieved.
      */
     public String getBic(String id) {
         // Use existing method to get the person by ID
@@ -125,7 +147,8 @@ public class PersonService {
         return person.getBic();
     }
 
-    /** Sets the email of a person with the given id.
+    /**
+     * Sets the email of a person with the given id.
      *
      * @param id        The id of the person whose email is to be updated.
      * @param firstName The new firstName to be set.
@@ -138,10 +161,11 @@ public class PersonService {
         personRepository.save(person);
     }
 
-    /** Sets the email of a person with the given id.
+    /**
+     * Sets the email of a person with the given id.
      *
-     * @param id        The id of the person whose email is to be updated.
-     * @param lastName  The new lastName to be set.
+     * @param id       The id of the person whose email is to be updated.
+     * @param lastName The new lastName to be set.
      */
     public void setLastName(String id, String lastName) {
         // Use existing method to get the person by ID
@@ -151,7 +175,8 @@ public class PersonService {
         personRepository.save(person);
     }
 
-    /** Sets the email of a person with the given id.
+    /**
+     * Sets the email of a person with the given id.
      *
      * @param id    The id of the person whose email is to be updated.
      * @param email The new email to be set.
@@ -175,10 +200,11 @@ public class PersonService {
         personRepository.save(person);
     }
 
-    /** Sets the email of a person with the given id.
+    /**
+     * Sets the email of a person with the given id.
      *
-     * @param id        The id of the person whose email is to be updated.
-     * @param iban      The new iban to be set.
+     * @param id   The id of the person whose email is to be updated.
+     * @param iban The new iban to be set.
      */
     public void setIban(String id, String iban) {
         // Use existing method to get the person by ID
@@ -192,10 +218,11 @@ public class PersonService {
         personRepository.save(person);
     }
 
-    /** Sets the email of a person with the given id.
+    /**
+     * Sets the email of a person with the given id.
      *
-     * @param id        The id of the person whose email is to be updated.
-     * @param bic       The new bic to be set.
+     * @param id  The id of the person whose email is to be updated.
+     * @param bic The new bic to be set.
      */
     public void setBic(String id, String bic) {
         // Use existing method to get the person by ID
@@ -229,7 +256,8 @@ public class PersonService {
         personRepository.deleteById(id);
     }
 
-    /** Updates a Person in the database.
+    /**
+     * Updates a Person in the database.
      *
      * @param person The Person Object with the updated data
      * @throws IllegalStateException When there isn't a Person with this id in the database

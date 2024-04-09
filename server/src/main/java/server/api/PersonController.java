@@ -124,7 +124,7 @@ public class PersonController {
      * Searches Person on specified id and sets the firstName,
      * throws exception if id doesn't exist.
      *
-     * @param id that is searched
+     * @param id        that is searched
      * @param firstName The firstName that will be set
      */
     @PutMapping(path = "/person/{id}/first-name/{first-name}")
@@ -140,7 +140,7 @@ public class PersonController {
      * Searches Person on specified id and sets the lastName,
      * throws exception if id doesn't exist.
      *
-     * @param id that is searched
+     * @param id       that is searched
      * @param lastName The lastName that will be set
      */
     @PutMapping(path = "/person/{id}/last-name/{last-name}")
@@ -156,7 +156,7 @@ public class PersonController {
      * Searches Person on specified id and sets the email,
      * throws exception if id doesn't exist.
      *
-     * @param id that is searched
+     * @param id    that is searched
      * @param email The email that will be set
      */
     @PutMapping(path = "/person/{id}/email/{email}")
@@ -172,7 +172,7 @@ public class PersonController {
      * Searches Person on specified id and sets the iban,
      * throws exception if id doesn't exist.
      *
-     * @param id that is searched
+     * @param id   that is searched
      * @param iban The iban that will be set
      */
     @PutMapping(path = "/person/{id}/iban/{iban}")
@@ -188,7 +188,7 @@ public class PersonController {
      * Searches Person on specified id and sets the bic,
      * throws exception if id doesn't exist.
      *
-     * @param id that is searched
+     * @param id  that is searched
      * @param bic The bic that will be set
      */
     @PutMapping(path = "/person/{id}/bic/{bic}")
@@ -205,16 +205,16 @@ public class PersonController {
      * throws exception if person already exists.
      *
      * @param person that is to be added
+     * @return the created person
      */
     @PostMapping(path = "/person")
-    public void addPerson(@RequestBody Person person) {
-        personService.addPerson(person);
+    public Person createPerson(@RequestBody Person person) {
+        return personService.createPerson(person);
     }
 
     /**
      * Adds a person object to the database with person-details,
      * throws exception if person already exists.
-     *
      */
     @PostMapping(path = "/person/{first-name}/{last-name}/{email}/{iban}/{bic}")
     public void addPerson(

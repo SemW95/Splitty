@@ -23,11 +23,14 @@ import commons.Event;
 import commons.Expense;
 import commons.Person;
 import commons.Tag;
+import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
+import java.rmi.ServerException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 import org.glassfish.jersey.client.ClientConfig;
 
 /**
@@ -35,6 +38,30 @@ import org.glassfish.jersey.client.ClientConfig;
  */
 public class ServerUtils {
     private final String server = Main.configManager.getHttpServer();
+
+    /**
+     * A stack of callbacks which upon running will undo an update.
+     */
+    private final Stack<Runnable> undoStack = new Stack<>();
+
+    /**
+     * Will try to undo an update.
+     */
+    public void undo() {
+        if (!undoStack.isEmpty()) {
+            undoStack.pop().run();
+            System.out.println("- UNDID something");
+        }
+    }
+
+    /**
+     * Manually add an undo onto the undo stack.
+     *
+     * @param anUndo a runnable which will redo a change
+     */
+    public void addAnUndo(Runnable anUndo) {
+        undoStack.add(anUndo);
+    }
 
     /**
      * Validates an admin password.
@@ -114,17 +141,21 @@ public class ServerUtils {
      *
      * @return list of events
      */
-    public Event getEventByCode(String code) {
+    public Event getEventByCode(String code) throws ServerException {
         try {
             return ClientBuilder.newClient(new ClientConfig())
                 .target(server).path("/event/code/" + code)
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .get(Event.class);
+        } catch (WebApplicationException e) {
+            if (e.getResponse().getStatus() == 404) {
+                return null;
+            }
+            throw new ServerException(e.toString());
         } catch (Exception e) {
-            return null;
+            throw new ServerException(e.toString());
         }
-
     }
 
     /**
@@ -193,6 +224,12 @@ public class ServerUtils {
      * @param expense the expense to update
      */
     public void updateExpense(Expense expense) {
+        Expense oldExpense = getExpenseById(expense.getId());
+        undoStack.add(() -> justUpdateExpense(oldExpense));
+        justUpdateExpense(expense);
+    }
+
+    private void justUpdateExpense(Expense expense) {
         try {
             ClientBuilder.newClient(new ClientConfig())
                 .target(server).path("/expense")
@@ -247,6 +284,12 @@ public class ServerUtils {
      * @param event the event to update
      */
     public void updateEvent(Event event) {
+        Event oldEvent = getEventById(event.getId());
+        undoStack.add(() -> justUpdateEvent(oldEvent));
+        justUpdateEvent(event);
+    }
+
+    private void justUpdateEvent(Event event) {
         try {
             ClientBuilder.newClient(new ClientConfig())
                 .target(server).path("/event")
@@ -284,6 +327,12 @@ public class ServerUtils {
      * @param person the person to persist
      */
     public void updatePerson(Person person) {
+        Person oldPerson = getPersonById(person.getId());
+        undoStack.add(() -> justUpdatePerson(oldPerson));
+        justUpdatePerson(person);
+    }
+
+    private void justUpdatePerson(Person person) {
         try {
             ClientBuilder.newClient(new ClientConfig())
                 .target(server).path("/person")
@@ -292,7 +341,6 @@ public class ServerUtils {
         } catch (Exception e) {
             System.err.println("Server did not respond");
         }
-
     }
 
     /**
@@ -332,17 +380,18 @@ public class ServerUtils {
     }
 
     /**
-     * Gets status of the server.
+     * Gets status of the server using long polling.
+     * So it will only return the result after some amount of time.
      */
-    public int getStatus() {
+    public boolean serverOnline() {
         try {
             return ClientBuilder.newClient(new ClientConfig())
                 .target(server).path("/status")
                 .request()
                 .get()
-                .getStatus();
+                .getStatus() == 200;
         } catch (Exception e) {
-            return 404;
+            return false;
         }
     }
 
