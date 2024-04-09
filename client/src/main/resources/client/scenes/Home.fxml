@@ -25,7 +25,7 @@
                   <DropShadow height="26.93" radius="6.2325" width="0.0" />
                </effect>
             </Rectangle>
-            <Label layoutX="38.0" layoutY="25.0" style="-fx-font-weight: bold; -fx-font-size: 20;" text="SPLITTY: Going Dutch" />
+            <Label layoutX="74.0" layoutY="27.0" style="-fx-font-weight: bold; -fx-font-size: 20;" text="SPLITTY: Going Dutch" />
             <Button fx:id="currency" layoutX="884.0" layoutY="22.0" mnemonicParsing="false" onAction="#clickCurrency" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: transparent;">

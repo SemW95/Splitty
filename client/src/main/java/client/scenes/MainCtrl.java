@@ -19,11 +19,15 @@ package client.scenes;
 import client.Main;
 import client.MyFXML;
 import client.utils.CsPair;
+import client.utils.ServerUtils;
 import client.utils.WebSocketClient;
+import com.google.inject.Inject;
 import commons.Event;
 import commons.Expense;
 import commons.Person;
 import java.io.File;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Locale;
 import java.util.function.Consumer;
 import javafx.application.Platform;
@@ -62,6 +66,12 @@ public class MainCtrl {
     private Initializable currentCtrl;
     // private Pair<ExpenseCardCtrl, Parent> expenseCard;
     private WebSocketClient websocketClient;
+    private final ServerUtils server;
+
+    @Inject
+    public MainCtrl(ServerUtils server) {
+        this.server = server;
+    }
 
     /**
      * Main controller initialization.
@@ -78,9 +88,46 @@ public class MainCtrl {
         primaryStage.setResizable(false);
         primaryStage.show();
 
+        // Create a websocket client which tries to connect to the websocket server
         websocketClient = new WebSocketClient(Main.configManager.getWsServer(),
             () -> Platform.runLater(this::updateAll));
+
+        Thread timerThread = new Thread(() -> {
+            // It will sleep at least this long in ms before trying to call the server again
+            long minSleepMillis = 2000;
+
+            Instant before = Instant.now().minusMillis(minSleepMillis);
+            while (true) {
+                // Try to reconnect to the websocket server just in case it was disconnected
+                websocketClient.connect();
+
+                long duration = Duration.between(before, Instant.now()).toMillis();
+                long timeToSleep = Math.max(minSleepMillis - duration, 0);
+
+                try {
+                    Thread.sleep(timeToSleep);
+                } catch (InterruptedException e) {
+                    break;
+                }
+
+                before = Instant.now();
+
+                boolean statusOk = server.serverOnline();
+
+                // Update the actual status text in JavaFX's thread
+                Platform.runLater(() -> homePair.ctrl.updateStatus(statusOk));
+            }
+        });
+        timerThread.start();
+
+        // Stop the timer thread when the application is closed
+        primaryStage.setOnHiding(event -> {
+            // Not the nicest way to stop the thread but the `server.serverOnline()` blocks,
+            // and this was the easiest way to solve the problem
+            System.exit(0);
+        });
     }
+
 
     private void loadAllPairs() {
         homePair = fxml.load(HomeCtrl.class, "client", "scenes", "Home.fxml");

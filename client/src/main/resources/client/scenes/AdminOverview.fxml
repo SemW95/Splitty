@@ -28,19 +28,15 @@
                   <DropShadow height="26.93" radius="6.2325" width="0.0" />
                </effect>
             </Rectangle>
-              <Button fx:id="backButton" layoutX="18.0" layoutY="25.0" mnemonicParsing="false" onAction="#handleExit" style="-fx-background-color: transparant;">
-                  <graphic>
-                      <ImageView fx:id="handleExit" fitHeight="24.0" fitWidth="24.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
-                          <image>
-                              <Image url="@/client/icons/back.png" />
-                          </image>
-      
-                                  </ImageView>
-                  </graphic>
-                  <cursor>
-                      <Cursor fx:constant="HAND" />
-                  </cursor>
-              </Button>
+            <Button layoutX="20.0" layoutY="25.0" mnemonicParsing="false" onAction="#handleExit" style="-fx-background-color: transparant;">
+                <graphic>
+                    <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@/client/icons/back.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
             <Label layoutX="74.0" layoutY="27.0" style="-fx-font-weight: bold; -fx-font-size: 20;" text="SPLITTY: Going Dutch" />
             <Button fx:id="currency" layoutX="884.0" layoutY="22.0" mnemonicParsing="false" onAction="#clickCurrency" style="-fx-background-color: transparent;">
                <graphic>
