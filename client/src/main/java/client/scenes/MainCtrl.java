@@ -59,7 +59,8 @@ public class MainCtrl {
     private CsPair<DeleteEventConfirmationCtrl> deleteEventConfirmationPair;
     private CsPair<CreateEventCtrl> createEventPair;
     private CsPair<LanguageSelectCtrl> languageSelectPair;
-    private CsPair<ManageExpenseListCtrl> manageExpenseListCtrlPair;
+    private CsPair<ManageExpenseListCtrl> manageExpenseListPair;
+    private CsPair<DeleteExpenseConfirmationCtrl> deleteExpenseConfirmationPair;
     private Initializable currentCtrl;
     // private Pair<ExpenseCardCtrl, Parent> expenseCard;
     private WebSocketClient websocketClient;
@@ -140,9 +141,13 @@ public class MainCtrl {
         createEventPair = fxml.load(CreateEventCtrl.class, "client", "scenes", "CreateEvent.fxml");
         createEventPair.scene.getStylesheets().add("/client/css/global.css");
 
-        manageExpenseListCtrlPair = fxml.load(ManageExpenseListCtrl.class,
+        manageExpenseListPair = fxml.load(ManageExpenseListCtrl.class,
                 "client", "scenes", "ManageExpenseList.fxml");
-        manageExpenseListCtrlPair.scene.getStylesheets().add("/client/css/global.css");
+        manageExpenseListPair.scene.getStylesheets().add("/client/css/global.css");
+
+        deleteExpenseConfirmationPair = fxml.load(DeleteExpenseConfirmationCtrl.class,
+                "client", "scenes", "DeleteExpenseConfirmation.fxml");
+        deleteExpenseConfirmationPair.scene.getStylesheets().add("/client/css/global.css");
     }
 
     /**
@@ -156,7 +161,7 @@ public class MainCtrl {
         manageParticipantsPair.ctrl.refetch();
         editParticipantPair.ctrl.refetch();
         adminOverviewPair.ctrl.refetch();
-        manageExpenseListCtrlPair.ctrl.refetch();
+        manageExpenseListPair.ctrl.refetch();
     }
 
     /**
@@ -468,9 +473,23 @@ public class MainCtrl {
      */
     public void showManageExpenseListScreen(Event event) {
         primaryStage.setTitle(fxml.getBundle().getString("manage-expense-list.title"));
-        primaryStage.setScene(manageExpenseListCtrlPair.scene);
-        manageExpenseListCtrlPair.ctrl.update(event);
-        currentCtrl = manageExpenseListCtrlPair.ctrl;
+        primaryStage.setScene(manageExpenseListPair.scene);
+        manageExpenseListPair.ctrl.update(event);
+        currentCtrl = manageExpenseListPair.ctrl;
+    }
+
+    /**
+     * Show the DeleteExpenseConfirmation popup.
+     */
+    public void showDeleteExpenseConfirmationPopup(Runnable callback) {
+        popup = new Stage();
+        popup.setTitle(fxml.getBundle().getString("delete-expense-confirmation.title"));
+        popup.setScene(deleteExpenseConfirmationPair.scene);
+        popup.initModality(Modality.APPLICATION_MODAL);
+        popup.initOwner(primaryStage);
+        deleteExpenseConfirmationPair.ctrl.setCallback(callback);
+        popup.show();
+        popup.setResizable(false);
     }
 
 }

@@ -68,11 +68,14 @@ public class ManageExpenseListCtrl implements Initializable {
     @FXML
     private void deleteExpense() {
         Expense selectedExpense = expenseMenu.getValue();
-        event.getExpenses().remove(selectedExpense);
-        server.updateEvent(event);
-        server.deleteExpense(selectedExpense);
-        server.updateEvent(event);
+        mainCtrl.showDeleteExpenseConfirmationPopup(() -> {
+            event.getExpenses().remove(selectedExpense);
+            server.updateEvent(event);
+            server.deleteExpense(selectedExpense);
+            server.updateEvent(event);
+        });
     }
+
 
     @FXML
     private void backButton() {
