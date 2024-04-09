@@ -225,7 +225,6 @@ public class ServerUtils {
      */
     public void updateExpense(Expense expense) {
         Expense oldExpense = getExpenseById(expense.getId());
-        System.out.println("- ADDED UNDO");
         undoStack.add(() -> justUpdateExpense(oldExpense));
         justUpdateExpense(expense);
     }
@@ -285,6 +284,12 @@ public class ServerUtils {
      * @param event the event to update
      */
     public void updateEvent(Event event) {
+        Event oldEvent = getEventById(event.getId());
+        undoStack.add(() -> justUpdateEvent(oldEvent));
+        justUpdateEvent(event);
+    }
+
+    private void justUpdateEvent(Event event) {
         try {
             ClientBuilder.newClient(new ClientConfig())
                 .target(server).path("/event")
@@ -322,6 +327,12 @@ public class ServerUtils {
      * @param person the person to persist
      */
     public void updatePerson(Person person) {
+        Person oldPerson = getPersonById(person.getId());
+        undoStack.add(() -> justUpdatePerson(oldPerson));
+        justUpdatePerson(person);
+    }
+
+    private void justUpdatePerson(Person person) {
         try {
             ClientBuilder.newClient(new ClientConfig())
                 .target(server).path("/person")
@@ -330,7 +341,6 @@ public class ServerUtils {
         } catch (Exception e) {
             System.err.println("Server did not respond");
         }
-
     }
 
     /**
