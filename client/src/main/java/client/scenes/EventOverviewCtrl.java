@@ -155,18 +155,11 @@ public class EventOverviewCtrl implements Initializable {
     }
 
     /**
-     * Logic for the home title.
-     */
-    public void handleHome() {
-        handleExit();
-    }
-
-    /**
      * Logic for the "language" button on home.
      */
 
     public void handleLanguage() {
-        System.out.println("Pressed language");
+        mainCtrl.showLanguageSelectPopup();
     }
 
     /**
@@ -179,8 +172,6 @@ public class EventOverviewCtrl implements Initializable {
     // TODO
     public void handleManageTags(ActionEvent actionEvent) {
     }
-
-    // TODO
 
     /**
      * Logic for the "+" button next to "Expenses".

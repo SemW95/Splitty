@@ -19,6 +19,7 @@ package client.scenes;
 import client.Main;
 import client.MyFXML;
 import client.utils.CsPair;
+import client.utils.ScreenUtils;
 import client.utils.ServerUtils;
 import client.utils.WebSocketClient;
 import com.google.inject.Inject;
@@ -32,6 +33,7 @@ import java.util.Locale;
 import java.util.function.Consumer;
 import javafx.application.Platform;
 import javafx.fxml.Initializable;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -46,7 +48,7 @@ public class MainCtrl {
     TODO
     */
     private Stage primaryStage;
-    private Stage popup;
+    private Stage popupStage;
     private MyFXML fxml;
     private String savedAdminPassword;
     private CsPair<HomeCtrl> homePair;
@@ -85,8 +87,14 @@ public class MainCtrl {
         loadAllPairs();
 
         showHome();
+
         primaryStage.setResizable(false);
         primaryStage.show();
+
+        popupStage = new Stage();
+        popupStage.initModality(Modality.APPLICATION_MODAL);
+        popupStage.initOwner(primaryStage);
+        popupStage.setResizable(false);
 
         // Create a websocket client which tries to connect to the websocket server
         websocketClient = new WebSocketClient(Main.configManager.getWsServer(),
@@ -126,6 +134,12 @@ public class MainCtrl {
             // and this was the easiest way to solve the problem
             System.exit(0);
         });
+
+        // Add an event listeners for Ctrl+Z
+        primaryStage
+            .addEventHandler(KeyEvent.ANY, ScreenUtils.undoHandler(server::undo));
+        popupStage
+            .addEventHandler(KeyEvent.ANY, ScreenUtils.undoHandler(server::undo));
     }
 
 
@@ -136,7 +150,7 @@ public class MainCtrl {
         languageSelectPair =
             fxml.load(LanguageSelectCtrl.class,
                 "client", "scenes", "LanguageSelection.fxml");
-        languageSelectPair.scene.getStylesheets().add("/client/css/globals.css");
+        languageSelectPair.scene.getStylesheets().add("/client/css/global.css");
 
         adminCredentialsPair =
             fxml.load(AdminCredentialsCtrl.class,
@@ -267,36 +281,21 @@ public class MainCtrl {
             return;
         }
 
-        popup = new Stage();
         // Set it to block other windows (you can only click on this popup)
-        popup.initModality(Modality.APPLICATION_MODAL);
-        popup.initOwner(primaryStage);
-        popup.setTitle(fxml.getBundle().getString("admin-credentials.title"));
-        popup.setScene(adminCredentialsPair.scene);
-        // Making it not resizable also sets it to the size specified in the .fxml file
-        // This was the only way I found that fixed that problem
-        // (Except the .setMaximized(true), which makes the window flash when it appears)
-        // Also, this might be a linux issue only
-        popup.setResizable(false);
-        popup.show();
+
+        popupStage.setTitle(fxml.getBundle().getString("admin-credentials.title"));
+        popupStage.setScene(adminCredentialsPair.scene);
+        popupStage.show();
     }
 
     /**
-     * Creates an language selection popup (dialog window) that blocks other windows.
+     * Creates a language selection popup (dialog window) that blocks other windows.
      * Should never be called twice before closing one of the popups.
      */
     public void showLanguageSelectPopup() {
-        if (popup == null) {
-            popup = new Stage();
-            popup.initModality(Modality.APPLICATION_MODAL);
-            popup.initOwner(primaryStage);
-            System.out.println("something");
-            popup.setResizable(false);
-        }
-
-        popup.setTitle(fxml.getBundle().getString("language-select.title"));
-        popup.setScene(languageSelectPair.scene);
-        popup.show();
+        popupStage.setTitle(fxml.getBundle().getString("language-select.title"));
+        popupStage.setScene(languageSelectPair.scene);
+        popupStage.show();
     }
 
     /**
@@ -304,8 +303,7 @@ public class MainCtrl {
      * Should never be called if the primary popup window is not shown.
      */
     public void closePopup() {
-        popup.close();
-        popup = null;
+        popupStage.close();
     }
 
     /**
@@ -347,13 +345,10 @@ public class MainCtrl {
      * @param callback function which will be called if the person is added successfully
      */
     public void showAddParticipantPopup(Consumer<Person> callback) {
-        popup = new Stage();
-        popup.setTitle(fxml.getBundle().getString("add-participant.title"));
-        popup.setScene(addParticipantPair.scene);
+        popupStage.setTitle(fxml.getBundle().getString("add-participant.title"));
+        popupStage.setScene(addParticipantPair.scene);
         addParticipantPair.ctrl.setCallback(callback);
-        popup.initModality(Modality.APPLICATION_MODAL);
-        popup.setResizable(false);
-        popup.show();
+        popupStage.show();
     }
 
 
@@ -371,28 +366,20 @@ public class MainCtrl {
      * Show the EditParticipant popup.
      */
     public void showEditParticipantPopup(Person person) {
-        popup = new Stage();
-        popup.setTitle(fxml.getBundle().getString("edit-participant.title"));
-        popup.setScene(editParticipantPair.scene);
-        popup.initModality(Modality.APPLICATION_MODAL);
-        popup.initOwner(primaryStage);
+        popupStage.setTitle(fxml.getBundle().getString("edit-participant.title"));
+        popupStage.setScene(editParticipantPair.scene);
         editParticipantPair.ctrl.update(person);
-        popup.show();
-        popup.setResizable(false);
+        popupStage.show();
     }
 
     /**
      * Show the DeleteParticipantConfirmation popup.
      */
     public void showDeleteParticipantConfirmationPopup(Runnable callback) {
-        popup = new Stage();
-        popup.setTitle(fxml.getBundle().getString("delete-participant-confirmation.title"));
-        popup.setScene(deleteParticipantConfirmationPair.scene);
-        popup.initModality(Modality.APPLICATION_MODAL);
-        popup.initOwner(primaryStage);
+        popupStage.setTitle(fxml.getBundle().getString("delete-participant-confirmation.title"));
+        popupStage.setScene(deleteParticipantConfirmationPair.scene);
         deleteParticipantConfirmationPair.ctrl.setCallback(callback);
-        popup.show();
-        popup.setResizable(false);
+        popupStage.show();
     }
 
     /**
@@ -401,15 +388,10 @@ public class MainCtrl {
      * @param deleteCallback the function to be called if the user confirms their action
      */
     public void showDeleteEventConfirmationPopup(Runnable deleteCallback) {
-        popup = new Stage();
-        popup.initModality(Modality.APPLICATION_MODAL);
-        popup.setTitle(fxml.getBundle().getString("delete-event-confirmation.title"));
-        popup.setScene(deleteEventConfirmationPair.scene);
-        popup.initModality(Modality.APPLICATION_MODAL);
-        popup.initOwner(primaryStage);
-        popup.show();
-        popup.setResizable(false);
+        popupStage.setTitle(fxml.getBundle().getString("delete-event-confirmation.title"));
+        popupStage.setScene(deleteEventConfirmationPair.scene);
         deleteEventConfirmationPair.ctrl.setCallback(deleteCallback);
+        popupStage.show();
     }
 
     //add step 4 here.
@@ -461,15 +443,11 @@ public class MainCtrl {
      * @param event   which event the expense belongs to
      */
     public void showManageExpensePopup(Expense expense, Event event) {
-        popup = new Stage();
-        popup.initModality(Modality.APPLICATION_MODAL);
-        popup.initOwner(primaryStage);
-        popup.setTitle(fxml.getBundle().getString("manage-expense.title"));
-        popup.setScene(manageExpensePair.scene);
-        popup.setResizable(false);
+        popupStage.setTitle(fxml.getBundle().getString("manage-expense.title"));
+        popupStage.setScene(manageExpensePair.scene);
         manageExpensePair.ctrl.update(expense, event);
-        popup.show();
         manageExpensePair.ctrl.defaultStatus();
+        popupStage.show();
     }
 
     /**
@@ -479,29 +457,20 @@ public class MainCtrl {
      * @param event   which event the expense belongs to
      */
     public void showExpenseAddParticipantPopup(Expense expense, Event event) {
-        popup = new Stage();
-        popup.initModality(Modality.APPLICATION_MODAL);
-        popup.initOwner(primaryStage);
-        popup.setTitle(fxml.getBundle().getString("expense-add-participant.title"));
-        popup.setScene(expenseAddParticipantPair.scene);
-        popup.setResizable(false);
+        popupStage.setTitle(fxml.getBundle().getString("expense-add-participant.title"));
+        popupStage.setScene(expenseAddParticipantPair.scene);
         expenseAddParticipantPair.ctrl.update(expense, event);
-        popup.show();
         expenseAddParticipantPair.ctrl.defaultStatus();
+        popupStage.show();
     }
 
     /**
      * Show the Event creation popup.
      */
-    // TODO: check if this is correct
     public void showEventCreationPopup() {
-        popup = new Stage();
-        popup.setTitle(fxml.getBundle().getString("create-event.title"));
-        popup.setScene(createEventPair.scene);
-        popup.initModality(Modality.APPLICATION_MODAL);
-        popup.setResizable(false);
-        popup.initOwner(primaryStage);
-        popup.show();
+        popupStage.setTitle(fxml.getBundle().getString("create-event.title"));
+        popupStage.setScene(createEventPair.scene);
+        popupStage.show();
     }
 
 }

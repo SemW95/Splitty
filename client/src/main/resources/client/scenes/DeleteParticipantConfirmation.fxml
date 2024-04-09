@@ -19,8 +19,8 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Button fx:id="deleteParticipant" layoutX="117.0" layoutY="121.0" mnemonicParsing="false" onAction="#deleteParticipant" text="%delete-participant-confirmation.yes" />
-                        <Button fx:id="goBackToManageScene" layoutX="229.0" layoutY="121.0" mnemonicParsing="false" onAction="#goBackToManageScene" text="%delete-participant-confirmation.no" />
+                        <Button layoutX="117.0" layoutY="121.0" mnemonicParsing="false" onAction="#deleteParticipant" text="%delete-participant-confirmation.yes" />
+                        <Button layoutX="229.0" layoutY="121.0" mnemonicParsing="false" onAction="#goBackToManageScene" text="%delete-participant-confirmation.no" />
                      </children>
                   </AnchorPane>
               </items>

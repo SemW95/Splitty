@@ -30,6 +30,7 @@ import jakarta.ws.rs.core.GenericType;
 import java.rmi.ServerException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 import org.glassfish.jersey.client.ClientConfig;
 
 /**
@@ -37,6 +38,30 @@ import org.glassfish.jersey.client.ClientConfig;
  */
 public class ServerUtils {
     private final String server = Main.configManager.getHttpServer();
+
+    /**
+     * A stack of callbacks which upon running will undo an update.
+     */
+    private final Stack<Runnable> undoStack = new Stack<>();
+
+    /**
+     * Will try to undo an update.
+     */
+    public void undo() {
+        if (!undoStack.isEmpty()) {
+            undoStack.pop().run();
+            System.out.println("- UNDID something");
+        }
+    }
+
+    /**
+     * Manually add an undo onto the undo stack.
+     *
+     * @param anUndo a runnable which will redo a change
+     */
+    public void addAnUndo(Runnable anUndo) {
+        undoStack.add(anUndo);
+    }
 
     /**
      * Validates an admin password.
@@ -199,6 +224,12 @@ public class ServerUtils {
      * @param expense the expense to update
      */
     public void updateExpense(Expense expense) {
+        Expense oldExpense = getExpenseById(expense.getId());
+        undoStack.add(() -> justUpdateExpense(oldExpense));
+        justUpdateExpense(expense);
+    }
+
+    private void justUpdateExpense(Expense expense) {
         try {
             ClientBuilder.newClient(new ClientConfig())
                 .target(server).path("/expense")
@@ -253,6 +284,12 @@ public class ServerUtils {
      * @param event the event to update
      */
     public void updateEvent(Event event) {
+        Event oldEvent = getEventById(event.getId());
+        undoStack.add(() -> justUpdateEvent(oldEvent));
+        justUpdateEvent(event);
+    }
+
+    private void justUpdateEvent(Event event) {
         try {
             ClientBuilder.newClient(new ClientConfig())
                 .target(server).path("/event")
@@ -290,6 +327,12 @@ public class ServerUtils {
      * @param person the person to persist
      */
     public void updatePerson(Person person) {
+        Person oldPerson = getPersonById(person.getId());
+        undoStack.add(() -> justUpdatePerson(oldPerson));
+        justUpdatePerson(person);
+    }
+
+    private void justUpdatePerson(Person person) {
         try {
             ClientBuilder.newClient(new ClientConfig())
                 .target(server).path("/person")
@@ -298,7 +341,6 @@ public class ServerUtils {
         } catch (Exception e) {
             System.err.println("Server did not respond");
         }
-
     }
 
     /**

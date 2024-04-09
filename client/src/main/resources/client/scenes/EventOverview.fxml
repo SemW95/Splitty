@@ -142,7 +142,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button layoutX="20.0" layoutY="25.0" mnemonicParsing="false" onAction="#handleExit" style="-fx-background-color: transparant;">
+            <Button layoutX="20.0" layoutY="25.0" mnemonicParsing="false" onAction="#handleExit" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                      <image>

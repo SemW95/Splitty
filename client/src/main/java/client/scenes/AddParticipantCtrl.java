@@ -9,7 +9,6 @@ import java.util.ResourceBundle;
 import java.util.function.Consumer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -64,9 +63,6 @@ public class AddParticipantCtrl implements Initializable {
 
     @FXML
     private AnchorPane rootAnchorPane;
-
-    @FXML
-    private Button save;
 
     private String firstName;
     private String lastName;

@@ -2,6 +2,7 @@ package client.utils;
 
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicBoolean;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -37,6 +38,31 @@ public class ScreenUtils {
                     onClose.run();
                 }
                 event.consume(); // Prevents the event from propagating further
+            }
+        };
+    }
+
+    /**
+     * Creates an undo handler.
+     *
+     * @param onUndo a runnable which is called when the undo shortcut is press
+     * @return the event handler
+     */
+    public static EventHandler<KeyEvent> undoHandler(Runnable onUndo) {
+        AtomicBoolean undoHeld = new AtomicBoolean(false);
+        return (KeyEvent e) -> {
+            if (e.isControlDown() && e.getCode().equals(KeyCode.Z)) {
+                if (e.getEventType().equals(KeyEvent.KEY_PRESSED)) {
+                    // Check if it is already pressed
+                    if (undoHeld.get()) {
+                        // It was pressed, therefore it is being held. So ignore it
+                        return;
+                    }
+                    undoHeld.set(true);
+                    onUndo.run();
+                } else if (e.getEventType().equals(KeyEvent.KEY_RELEASED)) {
+                    undoHeld.set(false);
+                }
             }
         };
     }
