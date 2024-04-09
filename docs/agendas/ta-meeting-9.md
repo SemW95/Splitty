@@ -67,8 +67,8 @@
                 - To rename or delete tags, so I can pick tags that are most useful for my event.
             - Email Notification: not achievable
     - **Finish for basic requirements**
-        - Decide if mouse icon changes on hover on a button (1) (_discuss + dicision-making_)
-        - ExpenseManagement: Make it more clear that you have to press enter to submit the change --> maybe add a buton? (2) (_discuss + dicion-making_)
+        - Decide if mouse icon changes on hover on a button (1) (_discuss + decision-making_)
+        - ExpenseManagement: Make it more clear that you have to press enter to submit the change --> maybe add a buton? (2) (_discuss + decision-making_)
         - UI Finishing touches:
             - Everywhere: Make Application stop "run" on closing (it still runs in the background for some reason) ★★★☆☆(person)
             - ExpanseOverview: Euro symbol is broken ★★★☆☆(person)
