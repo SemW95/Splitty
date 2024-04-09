@@ -68,6 +68,7 @@
          </children>
       </VBox>
       <Label alignment="CENTER" layoutX="105.0" layoutY="28.0" prefWidth="150.0" text="%language-select.select" />
-      <Button layoutX="130.0" layoutY="369.0" mnemonicParsing="false" onAction="#handleReturn" prefWidth="100.0" style="-fx-background-color: rgb(200, 237, 253);" text="%language-select.return" />
+      <Button layoutX="29.0" layoutY="367.0" mnemonicParsing="false" onAction="#handleDownload" prefHeight="24.0" prefWidth="162.0" style="-fx-background-color: rgb(200, 237, 253);" text="%language-select.download-template" />
+      <Button layoutX="229.0" layoutY="367.0" mnemonicParsing="false" onAction="#handleReturn" prefWidth="100.0" style="-fx-background-color: rgb(200, 237, 253);" text="%language-select.return" />
    </children>
 </Pane>
