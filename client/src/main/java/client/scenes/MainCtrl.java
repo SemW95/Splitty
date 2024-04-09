@@ -19,6 +19,7 @@ package client.scenes;
 import client.Main;
 import client.MyFXML;
 import client.utils.CsPair;
+import client.utils.ScreenUtils;
 import client.utils.ServerUtils;
 import client.utils.WebSocketClient;
 import com.google.inject.Inject;
@@ -29,11 +30,9 @@ import java.io.File;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Locale;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 import javafx.application.Platform;
 import javafx.fxml.Initializable;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -136,24 +135,11 @@ public class MainCtrl {
             System.exit(0);
         });
 
-        // Add an event listener for Ctrl+Z
-        AtomicBoolean undoHeld = new AtomicBoolean(false);
-        primaryStage.getScene().getWindow().addEventHandler(KeyEvent.ANY, (e) -> {
-            if (e.isControlDown() && e.getCode().equals(KeyCode.Z)) {
-                if (e.getEventType().equals(KeyEvent.KEY_PRESSED)) {
-                    // Check if it is already pressed
-                    if (undoHeld.get()) {
-                        // It was pressed, therefore it is being held. So ignore it
-                        return;
-                    }
-                    System.out.println("- TRYING UNDO");
-                    undoHeld.set(true);
-                    server.undo();
-                } else if (e.getEventType().equals(KeyEvent.KEY_RELEASED)) {
-                    undoHeld.set(false);
-                }
-            }
-        });
+        // Add an event listeners for Ctrl+Z
+        primaryStage
+            .addEventHandler(KeyEvent.ANY, ScreenUtils.undoHandler(server::undo));
+        popupStage
+            .addEventHandler(KeyEvent.ANY, ScreenUtils.undoHandler(server::undo));
     }
 
 
@@ -164,7 +150,7 @@ public class MainCtrl {
         languageSelectPair =
             fxml.load(LanguageSelectCtrl.class,
                 "client", "scenes", "LanguageSelection.fxml");
-        languageSelectPair.scene.getStylesheets().add("/client/css/globals.css");
+        languageSelectPair.scene.getStylesheets().add("/client/css/global.css");
 
         adminCredentialsPair =
             fxml.load(AdminCredentialsCtrl.class,
