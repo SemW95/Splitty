@@ -159,8 +159,7 @@ public class EventOverviewCtrl implements Initializable {
      */
 
     public void handleLanguage() {
-        System.out.println("Pressed language");
-        // TODO
+        mainCtrl.showLanguageSelectPopup();
     }
 
     /**
