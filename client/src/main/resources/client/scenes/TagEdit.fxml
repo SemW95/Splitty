@@ -30,11 +30,7 @@
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                <image>
-<<<<<<< HEAD
                   <Image url="@/client/icons/close.png" />
-=======
-                  <Image url="@/client/icons/close.png" />
->>>>>>> d7064527c805bd5608366a4b48ad3c4c7f648dcb
                </image>
             </ImageView>
          </graphic>
