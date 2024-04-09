@@ -59,6 +59,7 @@ public class MainCtrl {
     private CsPair<DeleteEventConfirmationCtrl> deleteEventConfirmationPair;
     private CsPair<CreateEventCtrl> createEventPair;
     private CsPair<LanguageSelectCtrl> languageSelectPair;
+    private CsPair<ManageExpenseListCtrl> manageExpenseListCtrlPair;
     private Initializable currentCtrl;
     // private Pair<ExpenseCardCtrl, Parent> expenseCard;
     private WebSocketClient websocketClient;
@@ -138,6 +139,10 @@ public class MainCtrl {
 
         createEventPair = fxml.load(CreateEventCtrl.class, "client", "scenes", "CreateEvent.fxml");
         createEventPair.scene.getStylesheets().add("/client/css/global.css");
+
+        manageExpenseListCtrlPair = fxml.load(ManageExpenseListCtrl.class,
+                "client", "scenes", "ManageExpenseList.fxml");
+        manageExpenseListCtrlPair.scene.getStylesheets().add("/client/css/global.css");
     }
 
     /**
@@ -151,6 +156,7 @@ public class MainCtrl {
         manageParticipantsPair.ctrl.refetch();
         editParticipantPair.ctrl.refetch();
         adminOverviewPair.ctrl.refetch();
+        manageExpenseListCtrlPair.ctrl.refetch();
     }
 
     /**
@@ -455,6 +461,16 @@ public class MainCtrl {
         popup.setResizable(false);
         popup.initOwner(primaryStage);
         popup.show();
+    }
+
+    /**
+     * Show the ManageExpenseListCtrl screen.
+     */
+    public void showManageExpenseListScreen(Event event) {
+        primaryStage.setTitle(fxml.getBundle().getString("manage-expense-list.title"));
+        primaryStage.setScene(manageExpenseListCtrlPair.scene);
+        manageExpenseListCtrlPair.ctrl.update(event);
+        currentCtrl = manageExpenseListCtrlPair.ctrl;
     }
 
 }

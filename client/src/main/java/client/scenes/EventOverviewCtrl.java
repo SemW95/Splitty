@@ -269,8 +269,8 @@ public class EventOverviewCtrl implements Initializable {
         descriptionTextField.setVisible(false); // Hide the TextField
     }
 
-    // TODO: go to manage expenses
     public void handleManageExpenses(ActionEvent actionEvent) {
+        mainCtrl.showManageExpenseListScreen(event);
     }
 
     @FXML
