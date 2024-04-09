@@ -25,7 +25,7 @@
     - Add TagEdit (Xiaoyu Du)
     - Join an event by its invite code (Sem van der Weijden)
     - Expense error confirm alerts (Wing Wong)
-    - Long-polling for server status (Sem van der Weijden)
+    - Long-polling for server status (Sem van der Weijden) (was actually polling)
     - Keyboard Navigation (Wing Wong)
     - Language Switching (Lukas Milieška)
     - Websockets (Lukas Milieška, Sem van der Weijden, Eva Miesen)
@@ -33,11 +33,13 @@
     - Add functionality for creating expenses (Lukas Milieška)
     - Language selection (Sem van der Weijden)
     - Add a label in Event Overview for amount spent per event (Lukas Milieška)
+    - Undo user actions with Ctrl+Z for updating (so not for everything) (Lukas Milieška)
+    - Convert polling to long-polling (Lukas Milieška)
 - **Issues from the previous sprint which haven't been done (2 min)**
     - Update code of conduct (Eva Miesen)
     - ExpenseOverview, -Manage, -AddParticipant clientside testing (Wing Wong)
-    - Undo user actions with Ctrl+Z for updating (so not for everything) (Lukas Milieška)
     - Open debt UI (Lukas Milieška)
+    - ManageExpenseList screen (Xiaoyu Du)
 - **Approval of the agenda - Does anyone have any additions? (1 min)**
 - **Approval of last minutes - Did everyone read the minutes from the previous meeting? (1 min)**
     - All clear? Any feedback?
