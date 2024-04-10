@@ -10,7 +10,6 @@ import com.google.inject.Inject;
 import commons.Event;
 import commons.Expense;
 import commons.Person;
-import java.awt.Choice;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.time.Instant;
@@ -25,6 +24,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
@@ -77,8 +77,7 @@ public class EventOverviewCtrl implements Initializable {
     @FXML
     private ChoiceBox<String> filterInclusionChoiceBox;
     @FXML
-    private ChoiceBox<Person> filterNameChoiceBox;
-    private List<Expense> expenses;
+    private ComboBox<Person> filterNameComboBox;
 
 
     @Inject
@@ -133,8 +132,53 @@ public class EventOverviewCtrl implements Initializable {
         tagsBox.getChildren().setAll(event.getTags().stream()
             .map(PaneCreator::createTagItem).toList());
 
+
+        // Initialize the ComboBox
+        filterNameComboBox.getSelectionModel().clearSelection();
+        filterNameComboBox.getItems().setAll(event.getPeople());
+        filterNameComboBox.setCellFactory(p -> new ListCell<>() {
+            @Override
+            protected void updateItem(Person p1, boolean empty) {
+                super.updateItem(p1, empty);
+                if (p1 != null) {
+                    setText(p1.getFirstName() + " " + p1.getLastName());
+                } else {
+                    setText(null);
+                }
+            }
+        });
+
+        // The cell that is selected
+        filterNameComboBox.setButtonCell(new ListCell<>() {
+            @Override
+            protected void updateItem(Person person, boolean empty) {
+                super.updateItem(person, empty);
+                if (person != null) {
+                    setText(person.getFirstName() + " " + person.getLastName());
+                } else {
+                    setText(null);
+                }
+            }
+        });
+
+        Person nameChoice = filterNameComboBox.getSelectionModel().getSelectedItem();
+        List<Expense> expenses = event.getExpenses();
+
+        int inclusionChoice = filterInclusionChoiceBox.getSelectionModel().getSelectedIndex();
+        switch(inclusionChoice){
+            // from
+            case 1 -> expenses =
+                expenses.stream().filter(e -> e.getReceiver().equals(nameChoice)).toList();
+            // including
+            case 2 -> expenses = expenses.stream().filter(e -> e.getParticipants().contains(nameChoice)).toList();
+        }
+
+
+        String spent = "€" + event.totalAmountSpent().toPlainString();
+        totalAmountSpent.setText(spent);
+
         List<Expense> sortedExpenses =
-            event.getExpenses().stream()
+            expenses.stream()
                 .sorted(Comparator.comparing(Expense::getPaymentDateTime).reversed())
                 .toList();
 
@@ -146,20 +190,6 @@ public class EventOverviewCtrl implements Initializable {
             expenseCard.getKey().setOnClick((e) -> mainCtrl.showExpenseOverview(e, event));
             expensesFlowPane.getChildren().add(expenseCard.getValue());
         }
-
-
-        Person nameChoice = filterNameChoiceBox.getSelectionModel().getSelectedItem();
-
-        int inclusionChoice = filterInclusionChoiceBox.getSelectionModel().getSelectedIndex();
-        switch(inclusionChoice){
-            case 1 -> expenses =
-                expenses.stream().filter(e -> e.getReceiver().equals(nameChoice)).toList();  // from
-            case 2 -> expenses = expenses.stream().filter(e -> e.getParticipants().contains(nameChoice)).toList();          // including
-        }
-
-
-        String spent = "€" + event.totalAmountSpent().toPlainString();
-        totalAmountSpent.setText(spent);
     }
 
     /**
