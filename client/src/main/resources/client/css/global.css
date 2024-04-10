@@ -11,6 +11,6 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 2, 2);
     -fx-cursor: hand;
 }
-*.combo-box>*.list-cell {
+*.list-cell {
     -fx-text-fill: inherit;
 }

@@ -165,6 +165,11 @@ public class PaymentController {
         paymentService.deletePayment(paymentId);
     }
 
+    @PutMapping(path = "/payment")
+    public void updatePayment(@RequestBody Payment payment) {
+        paymentService.updatePayment(payment);
+    }
+
     @ExceptionHandler(IllegalStateException.class)
     public ResponseEntity<Object> handleIllegalStateException(IllegalStateException ex) {
         // Return a ResponseEntity with the NOT_FOUND status
