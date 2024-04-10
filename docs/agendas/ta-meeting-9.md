@@ -25,7 +25,7 @@
     - Add TagEdit (Xiaoyu Du)
     - Join an event by its invite code (Sem van der Weijden)
     - Expense error confirm alerts (Wing Wong)
-    - Long-polling for server status (Sem van der Weijden)
+    - Long-polling for server status (Sem van der Weijden) (was actually polling)
     - Keyboard Navigation (Wing Wong)
     - Language Switching (Lukas Milieška)
     - Websockets (Lukas Milieška, Sem van der Weijden, Eva Miesen)
@@ -33,11 +33,13 @@
     - Add functionality for creating expenses (Lukas Milieška)
     - Language selection (Sem van der Weijden)
     - Add a label in Event Overview for amount spent per event (Lukas Milieška)
+    - Undo user actions with Ctrl+Z for updating (so not for everything) (Lukas Milieška)
+    - Convert polling to long-polling (Lukas Milieška)
 - **Issues from the previous sprint which haven't been done (2 min)**
     - Update code of conduct (Eva Miesen)
     - ExpenseOverview, -Manage, -AddParticipant clientside testing (Wing Wong)
-    - Undo user actions with Ctrl+Z for updating (so not for everything) (Lukas Milieška)
     - Open debt UI (Lukas Milieška)
+    - ManageExpenseList screen (Xiaoyu Du)
 - **Approval of the agenda - Does anyone have any additions? (1 min)**
 - **Approval of last minutes - Did everyone read the minutes from the previous meeting? (1 min)**
     - All clear? Any feedback?
@@ -65,8 +67,8 @@
                 - To rename or delete tags, so I can pick tags that are most useful for my event.
             - Email Notification: not achievable
     - **Finish for basic requirements**
-        - Decide if mouse icon changes on hover on a button (1) (_discuss + dicision-making_)
-        - ExpenseManagement: Make it more clear that you have to press enter to submit the change --> maybe add a buton? (2) (_discuss + dicion-making_)
+        - Decide if mouse icon changes on hover on a button (1) (_discuss + decision-making_)
+        - ExpenseManagement: Make it more clear that you have to press enter to submit the change --> maybe add a buton? (2) (_discuss + decision-making_)
         - UI Finishing touches:
             - Everywhere: Make Application stop "run" on closing (it still runs in the background for some reason) ★★★☆☆(person)
             - ExpanseOverview: Euro symbol is broken ★★★☆☆(person)
@@ -90,7 +92,8 @@
             - On going from an event overview to the home screen, '-fx-text-background-color' errors are received (person)
             - On startup there are enum warnings (person)
             - On language change "client/css/globals.css" not found (person)
-            **NOTE: anything that was skipped or unclear will be discussed in detail after the TA meeting.**
+
+        **NOTE: anything that was skipped or unclear will be discussed in detail after the TA meeting.**
 
 ## Wrapping Up (5 min)
 - **Summarize action points: Who , what , when? (2 min)**

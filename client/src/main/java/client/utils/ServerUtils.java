@@ -394,4 +394,21 @@ public class ServerUtils {
             return false;
         }
     }
+
+    /**
+     * Deletes an expense.
+     *
+     * @param expense the expense to delete
+     */
+    public void deleteExpense(Expense expense) {
+        try {
+            ClientBuilder.newClient(new ClientConfig())
+                    .target(server).path("/expense/" + expense.getId())
+                    .request(APPLICATION_JSON)
+                    .delete();
+        } catch (Exception e) {
+            System.err.println("Server did not respond");
+        }
+
+    }
 }
