@@ -9,6 +9,8 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Event;
 import commons.Expense;
+import commons.Person;
+import java.awt.Choice;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.time.Instant;
@@ -20,6 +22,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -71,6 +74,11 @@ public class EventOverviewCtrl implements Initializable {
     private ComboBox<String> dropDown;
     @FXML
     private FlowPane expensesFlowPane;
+    @FXML
+    private ChoiceBox<String> filterInclusionChoiceBox;
+    @FXML
+    private ChoiceBox<Person> filterNameChoiceBox;
+    private List<Expense> expenses;
 
 
     @Inject
@@ -84,6 +92,11 @@ public class EventOverviewCtrl implements Initializable {
         this.resources = resources;
         root.addEventFilter(KeyEvent.KEY_PRESSED,
             ScreenUtils.exitHandler(resources, this::handleExit));
+
+        String all = resources.getString("event-overview.all");
+        String from = resources.getString("event-overview.from");
+        String including = resources.getString("event-overview.including");
+        filterInclusionChoiceBox.getItems().setAll(all, from, including);
     }
 
     /**
@@ -133,6 +146,17 @@ public class EventOverviewCtrl implements Initializable {
             expenseCard.getKey().setOnClick((e) -> mainCtrl.showExpenseOverview(e, event));
             expensesFlowPane.getChildren().add(expenseCard.getValue());
         }
+
+
+        Person nameChoice = filterNameChoiceBox.getSelectionModel().getSelectedItem();
+
+        int inclusionChoice = filterInclusionChoiceBox.getSelectionModel().getSelectedIndex();
+        switch(inclusionChoice){
+            case 1 -> expenses =
+                expenses.stream().filter(e -> e.getReceiver().equals(nameChoice)).toList();  // from
+            case 2 -> expenses = expenses.stream().filter(e -> e.getParticipants().contains(nameChoice)).toList();          // including
+        }
+
 
         String spent = "€" + event.totalAmountSpent().toPlainString();
         totalAmountSpent.setText(spent);
@@ -314,4 +338,10 @@ public class EventOverviewCtrl implements Initializable {
     public boolean getGoBackToAdmin() {
         return goBackToAdmin;
     }
+
+    // TODO: go to the Statistics screen
+    public void handleStatistics(ActionEvent actionEvent) {
+    }
+
+
 }
