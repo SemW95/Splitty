@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
@@ -92,11 +82,11 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="20.0" layoutY="292.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="293.0" prefWidth="548.0">
+      <Pane layoutX="20.0" layoutY="292.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="290.0" prefWidth="970.0">
          <children>
-            <ScrollPane hbarPolicy="NEVER" prefHeight="290.0" prefWidth="560.0">
+            <ScrollPane hbarPolicy="NEVER" prefHeight="290.0" prefWidth="970.0">
                <content>
-                  <FlowPane fx:id="expensesFlowPane" prefHeight="290.0" prefWidth="560.0" />
+                  <FlowPane fx:id="expensesFlowPane" prefHeight="290.0" prefWidth="970.0" />
                </content>
             </ScrollPane>
          </children>
@@ -119,7 +109,7 @@
                </graphic>
             </Button>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="28.0" layoutX="506.0" layoutY="25.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
-            <Label fx:id="inviteCode" layoutX="507.0" layoutY="24.0" prefHeight="17.0" prefWidth="185.0" text="Invite Code">
+            <Label fx:id="inviteCode" layoutX="512.0" layoutY="24.0" prefHeight="30.0" prefWidth="190.0" text="Invite Code">
                <font>
                   <Font size="20.0" />
                </font>
@@ -174,13 +164,7 @@
       <Button layoutX="848.0" layoutY="199.0" mnemonicParsing="false" onAction="#handleManagePayments" prefHeight="25.0" prefWidth="139.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #CF9FFF;" text="%event-overview.manage" />
       <Button layoutX="107.0" layoutY="262.0" mnemonicParsing="false" onAction="#handleAddExpenses" prefHeight="25.0" prefWidth="30.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="+" />
       <Button layoutX="149.0" layoutY="262.0" mnemonicParsing="false" onAction="#handleManageExpenses" prefHeight="25.0" prefWidth="126.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #CF9FFF;" text="%event-overview.manage" />
-      <Button layoutX="313.0" layoutY="261.0" mnemonicParsing="false" onAction="#handleOpenDebts" prefHeight="25.0" prefWidth="126.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #FFE761;" text="%event-overview.open-debts" />
-      <Button layoutX="447.0" layoutY="260.0" mnemonicParsing="false" onAction="#handlePaidOffDebts" prefHeight="25.0" prefWidth="126.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #FFE761;" text="%event-overview.paid-off-debts" />
-      <Pane layoutX="593.0" layoutY="257.0" prefHeight="327.0" prefWidth="411.0">
-         <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="325.0" stroke="BLACK" strokeType="INSIDE" width="396.0" />
-            <PieChart fx:id="expensePieChart" prefHeight="325.0" prefWidth="396.0" title="%event-overview.statistics" />
-         </children>
-      </Pane>
+      <Button layoutX="699.0" layoutY="261.0" mnemonicParsing="false" onAction="#handleOpenDebts" prefHeight="25.0" prefWidth="140.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #FFE761;" text="%event-overview.open-debts" />
+      <Button layoutX="849.0" layoutY="260.0" mnemonicParsing="false" onAction="#handleStatistics" prefHeight="25.0" prefWidth="140.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #FF8FAB;" text="%event-overview.statistics" />
    </children>
 </Pane>
