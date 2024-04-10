@@ -314,7 +314,6 @@ public class ServerUtils {
                 .target(server).path("/person")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .accept(APPLICATION_JSON)
                 .post(Entity.json(person))
                 .readEntity(Person.class);
         } catch (Exception e) {
@@ -397,6 +396,22 @@ public class ServerUtils {
     }
 
     /**
+     * Deletes an expense.
+     *
+     * @param expense the expense to delete
+     */
+    public void deleteExpense(Expense expense) {
+        try {
+            ClientBuilder.newClient(new ClientConfig())
+                .target(server).path("/expense/" + expense.getId())
+                .request(APPLICATION_JSON)
+                .delete();
+        } catch (Exception e) {
+            System.err.println("Server did not respond");
+        }
+    }
+
+    /**
      * Create a new payment in the database.
      *
      * @param payment the payment to create
@@ -407,7 +422,6 @@ public class ServerUtils {
             return ClientBuilder.newClient(new ClientConfig())
                 .target(server).path("/payment")
                 .request(APPLICATION_JSON)
-                .accept(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .post(Entity.json(payment))
                 .readEntity(Payment.class);
