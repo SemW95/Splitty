@@ -1,6 +1,5 @@
 package server.api;
 
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -19,8 +18,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import commons.Payment;
 import commons.Person;
 import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
@@ -33,7 +30,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import server.service.PaymentService;
 
-/** The test class for the PaymentController.
+/**
+ * The test class for the PaymentController.
  */
 @WebMvcTest(PaymentController.class)
 @ActiveProfiles("test")
@@ -52,7 +50,8 @@ public class PaymentControllerTest {
     private Person payer;
     private Person receiver;
 
-    /** The preparation that will run before every test.
+    /**
+     * The preparation that will run before every test.
      */
     @BeforeEach
     public void setup() {
@@ -79,7 +78,7 @@ public class PaymentControllerTest {
 
     @Test
     public void addPaymentTest() throws Exception {
-        doNothing().when(paymentService).addPayment(payment);
+        given(paymentService.addPayment(payment)).willReturn(payment);
 
         mockMvc.perform(post("/payment")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -87,18 +86,18 @@ public class PaymentControllerTest {
             .andExpect(status().isOk());
     }
 
-    @Test
-    public void getAllPaymentsTest() throws Exception {
-        List<Payment> payments = Collections.singletonList(payment);
-
-        given(paymentService.getAllPayments()).willReturn(payments);
-
-        mockMvc.perform(get("/payment"))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andExpect(jsonPath("$", hasSize(1)))
-            .andExpect(jsonPath("$[0].amount", is(100.0)));
-    }
+    // @Test
+    // public void getAllPaymentsTest() throws Exception {
+    //     List<Payment> payments = Collections.singletonList(payment);
+    //
+    //     given(paymentService.getAllPayments()).willReturn(payments);
+    //
+    //     mockMvc.perform(get("/payment"))
+    //         .andExpect(status().isOk())
+    //         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+    //         .andExpect(jsonPath("$", hasSize(1)))
+    //         .andExpect(jsonPath("$[0].amount", is(100.0)));
+    // }
 
     @Test
     public void getPaymentByIdTest() throws Exception {

@@ -65,6 +65,7 @@ public class MainCtrl {
     private CsPair<DeleteEventConfirmationCtrl> deleteEventConfirmationPair;
     private CsPair<CreateEventCtrl> createEventPair;
     private CsPair<LanguageSelectCtrl> languageSelectPair;
+    private CsPair<OpenDebtsCtrl> openDebtsPair;
     private Initializable currentCtrl;
     // private Pair<ExpenseCardCtrl, Parent> expenseCard;
     private WebSocketClient websocketClient;
@@ -199,6 +200,9 @@ public class MainCtrl {
 
         createEventPair = fxml.load(CreateEventCtrl.class, "client", "scenes", "CreateEvent.fxml");
         createEventPair.scene.getStylesheets().add("/client/css/global.css");
+
+        openDebtsPair = fxml.load(OpenDebtsCtrl.class, "client", "scenes", "OpenDebts.fxml");
+        openDebtsPair.scene.getStylesheets().add("/client/css/global.css");
     }
 
     /**
@@ -212,6 +216,7 @@ public class MainCtrl {
         manageParticipantsPair.ctrl.refetch();
         editParticipantPair.ctrl.refetch();
         adminOverviewPair.ctrl.refetch();
+        openDebtsPair.ctrl.refetch();
     }
 
     /**
@@ -260,6 +265,8 @@ public class MainCtrl {
 
             case ManageParticipantsCtrl manageParticipantsCtrl ->
                 showManageParticipantsScreen(manageParticipantsCtrl.getEvent());
+
+            case OpenDebtsCtrl openDebtsCtrl -> showOpenDebtsScreen(openDebtsCtrl.getEvent());
 
             default -> {
                 System.err.println("Tried to switch language from an unknown screen");
@@ -473,4 +480,15 @@ public class MainCtrl {
         popupStage.show();
     }
 
+    /**
+     * Show the Open debts screen.
+     *
+     * @param event the event
+     */
+    public void showOpenDebtsScreen(Event event) {
+        primaryStage.setScene(openDebtsPair.scene);
+        primaryStage.setTitle(fxml.getBundle().getString("open-debts.title"));
+        openDebtsPair.ctrl.update(event);
+        currentCtrl = openDebtsPair.ctrl;
+    }
 }

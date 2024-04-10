@@ -58,7 +58,8 @@ class PaymentServiceTest {
 
     @Test
     void addPaymentThrowsExceptionWhenPaymentExists() {
-        when(paymentRepository.findById(any())).thenReturn(Optional.of(payment));
+        when(paymentRepository.existsById(any())).thenReturn(true);
+        payment.setId("random");
         assertThrows(IllegalStateException.class, () -> paymentService.addPayment(payment));
     }
 

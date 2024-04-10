@@ -3,7 +3,6 @@ package server.api;
 import commons.Payment;
 import commons.Person;
 import java.math.BigDecimal;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,21 +30,24 @@ public class PaymentController {
     }
 
     @PostMapping(path = "/payment")
-    public void addPayment(@RequestBody Payment payment) {
-        paymentService.addPayment(payment);
+    public Payment addPayment(@RequestBody Payment payment) {
+        return paymentService.addPayment(payment);
     }
 
-    /** Gets all the Payments.
-     *
-     * @return All payments
-     */
-    @GetMapping(path = "/payment")
-    @ResponseBody
-    public List<Payment> getAllPayments() {
-        return paymentService.getAllPayments();
-    }
+    // The user should not be able to get all payments for security reasons.
+    // /**
+    //  * Gets all the Payments.
+    //  *
+    //  * @return All payments
+    //  */
+    // @GetMapping(path = "/payment")
+    // @ResponseBody
+    // public List<Payment> getAllPayments() {
+    //     return paymentService.getAllPayments();
+    // }
 
-    /** Gets a Payment.
+    /**
+     * Gets a Payment.
      *
      * @param id The id of the Payment
      * @return The Payment
@@ -56,7 +58,8 @@ public class PaymentController {
         return paymentService.getPaymentById(id);
     }
 
-    /** Gets the payer of a Payment.
+    /**
+     * Gets the payer of a Payment.
      *
      * @param paymentId The id of the Payment
      * @return The payer of the Payment
@@ -67,7 +70,8 @@ public class PaymentController {
         return paymentService.getPayer(paymentId);
     }
 
-    /** Gets the receiver of a Payment.
+    /**
+     * Gets the receiver of a Payment.
      *
      * @param paymentId The id of the Payment
      * @return The receiver of the Payment
@@ -78,7 +82,8 @@ public class PaymentController {
         return paymentService.getReceiver(paymentId);
     }
 
-    /** Gets the payer's ID of a Payment.
+    /**
+     * Gets the payer's ID of a Payment.
      *
      * @param paymentId The id of the Payment
      * @return The payer's ID of the Payment
@@ -89,7 +94,8 @@ public class PaymentController {
         return paymentService.getPayerId(paymentId);
     }
 
-    /** Gets the receiver's ID of a Payment.
+    /**
+     * Gets the receiver's ID of a Payment.
      *
      * @param paymentId The id of the Payment
      * @return The receiver's ID of the Payment
@@ -100,7 +106,8 @@ public class PaymentController {
         return paymentService.getReceiverId(paymentId);
     }
 
-    /** Gets the amount of a Payment.
+    /**
+     * Gets the amount of a Payment.
      *
      * @param paymentId The id of the Payment
      * @return The amount of the Payment
@@ -111,10 +118,11 @@ public class PaymentController {
         return paymentService.getAmount(paymentId);
     }
 
-    /** sets the payer for a Payment.
+    /**
+     * sets the payer for a Payment.
      *
      * @param paymentId The id of the Payment
-     * @param payer The payer for the Payment
+     * @param payer     The payer for the Payment
      */
     @PutMapping(path = "/payment/{id}/payer")
     public void setPayer(
@@ -124,10 +132,11 @@ public class PaymentController {
         paymentService.setPayer(paymentId, payer);
     }
 
-    /** sets the receiver for a Payment.
+    /**
+     * sets the receiver for a Payment.
      *
      * @param paymentId The id of the Payment
-     * @param receiver The receiver for the Payment
+     * @param receiver  The receiver for the Payment
      */
     @PutMapping(path = "/payment/{id}/receiver")
     public void setReceiver(
@@ -137,10 +146,11 @@ public class PaymentController {
         paymentService.setReceiver(paymentId, receiver);
     }
 
-    /** sets the amount for a Payment.
+    /**
+     * sets the amount for a Payment.
      *
      * @param paymentId The id of the Payment
-     * @param amount The amount for the Payment
+     * @param amount    The amount for the Payment
      */
     @PutMapping(path = "/payment/{id}/amount")
     public void setAmount(

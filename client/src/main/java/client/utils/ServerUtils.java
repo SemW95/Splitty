@@ -21,6 +21,7 @@ import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 import client.Main;
 import commons.Event;
 import commons.Expense;
+import commons.Payment;
 import commons.Person;
 import commons.Tag;
 import jakarta.ws.rs.WebApplicationException;
@@ -392,6 +393,26 @@ public class ServerUtils {
                 .getStatus() == 200;
         } catch (Exception e) {
             return false;
+        }
+    }
+
+    /**
+     * Create a new payment in the database.
+     *
+     * @param payment the payment to create
+     * @return the created payment with updated fields (id is created)
+     */
+    public Payment createPayment(Payment payment) {
+        try {
+            return ClientBuilder.newClient(new ClientConfig())
+                .target(server).path("/payment")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.json(payment))
+                .readEntity(Payment.class);
+        } catch (Exception e) {
+            return null;
         }
     }
 }
