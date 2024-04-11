@@ -119,10 +119,11 @@ public class EventOverviewCtrl implements Initializable {
             this.eventDates.setText(dates);
         }
         if (event.getLastModifiedDateTime() != null) {
-            this.eventLastModified.setText(event.getLastModifiedDateTime().toString());
+            this.eventLastModified.setText(event.getLastModifiedDateTime()
+                .toString().substring(0, 10));
         }
         if (event.getPeople() != null) {
-            this.amountOfParticipants.setText(event.getPeople().toString());
+            this.amountOfParticipants.setText(String.valueOf(event.getPeople().size()));
         }
         if (event.getCode() != null) {
             this.inviteCode.setText(event.getCode());
@@ -131,7 +132,7 @@ public class EventOverviewCtrl implements Initializable {
         tagsBox.getChildren().setAll(event.getTags().stream()
             .map(PaneCreator::createTagItem).toList());
 
-        String spent = "€" + event.totalAmountSpent().toPlainString();
+        String spent = (char) 8364 + " " + event.totalAmountSpent().toPlainString();
         totalAmountSpent.setText(spent);
 
         // Initialize the ComboBox
@@ -230,25 +231,29 @@ public class EventOverviewCtrl implements Initializable {
      * Logic for the "language" button on home.
      */
 
-    public void handleLanguage() {
+    @FXML
+    private void handleLanguage() {
         mainCtrl.showLanguageSelectPopup();
     }
 
     /**
      * Logic for the "currency" button on home.
      */
-    public void handleCurrency() {
+    @FXML
+    private void handleCurrency() {
         System.out.println("Pressed currency.");
     }
 
     // TODO
-    public void handleManageTags(ActionEvent actionEvent) {
+    @FXML
+    private void handleManageTags(ActionEvent actionEvent) {
     }
 
     /**
      * Logic for the "+" button next to "Expenses".
      */
-    public void handleAddExpenses(ActionEvent actionEvent) {
+    @FXML
+    private void handleAddExpenses(ActionEvent actionEvent) {
         Expense expense = new Expense("New expense", new ArrayList<>(), null, BigDecimal.ZERO, null,
             Instant.now());
         expense = server.createExpense(expense);
@@ -262,7 +267,7 @@ public class EventOverviewCtrl implements Initializable {
      * Copy the invite code to the clipboard.
      */
     @FXML
-    public void getInviteCode() {
+    private void getInviteCode() {
         Clipboard clipboard = Clipboard.getSystemClipboard();
         ClipboardContent content = new ClipboardContent();
         content.putString(inviteCode.getText());
