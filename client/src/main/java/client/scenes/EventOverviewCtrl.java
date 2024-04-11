@@ -108,7 +108,8 @@ public class EventOverviewCtrl implements Initializable {
             this.eventDates.setText(dates);
         }
         if (event.getLastModifiedDateTime() != null) {
-            this.eventLastModified.setText(event.getLastModifiedDateTime().toString().substring(0, 10));
+            this.eventLastModified.setText(event.getLastModifiedDateTime()
+                .toString().substring(0, 10));
         }
         if (event.getPeople() != null) {
             this.amountOfParticipants.setText(String.valueOf(event.getPeople().size()));
