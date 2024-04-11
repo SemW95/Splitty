@@ -40,9 +40,6 @@ commons:test:
     - compile
   script:
     - ./gradlew :commons:test --tests commons.$TEST_CLASS
-  artifacts:
-    paths:
-      - /builds/cse1105/2023-2024/teams/oopp-team-25/client/build/reports/tests/test/index.html
   parallel:
     matrix:
       - TEST_CLASS:
@@ -65,6 +62,9 @@ client:test:
     - apk add gtk+3.0
   script:
     - xvfb-run ./gradlew :client:test --tests client.scenes.$TEST_CLASS
+  artifacts:
+    paths:
+      - build/reports/tests/test/index.html
   parallel:
     matrix:
       - TEST_CLASS:
