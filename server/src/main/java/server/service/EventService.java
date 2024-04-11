@@ -120,7 +120,7 @@ public class EventService {
     public String createEvent(Event event) throws IllegalStateException {
         if (event.getId() == null || !eventRepository.existsById(event.getId())) {
             // Add default tags if there are none
-            if (event.getTags().isEmpty()) {
+            if (event.getTags().isEmpty() && tagRepository != null) {
                 ArrayList<Tag> defaultTags = new ArrayList<>();
                 tagRepository.findTagByName("food").ifPresent(defaultTags::add);
                 tagRepository.findTagByName("entrance fees").ifPresent(defaultTags::add);
