@@ -36,7 +36,7 @@ class EventTest {
         tags2.add(tag1);
         tags2.add(tag2);
 
-        now = Instant.now();
+        now = Instant.ofEpochSecond(1618918800);
         startNow = LocalDate.now();
         endNow = LocalDate.now();
 
