@@ -47,7 +47,7 @@
             <Text layoutX="695.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%home.server-status" />
          </children>
       </Pane>
-      <TextField fx:id="eventCodeTextField" layoutX="510.0" layoutY="110.0" promptText="%home.event-code" />
+      <TextField fx:id="eventCodeTextField" layoutX="510.0" layoutY="110.0" onAction="#joinEvent" promptText="%home.event-code" />
       <Button layoutX="666.0" layoutY="110.0" mnemonicParsing="false" onAction="#joinEvent" prefHeight="25.0" prefWidth="83.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="%home.join-event" />
       <Button layoutX="847.0" layoutY="110.0" mnemonicParsing="false" onAction="#createEvent" prefHeight="25.0" prefWidth="139.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="%home.create-event" />
       <Button layoutX="933.0" layoutY="541.0" mnemonicParsing="false" onAction="#clickAdminView" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;">

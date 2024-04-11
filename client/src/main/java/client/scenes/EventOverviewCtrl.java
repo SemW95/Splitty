@@ -134,7 +134,7 @@ public class EventOverviewCtrl implements Initializable {
             expensesFlowPane.getChildren().add(expenseCard.getValue());
         }
 
-        String spent = "€" + event.totalAmountSpent().toPlainString();
+        String spent = (char) 8364 + " " + event.totalAmountSpent().toPlainString();
         totalAmountSpent.setText(spent);
     }
 

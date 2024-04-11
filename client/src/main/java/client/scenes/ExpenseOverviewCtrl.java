@@ -74,7 +74,8 @@ public class ExpenseOverviewCtrl implements Initializable {
             expenseNameLabel.setText(expense.getDescription());
         }
         if (expense.getPaid() != null) {
-            expenseAmountLabel.setText("€ " + expense.getPaid().toString());
+            //Euro symbol needs to be in unicode in order for it to work
+            expenseAmountLabel.setText((char) 8364 + " " + expense.getPaid().toString());
         }
         if (expense.getTag() != null) {
             // Create tag

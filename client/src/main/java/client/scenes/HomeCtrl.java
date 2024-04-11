@@ -152,6 +152,7 @@ public class HomeCtrl implements Initializable {
     public void joinEvent() {
         String code = "";
         //checks if there is something in the input field
+        eventCodeTextField.getParent().requestFocus();
         if (!eventCodeTextField.getText().isEmpty()) {
             code = eventCodeTextField.getText();
             eventCodeTextField.clear();
