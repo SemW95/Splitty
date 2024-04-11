@@ -55,7 +55,7 @@ client:test:
   stage: test
   needs:
     - compile
-    - setup
+    - server:start
   script:
     - ./gradlew :client:test --tests client.scenes.$TEST_CLASS
   parallel:
@@ -113,7 +113,7 @@ coverageReport:
   stage: coverageReport
   needs:
     - test
-    - setup # Just in case
+    - server:start # Just in case
   script:
     - ./gradlew compileTestJava
     - ./gradlew AggregateJacocoReport
