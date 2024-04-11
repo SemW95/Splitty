@@ -168,7 +168,7 @@
       <Button layoutX="149.0" layoutY="262.0" mnemonicParsing="false" onAction="#handleManageExpenses" prefHeight="25.0" prefWidth="126.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #CF9FFF;" text="%event-overview.manage" />
       <Button layoutX="699.0" layoutY="261.0" mnemonicParsing="false" onAction="#handleOpenDebts" prefHeight="25.0" prefWidth="140.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #FFE761;" text="%event-overview.open-debts" />
       <Button layoutX="849.0" layoutY="260.0" mnemonicParsing="false" onAction="#handleStatistics" prefHeight="25.0" prefWidth="140.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #FF8FAB;" text="%event-overview.statistics" />
-      <ChoiceBox fx:id="filterInclusionChoiceBox" layoutX="292.0" layoutY="262.0" onAction="#populate" prefWidth="150.0" />
-      <ComboBox fx:id="filterNameComboBox" layoutX="460.0" layoutY="262.0" onAction="#populate" prefWidth="150.0" />
+      <ChoiceBox fx:id="filterInclusionChoiceBox" layoutX="292.0" layoutY="262.0" onAction="#displayExpenses" prefWidth="150.0" />
+      <ComboBox fx:id="filterNameComboBox" layoutX="460.0" layoutY="262.0" onAction="#displayExpenses" prefWidth="150.0" />
    </children>
 </Pane>

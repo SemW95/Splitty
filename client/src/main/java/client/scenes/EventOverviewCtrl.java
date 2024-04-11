@@ -16,6 +16,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -101,7 +102,6 @@ public class EventOverviewCtrl implements Initializable {
     /**
      * This method fills the flowpane with expenses (expenseCard).
      */
-    // TODO: Make this pretty in the UI
     public void populate() {
         if (event == null) {
             return;
@@ -132,6 +132,8 @@ public class EventOverviewCtrl implements Initializable {
         tagsBox.getChildren().setAll(event.getTags().stream()
             .map(PaneCreator::createTagItem).toList());
 
+        String spent = "€" + event.totalAmountSpent().toPlainString();
+        totalAmountSpent.setText(spent);
 
         // Initialize the ComboBox
         filterNameComboBox.getSelectionModel().clearSelection();
@@ -161,29 +163,38 @@ public class EventOverviewCtrl implements Initializable {
             }
         });
 
+        displayExpenses();
+    }
+
+    @FXML
+    private void displayExpenses() {
         Person nameChoice = filterNameComboBox.getSelectionModel().getSelectedItem();
         List<Expense> expenses = event.getExpenses();
 
-        int inclusionChoice = filterInclusionChoiceBox.getSelectionModel().getSelectedIndex();
-        switch(inclusionChoice){
-            // from
-            case 1 -> expenses =
-                expenses.stream().filter(e -> e.getReceiver().equals(nameChoice)).toList();
-            // including
-            case 2 -> expenses = expenses.stream().filter(e -> e.getParticipants().contains(nameChoice)).toList();
+        // Filter expenses only if a person was selected
+        if (nameChoice != null) {
+            int inclusionChoice = filterInclusionChoiceBox.getSelectionModel().getSelectedIndex();
+            switch (inclusionChoice) {
+                // from
+                case 1 -> expenses =
+                    expenses.stream().filter(e -> Objects.equals(e.getReceiver(), nameChoice))
+                        .toList();
+                // including
+                case 2 -> expenses =
+                    expenses.stream().filter(e -> e.getParticipants().contains(nameChoice))
+                        .toList();
+                default -> {
+                }
+            }
         }
 
-
-        String spent = "€" + event.totalAmountSpent().toPlainString();
-        totalAmountSpent.setText(spent);
-
-        List<Expense> sortedExpenses =
-            expenses.stream()
-                .sorted(Comparator.comparing(Expense::getPaymentDateTime).reversed())
+        // Sort expenses by their payment date
+        expenses =
+            expenses.stream().sorted(Comparator.comparing(Expense::getPaymentDateTime).reversed())
                 .toList();
 
         expensesFlowPane.getChildren().setAll();
-        for (Expense expense : sortedExpenses) {
+        for (Expense expense : expenses) {
             var expenseCard = Main.FXML.loadComponent(ExpenseCardCtrl.class,
                 "client", "components", "ExpenseCard.fxml");
             expenseCard.getKey().setExpense(expense);
