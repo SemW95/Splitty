@@ -109,10 +109,11 @@ public class EventOverviewCtrl implements Initializable {
             this.eventDates.setText(dates);
         }
         if (event.getLastModifiedDateTime() != null) {
-            this.eventLastModified.setText(event.getLastModifiedDateTime().toString());
+            this.eventLastModified.setText(event.getLastModifiedDateTime()
+                .toString().substring(0, 10));
         }
         if (event.getPeople() != null) {
-            this.amountOfParticipants.setText(event.getPeople().toString());
+            this.amountOfParticipants.setText(String.valueOf(event.getPeople().size()));
         }
         if (event.getCode() != null) {
             this.inviteCode.setText(event.getCode());
@@ -135,7 +136,7 @@ public class EventOverviewCtrl implements Initializable {
             expensesFlowPane.getChildren().add(expenseCard.getValue());
         }
 
-        String spent = "€" + event.totalAmountSpent().toPlainString();
+        String spent = (char) 8364 + " " + event.totalAmountSpent().toPlainString();
         totalAmountSpent.setText(spent);
     }
 
