@@ -11,26 +11,43 @@ stages:
   - coverageReport
   - triage
 
+before_script:
+  - GRADLE_USER_HOME="$(pwd)/.gradle"
+  - export GRADLE_USER_HOME
+
 compile:
   stage: compile
   script:
-    - ./gradlew assemble
+    - ./gradlew --build-cache assemble
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: pull
+    paths:
+      - build
+      - .gradle
+
 
 checkstyle:
   stage: checkstyle
   needs: [ ]
   script:
-    - ./gradlew $CHECKSTYLE
+    - ./gradlew --build-cache $CHECKSTYLE
   parallel:
     matrix:
       - CHECKSTYLE: [ 'checkstyleMain', 'checkstyleTest' ]
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: pull
+    paths:
+      - build
+      - .gradle
 
 commons:test:
   stage: test
   needs:
     - compile
   script:
-    - ./gradlew :commons:test --tests commons.$TEST_CLASS
+    - ./gradlew --build-cache :commons:test --tests commons.$TEST_CLASS
   parallel:
     matrix:
       - TEST_CLASS:
@@ -41,6 +58,12 @@ commons:test:
           - "PaymentTest"
           - "PersonTest"
           - "TagTest"
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: pull
+    paths:
+      - build
+      - .gradle
 
 client:test:
   stage: test
@@ -50,21 +73,27 @@ client:test:
     - apk update
     - apk add xvfb-run
     - apk add gtk+3.0
-    - ./gradlew bootrun --args='--seed' &   # Start the server as a background process
+    - ./gradlew --build-cache bootrun --args='--seed' &   # Start the server as a background process
     - sleep 30  # Adjust the sleep time based on how long it takes for the server to start
   script:
-    - xvfb-run ./gradlew :client:test
+    - xvfb-run ./gradlew --build-cache :client:test
   artifacts:
     when: always
     paths:
       - client/build/reports/tests/test/
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: pull
+    paths:
+      - build
+      - .gradle
 
 server:database:test:
   stage: test
   needs:
     - compile
   script:
-    - ./gradlew :server:test --tests server.database.$TEST_CLASS
+    - ./gradlew --build-cache :server:test --tests server.database.$TEST_CLASS
   parallel:
     matrix:
       - TEST_CLASS:
@@ -75,13 +104,19 @@ server:database:test:
           - "PaymentRepositoryTest"
           - "PersonRepositoryTest"
           - "TagRepositoryTest"
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: pull
+    paths:
+      - build
+      - .gradle
 
 server:service:test:
   stage: test
   needs:
     - compile
   script:
-    - ./gradlew :server:test --tests server.service.$TEST_CLASS
+    - ./gradlew --build-cache :server:test --tests server.service.$TEST_CLASS
   parallel:
     matrix:
       - TEST_CLASS:
@@ -89,13 +124,19 @@ server:service:test:
           - "PaymentServiceTest"
           - "ExpenseServiceTest"
           - "EventServiceTest"
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: pull
+    paths:
+      - build
+      - .gradle
 
 server:controller:test:
   stage: test
   needs:
     - compile
   script:
-    - ./gradlew :server:test --tests server.api.$TEST_CLASS
+    - ./gradlew --build-cache :server:test --tests server.api.$TEST_CLASS
   parallel:
     matrix:
       - TEST_CLASS:
@@ -103,6 +144,12 @@ server:controller:test:
           - "PaymentControllerTest"
           - "ExpenseControllerTest"
           - "EventControllerTest"
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: pull
+    paths:
+      - build
+      - .gradle
 
 coverageReport:
   stage: coverageReport
@@ -113,8 +160,8 @@ coverageReport:
     - server:service:test
     - server:controller:test
   script:
-    - ./gradlew compileTestJava
-    - ./gradlew AggregateJacocoReport
+    - ./gradlew --build-cache compileTestJava
+    - ./gradlew --build-cache AggregateJacocoReport
     - mv build/reports/jacoco/aggregate/html ./coverage
     - mv build/reports/jacoco/aggregate/jacocoTestReport.xml ./coverage/report.xml
     - echo `cat coverage/index.html | grep -o -E "Total[^%]+?%" | sed -E "s/<.*>//" | sed -E "s/Total/TestCoverage:/"`
@@ -122,6 +169,12 @@ coverageReport:
     paths:
       - ./coverage
   coverage: /TestCoverage:(\d+)%/
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: pull
+    paths:
+      - build
+      - .gradle
 
 dry-run:triage:
   image: ruby:3.0
@@ -142,4 +195,3 @@ run:triage:
   script:
     - gem install gitlab-triage
     - gitlab-triage --token j4Sr_UUUmsJ96xkkbs4y --host-url $CI_SERVER_URL --source projects --source-id $CI_PROJECT_PATH
-  coverage: /TestCoverage:(\d+)%/
