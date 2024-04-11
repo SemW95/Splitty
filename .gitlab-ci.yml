@@ -7,6 +7,7 @@ variables:
 stages:
   - compile
   - checkstyle
+  - setup
   - test
   - coverageReport
   - triage
@@ -49,16 +50,26 @@ commons:test:
         - "PersonTest"
         - "TagTest"
 
+server:start:
+  needs:
+    - compile
+  stage: setup
+  script:
+    - ./gradlew bootrun --args='--seed' &   # Start the server as a background process
+    - sleep 30  # Adjust the sleep time based on how long it takes for the server to start
+
 client:test:
   stage: test
   needs:
     - compile
+    - server:start
   script:
     - ./gradlew :client:test --tests client.scenes.$TEST_CLASS
   parallel:
     matrix:
       - TEST_CLASS:
-          - "MainCtrlTest"
+          - "MainTest"
+          - "HomeCtrlTest"
 
 server:database:test:
   stage: test

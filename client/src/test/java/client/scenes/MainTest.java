@@ -28,7 +28,10 @@ public class MainTest extends FxRobot {
     }
 
     @Test
-    public void testButtonClick() {
-        assertTrue(lookup("#recentOverview").tryQuery().isPresent());
+    public void eventNamesTest() {
+        assertTrue(lookup("Just food with friends").tryQuery().isPresent());
+        assertTrue(lookup("Celebration Dinner").tryQuery().isPresent());
+        assertTrue(lookup("Uber ride").tryQuery().isPresent());
+        assertTrue(lookup("Paintball").tryQuery().isEmpty());
     }
 }
