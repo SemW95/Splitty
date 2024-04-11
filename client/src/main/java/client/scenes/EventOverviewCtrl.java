@@ -9,6 +9,7 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Event;
 import commons.Expense;
+import commons.Payment;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.time.Instant;
@@ -260,7 +261,8 @@ public class EventOverviewCtrl implements Initializable {
         descriptionTextField.setVisible(false); // Hide the TextField
     }
 
-    public void handleManageExpenses(ActionEvent actionEvent) {
+    @FXML
+    private void handleManageExpenses(ActionEvent actionEvent) {
         mainCtrl.showManageExpenseListScreen(event);
     }
 
@@ -273,23 +275,29 @@ public class EventOverviewCtrl implements Initializable {
         });
     }
 
-    public void handleManageParticipants(ActionEvent actionEvent) {
+    @FXML
+    private void handleManageParticipants(ActionEvent actionEvent) {
         mainCtrl.showManageParticipantsScreen(event);
     }
 
-    // TODO: go to add payments
-    public void handleAddPayments(ActionEvent actionEvent) {
+    @FXML
+    private void handleAddPayments(ActionEvent actionEvent) {
+        Payment payment =
+            new Payment(null, null, BigDecimal.ZERO);
+        mainCtrl.showEditPaymentPopup(payment, event);
     }
 
-    // TODO: go to manage payments
-    public void handleManagePayments(ActionEvent actionEvent) {
+    @FXML
+    private void handleManagePayments(ActionEvent actionEvent) {
+        mainCtrl.showManagePaymentScreen(event);
     }
 
-    public void handleOpenDebts(ActionEvent actionEvent) {
+    @FXML
+    private void handleOpenDebts(ActionEvent actionEvent) {
         mainCtrl.showOpenDebtsScreen(event);
     }
 
-    // TODO: go to Paid Off Debts
+    // TODO: delete this method and the corresponding button
     public void handlePaidOffDebts(ActionEvent actionEvent) {
     }
 

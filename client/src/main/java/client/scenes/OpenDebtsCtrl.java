@@ -1,10 +1,12 @@
 package client.scenes;
 
+import client.utils.ScreenUtils;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Event;
 import commons.Payment;
 import commons.Person;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -12,13 +14,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 
 /**
- * Language Select pop-up screen.
+ * Open debts screen.
  */
 public class OpenDebtsCtrl implements Initializable {
     private final MainCtrl mainCtrl;
@@ -39,6 +42,8 @@ public class OpenDebtsCtrl implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
+        root.addEventFilter(KeyEvent.KEY_PRESSED,
+            ScreenUtils.exitHandler(resources, this::handleExit));
     }
 
     private void populate() {
@@ -111,7 +116,9 @@ public class OpenDebtsCtrl implements Initializable {
         partialPaymentBtn.setPrefHeight(30);
         partialPaymentBtn.setPrefWidth(160);
         partialPaymentBtn.setOnAction((e) -> {
-            // TODO
+            Payment newPayment =
+                new Payment(payment.getPayer(), payment.getReceiver(), BigDecimal.ZERO);
+            mainCtrl.showEditPaymentPopup(newPayment, event);
         });
 
         // Add buttons to Pane

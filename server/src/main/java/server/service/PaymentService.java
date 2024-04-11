@@ -162,4 +162,16 @@ public class PaymentService {
 
         paymentRepository.deleteById(id);
     }
+
+    /**
+     * Updates a payment.
+     *
+     * @param payment the new payment
+     */
+    public void updatePayment(Payment payment) {
+        if (!paymentRepository.existsById(payment.getId())) {
+            throw new IllegalStateException("There is no Payment with this id");
+        }
+        paymentRepository.save(payment);
+    }
 }
