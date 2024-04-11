@@ -16,6 +16,7 @@ class EventTest {
 
     private Event test1;
     private Event test2;
+    private Event test3;
     private ArrayList<Tag> tags1;
     private ArrayList<Tag> tags2;
     private Tag tag1;
@@ -45,8 +46,12 @@ class EventTest {
         test2 = new Event("Dinner and Drinks", "Dinner and drinks with the group",
             new ArrayList<Person>(), tags2, new ArrayList<Expense>(),
             new ArrayList<Payment>(), startNow, endNow, now);
+        test3 = new Event("Paintball", "Running around with coworkers",
+            new ArrayList<Person>(), tags2, new ArrayList<Expense>(),
+            new ArrayList<Payment>(), startNow, endNow, now);
         test1.setCode("123");
         test2.setCode("123");
+        test3.setCode("123");
     }
 
     @Test
@@ -234,13 +239,13 @@ class EventTest {
 
     @Test
     void settersGetters() {
-        assertEquals("123", test1.getCode());
+        assertEquals("123", test3.getCode());
 
-        test1.setId("500");
-        assertEquals("500", test1.getId());
+        test3.setId("500");
+        assertEquals("500", test3.getId());
 
         List<Person> people = new ArrayList<>();
-        assertEquals(people, test1.getPeople());
+        assertEquals(people, test3.getPeople());
 
         Person a =
             new Person("A", "", "email@email.com", "AD1400080001001234567890", "ZUOBJEO6XXX");
@@ -249,9 +254,9 @@ class EventTest {
             new Person("B", "", "email@email.com", "AD1400080001001234567890", "ZUOBJEO6XXX");
         people.add(a);
         people.add(b);
-        test1.setPeople(people);
+        test3.setPeople(people);
 
-        assertEquals(people, test1.getPeople());
+        assertEquals(people, test3.getPeople());
     }
 
     @Test
