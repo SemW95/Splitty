@@ -32,7 +32,7 @@ server:start:
   stage: setup
   script:
     - ./gradlew bootrun --args='--seed' &   # Start the server as a background process
-    - sleep 60  # Adjust the sleep time based on how long it takes for the server to start
+    - sleep 120  # Adjust the sleep time based on how long it takes for the server to start
 
 commons:test:
   stage: test
