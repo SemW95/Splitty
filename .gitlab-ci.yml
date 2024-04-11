@@ -11,13 +11,11 @@ before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
 
 cache:
-  key: "$CI_COMMIT_REF_NAME"
+  key: "$CI_COMMIT_SHA"
   policy: pull-push
   paths:
     - build
-    - client/build
-    - commons/build
-    - server/build
+    - "*/build"
     - .gradle
 
 compile:
