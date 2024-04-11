@@ -227,20 +227,6 @@ public class Event {
         this.lastModifiedDateTime = Instant.now();
     }
 
-    /**
-     * Calculates how much 'person' owes everyone else (also takes "payments" into account).
-     * For example: A owes B 30€, B owes A 20€, A has paid B 5€.
-     * It will return that A owes B 5€.
-     * IMPORTANT: it calculates only direct debts.
-     * So you should not use the data directly to calculate settlements.
-     * NOTE: negative values means that they are owed that amount.
-     *
-     * @param person the Person who owes others
-     * @return a map where the key is a Person and the value is how much 'person' owes that person.
-     */
-    private Map<Person, BigDecimal> calculateDebtSimple(Person person) {
-        return calculateDebtSimple(person.getId());
-    }
 
     /**
      * Calculates how much 'person' owes everyone else (also takes "payments" into account).
@@ -359,20 +345,6 @@ public class Event {
         }
 
         return settlements;
-    }
-
-    /**
-     * Calculates how much 'person' needs to pay others to settle the debts.
-     * Takes all debts (and payments) into account so that
-     * there only n-1 payments are needed to be made to settle everything
-     * (where n is the amount of people).
-     * NOTE: does not return negative values.
-     *
-     * @param person the person who owes others
-     * @return a map where the key is a person and the value is how much 'person' owes that person.
-     */
-    public Map<Person, BigDecimal> calculateDebt(Person person) {
-        return calculateDebt(person.getId());
     }
 
     /**

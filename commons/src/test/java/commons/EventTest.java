@@ -124,8 +124,13 @@ class EventTest {
     }
 
     @Test
-    void equals() {
+    void equalsSame() {
         assertEquals(test1, test1);
+    }
+
+    @Test
+    void equalsSameButDifferent() {
+        assertEquals(test2, test1);
     }
 
     @Test
@@ -172,7 +177,93 @@ class EventTest {
         assertEquals(0, event.calculateDebtSum(c).compareTo(new BigDecimal("20")));
         assertEquals(0, event.calculateDebtSum(d).compareTo(new BigDecimal("-21")));
         assertEquals(0, event.calculateDebtSum(e).compareTo(new BigDecimal("-7")));
-
         assertEquals(0, event.totalAmountSpent().compareTo(new BigDecimal("91")));
+    }
+
+    @Test
+    void debtSettleTest() {
+        Person a =
+            new Person("A", "", "email@email.com", "AD1400080001001234567890", "ZUOBJEO6XXX");
+        a.setId("personIdA");
+        Person b =
+            new Person("B", "", "email@email.com", "AD1400080001001234567890", "ZUOBJEO6XXX");
+        b.setId("personIdB");
+        Person c =
+            new Person("C", "", "email@email.com", "AD1400080001001234567890", "ZUOBJEO6XXX");
+        c.setId("personIdC");
+        Person d =
+            new Person("D", "", "email@email.com", "AD1400080001001234567890", "ZUOBJEO6XXX");
+        d.setId("personIdD");
+        Person e =
+            new Person("E", "", "email@email.com", "AD1400080001001234567890", "ZUOBJEO6XXX");
+        e.setId("personIdE");
+
+        List<Expense> expenses = new ArrayList<>();
+        expenses.add(
+            new Expense("", Arrays.asList(a, b, c), d, new BigDecimal("40"), null, null));
+        expenses.add(
+            new Expense("", Arrays.asList(a, c), b, new BigDecimal("21"), null, null));
+        expenses.add(
+            new Expense("", Arrays.asList(d, e), a, new BigDecimal("15"), null, null));
+        expenses.add(
+            new Expense("", Arrays.asList(a, b, c, d), e, new BigDecimal("15"), null, null));
+
+        List<Payment> payments = new ArrayList<>();
+        payments.add(new Payment(a, b, new BigDecimal("3")));
+        payments.add(new Payment(b, d, new BigDecimal("1")));
+
+        Event event = new Event("", "",
+            Arrays.asList(a, b, c, d, e), new ArrayList<>(), expenses,
+            payments, LocalDate.now(), LocalDate.now(), Instant.now());
+
+        List<Payment> settlementsCheck = new ArrayList<>();
+        settlementsCheck.add(new Payment(a, d, new BigDecimal("7.00")));
+        settlementsCheck.add(new Payment(b, d, new BigDecimal("1.00")));
+        settlementsCheck.add(new Payment(c, d, new BigDecimal("13.00")));
+        settlementsCheck.add(new Payment(c, e, new BigDecimal("7.00")));
+
+        List<Payment> settlements = event.calculateSettlements();
+
+        assertEquals(settlementsCheck, settlements);
+    }
+
+    @Test
+    void hashTest() {
+        assertEquals(test1.hashCode(), test2.hashCode());
+    }
+
+    @Test
+    void settersGetters() {
+        assertEquals("123", test1.getCode());
+
+        test1.setId("500");
+        assertEquals("500", test1.getId());
+
+        List<Person> people = new ArrayList<>();
+        assertEquals(people, test1.getPeople());
+
+        Person a =
+            new Person("A", "", "email@email.com", "AD1400080001001234567890", "ZUOBJEO6XXX");
+        a.setId("personIdA");
+        Person b =
+            new Person("B", "", "email@email.com", "AD1400080001001234567890", "ZUOBJEO6XXX");
+        people.add(a);
+        people.add(b);
+        test1.setPeople(people);
+
+        assertEquals(people, test1.getPeople());
+    }
+
+    @Test
+    void toStringTest() {
+        String json = test1.toString();
+        String jsonCheck = "Event{"
+            + "title='" + test1.title + '\''
+            + ", description='" + test1.getDescription() + '\''
+            + ", tags=" + test1.getTags()
+            + ", lastModifiedDateTime=" + test1.getLastModifiedDateTime()
+            + '}';
+
+        assertEquals(jsonCheck, json);
     }
 }
