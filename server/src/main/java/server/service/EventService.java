@@ -14,7 +14,12 @@ import java.util.Map;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import server.database.ColourRepository;
 import server.database.EventRepository;
+import server.database.ExpenseRepository;
+import server.database.PaymentRepository;
+import server.database.PersonRepository;
+import server.database.TagRepository;
 
 /**
  * Service for Person. [CONT -> SERV -> REPO]
@@ -23,13 +28,27 @@ import server.database.EventRepository;
 public class EventService {
 
     private final EventRepository eventRepository;
+    private final TagRepository tagRepository;
+    private final PersonRepository personRepository;
+    private final ColourRepository colourRepository;
+    private final ExpenseRepository expenseRepository;
+    private final PaymentRepository paymentRepository;
 
+    @SuppressWarnings("checkstyle:MissingJavadocMethod")
     @Autowired
-    public EventService(EventRepository eventRepository) {
+    public EventService(EventRepository eventRepository, TagRepository tagRepository,
+                        PersonRepository personRepository, ColourRepository colourRepository,
+                        ExpenseRepository expenseRepository, PaymentRepository paymentRepository) {
         this.eventRepository = eventRepository;
+        this.tagRepository = tagRepository;
+        this.personRepository = personRepository;
+        this.colourRepository = colourRepository;
+        this.expenseRepository = expenseRepository;
+        this.paymentRepository = paymentRepository;
     }
 
-    /** Checks if an Event with the id of the given Event is already in the database.
+    /**
+     * Checks if an Event with the id of the given Event is already in the database.
      *
      * @param event The Event for which the id that should be checked
      * @return true if an Event with the same id is present
@@ -42,7 +61,8 @@ public class EventService {
         return eventRepository.findAll();
     }
 
-    /** Finds an event by its code.
+    /**
+     * Finds an event by its code.
      *
      * @param id of the event
      * @return Event that was searched
@@ -59,7 +79,8 @@ public class EventService {
         return optionalEvent.get();
     }
 
-    /** Finds an event by its code.
+    /**
+     * Finds an event by its code.
      *
      * @param code of the event
      * @return Event that was searched
@@ -76,7 +97,8 @@ public class EventService {
         return optionalEvent.get();
     }
 
-    /** Deletes an Event based on its id.
+    /**
+     * Deletes an Event based on its id.
      *
      * @param id The id of the Event that should be deleted
      * @throws IllegalStateException When there isn't an Event with this id
@@ -97,6 +119,14 @@ public class EventService {
      */
     public String createEvent(Event event) throws IllegalStateException {
         if (event.getId() == null || !eventRepository.existsById(event.getId())) {
+            // Add default tags if there are none
+            if (event.getTags().isEmpty() && tagRepository != null) {
+                ArrayList<Tag> defaultTags = new ArrayList<>();
+                tagRepository.findTagByName("food").ifPresent(defaultTags::add);
+                tagRepository.findTagByName("entrance fees").ifPresent(defaultTags::add);
+                tagRepository.findTagByName("travel").ifPresent(defaultTags::add);
+                event.setTags(defaultTags);
+            }
             return eventRepository.save(event).getId();
         }
         throw new IllegalStateException("There already is an Event with this id");
@@ -204,7 +234,8 @@ public class EventService {
     }
 
 
-    /** Updates an already existing Event.
+    /**
+     * Updates an already existing Event.
      *
      * @param event The Event that should be updated
      * @throws IllegalStateException When there isn't an Event with this id
@@ -231,7 +262,7 @@ public class EventService {
     /**
      * Calculates and returns the total debt sum for a person within an event.
      *
-     * @param eventId The id of the event.
+     * @param eventId  The id of the event.
      * @param personId The person whose debt sum is to be calculated.
      * @return The total debt sum.
      */
@@ -254,7 +285,7 @@ public class EventService {
     /**
      * Calculates the detailed debt information for a person within an event.
      *
-     * @param eventId The id of the event.
+     * @param eventId  The id of the event.
      * @param personId The person for whom the debt information is calculated.
      * @return A map of people to the amount of debt owed.
      */
@@ -267,7 +298,7 @@ public class EventService {
      * Calculates the detailed debt information for a person within an event.
      *
      * @param eventId The id of the event.
-     * @param person The person for whom the debt information is calculated.
+     * @param person  The person for whom the debt information is calculated.
      * @return A map of people to the amount of debt owed.
      */
     public Map<Person, BigDecimal> calculateDebtForPerson(String eventId, Person person) {
@@ -326,11 +357,12 @@ public class EventService {
     }
 
     // Setter methods for Event fields
+
     /**
      * Sets the code of an event and saves the update.
      *
      * @param eventId The ID of the event to update.
-     * @param code The new code to set for the event.
+     * @param code    The new code to set for the event.
      */
     public void setEventCode(String eventId, String code) {
         Event event = getEventById(eventId);
@@ -342,7 +374,7 @@ public class EventService {
      * Sets the title of an event and saves the update.
      *
      * @param eventId The ID of the event to update.
-     * @param title The new title to set for the event.
+     * @param title   The new title to set for the event.
      */
     public void setEventTitle(String eventId, String title) {
         Event event = getEventById(eventId);
@@ -353,7 +385,7 @@ public class EventService {
     /**
      * Sets the description of an event and saves the update.
      *
-     * @param eventId The ID of the event to update.
+     * @param eventId     The ID of the event to update.
      * @param description The new description to set for the event.
      */
     public void setEventDescription(String eventId, String description) {
@@ -366,7 +398,7 @@ public class EventService {
      * Sets the list of people associated with an event and saves the update.
      *
      * @param eventId The ID of the event to update.
-     * @param people The new list of people to associate with the event.
+     * @param people  The new list of people to associate with the event.
      */
     public void setEventPeople(String eventId, List<Person> people) {
         Event event = getEventById(eventId);
@@ -378,7 +410,7 @@ public class EventService {
      * Sets the tags of an event and saves the update.
      *
      * @param eventId The ID of the event to update.
-     * @param tags The new tags to set for the event.
+     * @param tags    The new tags to set for the event.
      */
     public void setEventTags(String eventId, List<Tag> tags) {
         Event event = getEventById(eventId);
@@ -389,7 +421,7 @@ public class EventService {
     /**
      * Sets the expenses of an event and saves the update.
      *
-     * @param eventId The ID of the event to update.
+     * @param eventId  The ID of the event to update.
      * @param expenses The new list of expenses to set for the event.
      */
     public void setEventExpenses(String eventId, List<Expense> expenses) {
@@ -401,7 +433,7 @@ public class EventService {
     /**
      * Sets the payments of an event and saves the update.
      *
-     * @param eventId The ID of the event to update.
+     * @param eventId  The ID of the event to update.
      * @param payments The new list of payments to set for the event.
      */
     public void setEventPayments(String eventId, List<Payment> payments) {
@@ -413,7 +445,7 @@ public class EventService {
     /**
      * Sets the start date of an event and saves the update.
      *
-     * @param eventId The ID of the event to update.
+     * @param eventId   The ID of the event to update.
      * @param startDate The new start date to set for the event.
      */
     public void setEventStartDate(String eventId, LocalDate startDate) {
@@ -437,12 +469,42 @@ public class EventService {
     /**
      * Sets the last modified date and time of an event and saves the update.
      *
-     * @param eventId The ID of the event to update.
+     * @param eventId              The ID of the event to update.
      * @param lastModifiedDateTime The new last modified date and time to set for the event.
      */
     public void setEventLastModifiedDateTime(String eventId, Instant lastModifiedDateTime) {
         Event event = getEventById(eventId);
         event.setLastModifiedDateTime(lastModifiedDateTime);
         eventRepository.save(event);
+    }
+
+    /**
+     * Fully imports event. Many things can go wrong - use carefully
+     *
+     * @param event the event to import
+     * @return the imported event
+     */
+    public Event importEvent(Event event) {
+        event.setPeople(personRepository.saveAll(event.getPeople()));
+        event.setTags(tagRepository.saveAll(event.getTags().stream()
+            .peek(t -> t.setColour(colourRepository.save(t.getColour()))).toList()));
+        for (Expense e : event.getExpenses()) {
+            e.setTag(event.getTags().stream().filter(t -> t.equals(e.getTag())).findFirst()
+                .get());
+            e.setReceiver(event.getPeople().stream().filter(x -> x.equals(e.getReceiver()))
+                .findFirst().get());
+            e.setParticipants(e.getParticipants().stream()
+                .map(p -> event.getPeople().stream().filter(x -> x.equals(p))
+                    .findFirst().get()).toList());
+        }
+        event.setExpenses(expenseRepository.saveAll(event.getExpenses()));
+        for (Payment p : event.getPayments()) {
+            p.setPayer(event.getPeople().stream().filter(x -> x.equals(p.getPayer()))
+                .findFirst().get());
+            p.setReceiver(event.getPeople().stream().filter(x -> x.equals(p.getReceiver()))
+                .findFirst().get());
+        }
+        event.setPayments(paymentRepository.saveAll(event.getPayments()));
+        return eventRepository.save(event);
     }
 }

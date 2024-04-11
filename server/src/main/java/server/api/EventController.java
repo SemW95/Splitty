@@ -416,6 +416,11 @@ public class EventController {
         eventService.setEventLastModifiedDateTime(eventId, lastModifiedDateTime);
     }
 
+    @PostMapping(path = "/event/import")
+    public Event importEvent(@RequestBody Event event) {
+        return eventService.importEvent(event);
+    }
+
     @ExceptionHandler(IllegalStateException.class)
     public ResponseEntity<Object> handleIllegalStateException(IllegalStateException exception) {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

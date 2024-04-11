@@ -1,17 +1,16 @@
 package server.runner;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import commons.Colour;
 import commons.Currency;
 import commons.Event;
-import commons.Expense;
-import commons.Payment;
-import commons.Person;
 import commons.Tag;
-import java.math.BigDecimal;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Arrays;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import server.database.ColourRepository;
@@ -21,6 +20,7 @@ import server.database.ExpenseRepository;
 import server.database.PaymentRepository;
 import server.database.PersonRepository;
 import server.database.TagRepository;
+import server.service.EventService;
 
 /**
  * This a seeder class for initializing default values.
@@ -35,13 +35,15 @@ public class Seeder implements CommandLineRunner {
     private final PersonRepository personRepository;
     private final TagRepository tagRepository;
     private final EventRepository eventRepository;
+    private final EventService eventService;
 
 
     @SuppressWarnings("checkstyle:MissingJavadocMethod")
     public Seeder(CurrencyRepository currencyRepository, ColourRepository colourRepository,
                   PaymentRepository paymentRepository, PersonRepository personRepository,
                   TagRepository tagRepository, EventRepository eventRepository,
-                  ExpenseRepository expenseRepository) {
+                  ExpenseRepository expenseRepository,
+                  EventService eventService) {
         this.currencyRepository = currencyRepository;
         this.colourRepository = colourRepository;
         this.paymentRepository = paymentRepository;
@@ -49,18 +51,26 @@ public class Seeder implements CommandLineRunner {
         this.tagRepository = tagRepository;
         this.eventRepository = eventRepository;
         this.expenseRepository = expenseRepository;
+        this.eventService = eventService;
     }
 
-    //TODO At one point make dev version to decide what gets called at startup
     @Override
     public void run(String... args) {
-        //cleans the database except currencies and tags(THE ORDER MATTERS BIG -> SMALL)
-        eventRepository.deleteAll();
-        paymentRepository.deleteAll();
-        expenseRepository.deleteAll();
-        personRepository.deleteAll();
+        // Don't seed the database if '--seed' is not provided as an argument
+        if (!Arrays.stream(args).toList().contains("--seed")) {
+            return;
+        }
 
-        //fills the database
+        System.out.println("- Resetting the database first");
+        eventRepository.deleteAll();
+        expenseRepository.deleteAll();
+        paymentRepository.deleteAll();
+        personRepository.deleteAll();
+        tagRepository.deleteAll();
+        colourRepository.deleteAll();
+        currencyRepository.deleteAll();
+
+        System.out.println("- Seeding the database");
         loadCurrencies();
         loadTags();
         loadDummy();
@@ -68,107 +78,56 @@ public class Seeder implements CommandLineRunner {
 
     /**
      * Creates the default currencies.
-     * TODO check which are not in the DB and add accordingly
      */
     private void loadCurrencies() {
-        // Check if there are no currencies
-        if (currencyRepository.count() == 0) {
-            System.out.println("Adding default currencies...");
+        System.out.println("- Adding default currencies");
 
-            Currency euro = new Currency("Euro", "EUR", '€');
-            Currency dollar = new Currency("Dollar", "USD", '$');
-            Currency swiss = new Currency("Swiss franc", "CHF", 'F');
-            currencyRepository.save(euro);
-            currencyRepository.save(dollar);
-            currencyRepository.save(swiss);
-        }
+        Currency euro = new Currency("Euro", "EUR", '€');
+        Currency dollar = new Currency("Dollar", "USD", '$');
+        Currency swiss = new Currency("Swiss franc", "CHF", 'F');
+        currencyRepository.save(euro);
+        currencyRepository.save(dollar);
+        currencyRepository.save(swiss);
     }
 
     /**
      * Creates the default currencies.
-     * TODO check which are not in the DB and add accordingly
      */
     private void loadTags() {
-        // Check if there are no tags
-        if (tagRepository.count() == 0) {
-            System.out.println("Adding default tags...");
+        System.out.println("- Adding default tags");
 
+        Colour defaultGreen = new Colour(147, 196, 125);
+        Colour defaultBlue = new Colour(74, 134, 232);
+        Colour defaultRed = new Colour(224, 102, 102);
+        colourRepository.save(defaultGreen);
+        colourRepository.save(defaultBlue);
+        colourRepository.save(defaultRed);
 
-            Colour defaultGreen = new Colour(147, 196, 125);
-            Colour defaultBlue = new Colour(74, 134, 232);
-            Colour defaultRed = new Colour(224, 102, 102);
-            colourRepository.save(defaultGreen);
-            colourRepository.save(defaultBlue);
-            colourRepository.save(defaultRed);
-
-            Tag food = new Tag("food", defaultGreen);
-            Tag entranceFee = new Tag("entrance fees", defaultBlue);
-            Tag travel = new Tag("travel", defaultRed);
-            tagRepository.save(food);
-            tagRepository.save(entranceFee);
-            tagRepository.save(travel);
-        }
+        Tag food = new Tag("food", defaultGreen);
+        Tag entranceFee = new Tag("entrance fees", defaultBlue);
+        Tag travel = new Tag("travel", defaultRed);
+        tagRepository.save(food);
+        tagRepository.save(entranceFee);
+        tagRepository.save(travel);
     }
 
     /**
-     * Creates dummy data for dev and testing purposes.
+     * Loads dummy data from save files.
      */
     private void loadDummy() {
+        System.out.println("- Adding default events");
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(
+            Path.of("src/main/resources/events"))) {
+            for (Path path : stream) {
+                String eventJson = Files.readString(path);
+                Event event =
+                    new ObjectMapper().registerModule(new JavaTimeModule())
+                        .readValue(eventJson, Event.class);
 
-        //setting up people
-        Person alanTuring = new Person("Alan", "Turing", "alan@domain.com",
-            "AL35202111090000000001234567",
-            "ZUOBJEO6XXX");
-        Person graceHopper = new Person("Grace", "Hopper", "grace@domain.com",
-            "AD1400080001001234567890",
-            "HABALT22TIP");
-        Person johnNeumann = new Person("John", "von Neumann", "john@domain.com",
-            "NL91ABNA0417164300",
-            "CBVILT2X");
-        Person georgeBoole = new Person("George", "Boole Jnr", "georgie@scienceforaliving.com",
-            "NL91ABNA0417164300",
-            "KBVILT2X");
-        List<Person> participants = List.of(graceHopper, johnNeumann);
-        personRepository.save(alanTuring);
-        personRepository.save(graceHopper);
-        personRepository.save(johnNeumann);
-        personRepository.save(georgeBoole);
-
-        //setting expense
-        Instant now = Instant.now();
-        Tag tag = tagRepository.findTagByName("food").orElse(null);
-        Expense expense = new Expense("Food", participants,
-            alanTuring, new BigDecimal(24.99), tag, now);
-        expenseRepository.save(expense);
-
-        //setting event
-        LocalDate start = LocalDate.now();
-        LocalDate end = LocalDate.now().plusDays(1);
-        List<Tag> tags = List.of(tag, tagRepository.findTagByName("entrance fees").get());
-        List<Expense> expenses = List.of(expense);
-        List<Person> candidates = new ArrayList<>();
-        candidates.addAll(participants);
-        //add someone who isn't in the expense to the event
-        candidates.add(georgeBoole);
-        candidates.add(alanTuring);
-        Event dinner = new Event("Celebration Dinner", "Dinner and drinks with the group",
-            candidates, tags, expenses,
-            new ArrayList<Payment>(), start, end, now);
-        dinner.setCode("1234");
-        eventRepository.save(dinner);
-
-        Event ride = new Event("Uber ride", "We took an uber to get to a restaurant",
-            new ArrayList<>(), List.of(tagRepository.findTagByName("travel").get()),
-            new ArrayList<>(),
-            new ArrayList<>(), start, end, now.minusSeconds(60 * 60 * 24 * 5));
-        ride.setCode("5678");
-        eventRepository.save(ride);
-
-        Event outing = new Event("Paintball", "Work paintball outing",
-            new ArrayList<>(), List.of(tagRepository.findTagByName("entrance fees").get()),
-            new ArrayList<>(),
-            new ArrayList<>(), start, end, now.minusSeconds(60 * 60 * 24 * 5));
-        outing.setCode("9101112");
-        eventRepository.save(outing);
+                eventService.importEvent(event);
+            }
+        } catch (IOException e) {
+            System.err.println("Could not get the default events");
+        }
     }
 }
