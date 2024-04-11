@@ -18,12 +18,14 @@ import java.util.Properties;
 public class ConfigManager {
 
     private final Properties properties;
+    private final String file;
 
     /**
      * Constructor for the configManager.
      */
-    public ConfigManager() {
-        this.properties = loadProperties();
+    public ConfigManager(String filepath) {
+        this.properties = loadProperties(filepath);
+        this.file = filepath;
     }
 
     /**
@@ -31,10 +33,10 @@ public class ConfigManager {
      *
      * @return properties
      */
-    private Properties loadProperties() {
+    private Properties loadProperties(String filepath) {
         Properties properties = new Properties();
         try {
-            File file = new File("src/main/resources/config.properties");
+            File file = new File(filepath);
             file.createNewFile();
             FileInputStream input = new FileInputStream(file);
             properties.load(input);
@@ -52,7 +54,7 @@ public class ConfigManager {
     public List<String> getCodes() {
         String codes = properties.getProperty("codes");
 
-        if (codes != null) {
+        if (codes != null && !codes.isEmpty()) {
             return new ArrayList<>(Arrays.asList(codes.split(",")));
         }
 
@@ -101,7 +103,7 @@ public class ConfigManager {
     public String getServer() {
         String configServer = properties.getProperty("server");
 
-        if (configServer != null) {
+        if (configServer != null && !configServer.isEmpty()) {
             return configServer;
         }
 
@@ -121,16 +123,15 @@ public class ConfigManager {
         return "ws://" + getServer() + "/websocket";
     }
 
-    /**
-     * Setter for the "server" property.
-     * TODO: Make this actually used by server switch
-     *
-     * @param server address
-     */
-    public void changeServer(String server) {
-        properties.setProperty("server", server);
-        save();
-    }
+    //    /**
+    //     * Setter for the "server" property.
+    //     *
+    //     * @param server address
+    //     */
+    //    public void changeServer(String server) {
+    //        properties.setProperty("server", server);
+    //        save();
+    //    }
 
     /**
      * General save method for property values.
@@ -141,7 +142,7 @@ public class ConfigManager {
 
         // find the config file
         try {
-            output = new FileOutputStream("src/main/resources/config.properties");
+            output = new FileOutputStream(this.file);
         } catch (FileNotFoundException e) {
             System.err.println("The config file could not be found");
         }
