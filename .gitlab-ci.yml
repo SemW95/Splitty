@@ -62,8 +62,8 @@ client:test:
     - apk add gtk+3.0
   script:
     - xvfb-run ./gradlew :client:test --tests client.scenes.$TEST_CLASS
-    - cat client/build/reports/tests/test/index.html
   artifacts:
+    when: always
     paths:
       - client/build/reports/tests/test/index.html
   parallel:
