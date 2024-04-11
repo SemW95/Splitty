@@ -1,4 +1,23 @@
-# OOPP Template Project
+# OOPP Project
 
-This repository contains the template for the OOPP project. Please extend this README.md with instructions on how to run
-your project.
+## Server
+
+Start the server while also resetting and seeding the database:
+
+```bash
+./gradlew bootrun --args='--seed'
+```
+
+Start it without modifying the database:
+
+```bash
+./gradlew bootrun
+```
+
+## Client
+
+Start the client:
+
+```bash
+./gradlew run
+```
