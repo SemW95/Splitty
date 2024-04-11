@@ -58,10 +58,9 @@ client:test:
     - server:start
   script:
     - ./gradlew :client:test --tests client.scenes.$TEST_CLASS
-    - mv builds/cse1105/2023-2024/teams/oopp-team-25/client/build/reports/tests/test/index.html ./report
   artifacts:
     paths:
-      - ./report
+      - builds/cse1105/2023-2024/teams/oopp-team-25/client/build/reports/tests/test/index.html
   parallel:
     matrix:
       - TEST_CLASS:
