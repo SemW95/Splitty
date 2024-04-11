@@ -1,9 +1,5 @@
 image: gradle:8.5.0-jdk21-alpine
 
-variables:
-# Disable the Gradle daemon to ensure isolated runs of the CI pipeline.
-# GRADLE_OPTS: "-Dorg.gradle.daemon=false"
-
 stages:
   - compile
   - checkstyle
@@ -24,6 +20,9 @@ compile:
     policy: pull-push
     paths:
       - build
+      - client/build
+      - commons/build
+      - server/build
       - .gradle
 
 
@@ -40,6 +39,9 @@ checkstyle:
     policy: pull-push
     paths:
       - build
+      - client/build
+      - commons/build
+      - server/build
       - .gradle
 
 commons:test:
@@ -63,6 +65,9 @@ commons:test:
     policy: pull-push
     paths:
       - build
+      - client/build
+      - commons/build
+      - server/build
       - .gradle
 
 client:test:
@@ -86,6 +91,9 @@ client:test:
     policy: pull-push
     paths:
       - build
+      - client/build
+      - commons/build
+      - server/build
       - .gradle
 
 server:database:test:
@@ -109,6 +117,9 @@ server:database:test:
     policy: pull-push
     paths:
       - build
+      - client/build
+      - commons/build
+      - server/build
       - .gradle
 
 server:service:test:
@@ -129,6 +140,9 @@ server:service:test:
     policy: pull-push
     paths:
       - build
+      - client/build
+      - commons/build
+      - server/build
       - .gradle
 
 server:controller:test:
@@ -149,6 +163,9 @@ server:controller:test:
     policy: pull-push
     paths:
       - build
+      - client/build
+      - commons/build
+      - server/build
       - .gradle
 
 coverageReport:
@@ -174,12 +191,14 @@ coverageReport:
     policy: pull-push
     paths:
       - build
+      - client/build
+      - commons/build
+      - server/build
       - .gradle
 
 dry-run:triage:
   image: ruby:3.0
   stage: triage
-  needs: [ ]
   script:
     - gem install gitlab-triage
     - gitlab-triage --help
@@ -191,7 +210,6 @@ dry-run:triage:
 run:triage:
   image: ruby:3.0
   stage: triage
-  needs: [ ]
   script:
     - gem install gitlab-triage
     - gitlab-triage --token j4Sr_UUUmsJ96xkkbs4y --host-url $CI_SERVER_URL --source projects --source-id $CI_PROJECT_PATH
