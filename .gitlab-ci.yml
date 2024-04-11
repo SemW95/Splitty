@@ -17,13 +17,6 @@ compile:
   script:
     - ./gradlew assemble
 
-#checkstyle:
-#  stage: checkstyle
-#  parallel: 2
-#  script:
-#    - ./gradlew checkstyleMain
-#    - ./gradlew checkstyleTest
-
 checkstyle:
   stage: checkstyle
   needs: []
@@ -62,7 +55,7 @@ client:test:
   stage: test
   needs:
     - compile
-    - server:start
+    - setup
   script:
     - ./gradlew :client:test --tests client.scenes.$TEST_CLASS
   parallel:
@@ -118,8 +111,9 @@ server:controller:test:
 
 coverageReport:
   stage: coverageReport
-  allow_failure: true
-  needs: []
+  needs:
+    - test
+    - setup # Just in case
   script:
     - ./gradlew compileTestJava
     - ./gradlew AggregateJacocoReport
