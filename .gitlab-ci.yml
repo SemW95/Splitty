@@ -32,7 +32,7 @@ server:start:
   stage: setup
   script:
     - ./gradlew bootrun --args='--seed' &   # Start the server as a background process
-    - sleep 120  # Adjust the sleep time based on how long it takes for the server to start
+    - sleep 30  # Adjust the sleep time based on how long it takes for the server to start
 
 commons:test:
   stage: test
@@ -40,6 +40,9 @@ commons:test:
     - compile
   script:
     - ./gradlew :commons:test --tests commons.$TEST_CLASS
+  artifacts:
+    paths:
+      - /builds/cse1105/2023-2024/teams/oopp-team-25/client/build/reports/tests/test/index.html
   parallel:
     matrix:
       - TEST_CLASS:
