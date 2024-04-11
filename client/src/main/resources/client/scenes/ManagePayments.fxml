@@ -6,7 +6,6 @@
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
@@ -68,43 +67,43 @@
                     vbarPolicy="ALWAYS">
             <content>
                 <VBox fx:id="itemListVbox" prefWidth="800.0">
-                    <children>
-                        <Pane prefHeight="60.0" prefWidth="800.0"
-                              style="-fx-border-color: #000000; -fx-border-width: 0 0 1 0;">
-                            <children>
-                                <HBox layoutX="14.0" layoutY="21.0" prefHeight="16.0" spacing="4.0">
-                                    <children>
-                                        <Label style="-fx-font-weight: bold;" text="Johnathan Annoyington"/>
-                                        <Label text="paid"/>
-                                        <Label style="-fx-font-weight: bold;" text="Davidson Parkington"/>
-                                        <Label style="-fx-font-weight: bold;" text="\$123"/>
-                                    </children>
-                                </HBox>
-                                <Button layoutX="700.0" layoutY="16.0" mnemonicParsing="false"
-                                        style="-fx-background-color: transparent;">
-                                    <graphic>
-                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
-                                                   preserveRatio="true">
-                                            <image>
-                                                <Image url="@../icons/edit.png"/>
-                                            </image>
-                                        </ImageView>
-                                    </graphic>
-                                </Button>
-                                <Button layoutX="738.0" layoutY="14.0" mnemonicParsing="false"
-                                        style="-fx-background-color: transparent;">
-                                    <graphic>
-                                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true"
-                                                   preserveRatio="true">
-                                            <image>
-                                                <Image url="@../icons/trashcan.png"/>
-                                            </image>
-                                        </ImageView>
-                                    </graphic>
-                                </Button>
-                            </children>
-                        </Pane>
-                    </children>
+                    <!--                    <children>-->
+                    <!--                        <Pane prefHeight="60.0" prefWidth="800.0"-->
+                    <!--                              style="-fx-border-color: #000000; -fx-border-width: 0 0 1 0;">-->
+                    <!--                            <children>-->
+                    <!--                                <HBox layoutX="14.0" layoutY="21.0" prefHeight="16.0" spacing="4.0">-->
+                    <!--                                    <children>-->
+                    <!--                                        <Label style="-fx-font-weight: bold;" text="Johnathan Annoyington"/>-->
+                    <!--                                        <Label text="paid"/>-->
+                    <!--                                        <Label style="-fx-font-weight: bold;" text="Davidson Parkington"/>-->
+                    <!--                                        <Label style="-fx-font-weight: bold;" text="\$123"/>-->
+                    <!--                                    </children>-->
+                    <!--                                </HBox>-->
+                    <!--                                <Button layoutX="700.0" layoutY="16.0" mnemonicParsing="false"-->
+                    <!--                                        style="-fx-background-color: transparent;">-->
+                    <!--                                    <graphic>-->
+                    <!--                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"-->
+                    <!--                                                   preserveRatio="true">-->
+                    <!--                                            <image>-->
+                    <!--                                                <Image url="@../icons/edit.png"/>-->
+                    <!--                                            </image>-->
+                    <!--                                        </ImageView>-->
+                    <!--                                    </graphic>-->
+                    <!--                                </Button>-->
+                    <!--                                <Button layoutX="738.0" layoutY="14.0" mnemonicParsing="false"-->
+                    <!--                                        style="-fx-background-color: transparent;">-->
+                    <!--                                    <graphic>-->
+                    <!--                                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true"-->
+                    <!--                                                   preserveRatio="true">-->
+                    <!--                                            <image>-->
+                    <!--                                                <Image url="@../icons/trashcan.png"/>-->
+                    <!--                                            </image>-->
+                    <!--                                        </ImageView>-->
+                    <!--                                    </graphic>-->
+                    <!--                                </Button>-->
+                    <!--                            </children>-->
+                    <!--                        </Pane>-->
+                    <!--                    </children>-->
                 </VBox>
             </content>
         </ScrollPane>
