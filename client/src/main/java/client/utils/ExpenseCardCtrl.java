@@ -4,8 +4,9 @@ import commons.Expense;
 import commons.Person;
 import java.util.function.Consumer;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 /**
  * ExpenseCard component.
@@ -13,18 +14,23 @@ import javafx.scene.layout.AnchorPane;
 public class ExpenseCardCtrl {
 
     @FXML
-    private AnchorPane rootAnchorPane;
+    private Pane root;
     @FXML
-    Label expenseDescription;
+    private Button mainButton;
     @FXML
-    Label expenseReceiver;
+    private Pane mainPane;
     @FXML
-    Label expenseDate;
+    private Label expenseDescription;
     @FXML
-    Label expenseAmount;
+    private Label expenseReceiver;
     @FXML
-    Label expenseParticipants;
+    private Label expenseDate;
+    @FXML
+    private Label expenseAmount;
+    @FXML
+    private Label expenseParticipants;
     private Expense expense;
+
 
     /**
      * Sets all attributes of an expense (and thus setting the expense).
@@ -39,24 +45,27 @@ public class ExpenseCardCtrl {
             this.expenseReceiver.setText(expense.getReceiver().getFirstName());
         }
         if (expense.getPaymentDateTime() != null) {
-            this.expenseDate.setText(expense.getPaymentDateTime().toString());
+            this.expenseDate.setText(expense.getPaymentDateTime().toString().substring(0, 10));
         }
         if (expense.getPaid() != null) {
-            this.expenseAmount.setText(expense.getPaid().toString());
+            String paid = (char) 8364 + " " + expense.getPaid().toPlainString();
+            this.expenseAmount.setText(paid);
         }
         if (expense.getTag() != null) {
             Label tagLabel = PaneCreator.createTagItem(expense.getTag());
-            tagLabel.setLayoutX(11);
+            tagLabel.setLayoutX(12);
             tagLabel.setLayoutY(114);
-            rootAnchorPane.getChildren().add(tagLabel);
+            mainPane.getChildren().add(tagLabel);
         }
         if (expense.getParticipants() != null) {
-            this.expenseParticipants.setText(
-                expense.getParticipants().stream().map(Person::getFirstName).toList().toString());
+            String firstNames =
+                String.join(", ",
+                    expense.getParticipants().stream().map(Person::getFirstName).toList());
+            this.expenseParticipants.setText(firstNames);
         }
     }
 
     public void setOnClick(Consumer<Expense> consumer) {
-        expenseDescription.setOnMouseClicked((e) -> consumer.accept(expense));
+        mainButton.setOnAction((e) -> consumer.accept(expense));
     }
 }
