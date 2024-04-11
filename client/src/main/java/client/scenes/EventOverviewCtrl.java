@@ -94,6 +94,8 @@ public class EventOverviewCtrl implements Initializable {
         String from = resources.getString("event-overview.from");
         String including = resources.getString("event-overview.including");
         filterInclusionChoiceBox.getItems().setAll(all, from, including);
+        // Select 'All' by default
+        filterInclusionChoiceBox.getSelectionModel().select(0);
     }
 
     /**
@@ -165,12 +167,20 @@ public class EventOverviewCtrl implements Initializable {
 
     @FXML
     private void displayExpenses() {
+        if (event == null) {
+            return;
+        }
+
         Person nameChoice = filterNameComboBox.getSelectionModel().getSelectedItem();
         List<Expense> expenses = event.getExpenses();
 
+        int inclusionChoice = filterInclusionChoiceBox.getSelectionModel().getSelectedIndex();
+
+        // Disable `filterNameComboBox` if inclusion choice is 'All'
+        filterNameComboBox.setDisable(inclusionChoice == 0);
+
         // Filter expenses only if a person was selected
         if (nameChoice != null) {
-            int inclusionChoice = filterInclusionChoiceBox.getSelectionModel().getSelectedIndex();
             switch (inclusionChoice) {
                 // from
                 case 1 -> expenses =
