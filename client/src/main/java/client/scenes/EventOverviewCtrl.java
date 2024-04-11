@@ -285,8 +285,8 @@ public class EventOverviewCtrl implements Initializable {
     public void handleManagePayments(ActionEvent actionEvent) {
     }
 
-    // TODO: go to Open Debts
     public void handleOpenDebts(ActionEvent actionEvent) {
+        mainCtrl.showOpenDebtsScreen(event);
     }
 
     // TODO: go to Paid Off Debts

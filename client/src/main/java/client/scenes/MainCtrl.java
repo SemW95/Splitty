@@ -67,6 +67,7 @@ public class MainCtrl {
     private CsPair<LanguageSelectCtrl> languageSelectPair;
     private CsPair<ManageExpenseListCtrl> manageExpenseListPair;
     private CsPair<DeleteExpenseConfirmationCtrl> deleteExpenseConfirmationPair;
+    private CsPair<OpenDebtsCtrl> openDebtsPair;
     private Initializable currentCtrl;
     // private Pair<ExpenseCardCtrl, Parent> expenseCard;
     private WebSocketClient websocketClient;
@@ -203,12 +204,15 @@ public class MainCtrl {
         createEventPair.scene.getStylesheets().add("/client/css/global.css");
 
         manageExpenseListPair = fxml.load(ManageExpenseListCtrl.class,
-                "client", "scenes", "ManageExpenseList.fxml");
+            "client", "scenes", "ManageExpenseList.fxml");
         manageExpenseListPair.scene.getStylesheets().add("/client/css/global.css");
 
         deleteExpenseConfirmationPair = fxml.load(DeleteExpenseConfirmationCtrl.class,
-                "client", "scenes", "DeleteExpenseConfirmation.fxml");
+            "client", "scenes", "DeleteExpenseConfirmation.fxml");
         deleteExpenseConfirmationPair.scene.getStylesheets().add("/client/css/global.css");
+
+        openDebtsPair = fxml.load(OpenDebtsCtrl.class, "client", "scenes", "OpenDebts.fxml");
+        openDebtsPair.scene.getStylesheets().add("/client/css/global.css");
     }
 
     /**
@@ -223,6 +227,7 @@ public class MainCtrl {
         editParticipantPair.ctrl.refetch();
         adminOverviewPair.ctrl.refetch();
         manageExpenseListPair.ctrl.refetch();
+        openDebtsPair.ctrl.refetch();
     }
 
     /**
@@ -271,6 +276,8 @@ public class MainCtrl {
 
             case ManageParticipantsCtrl manageParticipantsCtrl ->
                 showManageParticipantsScreen(manageParticipantsCtrl.getEvent());
+
+            case OpenDebtsCtrl openDebtsCtrl -> showOpenDebtsScreen(openDebtsCtrl.getEvent());
 
             default -> {
                 System.err.println("Tried to switch language from an unknown screen");
@@ -486,6 +493,8 @@ public class MainCtrl {
 
     /**
      * Show the ManageExpenseListCtrl screen.
+     *
+     * @param event the event
      */
     public void showManageExpenseListScreen(Event event) {
         primaryStage.setTitle(fxml.getBundle().getString("manage-expense-list.title"));
@@ -504,4 +513,15 @@ public class MainCtrl {
         popupStage.show();
     }
 
+    /**
+     * Show the Open debts screen.
+     *
+     * @param event the event
+     */
+    public void showOpenDebtsScreen(Event event) {
+        primaryStage.setScene(openDebtsPair.scene);
+        primaryStage.setTitle(fxml.getBundle().getString("open-debts.title"));
+        openDebtsPair.ctrl.update(event);
+        currentCtrl = openDebtsPair.ctrl;
+    }
 }

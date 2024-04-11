@@ -258,6 +258,11 @@ public class Event {
 
         // Calculate debts for expenses
         for (Expense expense : expenses) {
+            // Ignore expenses which don't have a receiver or participants
+            if (expense.receiver == null || expense.participants == null
+                || expense.participants.isEmpty()) {
+                continue;
+            }
             if (expense.receiver.getId().equals(personId)) {
                 for (Person participant : expense.participants) {
                     map.merge(participant, expense.calculateShare().negate(), BigDecimal::add);
@@ -269,6 +274,10 @@ public class Event {
 
         // Update debts with payments
         for (Payment payment : payments) {
+            // Ignore payments which don't have a payer or receiver
+            if (payment.payer == null || payment.receiver == null) {
+                continue;
+            }
             if (payment.receiver.getId().equals(personId)) {
                 map.merge(payment.payer, payment.amount, BigDecimal::add);
             } else if (payment.payer.getId().equals(personId)) {

@@ -21,6 +21,7 @@ import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 import client.Main;
 import commons.Event;
 import commons.Expense;
+import commons.Payment;
 import commons.Person;
 import commons.Tag;
 import jakarta.ws.rs.WebApplicationException;
@@ -313,7 +314,6 @@ public class ServerUtils {
                 .target(server).path("/person")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .accept(APPLICATION_JSON)
                 .post(Entity.json(person))
                 .readEntity(Person.class);
         } catch (Exception e) {
@@ -403,12 +403,30 @@ public class ServerUtils {
     public void deleteExpense(Expense expense) {
         try {
             ClientBuilder.newClient(new ClientConfig())
-                    .target(server).path("/expense/" + expense.getId())
-                    .request(APPLICATION_JSON)
-                    .delete();
+                .target(server).path("/expense/" + expense.getId())
+                .request(APPLICATION_JSON)
+                .delete();
         } catch (Exception e) {
             System.err.println("Server did not respond");
         }
+    }
 
+    /**
+     * Create a new payment in the database.
+     *
+     * @param payment the payment to create
+     * @return the created payment with updated fields (id is created)
+     */
+    public Payment createPayment(Payment payment) {
+        try {
+            return ClientBuilder.newClient(new ClientConfig())
+                .target(server).path("/payment")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.json(payment))
+                .readEntity(Payment.class);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
