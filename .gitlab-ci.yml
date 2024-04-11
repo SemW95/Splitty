@@ -21,7 +21,7 @@ compile:
     - ./gradlew --build-cache assemble
   cache:
     key: "$CI_COMMIT_REF_NAME"
-    policy: pull
+    policy: pull-push
     paths:
       - build
       - .gradle
@@ -37,7 +37,7 @@ checkstyle:
       - CHECKSTYLE: [ 'checkstyleMain', 'checkstyleTest' ]
   cache:
     key: "$CI_COMMIT_REF_NAME"
-    policy: pull
+    policy: pull-push
     paths:
       - build
       - .gradle
@@ -60,7 +60,7 @@ commons:test:
           - "TagTest"
   cache:
     key: "$CI_COMMIT_REF_NAME"
-    policy: pull
+    policy: pull-push
     paths:
       - build
       - .gradle
@@ -83,7 +83,7 @@ client:test:
       - client/build/reports/tests/test/
   cache:
     key: "$CI_COMMIT_REF_NAME"
-    policy: pull
+    policy: pull-push
     paths:
       - build
       - .gradle
@@ -106,7 +106,7 @@ server:database:test:
           - "TagRepositoryTest"
   cache:
     key: "$CI_COMMIT_REF_NAME"
-    policy: pull
+    policy: pull-push
     paths:
       - build
       - .gradle
@@ -126,7 +126,7 @@ server:service:test:
           - "EventServiceTest"
   cache:
     key: "$CI_COMMIT_REF_NAME"
-    policy: pull
+    policy: pull-push
     paths:
       - build
       - .gradle
@@ -146,7 +146,7 @@ server:controller:test:
           - "EventControllerTest"
   cache:
     key: "$CI_COMMIT_REF_NAME"
-    policy: pull
+    policy: pull-push
     paths:
       - build
       - .gradle
@@ -171,7 +171,7 @@ coverageReport:
   coverage: /TestCoverage:(\d+)%/
   cache:
     key: "$CI_COMMIT_REF_NAME"
-    policy: pull
+    policy: pull-push
     paths:
       - build
       - .gradle
