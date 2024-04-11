@@ -486,4 +486,24 @@ public class ServerUtils {
             System.err.println("Could not delete payment: " + e);
         }
     }
+
+    /**
+     * Fully imports the event.
+     *
+     * @param event the event to import
+     * @return the imported event
+     */
+    public Event importEvent(Event event) {
+        try {
+            return ClientBuilder.newClient(new ClientConfig())
+                .target(server).path("/event/import")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.json(event))
+                .readEntity(Event.class);
+        } catch (Exception e) {
+            System.err.println("Could not import the event: " + e);
+            return null;
+        }
+    }
 }
