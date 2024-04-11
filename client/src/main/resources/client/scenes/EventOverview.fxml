@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
@@ -14,170 +16,224 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.control.ComboBox?>
-
-
-<Pane fx:id="root" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.EventOverviewCtrl">
-   <children>
-      <Pane prefHeight="84.0" prefWidth="1001.0">
-         <children>
-            <Button mnemonicParsing="false" text="Button" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="83.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1000.0">
-               <effect>
-                  <DropShadow height="26.93" radius="6.2325" width="0.0" />
-               </effect>
-            </Rectangle>
-            <Button layoutX="20.0" layoutY="25.0" mnemonicParsing="false" onAction="#handleExit" style="-fx-background-color: transparent;">
-               <graphic>
-                  <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@/client/icons/back.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Label layoutX="74.0" layoutY="27.0" style="-fx-font-weight: bold; -fx-font-size: 20;" text="SPLITTY: Going Dutch" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="28.0" layoutX="506.0" layoutY="25.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
-            <Label fx:id="inviteCode" layoutX="507.0" layoutY="24.0" prefHeight="17.0" prefWidth="185.0" text="Invite Code">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <Button fx:id="getInviteCode" layoutX="706.0" layoutY="26.0" mnemonicParsing="false" onAction="#getInviteCode" style="-fx-background-color: transparent;">
-               <graphic>
-                  <ImageView fitHeight="21.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@/client/icons/copy.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="currency" layoutX="884.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleCurrency" style="-fx-background-color: transparent;">
-               <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: transparent;">
-                     <image>
-                        <Image url="@/client/icons/currency.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="language" layoutX="934.0" layoutY="23.0" mnemonicParsing="false" onAction="#handleLanguage" style="-fx-background-color: transparent;">
-               <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@/client/icons/language.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-         </children>
-      </Pane>
-      <Pane layoutX="19.0" layoutY="101.0" prefHeight="144.0" prefWidth="825.0">
-         <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="148.0" stroke="BLACK" strokeType="INSIDE" width="825.0" />
-            <Label fx:id="eventNameLabel" layoutX="7.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="37.0" prefWidth="320.0" text="Event Name">
-               <font>
-                  <Font size="28.0" />
-               </font>
-            </Label>
-            <TextField fx:id="eventNameTextField" layoutX="53.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="37.0" prefWidth="274.0" visible="false" />
-            <Button fx:id="editEventName" layoutX="341.0" layoutY="8.0" mnemonicParsing="false" onAction="#editEventName" prefHeight="24.0" prefWidth="24.0" style="-fx-background-color: transparent;">
-               <graphic>
-                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@/client/icons/edit.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Label fx:id="descriptionLabel" layoutX="10.0" layoutY="37.0" prefHeight="66.0" prefWidth="633.0" wrapText="true" />
-            <TextField fx:id="descriptionTextField" layoutX="10.0" layoutY="35.0" prefHeight="66.0" prefWidth="629.0" visible="false" />
-            <Button fx:id="editDescription" layoutX="636.0" layoutY="75.0" mnemonicParsing="false" onAction="#editDescription" prefHeight="24.0" prefWidth="24.0" style="-fx-background-color: transparent;">
-               <graphic>
-                  <ImageView fitHeight="16.0" fitWidth="16.0" onDragDetected="#editDescription" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@/client/icons/edit.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button layoutX="679.0" layoutY="114.0" mnemonicParsing="false" onAction="#handleManageTags" prefHeight="25.0" prefWidth="140.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #CF9FFF;" text="MANAGE TAGS" />
-            <HBox fx:id="tagsBox" layoutX="10.0" layoutY="112.0" spacing="10.0" />
-            <HBox alignment="CENTER_RIGHT" layoutX="646.0" layoutY="6.0" prefHeight="24.0" prefWidth="165.0">
-               <children>
-                  <Label fx:id="eventDates" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="141.0" text="01-03-24 - 03-03-24" />
-                  <ImageView fitHeight="21.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@/client/icons/calendar.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER_RIGHT" layoutX="646.0" layoutY="33.0" prefHeight="24.0" prefWidth="165.0">
-               <children>
-                  <Label fx:id="eventLastModified" contentDisplay="RIGHT" text="04-03-24" />
-                  <ImageView fitHeight="21.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@/client/icons/time.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER_RIGHT" layoutX="671.0" layoutY="62.0" prefHeight="21.0" prefWidth="141.0">
-               <children>
-                  <Label fx:id="amountOfParticipants" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="23.0" text="15" />
-                  <ImageView fitHeight="21.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@/client/icons/users.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER_RIGHT" layoutX="670.0" layoutY="89.0" prefHeight="21.0" prefWidth="141.0">
-               <children>
-                  <Label fx:id="totalAmountSpent" alignment="CENTER_RIGHT" prefWidth="112.0" text="?" />
-                  <ImageView fitHeight="21.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@/client/icons/total_money.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </HBox>
-         </children>
-      </Pane>
-      <Pane layoutX="20.0" layoutY="292.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="290.0" prefWidth="970.0">
-         <children>
-            <ScrollPane hbarPolicy="NEVER" prefHeight="290.0" prefWidth="970.0">
-               <content>
-                  <FlowPane fx:id="expensesFlowPane" prefHeight="290.0" prefWidth="970.0" />
-               </content>
-            </ScrollPane>
-         </children>
-      </Pane>
-      <Text layoutX="851.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%event-overview.participants" wrappingWidth="121.33675193786621">
-         <font>
-            <Font size="19.0" />
-         </font>
-      </Text>
-      <Text layoutX="850.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%event-overview.payments" wrappingWidth="121.33675193786621">
-         <font>
-            <Font size="19.0" />
-         </font>
-      </Text>
-      <Text layoutX="19.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%event-overview.expenses" wrappingWidth="121.33675193786621">
-         <font>
-            <Font size="19.0" />
-         </font>
-      </Text>
-      <Button layoutX="957.0" layoutY="100.0" mnemonicParsing="false" onAction="#handleAddParticipants" prefHeight="25.0" prefWidth="30.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253); -fx-focus-color: blue; -fx-background-insets: 0, 1, 2;" text="+" />
-      <Button layoutX="848.0" layoutY="134.0" mnemonicParsing="false" onAction="#handleManageParticipants" prefHeight="25.0" prefWidth="139.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #CF9FFF;" text="%event-overview.manage" />
-      <Button layoutX="956.0" layoutY="168.0" mnemonicParsing="false" onAction="#handleAddPayments" prefHeight="25.0" prefWidth="30.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="+" />
-      <Button layoutX="848.0" layoutY="199.0" mnemonicParsing="false" onAction="#handleManagePayments" prefHeight="25.0" prefWidth="139.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #CF9FFF;" text="%event-overview.manage" />
-      <Button layoutX="107.0" layoutY="262.0" mnemonicParsing="false" onAction="#handleAddExpenses" prefHeight="25.0" prefWidth="30.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="+" />
-      <Button layoutX="149.0" layoutY="262.0" mnemonicParsing="false" onAction="#handleManageExpenses" prefHeight="25.0" prefWidth="126.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #CF9FFF;" text="%event-overview.manage" />
-      <Button layoutX="660.0" layoutY="261.0" mnemonicParsing="false" onAction="#handleOpenDebts" prefHeight="25.0" prefWidth="180.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #FFE761;" text="%event-overview.open-debts" />
-      <Button layoutX="850.0" layoutY="260.0" mnemonicParsing="false" onAction="#handleStatistics" prefHeight="25.0" prefWidth="140.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #FF8FAB;" text="%event-overview.statistics" />
-      <ChoiceBox fx:id="filterInclusionChoiceBox" layoutX="292.0" layoutY="262.0" onAction="#displayExpenses" prefWidth="130.0" />
-      <ComboBox fx:id="filterNameComboBox" layoutX="440.0" layoutY="262.0" onAction="#displayExpenses" prefWidth="170.0" />
-   </children>
+<Pane fx:id="root" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;"
+      xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="client.scenes.EventOverviewCtrl">
+    <children>
+        <Pane prefHeight="84.0" prefWidth="1001.0">
+            <children>
+                <Button mnemonicParsing="false" text="Button"/>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="83.0" stroke="BLACK" strokeType="INSIDE"
+                           strokeWidth="0.0" width="1000.0">
+                    <effect>
+                        <DropShadow height="26.93" radius="6.2325" width="0.0"/>
+                    </effect>
+                </Rectangle>
+                <Button layoutX="20.0" layoutY="25.0" mnemonicParsing="false" onAction="#handleExit"
+                        style="-fx-background-color: transparent;">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@/client/icons/back.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Label layoutX="74.0" layoutY="27.0" style="-fx-font-weight: bold; -fx-font-size: 20;"
+                       text="SPLITTY: Going Dutch"/>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="28.0" layoutX="506.0" layoutY="25.0"
+                           stroke="BLACK" strokeType="INSIDE" width="200.0"/>
+                <Label fx:id="inviteCode" layoutX="507.0" layoutY="24.0" prefHeight="17.0" prefWidth="185.0"
+                       text="Invite Code">
+                    <font>
+                        <Font size="20.0"/>
+                    </font>
+                </Label>
+                <Button fx:id="getInviteCode" layoutX="706.0" layoutY="26.0" mnemonicParsing="false"
+                        onAction="#getInviteCode" style="-fx-background-color: transparent;">
+                    <graphic>
+                        <ImageView fitHeight="21.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@/client/icons/copy.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="currency" layoutX="884.0" layoutY="21.0" mnemonicParsing="false"
+                        onAction="#handleCurrency" style="-fx-background-color: transparent;">
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true"
+                                   style="-fx-background-color: transparent;">
+                            <image>
+                                <Image url="@/client/icons/currency.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="language" layoutX="934.0" layoutY="23.0" mnemonicParsing="false"
+                        onAction="#handleLanguage" style="-fx-background-color: transparent;">
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@/client/icons/language.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </children>
+        </Pane>
+        <Pane layoutX="19.0" layoutY="101.0" prefHeight="144.0" prefWidth="825.0">
+            <children>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="148.0" stroke="BLACK" strokeType="INSIDE"
+                           width="825.0"/>
+                <Label fx:id="eventNameLabel" layoutX="7.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="37.0"
+                       prefWidth="320.0" text="Event Name">
+                    <font>
+                        <Font size="28.0"/>
+                    </font>
+                </Label>
+                <TextField fx:id="eventNameTextField" layoutX="53.0" maxWidth="-Infinity" minWidth="-Infinity"
+                           prefHeight="37.0" prefWidth="274.0" visible="false"/>
+                <Button fx:id="editEventName" layoutX="341.0" layoutY="8.0" mnemonicParsing="false"
+                        onAction="#editEventName" prefHeight="24.0" prefWidth="24.0"
+                        style="-fx-background-color: transparent;">
+                    <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@/client/icons/edit.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Label fx:id="descriptionLabel" layoutX="10.0" layoutY="37.0" prefHeight="66.0" prefWidth="633.0"
+                       wrapText="true"/>
+                <TextField fx:id="descriptionTextField" layoutX="10.0" layoutY="35.0" prefHeight="66.0"
+                           prefWidth="629.0" visible="false"/>
+                <Button fx:id="editDescription" layoutX="636.0" layoutY="75.0" mnemonicParsing="false"
+                        onAction="#editDescription" prefHeight="24.0" prefWidth="24.0"
+                        style="-fx-background-color: transparent;">
+                    <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" onDragDetected="#editDescription"
+                                   pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@/client/icons/edit.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button layoutX="679.0" layoutY="114.0" mnemonicParsing="false" onAction="#handleManageTags"
+                        prefHeight="25.0" prefWidth="140.0"
+                        style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #CF9FFF;"
+                        text="MANAGE TAGS"/>
+                <HBox fx:id="tagsBox" layoutX="10.0" layoutY="112.0" spacing="10.0"/>
+                <HBox alignment="CENTER_RIGHT" layoutX="646.0" layoutY="6.0" prefHeight="24.0" prefWidth="165.0">
+                    <children>
+                        <Label fx:id="eventDates" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="141.0"
+                               text="01-03-24 - 03-03-24"/>
+                        <ImageView fitHeight="21.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@/client/icons/calendar.png"/>
+                            </image>
+                        </ImageView>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_RIGHT" layoutX="646.0" layoutY="33.0" prefHeight="24.0" prefWidth="165.0">
+                    <children>
+                        <Label fx:id="eventLastModified" contentDisplay="RIGHT" text="04-03-24"/>
+                        <ImageView fitHeight="21.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@/client/icons/time.png"/>
+                            </image>
+                        </ImageView>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_RIGHT" layoutX="671.0" layoutY="62.0" prefHeight="21.0" prefWidth="141.0">
+                    <children>
+                        <Label fx:id="amountOfParticipants" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="23.0"
+                               text="15"/>
+                        <ImageView fitHeight="21.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@/client/icons/users.png"/>
+                            </image>
+                        </ImageView>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_RIGHT" layoutX="670.0" layoutY="89.0" prefHeight="21.0" prefWidth="141.0">
+                    <children>
+                        <Label fx:id="totalAmountSpent" alignment="CENTER_RIGHT" prefWidth="112.0" text="?"/>
+                        <ImageView fitHeight="21.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@/client/icons/total_money.png"/>
+                            </image>
+                        </ImageView>
+                    </children>
+                </HBox>
+            </children>
+        </Pane>
+        <Text layoutX="851.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%event-overview.participants"
+              wrappingWidth="121.33675193786621">
+            <font>
+                <Font size="19.0"/>
+            </font>
+        </Text>
+        <Text layoutX="850.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%event-overview.payments"
+              wrappingWidth="121.33675193786621">
+            <font>
+                <Font size="19.0"/>
+            </font>
+        </Text>
+        <Text layoutX="19.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%event-overview.expenses"
+              wrappingWidth="121.33675193786621">
+            <font>
+                <Font size="19.0"/>
+            </font>
+        </Text>
+        <Button layoutX="957.0" layoutY="100.0" mnemonicParsing="false" onAction="#handleAddParticipants"
+                prefHeight="25.0" prefWidth="30.0"
+                style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253); -fx-focus-color: blue; -fx-background-insets: 0, 1, 2;"
+                text="+"/>
+        <Button layoutX="848.0" layoutY="134.0" mnemonicParsing="false" onAction="#handleManageParticipants"
+                prefHeight="25.0" prefWidth="139.0"
+                style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #CF9FFF;"
+                text="%event-overview.manage"/>
+        <Button layoutX="956.0" layoutY="168.0" mnemonicParsing="false" onAction="#handleAddPayments" prefHeight="25.0"
+                prefWidth="30.0"
+                style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);"
+                text="+"/>
+        <Button layoutX="848.0" layoutY="199.0" mnemonicParsing="false" onAction="#handleManagePayments"
+                prefHeight="25.0" prefWidth="139.0"
+                style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #CF9FFF;"
+                text="%event-overview.manage"/>
+        <Button layoutX="107.0" layoutY="262.0" mnemonicParsing="false" onAction="#handleAddExpenses" prefHeight="25.0"
+                prefWidth="30.0"
+                style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);"
+                text="+"/>
+        <Button layoutX="149.0" layoutY="262.0" mnemonicParsing="false" onAction="#handleManageExpenses"
+                prefHeight="25.0" prefWidth="126.0"
+                style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #CF9FFF;"
+                text="%event-overview.manage"/>
+        <ChoiceBox fx:id="filterInclusionChoiceBox" layoutX="292.0" layoutY="262.0" onAction="#displayExpenses"
+                   prefWidth="130.0"/>
+        <ComboBox fx:id="filterNameComboBox" layoutX="440.0" layoutY="262.0" onAction="#displayExpenses"
+                  prefWidth="170.0"/>
+        <Button layoutX="660.0" layoutY="261.0" mnemonicParsing="false" onAction="#handleOpenDebts" prefHeight="25.0"
+                prefWidth="180.0"
+                style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #FFE761;"
+                text="%event-overview.open-debts"/>
+        <Button layoutX="850.0" layoutY="260.0" mnemonicParsing="false" onAction="#handleStatistics" prefHeight="25.0"
+                prefWidth="140.0"
+                style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #FF8FAB;"
+                text="%event-overview.statistics"/>
+        <Pane layoutX="20.0" layoutY="292.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+              minWidth="-Infinity" prefHeight="290.0" prefWidth="970.0">
+            <children>
+                <ScrollPane hbarPolicy="NEVER" hmax="0.0" vbarPolicy="ALWAYS" prefHeight="290.0" prefWidth="970.0">
+                    <content>
+                        <FlowPane fx:id="expensesFlowPane" prefWidth="970.0" vgap="3" hgap="4"/>
+                    </content>
+                </ScrollPane>
+            </children>
+        </Pane>
+    </children>
 </Pane>
