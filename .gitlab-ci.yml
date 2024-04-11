@@ -65,7 +65,7 @@ client:test:
   artifacts:
     when: always
     paths:
-      - client/build/reports/tests/test/index.html
+      - client/build/reports/tests/test/
   parallel:
     matrix:
       - TEST_CLASS:
