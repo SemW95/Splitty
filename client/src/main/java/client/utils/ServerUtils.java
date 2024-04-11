@@ -21,6 +21,7 @@ import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 import client.Main;
 import commons.Event;
 import commons.Expense;
+import commons.Payment;
 import commons.Person;
 import commons.Tag;
 import jakarta.ws.rs.WebApplicationException;
@@ -313,7 +314,6 @@ public class ServerUtils {
                 .target(server).path("/person")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .accept(APPLICATION_JSON)
                 .post(Entity.json(person))
                 .readEntity(Person.class);
         } catch (Exception e) {
@@ -392,6 +392,98 @@ public class ServerUtils {
                 .getStatus() == 200;
         } catch (Exception e) {
             return false;
+        }
+    }
+
+    /**
+     * Deletes an expense.
+     *
+     * @param expense the expense to delete
+     */
+    public void deleteExpense(Expense expense) {
+        try {
+            ClientBuilder.newClient(new ClientConfig())
+                .target(server).path("/expense/" + expense.getId())
+                .request(APPLICATION_JSON)
+                .delete();
+        } catch (Exception e) {
+            System.err.println("Server did not respond");
+        }
+    }
+
+    /**
+     * Create a new payment in the database.
+     *
+     * @param payment the payment to create
+     * @return the created payment with updated fields (id is created)
+     */
+    public Payment createPayment(Payment payment) {
+        try {
+            return ClientBuilder.newClient(new ClientConfig())
+                .target(server).path("/payment")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.json(payment))
+                .readEntity(Payment.class);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    /**
+     * Gets a payment by its id.
+     *
+     * @param id the payment's id
+     * @return the requested payment
+     */
+    public Payment getPaymentById(String id) {
+        try {
+            return ClientBuilder.newClient(new ClientConfig())
+                .target(server).path("/payment/" + id)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(Payment.class);
+        } catch (Exception e) {
+            System.err.println("Could not get payment by its id: " + e);
+            return null;
+        }
+    }
+
+    /**
+     * Updates a payment in the database.
+     *
+     * @param payment the payment to update
+     */
+    public void updatePayment(Payment payment) {
+        Payment oldPayment = getPaymentById(payment.getId());
+        undoStack.add(() -> justUpdatePayment(oldPayment));
+        justUpdatePayment(payment);
+    }
+
+    private void justUpdatePayment(Payment payment) {
+        try {
+            ClientBuilder.newClient(new ClientConfig())
+                .target(server).path("/payment")
+                .request(APPLICATION_JSON)
+                .put(Entity.json(payment));
+        } catch (Exception e) {
+            System.err.println("Could not update payment: " + e);
+        }
+    }
+
+    /**
+     * Deletes a payment.
+     *
+     * @param payment the payment to delete
+     */
+    public void deletePayment(Payment payment) {
+        try {
+            ClientBuilder.newClient(new ClientConfig())
+                .target(server).path("/payment/" + payment.getId())
+                .request(APPLICATION_JSON)
+                .delete();
+        } catch (Exception e) {
+            System.err.println("Could not delete payment: " + e);
         }
     }
 }

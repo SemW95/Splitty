@@ -65,6 +65,7 @@ public class MyFXML {
             var loader = new FXMLLoader(getLocation(parts), bundle, null, new MyFactory(),
                 StandardCharsets.UTF_8);
             Parent parent = loader.load();
+            parent.getStylesheets().add("/client/css/global.css");
             T ctrl = loader.getController();
             return new CsPair<>(ctrl, parent);
         } catch (IOException e) {

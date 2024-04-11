@@ -25,6 +25,7 @@ import client.utils.WebSocketClient;
 import com.google.inject.Inject;
 import commons.Event;
 import commons.Expense;
+import commons.Payment;
 import commons.Person;
 import java.io.File;
 import java.time.Duration;
@@ -65,6 +66,11 @@ public class MainCtrl {
     private CsPair<DeleteEventConfirmationCtrl> deleteEventConfirmationPair;
     private CsPair<CreateEventCtrl> createEventPair;
     private CsPair<LanguageSelectCtrl> languageSelectPair;
+    private CsPair<ManageExpenseListCtrl> manageExpenseListPair;
+    private CsPair<DeleteExpenseConfirmationCtrl> deleteExpenseConfirmationPair;
+    private CsPair<OpenDebtsCtrl> openDebtsPair;
+    private CsPair<ManagePaymentsCtrl> managePaymentsPair;
+    private CsPair<EditPaymentCtrl> editPaymentPair;
     private Initializable currentCtrl;
     // private Pair<ExpenseCardCtrl, Parent> expenseCard;
     private WebSocketClient websocketClient;
@@ -145,60 +151,60 @@ public class MainCtrl {
 
     private void loadAllPairs() {
         homePair = fxml.load(HomeCtrl.class, "client", "scenes", "Home.fxml");
-        homePair.scene.getStylesheets().add("/client/css/global.css");
 
         languageSelectPair =
             fxml.load(LanguageSelectCtrl.class,
                 "client", "scenes", "LanguageSelection.fxml");
-        languageSelectPair.scene.getStylesheets().add("/client/css/global.css");
 
         adminCredentialsPair =
             fxml.load(AdminCredentialsCtrl.class,
                 "client", "scenes", "AdminCredentials.fxml");
-        adminCredentialsPair.scene.getStylesheets().add("/client/css/global.css");
 
         expenseOverviewPair = fxml.load(ExpenseOverviewCtrl.class, "client", "scenes",
             "ExpenseOverview.fxml");
-        expenseOverviewPair.scene.getStylesheets().add("/client/css/global.css");
 
         eventOverviewPair = fxml.load(EventOverviewCtrl.class,
             "client", "scenes", "EventOverview.fxml");
-        eventOverviewPair.scene.getStylesheets().add("/client/css/global.css");
 
         manageExpensePair = fxml.load(ManageExpenseCtrl.class, "client", "scenes",
             "ManageExpense.fxml");
-        manageExpensePair.scene.getStylesheets().add("/client/css/global.css");
 
         expenseAddParticipantPair = fxml.load(ExpenseAddParticipantCtrl.class, "client",
             "scenes", "ExpenseAddParticipant.fxml");
-        expenseAddParticipantPair.scene.getStylesheets().add("/client/css/global.css");
 
         addParticipantPair = fxml.load(AddParticipantCtrl.class,
             "client", "scenes", "AddParticipant.fxml");
-        addParticipantPair.scene.getStylesheets().add("/client/css/global.css");
 
         manageParticipantsPair = fxml.load(ManageParticipantsCtrl.class,
             "client", "scenes", "ManageParticipants.fxml");
-        manageParticipantsPair.scene.getStylesheets().add("/client/css/global.css");
 
         editParticipantPair = fxml.load(EditParticipantCtrl.class,
             "client", "scenes", "EditParticipant.fxml");
-        editParticipantPair.scene.getStylesheets().add("/client/css/global.css");
 
         deleteParticipantConfirmationPair = fxml.load(DeleteParticipantConfirmationCtrl.class,
             "client", "scenes", "DeleteParticipantConfirmation.fxml");
-        deleteParticipantConfirmationPair.scene.getStylesheets().add("/client/css/global.css");
 
         adminOverviewPair = fxml.load(AdminOverviewCtrl.class,
             "client", "scenes", "AdminOverview.fxml");
-        adminOverviewPair.scene.getStylesheets().add("/client/css/global.css");
 
         deleteEventConfirmationPair = fxml.load(DeleteEventConfirmationCtrl.class,
             "client", "scenes", "DeleteEventConfirmation.fxml");
-        deleteEventConfirmationPair.scene.getStylesheets().add("/client/css/global.css");
 
         createEventPair = fxml.load(CreateEventCtrl.class, "client", "scenes", "CreateEvent.fxml");
-        createEventPair.scene.getStylesheets().add("/client/css/global.css");
+
+        manageExpenseListPair = fxml.load(ManageExpenseListCtrl.class,
+            "client", "scenes", "ManageExpenseList.fxml");
+
+        deleteExpenseConfirmationPair = fxml.load(DeleteExpenseConfirmationCtrl.class,
+            "client", "scenes", "DeleteExpenseConfirmation.fxml");
+
+        openDebtsPair = fxml.load(OpenDebtsCtrl.class, "client", "scenes", "OpenDebts.fxml");
+
+        managePaymentsPair =
+            fxml.load(ManagePaymentsCtrl.class, "client", "scenes", "ManagePayments.fxml");
+
+        editPaymentPair =
+            fxml.load(EditPaymentCtrl.class, "client", "scenes", "EditPayment.fxml");
     }
 
     /**
@@ -212,6 +218,9 @@ public class MainCtrl {
         manageParticipantsPair.ctrl.refetch();
         editParticipantPair.ctrl.refetch();
         adminOverviewPair.ctrl.refetch();
+        manageExpenseListPair.ctrl.refetch();
+        openDebtsPair.ctrl.refetch();
+        managePaymentsPair.ctrl.refetch();
     }
 
     /**
@@ -260,6 +269,11 @@ public class MainCtrl {
 
             case ManageParticipantsCtrl manageParticipantsCtrl ->
                 showManageParticipantsScreen(manageParticipantsCtrl.getEvent());
+
+            case OpenDebtsCtrl openDebtsCtrl -> showOpenDebtsScreen(openDebtsCtrl.getEvent());
+
+            case ManagePaymentsCtrl managePaymentsCtrl ->
+                showManagePaymentScreen(managePaymentsCtrl.getEvent());
 
             default -> {
                 System.err.println("Tried to switch language from an unknown screen");
@@ -473,4 +487,62 @@ public class MainCtrl {
         popupStage.show();
     }
 
+    /**
+     * Show the ManageExpenseListCtrl screen.
+     *
+     * @param event the event
+     */
+    public void showManageExpenseListScreen(Event event) {
+        primaryStage.setTitle(fxml.getBundle().getString("manage-expense-list.title"));
+        primaryStage.setScene(manageExpenseListPair.scene);
+        manageExpenseListPair.ctrl.update(event);
+        currentCtrl = manageExpenseListPair.ctrl;
+    }
+
+    /**
+     * Show the DeleteExpenseConfirmation popup.
+     */
+    public void showDeleteExpenseConfirmationPopup(Runnable callback) {
+        popupStage.setTitle(fxml.getBundle().getString("delete-expense-confirmation.title"));
+        popupStage.setScene(deleteExpenseConfirmationPair.scene);
+        deleteExpenseConfirmationPair.ctrl.setCallback(callback);
+        popupStage.show();
+    }
+
+    /**
+     * Show the Open debts screen.
+     *
+     * @param event the event
+     */
+    public void showOpenDebtsScreen(Event event) {
+        primaryStage.setScene(openDebtsPair.scene);
+        primaryStage.setTitle(fxml.getBundle().getString("open-debts.title"));
+        openDebtsPair.ctrl.update(event);
+        currentCtrl = openDebtsPair.ctrl;
+    }
+
+    /**
+     * Show the Manage payments screen.
+     *
+     * @param event the event
+     */
+    public void showManagePaymentScreen(Event event) {
+        primaryStage.setScene(managePaymentsPair.scene);
+        primaryStage.setTitle(fxml.getBundle().getString("manage-payments.title"));
+        managePaymentsPair.ctrl.update(event);
+        currentCtrl = managePaymentsPair.ctrl;
+    }
+
+    /**
+     * Show the Edit payment popup.
+     *
+     * @param payment the payment
+     * @param event   the event
+     */
+    public void showEditPaymentPopup(Payment payment, Event event) {
+        popupStage.setScene(editPaymentPair.scene);
+        popupStage.setTitle(fxml.getBundle().getString("edit-payment.title"));
+        editPaymentPair.ctrl.update(payment, event);
+        popupStage.show();
+    }
 }

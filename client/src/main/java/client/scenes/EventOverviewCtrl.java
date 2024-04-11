@@ -1,6 +1,5 @@
 package client.scenes;
 
-
 import client.Main;
 import client.utils.ExpenseCardCtrl;
 import client.utils.PaneCreator;
@@ -9,6 +8,7 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Event;
 import commons.Expense;
+import commons.Payment;
 import commons.Person;
 import java.math.BigDecimal;
 import java.net.URL;
@@ -48,7 +48,6 @@ public class EventOverviewCtrl implements Initializable {
     private ResourceBundle resources;
     private Event event;
     private boolean goBackToAdmin;
-    // TODO: change this such that label is seen when changing the name and otherwise text
     @FXML
     private Label eventNameLabel;
     @FXML
@@ -71,8 +70,6 @@ public class EventOverviewCtrl implements Initializable {
     private Label totalAmountSpent;
     @FXML
     private HBox tagsBox;
-    @FXML
-    private ComboBox<String> dropDown;
     @FXML
     private FlowPane expensesFlowPane;
     @FXML
@@ -313,7 +310,6 @@ public class EventOverviewCtrl implements Initializable {
         });
     }
 
-
     private void handleEditAndSaveDescription() {
         // Get the content of textField and update description
         String newDescription = descriptionTextField.getText();
@@ -325,8 +321,9 @@ public class EventOverviewCtrl implements Initializable {
         descriptionTextField.setVisible(false); // Hide the TextField
     }
 
-    // TODO: go to manage expenses
-    public void handleManageExpenses(ActionEvent actionEvent) {
+    @FXML
+    private void handleManageExpenses(ActionEvent actionEvent) {
+        mainCtrl.showManageExpenseListScreen(event);
     }
 
     @FXML
@@ -338,24 +335,26 @@ public class EventOverviewCtrl implements Initializable {
         });
     }
 
-    public void handleManageParticipants(ActionEvent actionEvent) {
+    @FXML
+    private void handleManageParticipants(ActionEvent actionEvent) {
         mainCtrl.showManageParticipantsScreen(event);
     }
 
-    // TODO: go to add payments
-    public void handleAddPayments(ActionEvent actionEvent) {
+    @FXML
+    private void handleAddPayments(ActionEvent actionEvent) {
+        Payment payment =
+            new Payment(null, null, BigDecimal.ZERO);
+        mainCtrl.showEditPaymentPopup(payment, event);
     }
 
-    // TODO: go to manage payments
-    public void handleManagePayments(ActionEvent actionEvent) {
+    @FXML
+    private void handleManagePayments(ActionEvent actionEvent) {
+        mainCtrl.showManagePaymentScreen(event);
     }
 
-    // TODO: go to Open Debts
-    public void handleOpenDebts(ActionEvent actionEvent) {
-    }
-
-    // TODO: go to Paid Off Debts
-    public void handlePaidOffDebts(ActionEvent actionEvent) {
+    @FXML
+    private void handleOpenDebts(ActionEvent actionEvent) {
+        mainCtrl.showOpenDebtsScreen(event);
     }
 
     @FXML
@@ -383,6 +382,4 @@ public class EventOverviewCtrl implements Initializable {
     // TODO: go to the Statistics screen
     public void handleStatistics(ActionEvent actionEvent) {
     }
-
-
 }
