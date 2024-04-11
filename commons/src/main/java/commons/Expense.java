@@ -254,7 +254,7 @@ public class Expense {
         throw new IllegalStateException("There is no participant with this id");
     }
 
-    public void setParticipants(ArrayList<Person> participants) {
+    public void setParticipants(List<Person> participants) {
         this.participants = participants;
     }
 

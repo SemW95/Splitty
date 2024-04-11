@@ -180,9 +180,7 @@ public class AdminOverviewCtrl implements Initializable {
             Event event =
                 new ObjectMapper().registerModule(new JavaTimeModule())
                     .readValue(eventJson, Event.class);
-            server.createEvent(event);
-            // TODO: could use optimistic ui
-            refetch();
+            server.importEvent(event);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
