@@ -1,8 +1,8 @@
 image: gradle:8.5.0-jdk21-alpine
 
 variables:
-  # Disable the Gradle daemon to ensure isolated runs of the CI pipeline.
-  # GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+# Disable the Gradle daemon to ensure isolated runs of the CI pipeline.
+# GRADLE_OPTS: "-Dorg.gradle.daemon=false"
 
 stages:
   - compile
@@ -19,12 +19,20 @@ compile:
 
 checkstyle:
   stage: checkstyle
-  needs: []
+  needs: [ ]
   script:
     - ./gradlew $CHECKSTYLE
   parallel:
     matrix:
-      - CHECKSTYLE: ['checkstyleMain', 'checkstyleTest']
+      - CHECKSTYLE: [ 'checkstyleMain', 'checkstyleTest' ]
+
+server:start:
+  needs:
+    - compile
+  stage: setup
+  script:
+    - ./gradlew bootrun --args='--seed' &   # Start the server as a background process
+    - sleep 30  # Adjust the sleep time based on how long it takes for the server to start
 
 commons:test:
   stage: test
@@ -35,21 +43,13 @@ commons:test:
   parallel:
     matrix:
       - TEST_CLASS:
-        - "ColourTest"
-        - "CurrencyTest"
-        - "EventTest"
-        - "ExpenseTest"
-        - "PaymentTest"
-        - "PersonTest"
-        - "TagTest"
-
-server:start:
-  needs:
-    - compile
-  stage: setup
-  script:
-    - ./gradlew bootrun --args='--seed' &   # Start the server as a background process
-    - sleep 30  # Adjust the sleep time based on how long it takes for the server to start
+          - "ColourTest"
+          - "CurrencyTest"
+          - "EventTest"
+          - "ExpenseTest"
+          - "PaymentTest"
+          - "PersonTest"
+          - "TagTest"
 
 client:test:
   stage: test
@@ -112,8 +112,12 @@ server:controller:test:
 coverageReport:
   stage: coverageReport
   needs:
-    - test
     - server:start # Just in case
+    - commons:test
+    - client:test
+    - server:database:test
+    - server:service:test
+    - server:controller:test
   script:
     - ./gradlew compileTestJava
     - ./gradlew AggregateJacocoReport
@@ -128,7 +132,7 @@ coverageReport:
 dry-run:triage:
   image: ruby:3.0
   stage: triage
-  needs: []
+  needs: [ ]
   script:
     - gem install gitlab-triage
     - gitlab-triage --help
@@ -140,7 +144,7 @@ dry-run:triage:
 run:triage:
   image: ruby:3.0
   stage: triage
-  needs: []
+  needs: [ ]
   script:
     - gem install gitlab-triage
     - gitlab-triage --token j4Sr_UUUmsJ96xkkbs4y --host-url $CI_SERVER_URL --source projects --source-id $CI_PROJECT_PATH
