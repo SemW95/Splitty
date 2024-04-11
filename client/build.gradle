@@ -31,4 +31,8 @@ dependencies {
 
     // dependency for websockets
     implementation 'org.springframework.boot:spring-boot-starter-websocket:3.2.3'
+
+    testImplementation 'org.testfx:testfx-core:4.0.18'
+    testImplementation 'org.testfx:testfx-junit5:4.0.18'
+    testImplementation 'org.hamcrest:hamcrest:2.2'
 }
