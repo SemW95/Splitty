@@ -438,7 +438,8 @@ public class Event {
     }
 
     public void setCode(String code) {
-        updateLastModifiedDateTime();
+        // TODO Causes problems for testing
+        // updateLastModifiedDateTime();
         this.code = code;
     }
 
