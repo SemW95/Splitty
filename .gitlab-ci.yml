@@ -25,34 +25,30 @@ compile:
 
 checkstyle:
   stage: checkstyle
-  needs: [ ]
+  needs:
+    - compile
   script:
-    - ./gradlew --build-cache $CHECKSTYLE
-  parallel:
-    matrix:
-      - CHECKSTYLE: [ 'checkstyleMain', 'checkstyleTest' ]
+    - ./gradlew --build-cache checkstyleMain
+    - ./gradlew --build-cache checkstyleTest
 
 commons:test:
   stage: test
   needs:
-    - compile
+    - checkstyle
   script:
-    - ./gradlew --build-cache :commons:test --tests commons.$TEST_CLASS
-  parallel:
-    matrix:
-      - TEST_CLASS:
-          - "ColourTest"
-          - "CurrencyTest"
-          - "EventTest"
-          - "ExpenseTest"
-          - "PaymentTest"
-          - "PersonTest"
-          - "TagTest"
+    - ./gradlew --build-cache :commons:test
+
+server:test:
+  stage: test
+  needs:
+    - commons:test
+  script:
+    - ./gradlew --build-cache :server:test
 
 client:test:
   stage: test
   needs:
-    - compile
+    - server:test
   before_script:
     - apk update
     - apk add xvfb-run
@@ -62,59 +58,10 @@ client:test:
   script:
     - xvfb-run ./gradlew --build-cache :client:test
 
-server:database:test:
-  stage: test
-  needs:
-    - compile
-  script:
-    - ./gradlew --build-cache :server:test --tests server.database.$TEST_CLASS
-  parallel:
-    matrix:
-      - TEST_CLASS:
-          - "ColourRepositoryTest"
-          - "CurrencyRepositoryTest"
-          - "EventRepositoryTest"
-          - "ExpenseRepositoryTest"
-          - "PaymentRepositoryTest"
-          - "PersonRepositoryTest"
-          - "TagRepositoryTest"
-
-server:service:test:
-  stage: test
-  needs:
-    - compile
-  script:
-    - ./gradlew --build-cache :server:test --tests server.service.$TEST_CLASS
-  parallel:
-    matrix:
-      - TEST_CLASS:
-          - "PersonServiceTest"
-          - "PaymentServiceTest"
-          - "ExpenseServiceTest"
-          - "EventServiceTest"
-
-server:controller:test:
-  stage: test
-  needs:
-    - compile
-  script:
-    - ./gradlew --build-cache :server:test --tests server.api.$TEST_CLASS
-  parallel:
-    matrix:
-      - TEST_CLASS:
-          - "PersonControllerTest"
-          - "PaymentControllerTest"
-          - "ExpenseControllerTest"
-          - "EventControllerTest"
-
 coverageReport:
   stage: coverageReport
   needs:
-    - commons:test
     - client:test
-    - server:database:test
-    - server:service:test
-    - server:controller:test
   script:
     - ./gradlew --build-cache compileTestJava
     - ./gradlew --build-cache AggregateJacocoReport
