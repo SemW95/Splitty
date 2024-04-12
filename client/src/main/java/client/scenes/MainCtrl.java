@@ -550,6 +550,9 @@ public class MainCtrl {
         popupStage.show();
     }
 
+    // TODO: not the best way to do this
+    private boolean statisticsPopupShownBefore = false;
+
     /**
      * Show the Statistics popup.
      *
@@ -559,6 +562,12 @@ public class MainCtrl {
         popupStage.setScene(statisticsPair.scene);
         popupStage.setTitle(fxml.getBundle().getString("statistics.title"));
         statisticsPair.ctrl.update(event);
+        if (!statisticsPopupShownBefore) {
+            statisticsPopupShownBefore = true;
+            popupStage
+                .addEventHandler(KeyEvent.KEY_PRESSED,
+                    ScreenUtils.exitHandler(fxml.getBundle(), this::closePopup));
+        }
         popupStage.show();
     }
 }

@@ -1,6 +1,5 @@
 package client.scenes;
 
-import client.utils.ScreenUtils;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Event;
@@ -18,9 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-
 
 /**
  * Statistics popup.
@@ -46,8 +43,6 @@ public class StatisticsCtrl implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
-        root.addEventFilter(KeyEvent.KEY_PRESSED,
-            ScreenUtils.exitHandler(resources, mainCtrl::closePopup));
     }
 
     private void populate() {
