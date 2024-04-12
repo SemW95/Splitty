@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -11,71 +18,58 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
-<Pane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.HomeCtrl">
+
+<Pane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.HomeCtrl">
     <children>
-        <Text id="recentOverview" layoutX="97.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0"
-              style="-fx-font-size: 20; -fx-font-weight: bold;" text="%home.recent-overview"/>
-        <Button layoutX="180.0" layoutY="288.0" mnemonicParsing="false" text="Tab Holder"/>
+        <Text id="recentOverview" layoutX="97.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 20; -fx-font-weight: bold;" text="%home.recent-overview" />
+        <Button layoutX="180.0" layoutY="288.0" mnemonicParsing="false" text="Tab Holder" />
         <Pane prefHeight="84.0" prefWidth="1001.0">
             <children>
-                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="83.0" layoutY="1.0" stroke="BLACK"
-                           strokeType="INSIDE" strokeWidth="0.0" width="1000.0">
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="83.0" layoutY="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1000.0">
                     <effect>
-                        <DropShadow height="26.93" radius="6.2325" width="0.0"/>
+                        <DropShadow height="26.93" radius="6.2325" width="0.0" />
                     </effect>
                 </Rectangle>
-                <Label layoutX="74.0" layoutY="27.0" style="-fx-font-weight: bold; -fx-font-size: 20;"
-                       text="SPLITTY: Going Dutch"/>
-                <Button fx:id="currency" layoutX="884.0" layoutY="22.0" mnemonicParsing="false"
-                        onAction="#clickCurrency" style="-fx-background-color: transparent;">
+                <Label layoutX="74.0" layoutY="27.0" style="-fx-font-weight: bold; -fx-font-size: 20;" text="SPLITTY: Going Dutch" />
+                <Button fx:id="currency" layoutX="884.0" layoutY="22.0" mnemonicParsing="false" onAction="#clickCurrency" style="-fx-background-color: transparent;">
                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true"
-                                   style="-fx-background-color: transparent;">
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: transparent;">
                             <image>
-                                <Image url="@/client/icons/currency.png"/>
+                                <Image url="@/client/icons/currency.png" />
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="language1" layoutX="934.0" layoutY="23.0" mnemonicParsing="false"
-                        onAction="#clickLanguage" style="-fx-background-color: transparent;">
+                <Button fx:id="language1" layoutX="934.0" layoutY="23.0" mnemonicParsing="false" onAction="#clickLanguage" style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@/client/icons/language.png"/>
+                                <Image url="@/client/icons/language.png" />
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Label fx:id="serverStatus" alignment="CENTER" layoutX="773.0" layoutY="33.0" prefHeight="17.0"
-                       prefWidth="83.0" style="-fx-background-color: white;" text="Label" textOverrun="WORD_ELLIPSIS"/>
-                <Text layoutX="695.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%home.server-status"/>
+            <HBox alignment="CENTER" layoutX="667.0" layoutY="30.0" prefHeight="25.0" prefWidth="200.0">
+               <children>
+                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%home.server-status" />
+                      <Label fx:id="serverStatus" alignment="CENTER" prefHeight="17.0" prefWidth="83.0" style="-fx-background-color: #ffff96;" text="..." textOverrun="WORD_ELLIPSIS" />
+               </children>
+            </HBox>
             </children>
         </Pane>
-        <TextField fx:id="eventCodeTextField" layoutX="510.0" layoutY="110.0" onAction="#joinEvent"
-                   promptText="%home.event-code"/>
-        <Button layoutX="666.0" layoutY="110.0" mnemonicParsing="false" onAction="#joinEvent" prefHeight="25.0"
-                prefWidth="83.0"
-                style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);"
-                text="%home.join-event"/>
-        <Button layoutX="847.0" layoutY="110.0" mnemonicParsing="false" onAction="#createEvent" prefHeight="25.0"
-                prefWidth="139.0"
-                style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);"
-                text="%home.create-event"/>
-        <ScrollPane hbarPolicy="NEVER" hmax="0" layoutX="160.0" layoutY="155.0" prefHeight="445.0" prefWidth="700.0"
-                    vbarPolicy="ALWAYS">
+        <TextField fx:id="eventCodeTextField" layoutX="483.0" layoutY="110.0" onAction="#joinEvent" promptText="%home.event-code" />
+        <Button layoutX="639.0" layoutY="110.0" mnemonicParsing="false" onAction="#joinEvent" prefHeight="25.0" prefWidth="156.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="%home.join-event" />
+        <Button layoutX="847.0" layoutY="110.0" mnemonicParsing="false" onAction="#createEvent" prefHeight="25.0" prefWidth="139.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="%home.create-event" />
+        <ScrollPane hbarPolicy="NEVER" hmax="0" layoutX="160.0" layoutY="155.0" prefHeight="445.0" prefWidth="700.0" vbarPolicy="ALWAYS">
             <content>
-                <VBox fx:id="eventList" prefWidth="685.0"/>
+                <VBox fx:id="eventList" prefWidth="685.0" />
             </content>
         </ScrollPane>
-        <Button layoutX="933.0" layoutY="541.0" mnemonicParsing="false" onAction="#clickAdminView" prefHeight="30.0"
-                prefWidth="30.0" style="-fx-background-color: transparent;">
+        <Button layoutX="933.0" layoutY="541.0" mnemonicParsing="false" onAction="#clickAdminView" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;">
             <graphic>
                 <ImageView fitHeight="38.0" fitWidth="40.0">
                     <image>
-                        <Image url="@/client/icons/admin.png"/>
+                        <Image url="@/client/icons/admin.png" />
                     </image>
                 </ImageView>
             </graphic>

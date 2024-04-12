@@ -1,5 +1,7 @@
 package client;
 
+import client.scenes.MainCtrl;
+import com.google.inject.Inject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -17,6 +19,7 @@ import java.util.Properties;
  */
 public class ConfigManager {
 
+    private MainCtrl mainCtrl;
     private final Properties properties;
     private final String file;
 
@@ -136,22 +139,24 @@ public class ConfigManager {
     /**
      * Getter for the "language" property.
      */
-    public void getLanguage() {
+    public String getLanguage() {
         String languageCode = properties.getProperty("language");
 
-        if (languageCode != null) {
-
+        if (languageCode != null && !languageCode.isEmpty()) {
+            return languageCode;
         }
 
-        properties.setProperty("language", "");
+        properties.setProperty("language", "en");
         save();
+        return "en";
     }
 
     /**
      * Setter for "language" property.
      */
     public void setLanguage(String languageCode) {
-
+        properties.setProperty("language", languageCode);
+        save();
     }
 
     /**
