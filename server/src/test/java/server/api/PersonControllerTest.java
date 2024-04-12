@@ -123,7 +123,7 @@ public class PersonControllerTest {
         mockMvc.perform(post("/person")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(newPerson)))
-            .andExpect(status().isOk());
+            .andExpect(status().isCreated());
     }
 
     @Test

@@ -30,21 +30,13 @@ public class PaymentController {
     }
 
     @PostMapping(path = "/payment")
-    public Payment addPayment(@RequestBody Payment payment) {
-        return paymentService.addPayment(payment);
+    public ResponseEntity<Object> addPayment(@RequestBody Payment payment) {
+        paymentService.addPayment(payment);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     // The user should not be able to get all payments for security reasons.
-    // /**
-    //  * Gets all the Payments.
-    //  *
-    //  * @return All payments
-    //  */
-    // @GetMapping(path = "/payment")
-    // @ResponseBody
-    // public List<Payment> getAllPayments() {
-    //     return paymentService.getAllPayments();
-    // }
+    // Therefor: no getAllPayments()
 
     /**
      * Gets a Payment.

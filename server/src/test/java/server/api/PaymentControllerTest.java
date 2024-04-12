@@ -83,7 +83,7 @@ public class PaymentControllerTest {
         mockMvc.perform(post("/payment")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(payment)))
-            .andExpect(status().isOk());
+            .andExpect(status().isCreated());
     }
 
     // @Test
