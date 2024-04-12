@@ -1,117 +1,31 @@
 image: gradle:8.5.0-jdk21-alpine
 
-variables:
-  # Disable the Gradle daemon to ensure isolated runs of the CI pipeline.
-  # GRADLE_OPTS: "-Dorg.gradle.daemon=false"
-
 stages:
-  - compile
   - checkstyle
-  - test
-  - coverageReport
+  - build
   - triage
-
-compile:
-  stage: compile
-  script:
-    - ./gradlew assemble
-
-#checkstyle:
-#  stage: checkstyle
-#  parallel: 2
-#  script:
-#    - ./gradlew checkstyleMain
-#    - ./gradlew checkstyleTest
 
 checkstyle:
   stage: checkstyle
-  needs: []
   script:
-    - ./gradlew $CHECKSTYLE
-  parallel:
-    matrix:
-      - CHECKSTYLE: ['checkstyleMain', 'checkstyleTest']
+    - ./gradlew checkstyleMain
+    - ./gradlew checkstyleTest
 
-commons:test:
-  stage: test
+build:
+  stage: build
   needs:
-    - compile
+    - checkstyle
   script:
-    - ./gradlew :commons:test --tests commons.$TEST_CLASS
-  parallel:
-    matrix:
-      - TEST_CLASS:
-        - "ColourTest"
-        - "CurrencyTest"
-        - "EventTest"
-        - "ExpenseTest"
-        - "PaymentTest"
-        - "PersonTest"
-        - "TagTest"
-
-client:test:
-  stage: test
-  needs:
-    - compile
-  script:
-    - ./gradlew :client:test --tests client.scenes.$TEST_CLASS
-  parallel:
-    matrix:
-      - TEST_CLASS:
-          - "MainCtrlTest"
-
-server:database:test:
-  stage: test
-  needs:
-    - compile
-  script:
-    - ./gradlew :server:test --tests server.database.$TEST_CLASS
-  parallel:
-    matrix:
-      - TEST_CLASS:
-          - "ColourRepositoryTest"
-          - "CurrencyRepositoryTest"
-          - "EventRepositoryTest"
-          - "ExpenseRepositoryTest"
-          - "PaymentRepositoryTest"
-          - "PersonRepositoryTest"
-          - "TagRepositoryTest"
-
-server:service:test:
-  stage: test
-  needs:
-    - compile
-  script:
-    - ./gradlew :server:test --tests server.service.$TEST_CLASS
-  parallel:
-    matrix:
-      - TEST_CLASS:
-          - "PersonServiceTest"
-          - "PaymentServiceTest"
-          - "ExpenseServiceTest"
-          - "EventServiceTest"
-
-server:controller:test:
-  stage: test
-  needs:
-    - compile
-  script:
-    - ./gradlew :server:test --tests server.api.$TEST_CLASS
-  parallel:
-    matrix:
-      - TEST_CLASS:
-          - "PersonControllerTest"
-          - "PaymentControllerTest"
-          - "ExpenseControllerTest"
-          - "EventControllerTest"
-
-coverageReport:
-  stage: coverageReport
-  allow_failure: true
-  needs: []
-  script:
-    - ./gradlew compileTestJava
-    - ./gradlew AggregateJacocoReport
+    - apk update
+    - apk add xvfb-run
+    - apk add gtk+3.0
+    - ./gradlew --build-cache assemble
+    - ./gradlew --build-cache bootrun --args='--seed' &   # Start the server as a background process
+    - sleep 15  # Adjust the sleep time based on how long it takes for the server to start
+    - xvfb-run ./gradlew --build-cache :client:test
+    - ./gradlew --build-cache test
+    - ./gradlew --build-cache compileTestJava
+    - ./gradlew --build-cache AggregateJacocoReport
     - mv build/reports/jacoco/aggregate/html ./coverage
     - mv build/reports/jacoco/aggregate/jacocoTestReport.xml ./coverage/report.xml
     - echo `cat coverage/index.html | grep -o -E "Total[^%]+?%" | sed -E "s/<.*>//" | sed -E "s/Total/TestCoverage:/"`
@@ -123,7 +37,6 @@ coverageReport:
 dry-run:triage:
   image: ruby:3.0
   stage: triage
-  needs: []
   script:
     - gem install gitlab-triage
     - gitlab-triage --help
@@ -135,8 +48,6 @@ dry-run:triage:
 run:triage:
   image: ruby:3.0
   stage: triage
-  needs: []
   script:
     - gem install gitlab-triage
     - gitlab-triage --token j4Sr_UUUmsJ96xkkbs4y --host-url $CI_SERVER_URL --source projects --source-id $CI_PROJECT_PATH
-  coverage: /TestCoverage:(\d+)%/
