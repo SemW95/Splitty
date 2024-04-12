@@ -17,13 +17,10 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Dialog;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -114,31 +111,8 @@ public class AdminOverviewCtrl implements Initializable {
     }
 
     private Pane createEventItem(Event event) {
-        ImageView trashIcon = new ImageView(new Image("client/icons/trashcan.png"));
-        trashIcon.setLayoutX(647);
-        trashIcon.setLayoutY(84);
-        trashIcon.setFitHeight(24);
-        trashIcon.setFitWidth(24);
-        trashIcon.setCursor(Cursor.HAND);
-        trashIcon.setPickOnBounds(true);
-        trashIcon.setPreserveRatio(true);
-        trashIcon.setOnMouseClicked((e) -> handleEventDelete(event));
-
-        ImageView downloadIcon = new ImageView(new Image("client/icons/download.png"));
-        downloadIcon.setLayoutX(644);
-        downloadIcon.setLayoutY(112);
-        downloadIcon.setFitHeight(30);
-        downloadIcon.setFitWidth(30);
-        downloadIcon.setCursor(Cursor.HAND);
-        downloadIcon.setPickOnBounds(true);
-        downloadIcon.setPreserveRatio(true);
-        downloadIcon.setOnMouseClicked((e) -> handleDownloadEvent(event));
-
-        Pane pane = PaneCreator.createEventItem(event, (e) -> mainCtrl.showEventOverview(e, true));
-
-        pane.getChildren().addAll(trashIcon, downloadIcon);
-
-        return pane;
+        return PaneCreator.createAdminEventItem(event, (e) -> mainCtrl.showEventOverview(e, true),
+            this::handleEventDelete, this::handleDownloadEvent);
     }
 
     private void handleDownloadEvent(Event event) {

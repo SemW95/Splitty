@@ -1,6 +1,5 @@
 package client.scenes;
 
-
 import client.Main;
 import client.utils.ExpenseCardCtrl;
 import client.utils.PaneCreator;
@@ -10,19 +9,23 @@ import com.google.inject.Inject;
 import commons.Event;
 import commons.Expense;
 import commons.Payment;
+import commons.Person;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
@@ -45,7 +48,6 @@ public class EventOverviewCtrl implements Initializable {
     private ResourceBundle resources;
     private Event event;
     private boolean goBackToAdmin;
-    // TODO: change this such that label is seen when changing the name and otherwise text
     @FXML
     private Label eventNameLabel;
     @FXML
@@ -69,9 +71,11 @@ public class EventOverviewCtrl implements Initializable {
     @FXML
     private HBox tagsBox;
     @FXML
-    private ComboBox<String> dropDown;
-    @FXML
     private FlowPane expensesFlowPane;
+    @FXML
+    private ChoiceBox<String> filterInclusionChoiceBox;
+    @FXML
+    private ComboBox<Person> filterNameComboBox;
 
 
     @Inject
@@ -85,12 +89,18 @@ public class EventOverviewCtrl implements Initializable {
         this.resources = resources;
         root.addEventFilter(KeyEvent.KEY_PRESSED,
             ScreenUtils.exitHandler(resources, this::handleExit));
+
+        String all = resources.getString("event-overview.all");
+        String from = resources.getString("event-overview.from");
+        String including = resources.getString("event-overview.including");
+        filterInclusionChoiceBox.getItems().setAll(all, from, including);
+        // Select 'All' by default
+        filterInclusionChoiceBox.getSelectionModel().select(0);
     }
 
     /**
      * This method fills the flowpane with expenses (expenseCard).
      */
-    // TODO: Make this pretty in the UI
     public void populate() {
         if (event == null) {
             return;
@@ -122,22 +132,83 @@ public class EventOverviewCtrl implements Initializable {
         tagsBox.getChildren().setAll(event.getTags().stream()
             .map(PaneCreator::createTagItem).toList());
 
-        List<Expense> sortedExpenses =
-            event.getExpenses().stream()
-                .sorted(Comparator.comparing(Expense::getPaymentDateTime).reversed())
+        String spent = (char) 8364 + " " + event.totalAmountSpent().toPlainString();
+        totalAmountSpent.setText(spent);
+
+        // Initialize the ComboBox
+        filterNameComboBox.getSelectionModel().clearSelection();
+        filterNameComboBox.getItems().setAll(event.getPeople());
+        filterNameComboBox.setCellFactory(p -> new ListCell<>() {
+            @Override
+            protected void updateItem(Person p1, boolean empty) {
+                super.updateItem(p1, empty);
+                if (p1 != null) {
+                    setText(p1.getFirstName() + " " + p1.getLastName());
+                } else {
+                    setText(null);
+                }
+            }
+        });
+
+        // The cell that is selected
+        filterNameComboBox.setButtonCell(new ListCell<>() {
+            @Override
+            protected void updateItem(Person person, boolean empty) {
+                super.updateItem(person, empty);
+                if (person != null) {
+                    setText(person.getFirstName() + " " + person.getLastName());
+                } else {
+                    setText(null);
+                }
+            }
+        });
+
+        displayExpenses();
+    }
+
+    @FXML
+    private void displayExpenses() {
+        if (event == null) {
+            return;
+        }
+
+        Person nameChoice = filterNameComboBox.getSelectionModel().getSelectedItem();
+        List<Expense> expenses = event.getExpenses();
+
+        int inclusionChoice = filterInclusionChoiceBox.getSelectionModel().getSelectedIndex();
+
+        // Disable `filterNameComboBox` if inclusion choice is 'All'
+        filterNameComboBox.setDisable(inclusionChoice == 0);
+
+        // Filter expenses only if a person was selected
+        if (nameChoice != null) {
+            switch (inclusionChoice) {
+                // from
+                case 1 -> expenses =
+                    expenses.stream().filter(e -> Objects.equals(e.getReceiver(), nameChoice))
+                        .toList();
+                // including
+                case 2 -> expenses =
+                    expenses.stream().filter(e -> e.getParticipants().contains(nameChoice))
+                        .toList();
+                default -> {
+                }
+            }
+        }
+
+        // Sort expenses by their payment date
+        expenses =
+            expenses.stream().sorted(Comparator.comparing(Expense::getPaymentDateTime).reversed())
                 .toList();
 
         expensesFlowPane.getChildren().setAll();
-        for (Expense expense : sortedExpenses) {
+        for (Expense expense : expenses) {
             var expenseCard = Main.FXML.loadComponent(ExpenseCardCtrl.class,
                 "client", "components", "ExpenseCard.fxml");
             expenseCard.getKey().setExpense(expense);
             expenseCard.getKey().setOnClick((e) -> mainCtrl.showExpenseOverview(e, event));
             expensesFlowPane.getChildren().add(expenseCard.getValue());
         }
-
-        String spent = (char) 8364 + " " + event.totalAmountSpent().toPlainString();
-        totalAmountSpent.setText(spent);
     }
 
     /**
@@ -160,25 +231,29 @@ public class EventOverviewCtrl implements Initializable {
      * Logic for the "language" button on home.
      */
 
-    public void handleLanguage() {
+    @FXML
+    private void handleLanguage() {
         mainCtrl.showLanguageSelectPopup();
     }
 
     /**
      * Logic for the "currency" button on home.
      */
-    public void handleCurrency() {
+    @FXML
+    private void handleCurrency() {
         System.out.println("Pressed currency.");
     }
 
     // TODO
-    public void handleManageTags(ActionEvent actionEvent) {
+    @FXML
+    private void handleManageTags(ActionEvent actionEvent) {
     }
 
     /**
      * Logic for the "+" button next to "Expenses".
      */
-    public void handleAddExpenses(ActionEvent actionEvent) {
+    @FXML
+    private void handleAddExpenses(ActionEvent actionEvent) {
         Expense expense = new Expense("New expense", new ArrayList<>(), null, BigDecimal.ZERO, null,
             Instant.now());
         expense = server.createExpense(expense);
@@ -192,7 +267,7 @@ public class EventOverviewCtrl implements Initializable {
      * Copy the invite code to the clipboard.
      */
     @FXML
-    public void getInviteCode() {
+    private void getInviteCode() {
         Clipboard clipboard = Clipboard.getSystemClipboard();
         ClipboardContent content = new ClipboardContent();
         content.putString(inviteCode.getText());
@@ -250,7 +325,6 @@ public class EventOverviewCtrl implements Initializable {
         });
     }
 
-
     private void handleEditAndSaveDescription() {
         // Get the content of textField and update description
         String newDescription = descriptionTextField.getText();
@@ -298,10 +372,6 @@ public class EventOverviewCtrl implements Initializable {
         mainCtrl.showOpenDebtsScreen(event);
     }
 
-    // TODO: delete this method and the corresponding button
-    public void handlePaidOffDebts(ActionEvent actionEvent) {
-    }
-
     @FXML
     private void handleExit() {
         if (goBackToAdmin) {
@@ -322,5 +392,9 @@ public class EventOverviewCtrl implements Initializable {
 
     public boolean getGoBackToAdmin() {
         return goBackToAdmin;
+    }
+
+    // TODO: go to the Statistics screen
+    public void handleStatistics(ActionEvent actionEvent) {
     }
 }
