@@ -1,68 +1,29 @@
 image: gradle:8.5.0-jdk21-alpine
 
 stages:
-  - compile
   - checkstyle
-  - test
-  - coverageReport
+  - build
   - triage
-
-before_script:
-  - export GRADLE_USER_HOME=`pwd`/.gradle
-
-cache:
-  key: "$CI_COMMIT_SHA"
-  policy: pull-push
-  paths:
-    - build
-    - "*/build"
-    - .gradle
-
-compile:
-  stage: compile
-  script:
-    - ./gradlew --build-cache assemble
 
 checkstyle:
   stage: checkstyle
-  needs:
-    - compile
   script:
-    - ./gradlew --build-cache checkstyleMain
-    - ./gradlew --build-cache checkstyleTest
+    - ./gradlew checkstyleMain
+    - ./gradlew checkstyleTest
 
-commons:test:
-  stage: test
+build:
+  stage: build
   needs:
     - checkstyle
   script:
-    - ./gradlew --build-cache :commons:test
-
-server:test:
-  stage: test
-  needs:
-    - commons:test
-  script:
-    - ./gradlew --build-cache :server:test
-
-client:test:
-  stage: test
-  needs:
-    - server:test
-  before_script:
     - apk update
     - apk add xvfb-run
     - apk add gtk+3.0
+    - ./gradlew --build-cache assemble
     - ./gradlew --build-cache bootrun --args='--seed' &   # Start the server as a background process
     - sleep 30  # Adjust the sleep time based on how long it takes for the server to start
-  script:
     - xvfb-run ./gradlew --build-cache :client:test
-
-coverageReport:
-  stage: coverageReport
-  needs:
-    - client:test
-  script:
+    - ./gradlew --build-cache test
     - ./gradlew --build-cache compileTestJava
     - ./gradlew --build-cache AggregateJacocoReport
     - mv build/reports/jacoco/aggregate/html ./coverage
