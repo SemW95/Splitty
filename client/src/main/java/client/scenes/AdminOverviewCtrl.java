@@ -81,6 +81,9 @@ public class AdminOverviewCtrl implements Initializable {
      * Then creates a Pane for each event and adds them to the event list vbox.
      */
     public void refetch() {
+        if (mainCtrl.getSavedAdminPassword() == null) {
+            return;
+        }
         events = server.getEvents(mainCtrl.getSavedAdminPassword());
 
         populate();
