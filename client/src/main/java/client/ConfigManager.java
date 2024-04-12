@@ -133,6 +133,27 @@ public class ConfigManager {
     }
 
     /**
+     * Getter for the "language" property.
+     */
+    public void getLanguage() {
+        String languageCode = properties.getProperty("language");
+
+        if (languageCode != null) {
+
+        }
+
+        properties.setProperty("language", "");
+        save();
+    }
+
+    /**
+     * Setter for "language" property.
+     */
+    public void setLanguage(String languageCode) {
+
+    }
+
+    /**
      * General save method for property values.
      * Tries to save the current state of Properties into the config file
      */
