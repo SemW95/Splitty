@@ -71,6 +71,7 @@ public class MainCtrl {
     private CsPair<OpenDebtsCtrl> openDebtsPair;
     private CsPair<ManagePaymentsCtrl> managePaymentsPair;
     private CsPair<EditPaymentCtrl> editPaymentPair;
+    private CsPair<StatisticsCtrl> statisticsPair;
     private Initializable currentCtrl;
     // private Pair<ExpenseCardCtrl, Parent> expenseCard;
     private WebSocketClient websocketClient;
@@ -205,6 +206,9 @@ public class MainCtrl {
 
         editPaymentPair =
             fxml.load(EditPaymentCtrl.class, "client", "scenes", "EditPayment.fxml");
+
+        statisticsPair =
+            fxml.load(StatisticsCtrl.class, "client", "scenes", "Statistics.fxml");
     }
 
     /**
@@ -543,6 +547,18 @@ public class MainCtrl {
         popupStage.setScene(editPaymentPair.scene);
         popupStage.setTitle(fxml.getBundle().getString("edit-payment.title"));
         editPaymentPair.ctrl.update(payment, event);
+        popupStage.show();
+    }
+
+    /**
+     * Show the Statistics popup.
+     *
+     * @param event the event
+     */
+    public void showStatisticsPopup(Event event) {
+        popupStage.setScene(statisticsPair.scene);
+        popupStage.setTitle(fxml.getBundle().getString("statistics.title"));
+        statisticsPair.ctrl.update(event);
         popupStage.show();
     }
 }

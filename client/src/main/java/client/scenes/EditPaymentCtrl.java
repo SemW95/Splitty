@@ -125,9 +125,10 @@ public class EditPaymentCtrl implements Initializable {
     }
 
     /**
-     * Sets the current event to the provided one and populates the screen.
+     * Sets the current payment and event to the provided one and populates the screen.
      *
-     * @param event the event to show
+     * @param payment the payment to edit
+     * @param event   the event it belongs to
      */
     public void update(Payment payment, Event event) {
         this.payment = payment;
@@ -184,9 +185,5 @@ public class EditPaymentCtrl implements Initializable {
             server.updatePayment(payment);
         }
         mainCtrl.closePopup();
-    }
-
-    public Event getEvent() {
-        return event;
     }
 }
