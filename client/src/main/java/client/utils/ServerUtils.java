@@ -123,18 +123,19 @@ public class ServerUtils {
      *
      * @return list of events
      */
-    public List<Event> getEvents() {
+    public List<Event> getEvents(String adminPassword) {
         try {
             return ClientBuilder.newClient(new ClientConfig())
-                .target(server).path("/event")
+                .target(server).path("/admin/event")
+                .queryParam("password", adminPassword)
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .get(new GenericType<>() {
                 });
         } catch (Exception e) {
+            System.err.println("Something went wrong: " + e);
             return new ArrayList<>();
         }
-
     }
 
     /**
