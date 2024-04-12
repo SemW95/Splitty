@@ -15,7 +15,7 @@
       prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.HomeCtrl">
     <children>
-        <Text layoutX="97.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0"
+        <Text id="recentOverview" layoutX="97.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0"
               style="-fx-font-size: 20; -fx-font-weight: bold;" text="%home.recent-overview"/>
         <Button layoutX="180.0" layoutY="288.0" mnemonicParsing="false" text="Tab Holder"/>
         <Pane prefHeight="84.0" prefWidth="1001.0">
