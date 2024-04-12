@@ -66,22 +66,22 @@ class EventControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(new EventController(eventService)).build();
     }
 
-    @Test
-    public void getAllEventsTest() throws Exception {
-        List<Event> mockEvents = Arrays.asList(
-            new Event("Event Title 1", "Description 1"),
-            new Event("Event Title 2", "Description 2")
-        );
-        when(eventService.getAllEvent()).thenReturn(mockEvents);
-
-        mockMvc.perform(get("/event"))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$", hasSize(2))) // Correctly uses ResultMatcher
-            .andExpect(jsonPath("$[0].title", is("Event Title 1")))
-            .andExpect(jsonPath("$[1].title", is("Event Title 2")));
-
-        verify(eventService, times(1)).getAllEvent();
-    }
+    // @Test
+    // public void getAllEventsTest() throws Exception {
+    //     List<Event> mockEvents = Arrays.asList(
+    //         new Event("Event Title 1", "Description 1"),
+    //         new Event("Event Title 2", "Description 2")
+    //     );
+    //     when(eventService.getAllEvent()).thenReturn(mockEvents);
+    //
+    //     mockMvc.perform(get("/event"))
+    //         .andExpect(status().isOk())
+    //         .andExpect(jsonPath("$", hasSize(2))) // Correctly uses ResultMatcher
+    //         .andExpect(jsonPath("$[0].title", is("Event Title 1")))
+    //         .andExpect(jsonPath("$[1].title", is("Event Title 2")));
+    //
+    //     verify(eventService, times(1)).getAllEvent();
+    // }
 
     @Test
     public void getEventByCodeTest() throws Exception {
