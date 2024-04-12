@@ -105,6 +105,10 @@ coverageReport:
   allow_failure: true
   needs: []
   script:
+    - apk add xvfb-run
+    - apk add gtk+3.0
+    - ./gradlew --build-cache bootrun --args='--seed' &   # Start the server as a background process
+    - sleep 15  # Adjust the sleep time based on how long it takes for the server to start
     - ./gradlew --build-cache compileTestJava
     - ./gradlew --build-cache AggregateJacocoReport
     - mv build/reports/jacoco/aggregate/html ./coverage
