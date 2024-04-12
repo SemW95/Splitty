@@ -45,8 +45,9 @@ public class TagController {
      * @param tag The Tag that should be added
      */
     @PostMapping(path = "/tag")
-    public void addTag(@RequestBody Tag tag) {
+    public ResponseEntity<Object> addTag(@RequestBody Tag tag) {
         tagService.addTag(tag);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     /**
@@ -109,7 +110,7 @@ public class TagController {
      * @param green The green value for the Colour that should be set for the specified Tag
      * @param blue The blue value for the Colour that should be set for the specified Tag
      */
-    @PutMapping(path = "/tag/{id}/colour/{red}/{green}/{blue}")
+    @PutMapping(path = "/tag/{id}/colour/rgb/{red}/{green}/{blue}")
     public void setColour(
         @PathVariable(name = "id") String id,
         @PathVariable(name = "red") int red,
@@ -124,7 +125,7 @@ public class TagController {
      * @param id The id of the Tag for which the colour should be set
      * @param hexString The hexString value for the Colour that should be set for the specified Tag
      */
-    @PutMapping(path = "/tag/{id}/colour/{hex-string}")
+    @PutMapping(path = "/tag/{id}/colour/hex/{hex-string}")
     public void setColour(
         @PathVariable(name = "id") String id,
         @PathVariable(name = "hex-string") String hexString
