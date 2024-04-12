@@ -90,6 +90,7 @@ server:service:test:
           - "PaymentServiceTest"
           - "ExpenseServiceTest"
           - "EventServiceTest"
+          - "TagServiceTest"
 
 server:controller:test:
   stage: test
@@ -104,6 +105,7 @@ server:controller:test:
           - "PaymentControllerTest"
           - "ExpenseControllerTest"
           - "EventControllerTest"
+          - "TagControllerTest"
 
 coverageReport:
   stage: coverageReport
