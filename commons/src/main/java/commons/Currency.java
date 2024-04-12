@@ -82,7 +82,7 @@ public class Currency {
 
             return new BigDecimal(root.get("rates").get(otherCurrency.code).asText());
         } catch (IOException | URISyntaxException e) {
-            System.err.println("Couldn't get conversion rate from api due to an IOException");
+            System.err.println("Couldn't get conversion rate from api: " + e);
             throw e;
         }
     }
