@@ -36,9 +36,10 @@ class EventTest {
         tags2.add(tag1);
         tags2.add(tag2);
 
-        now = Instant.ofEpochSecond(1618918800);
-        startNow = LocalDate.now();
-        endNow = LocalDate.now();
+        String instantString = "2024-04-12T12:34:56.789Z";
+        now = Instant.parse(instantString);
+        startNow = LocalDate.parse("2024-04-12");
+        endNow = LocalDate.parse("2024-04-12");
 
         test1 = new Event("Dinner and Drinks", "Dinner and drinks with the group",
             new ArrayList<Person>(), tags1, new ArrayList<Expense>(),
