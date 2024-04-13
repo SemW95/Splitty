@@ -2,10 +2,8 @@ package server.runner;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import commons.Colour;
 import commons.Currency;
 import commons.Event;
-import commons.Tag;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
@@ -72,7 +70,6 @@ public class Seeder implements CommandLineRunner {
 
         System.out.println("- Seeding the database");
         loadCurrencies();
-        loadTags();
         loadDummy();
     }
 
@@ -88,27 +85,6 @@ public class Seeder implements CommandLineRunner {
         currencyRepository.save(euro);
         currencyRepository.save(dollar);
         currencyRepository.save(swiss);
-    }
-
-    /**
-     * Creates the default currencies.
-     */
-    private void loadTags() {
-        System.out.println("- Adding default tags");
-
-        Colour defaultGreen = new Colour(147, 196, 125);
-        Colour defaultBlue = new Colour(74, 134, 232);
-        Colour defaultRed = new Colour(224, 102, 102);
-        colourRepository.save(defaultGreen);
-        colourRepository.save(defaultBlue);
-        colourRepository.save(defaultRed);
-
-        Tag food = new Tag("food", defaultGreen);
-        Tag entranceFee = new Tag("entrance fees", defaultBlue);
-        Tag travel = new Tag("travel", defaultRed);
-        tagRepository.save(food);
-        tagRepository.save(entranceFee);
-        tagRepository.save(travel);
     }
 
     /**

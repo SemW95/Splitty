@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -32,7 +31,7 @@ public class Event {
     String description;
     @OneToMany
     List<Person> people;
-    @ManyToMany
+    @OneToMany
     List<Tag> tags;
     @OneToMany
     List<Expense> expenses;

@@ -58,6 +58,10 @@ public class LanguageSelectCtrl implements Initializable {
     private void handleDownload() {
         File templateFile = new File("src/main/resources/template.properties");
         File newFile = mainCtrl.createSaveFile("template.properties");
+        if (newFile == null) {
+            // The user didn't select a file
+            return;
+        }
         try {
             FileCopyUtils.copy(templateFile, newFile);
         } catch (IOException e) {
