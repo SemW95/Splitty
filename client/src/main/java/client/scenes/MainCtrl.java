@@ -33,6 +33,7 @@ import java.time.Instant;
 import java.util.Locale;
 import java.util.function.Consumer;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
@@ -551,7 +552,7 @@ public class MainCtrl {
     }
 
     // TODO: not the best way to do this
-    private boolean statisticsPopupShownBefore = false;
+    private EventHandler<KeyEvent> statisticsCloseHandler;
 
     /**
      * Show the Statistics popup.
@@ -562,12 +563,16 @@ public class MainCtrl {
         popupStage.setScene(statisticsPair.scene);
         popupStage.setTitle(fxml.getBundle().getString("statistics.title"));
         statisticsPair.ctrl.update(event);
-        if (!statisticsPopupShownBefore) {
-            statisticsPopupShownBefore = true;
+
+        // Remove the old event handler if it is already there
+        if (statisticsCloseHandler != null) {
             popupStage
-                .addEventHandler(KeyEvent.KEY_PRESSED,
-                    ScreenUtils.exitHandler(fxml.getBundle(), this::closePopup));
+                .removeEventHandler(KeyEvent.KEY_PRESSED, statisticsCloseHandler);
         }
+        statisticsCloseHandler = ScreenUtils.exitHandler(fxml.getBundle(), this::closePopup);
+        popupStage
+            .addEventHandler(KeyEvent.KEY_PRESSED, statisticsCloseHandler);
+
         popupStage.show();
     }
 }
