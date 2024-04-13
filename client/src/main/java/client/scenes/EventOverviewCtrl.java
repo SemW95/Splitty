@@ -394,7 +394,8 @@ public class EventOverviewCtrl implements Initializable {
         return goBackToAdmin;
     }
 
-    // TODO: go to the Statistics screen
-    public void handleStatistics(ActionEvent actionEvent) {
+    @FXML
+    private void handleStatistics(ActionEvent actionEvent) {
+        mainCtrl.showStatisticsPopup(event);
     }
 }
