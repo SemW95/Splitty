@@ -1,6 +1,5 @@
 package client;
 
-import client.scenes.MainCtrl;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -17,7 +16,7 @@ import java.util.Properties;
  * be accessed from main statically.
  */
 public class ConfigManager {
-    
+
     private final Properties properties;
     private final String file;
 
