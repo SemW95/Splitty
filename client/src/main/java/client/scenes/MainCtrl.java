@@ -90,6 +90,7 @@ public class MainCtrl {
     public void initialize(Stage primaryStage, MyFXML fxml) {
         this.primaryStage = primaryStage;
         this.fxml = fxml;
+
         loadAllPairs();
 
         showHome();
@@ -407,12 +408,6 @@ public class MainCtrl {
         deleteEventConfirmationPair.ctrl.setCallback(deleteCallback);
         popupStage.show();
     }
-
-    //add step 4 here.
-
-    // public Pair<ExpenseCardCtrl, Parent> getExpenseCard() {
-    //     return expenseCard;
-    // }
 
     /**
      * Sets primary stage to the Event overview scene.
