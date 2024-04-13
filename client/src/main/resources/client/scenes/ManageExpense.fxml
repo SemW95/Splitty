@@ -97,5 +97,10 @@
       <Label fx:id="confirmDate" layoutX="845.0" layoutY="214.0" />
       <Label fx:id="confirmTag" layoutX="845.0" layoutY="274.0" />
       <Label fx:id="confirmLastDeleted" layoutX="400.0" layoutY="330.0" />
+      <Label layoutX="400.0" layoutY="340.0" text="%manage-expense.enter-clarification">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
