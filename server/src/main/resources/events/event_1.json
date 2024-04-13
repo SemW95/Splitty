@@ -1,1 +1,177 @@
-{"id":"dd144ade-7897-47b2-87c8-30bb8294cab4","code":"kHUI38hj","title":"Just food with friends","description":"We ate at a restaurant in the Hague","people":[{"id":"886a4e4e-15f1-4a3d-8e89-7c603a048818","firstName":"Wendeline","lastName":"Perrins","email":"wperrins0@furl.net","iban":"AD3546309915VC3K6JCE29QY","bic":"CHASUS33"},{"id":"7c4335c9-9cf2-4305-8fe7-ff2f5fc67bc1","firstName":"Wrennie","lastName":"Yewdale","email":"wyewdale1@amazon.co.jp","iban":"GR661362857YEWACFVNB3LLNXWW","bic":"CHASUS33"},{"id":"ab8c7871-23ce-4809-9cdd-cb1c5963da4e","firstName":"Kerri","lastName":"Seville","email":"kseville2@newyorker.com","iban":"FR4431556924101THK4WLOOAA06","bic":"CHASUS33"},{"id":"bb86eb77-320c-49fd-8bd3-aa30dc149bb0","firstName":"Madeleine","lastName":"Daymond","email":"mdaymond3@ning.com","iban":"GI28JGCIY2DGNZMCGHSXXAF","bic":"CHASUS33"}],"tags":[{"id":"e137ce62-ceb9-4cd5-a87c-797cb4db8c31","name":"food","colour":{"id":"69e5f09d-ab36-4f97-8180-8785dc2f00d6","red":147,"green":196,"blue":125}},{"id":"1aba161e-6a0d-42fe-89d1-8cf566a1679c","name":"entrance fees","colour":{"id":"745a290c-ee80-4007-bf23-2c7bb784507b","red":74,"green":134,"blue":232}},{"id":"815d3531-c45c-4e02-8f3a-52418f55cab3","name":"travel","colour":{"id":"4597a92a-161d-474f-8e11-cdfdb43fcc23","red":224,"green":102,"blue":102}}],"expenses":[{"id":"da1a7e26-1f68-4b0b-bd17-afec21dada1a","description":"The restaurant","participants":[{"id":"886a4e4e-15f1-4a3d-8e89-7c603a048818","firstName":"Wendeline","lastName":"Perrins","email":"wperrins0@furl.net","iban":"AD3546309915VC3K6JCE29QY","bic":"CHASUS33"},{"id":"ab8c7871-23ce-4809-9cdd-cb1c5963da4e","firstName":"Kerri","lastName":"Seville","email":"kseville2@newyorker.com","iban":"FR4431556924101THK4WLOOAA06","bic":"CHASUS33"},{"id":"bb86eb77-320c-49fd-8bd3-aa30dc149bb0","firstName":"Madeleine","lastName":"Daymond","email":"mdaymond3@ning.com","iban":"GI28JGCIY2DGNZMCGHSXXAF","bic":"CHASUS33"}],"receiver":{"id":"7c4335c9-9cf2-4305-8fe7-ff2f5fc67bc1","firstName":"Wrennie","lastName":"Yewdale","email":"wyewdale1@amazon.co.jp","iban":"GR661362857YEWACFVNB3LLNXWW","bic":"CHASUS33"},"paid":49.56,"tag":{"id":"e137ce62-ceb9-4cd5-a87c-797cb4db8c31","name":"food","colour":{"id":"69e5f09d-ab36-4f97-8180-8785dc2f00d6","red":147,"green":196,"blue":125}},"paymentDateTime":1712354400.000000000}],"payments":[{"id":"6c7bb394-73f7-42f7-99e7-d49b8de6d47b","payer":{"id":"ab8c7871-23ce-4809-9cdd-cb1c5963da4e","firstName":"Kerri","lastName":"Seville","email":"kseville2@newyorker.com","iban":"FR4431556924101THK4WLOOAA06","bic":"CHASUS33"},"receiver":{"id":"7c4335c9-9cf2-4305-8fe7-ff2f5fc67bc1","firstName":"Wrennie","lastName":"Yewdale","email":"wyewdale1@amazon.co.jp","iban":"GR661362857YEWACFVNB3LLNXWW","bic":"CHASUS33"},"amount":6.00},{"id":"5c02df2a-eec9-4f9b-8a8c-d8eee677feea","payer":{"id":"886a4e4e-15f1-4a3d-8e89-7c603a048818","firstName":"Wendeline","lastName":"Perrins","email":"wperrins0@furl.net","iban":"AD3546309915VC3K6JCE29QY","bic":"CHASUS33"},"receiver":{"id":"7c4335c9-9cf2-4305-8fe7-ff2f5fc67bc1","firstName":"Wrennie","lastName":"Yewdale","email":"wyewdale1@amazon.co.jp","iban":"GR661362857YEWACFVNB3LLNXWW","bic":"CHASUS33"},"amount":12.39}],"startDate":[2024,4,11],"endDate":[2024,4,11],"lastModifiedDateTime":1712839978.346327000}
+{
+  "id": "dd144ade-7897-47b2-87c8-30bb8294cab4",
+  "code": "kHUI38hj",
+  "title": "Just food with friends",
+  "description": "We ate at a restaurant in the Hague",
+  "people": [
+    {
+      "id": "886a4e4e-15f1-4a3d-8e89-7c603a048818",
+      "firstName": "Wendeline",
+      "lastName": "Perrins",
+      "email": "wperrins0@furl.net",
+      "iban": "AD3546309915VC3K6JCE29QY",
+      "bic": "CHASUS33"
+    },
+    {
+      "id": "7c4335c9-9cf2-4305-8fe7-ff2f5fc67bc1",
+      "firstName": "Wrennie",
+      "lastName": "Yewdale",
+      "email": "wyewdale1@amazon.co.jp",
+      "iban": "GR661362857YEWACFVNB3LLNXWW",
+      "bic": "CHASUS33"
+    },
+    {
+      "id": "ab8c7871-23ce-4809-9cdd-cb1c5963da4e",
+      "firstName": "Kerri",
+      "lastName": "Seville",
+      "email": "kseville2@newyorker.com",
+      "iban": "FR4431556924101THK4WLOOAA06",
+      "bic": "CHASUS33"
+    },
+    {
+      "id": "bb86eb77-320c-49fd-8bd3-aa30dc149bb0",
+      "firstName": "Madeleine",
+      "lastName": "Daymond",
+      "email": "mdaymond3@ning.com",
+      "iban": "GI28JGCIY2DGNZMCGHSXXAF",
+      "bic": "CHASUS33"
+    }
+  ],
+  "tags": [
+    {
+      "id": "815d3531-c45c-4e02-8f3a-52418f55cab3",
+      "name": "travel",
+      "colour": {
+        "id": "4597a92a-161d-474f-8e11-cdfdb43fcc23",
+        "red": 224,
+        "green": 102,
+        "blue": 102
+      }
+    },
+    {
+      "id": "e137ce62-ceb9-4cd5-a87c-797cb4db8c31",
+      "name": "food",
+      "colour": {
+        "id": "69e5f09d-ab36-4f97-8180-8785dc2f00d6",
+        "red": 147,
+        "green": 196,
+        "blue": 125
+      }
+    },
+    {
+      "id": "1aba161e-6a0d-42fe-89d1-8cf566a1679c",
+      "name": "entrance fees",
+      "colour": {
+        "id": "745a290c-ee80-4007-bf23-2c7bb784507b",
+        "red": 74,
+        "green": 134,
+        "blue": 232
+      }
+    }
+  ],
+  "expenses": [
+    {
+      "id": "da1a7e26-1f68-4b0b-bd17-afec21dada1a",
+      "description": "The restaurant",
+      "participants": [
+        {
+          "id": "886a4e4e-15f1-4a3d-8e89-7c603a048818",
+          "firstName": "Wendeline",
+          "lastName": "Perrins",
+          "email": "wperrins0@furl.net",
+          "iban": "AD3546309915VC3K6JCE29QY",
+          "bic": "CHASUS33"
+        },
+        {
+          "id": "ab8c7871-23ce-4809-9cdd-cb1c5963da4e",
+          "firstName": "Kerri",
+          "lastName": "Seville",
+          "email": "kseville2@newyorker.com",
+          "iban": "FR4431556924101THK4WLOOAA06",
+          "bic": "CHASUS33"
+        },
+        {
+          "id": "bb86eb77-320c-49fd-8bd3-aa30dc149bb0",
+          "firstName": "Madeleine",
+          "lastName": "Daymond",
+          "email": "mdaymond3@ning.com",
+          "iban": "GI28JGCIY2DGNZMCGHSXXAF",
+          "bic": "CHASUS33"
+        }
+      ],
+      "receiver": {
+        "id": "7c4335c9-9cf2-4305-8fe7-ff2f5fc67bc1",
+        "firstName": "Wrennie",
+        "lastName": "Yewdale",
+        "email": "wyewdale1@amazon.co.jp",
+        "iban": "GR661362857YEWACFVNB3LLNXWW",
+        "bic": "CHASUS33"
+      },
+      "paid": 49.56,
+      "tag": {
+        "id": "e137ce62-ceb9-4cd5-a87c-797cb4db8c31",
+        "name": "food",
+        "colour": {
+          "id": "69e5f09d-ab36-4f97-8180-8785dc2f00d6",
+          "red": 147,
+          "green": 196,
+          "blue": 125
+        }
+      },
+      "paymentDateTime": 1712354400.000000000
+    }
+  ],
+  "payments": [
+    {
+      "id": "6c7bb394-73f7-42f7-99e7-d49b8de6d47b",
+      "payer": {
+        "id": "ab8c7871-23ce-4809-9cdd-cb1c5963da4e",
+        "firstName": "Kerri",
+        "lastName": "Seville",
+        "email": "kseville2@newyorker.com",
+        "iban": "FR4431556924101THK4WLOOAA06",
+        "bic": "CHASUS33"
+      },
+      "receiver": {
+        "id": "7c4335c9-9cf2-4305-8fe7-ff2f5fc67bc1",
+        "firstName": "Wrennie",
+        "lastName": "Yewdale",
+        "email": "wyewdale1@amazon.co.jp",
+        "iban": "GR661362857YEWACFVNB3LLNXWW",
+        "bic": "CHASUS33"
+      },
+      "amount": 6.00
+    },
+    {
+      "id": "5c02df2a-eec9-4f9b-8a8c-d8eee677feea",
+      "payer": {
+        "id": "886a4e4e-15f1-4a3d-8e89-7c603a048818",
+        "firstName": "Wendeline",
+        "lastName": "Perrins",
+        "email": "wperrins0@furl.net",
+        "iban": "AD3546309915VC3K6JCE29QY",
+        "bic": "CHASUS33"
+      },
+      "receiver": {
+        "id": "7c4335c9-9cf2-4305-8fe7-ff2f5fc67bc1",
+        "firstName": "Wrennie",
+        "lastName": "Yewdale",
+        "email": "wyewdale1@amazon.co.jp",
+        "iban": "GR661362857YEWACFVNB3LLNXWW",
+        "bic": "CHASUS33"
+      },
+      "amount": 12.39
+    }
+  ],
+  "startDate": [
+    2024,
+    4,
+    11
+  ],
+  "endDate": [
+    2024,
+    4,
+    11
+  ],
+  "lastModifiedDateTime": 1712839978.346327000
+}

@@ -1,1 +1,128 @@
-{"id":"a97957ff-24d2-491a-b2d2-4a7d2556ad37","code":"MLzTfy2P","title":"Celebration Dinner","description":"Dinner and drinks with the group","people":[{"id":"69d33ccc-02cb-434e-b56b-0a13bdb51429","firstName":"Alan","lastName":"Turing","email":"alan@domain.com","iban":"AL35202111090000000001234567","bic":"ZUOBJEO6XXX"},{"id":"e0e759e8-f89a-4cd9-a0de-4b994b15ef2c","firstName":"Grace","lastName":"Hopper","email":"grace@domain.com","iban":"AD1400080001001234567890","bic":"HABALT22TIP"},{"id":"a763b215-4fa0-4651-a721-632a6df74802","firstName":"John","lastName":"von Neumann","email":"john@domain.com","iban":"NL91ABNA0417164300","bic":"CBVILT2X"},{"id":"9c0d2f0c-cdea-4b33-925e-2ede5a566da5","firstName":"George","lastName":"Boole Jnr","email":"georgie@scienceforaliving.com","iban":"NL91ABNA0417164300","bic":"KBVILT2X"}],"tags":[{"id":"e137ce62-ceb9-4cd5-a87c-797cb4db8c31","name":"food","colour":{"id":"69e5f09d-ab36-4f97-8180-8785dc2f00d6","red":147,"green":196,"blue":125}},{"id":"1aba161e-6a0d-42fe-89d1-8cf566a1679c","name":"entrance fees","colour":{"id":"745a290c-ee80-4007-bf23-2c7bb784507b","red":74,"green":134,"blue":232}},{"id":"815d3531-c45c-4e02-8f3a-52418f55cab3","name":"travel","colour":{"id":"4597a92a-161d-474f-8e11-cdfdb43fcc23","red":224,"green":102,"blue":102}}],"expenses":[{"id":"5f7cba28-c190-457a-b800-7432067b41e4","description":"Some food","participants":[{"id":"e0e759e8-f89a-4cd9-a0de-4b994b15ef2c","firstName":"Grace","lastName":"Hopper","email":"grace@domain.com","iban":"AD1400080001001234567890","bic":"HABALT22TIP"},{"id":"a763b215-4fa0-4651-a721-632a6df74802","firstName":"John","lastName":"von Neumann","email":"john@domain.com","iban":"NL91ABNA0417164300","bic":"CBVILT2X"}],"receiver":{"id":"69d33ccc-02cb-434e-b56b-0a13bdb51429","firstName":"Alan","lastName":"Turing","email":"alan@domain.com","iban":"AL35202111090000000001234567","bic":"ZUOBJEO6XXX"},"paid":23.01,"tag":{"id":"e137ce62-ceb9-4cd5-a87c-797cb4db8c31","name":"food","colour":{"id":"69e5f09d-ab36-4f97-8180-8785dc2f00d6","red":147,"green":196,"blue":125}},"paymentDateTime":1712268000.000000000}],"payments":[],"startDate":[2024,4,11],"endDate":[2024,4,11],"lastModifiedDateTime":1712840185.969759000}
+{
+  "id": "a97957ff-24d2-491a-b2d2-4a7d2556ad37",
+  "code": "MLzTfy2P",
+  "title": "Celebration Dinner",
+  "description": "Dinner and drinks with the group",
+  "people": [
+    {
+      "id": "69d33ccc-02cb-434e-b56b-0a13bdb51429",
+      "firstName": "Alan",
+      "lastName": "Turing",
+      "email": "alan@domain.com",
+      "iban": "AL35202111090000000001234567",
+      "bic": "ZUOBJEO6XXX"
+    },
+    {
+      "id": "e0e759e8-f89a-4cd9-a0de-4b994b15ef2c",
+      "firstName": "Grace",
+      "lastName": "Hopper",
+      "email": "grace@domain.com",
+      "iban": "AD1400080001001234567890",
+      "bic": "HABALT22TIP"
+    },
+    {
+      "id": "a763b215-4fa0-4651-a721-632a6df74802",
+      "firstName": "John",
+      "lastName": "von Neumann",
+      "email": "john@domain.com",
+      "iban": "NL91ABNA0417164300",
+      "bic": "CBVILT2X"
+    },
+    {
+      "id": "9c0d2f0c-cdea-4b33-925e-2ede5a566da5",
+      "firstName": "George",
+      "lastName": "Boole Jnr",
+      "email": "georgie@scienceforaliving.com",
+      "iban": "NL91ABNA0417164300",
+      "bic": "KBVILT2X"
+    }
+  ],
+  "tags": [
+    {
+      "id": "815d3531-c45c-4e02-8f3a-52418f55cab3",
+      "name": "travel",
+      "colour": {
+        "id": "4597a92a-161d-474f-8e11-cdfdb43fcc23",
+        "red": 224,
+        "green": 102,
+        "blue": 102
+      }
+    },
+    {
+      "id": "e137ce62-ceb9-4cd5-a87c-797cb4db8c31",
+      "name": "food",
+      "colour": {
+        "id": "69e5f09d-ab36-4f97-8180-8785dc2f00d6",
+        "red": 147,
+        "green": 196,
+        "blue": 125
+      }
+    },
+    {
+      "id": "1aba161e-6a0d-42fe-89d1-8cf566a1679c",
+      "name": "entrance fees",
+      "colour": {
+        "id": "745a290c-ee80-4007-bf23-2c7bb784507b",
+        "red": 74,
+        "green": 134,
+        "blue": 232
+      }
+    }
+  ],
+  "expenses": [
+    {
+      "id": "5f7cba28-c190-457a-b800-7432067b41e4",
+      "description": "Some food",
+      "participants": [
+        {
+          "id": "e0e759e8-f89a-4cd9-a0de-4b994b15ef2c",
+          "firstName": "Grace",
+          "lastName": "Hopper",
+          "email": "grace@domain.com",
+          "iban": "AD1400080001001234567890",
+          "bic": "HABALT22TIP"
+        },
+        {
+          "id": "a763b215-4fa0-4651-a721-632a6df74802",
+          "firstName": "John",
+          "lastName": "von Neumann",
+          "email": "john@domain.com",
+          "iban": "NL91ABNA0417164300",
+          "bic": "CBVILT2X"
+        }
+      ],
+      "receiver": {
+        "id": "69d33ccc-02cb-434e-b56b-0a13bdb51429",
+        "firstName": "Alan",
+        "lastName": "Turing",
+        "email": "alan@domain.com",
+        "iban": "AL35202111090000000001234567",
+        "bic": "ZUOBJEO6XXX"
+      },
+      "paid": 23.01,
+      "tag": {
+        "id": "e137ce62-ceb9-4cd5-a87c-797cb4db8c31",
+        "name": "food",
+        "colour": {
+          "id": "69e5f09d-ab36-4f97-8180-8785dc2f00d6",
+          "red": 147,
+          "green": 196,
+          "blue": 125
+        }
+      },
+      "paymentDateTime": 1712268000.000000000
+    }
+  ],
+  "payments": [],
+  "startDate": [
+    2024,
+    4,
+    11
+  ],
+  "endDate": [
+    2024,
+    4,
+    11
+  ],
+  "lastModifiedDateTime": 1712840185.969759000
+}

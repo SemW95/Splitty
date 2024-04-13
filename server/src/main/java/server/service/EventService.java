@@ -1,5 +1,6 @@
 package server.service;
 
+import commons.Colour;
 import commons.Event;
 import commons.Expense;
 import commons.Payment;
@@ -119,13 +120,18 @@ public class EventService {
      */
     public String createEvent(Event event) throws IllegalStateException {
         if (event.getId() == null || !eventRepository.existsById(event.getId())) {
-            // Add default tags if there are none
+            // Create default tags if there are none
             if (event.getTags().isEmpty() && tagRepository != null) {
-                ArrayList<Tag> defaultTags = new ArrayList<>();
-                tagRepository.findTagByName("food").ifPresent(defaultTags::add);
-                tagRepository.findTagByName("entrance fees").ifPresent(defaultTags::add);
-                tagRepository.findTagByName("travel").ifPresent(defaultTags::add);
-                event.setTags(defaultTags);
+                // Default tag colors
+                Colour red = colourRepository.save(new Colour(224, 102, 102));
+                Colour green = colourRepository.save(new Colour(147, 196, 125));
+                Colour blue = colourRepository.save(new Colour(74, 134, 232));
+
+                Tag travel = tagRepository.save(new Tag("food", red));
+                Tag food = tagRepository.save(new Tag("food", green));
+                Tag entranceFees = tagRepository.save(new Tag("entrance fees", blue));
+
+                event.setTags(List.of(travel, food, entranceFees));
             }
             return eventRepository.save(event).getId();
         }

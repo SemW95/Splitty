@@ -48,7 +48,7 @@ public class TagRepositoryTest {
 
     @Test
     void findTagByName() {
-        Tag tag = tagRepository.findTagByName(tagTest1.getName()).orElse(null);
+        Tag tag = tagRepository.findFirstByName(tagTest1.getName()).orElse(null);
         assertNotNull(tag);
         assertEquals(tagTest1.getId(), tag.getId());
         assertEquals(tagTest1.getColour(), tag.getColour());

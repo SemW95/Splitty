@@ -1,1 +1,52 @@
-{"id":"ffb72fc1-bc7e-4024-80c9-32498d36e0b1","code":"fDabK7JT","title":"Uber ride","description":"We took an uber to get to a restaurant","people":[],"tags":[{"id":"e137ce62-ceb9-4cd5-a87c-797cb4db8c31","name":"food","colour":{"id":"69e5f09d-ab36-4f97-8180-8785dc2f00d6","red":147,"green":196,"blue":125}},{"id":"1aba161e-6a0d-42fe-89d1-8cf566a1679c","name":"entrance fees","colour":{"id":"745a290c-ee80-4007-bf23-2c7bb784507b","red":74,"green":134,"blue":232}},{"id":"815d3531-c45c-4e02-8f3a-52418f55cab3","name":"travel","colour":{"id":"4597a92a-161d-474f-8e11-cdfdb43fcc23","red":224,"green":102,"blue":102}}],"expenses":[],"payments":[],"startDate":[2024,4,11],"endDate":[2024,4,11],"lastModifiedDateTime":1712840420.583586000}
+{
+  "id": "ffb72fc1-bc7e-4024-80c9-32498d36e0b1",
+  "code": "fDabK7JT",
+  "title": "Uber ride",
+  "description": "We took an uber to get to a restaurant",
+  "people": [],
+  "tags": [
+    {
+      "id": "815d3531-c45c-4e02-8f3a-52418f55cab3",
+      "name": "travel",
+      "colour": {
+        "id": "4597a92a-161d-474f-8e11-cdfdb43fcc23",
+        "red": 224,
+        "green": 102,
+        "blue": 102
+      }
+    },
+    {
+      "id": "e137ce62-ceb9-4cd5-a87c-797cb4db8c31",
+      "name": "food",
+      "colour": {
+        "id": "69e5f09d-ab36-4f97-8180-8785dc2f00d6",
+        "red": 147,
+        "green": 196,
+        "blue": 125
+      }
+    },
+    {
+      "id": "1aba161e-6a0d-42fe-89d1-8cf566a1679c",
+      "name": "entrance fees",
+      "colour": {
+        "id": "745a290c-ee80-4007-bf23-2c7bb784507b",
+        "red": 74,
+        "green": 134,
+        "blue": 232
+      }
+    }
+  ],
+  "expenses": [],
+  "payments": [],
+  "startDate": [
+    2024,
+    4,
+    11
+  ],
+  "endDate": [
+    2024,
+    4,
+    11
+  ],
+  "lastModifiedDateTime": 1712840420.583586000
+}
