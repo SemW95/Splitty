@@ -6,7 +6,8 @@ BACKLOG:
 - euro symbol broken in open debts
 - conversion rate button should have pop-up in event overview should give coming soon text
 - "It must be possible to connect at least 10 clients simultaneously and a change between clients should take less than a second" does this work?
-- 
+- Make more client tests (or commons)
+
 Finishing touch:
 - admin screen order boxes should have default
 - choosing a participant payer and switching makes it a participant even if it was not
