@@ -208,7 +208,8 @@
         <Button layoutX="107.0" layoutY="262.0" mnemonicParsing="false" onAction="#handleAddExpenses" prefHeight="25.0"
                 prefWidth="30.0"
                 style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);"
-                text="+"/>
+                text="+"
+                id="addExpenseButton"/>
         <Button layoutX="149.0" layoutY="262.0" mnemonicParsing="false" onAction="#handleManageExpenses"
                 prefHeight="25.0" prefWidth="126.0"
                 style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: #CF9FFF;"
