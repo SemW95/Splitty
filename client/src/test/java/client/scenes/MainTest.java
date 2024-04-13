@@ -1,9 +1,13 @@
 package client.scenes;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import client.Main;
+import java.util.Optional;
 import javafx.application.Application;
+import javafx.scene.Node;
+import javafx.scene.text.Text;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -33,5 +37,9 @@ public class MainTest extends FxRobot {
         assertTrue(lookup("Celebration Dinner").tryQuery().isPresent());
         assertTrue(lookup("Uber ride").tryQuery().isPresent());
         assertTrue(lookup("Paintball").tryQuery().isEmpty());
+        String recentOverview = Main.FXML.getBundle().getString("home.recent-overview");
+        Optional<Node> recentEventOverviewNode = lookup("#recentOverview").tryQuery();
+        assertTrue(recentEventOverviewNode.isPresent());
+        assertEquals(((Text) recentEventOverviewNode.get()).getText(), recentOverview);
     }
 }
