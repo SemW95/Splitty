@@ -411,7 +411,7 @@ public class ExpenseControllerTest {
         mockMvc.perform(post("/expense")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(expense)))
-            .andExpect(status().isOk());
+            .andExpect(status().isCreated());
     }
 
     @Test
