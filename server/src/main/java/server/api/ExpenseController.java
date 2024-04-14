@@ -32,7 +32,6 @@ public class ExpenseController {
         this.expenseService = expenseService;
     }
 
-
     // TODO move this to admin
     @GetMapping(path = "/expense")
     public List<Expense> getAllExpense() {
@@ -57,7 +56,7 @@ public class ExpenseController {
     /**
      * Sets (replaces) the participants for a specified Expense.
      *
-     * @param id The ID of the Expense for which participants are to be set
+     * @param id           The ID of the Expense for which participants are to be set
      * @param participants The new list of participants for the Expense
      */
     @PutMapping(path = "/expense/{id}/participants")
@@ -69,7 +68,7 @@ public class ExpenseController {
     /**
      * Sets the description for a specified Expense.
      *
-     * @param id The id of the Expense
+     * @param id          The id of the Expense
      * @param description The new description
      */
     @PutMapping(path = "/expense/{id}/description")
@@ -80,7 +79,7 @@ public class ExpenseController {
     /**
      * Sets the receiver for a specified Expense.
      *
-     * @param id The id of the Expense
+     * @param id       The id of the Expense
      * @param receiver The new receiver
      */
     @PutMapping(path = "/expense/{id}/receiver")
@@ -91,7 +90,7 @@ public class ExpenseController {
     /**
      * Sets the paid amount for a specified Expense.
      *
-     * @param id The id of the Expense
+     * @param id   The id of the Expense
      * @param paid The new paid amount
      */
     @PutMapping(path = "/expense/{id}/paid")
@@ -102,7 +101,7 @@ public class ExpenseController {
     /**
      * Sets the tag for a specified Expense.
      *
-     * @param id The id of the Expense
+     * @param id  The id of the Expense
      * @param tag The new tag
      */
     @PutMapping(path = "/expense/{id}/tag")
@@ -113,7 +112,7 @@ public class ExpenseController {
     /**
      * Sets the paymentDateTime for a specified Expense.
      *
-     * @param id The id of the Expense
+     * @param id              The id of the Expense
      * @param paymentDateTime The new paymentDateTime
      */
     @PutMapping(path = "/expense/{id}/paymentDateTime")
@@ -124,7 +123,7 @@ public class ExpenseController {
     /**
      * Adds a participant to an Expense.
      *
-     * @param id The ID of the Expense to which a participant will be added
+     * @param id          The ID of the Expense to which a participant will be added
      * @param participant The participant to be added
      */
     @PostMapping(path = "/expense/{id}/participant")
@@ -136,7 +135,7 @@ public class ExpenseController {
     /**
      * Adds multiple participants to an Expense.
      *
-     * @param id The id of the Expense
+     * @param id           The id of the Expense
      * @param participants The participants to add
      */
     @PostMapping(path = "/expense/{id}/addParticipants")
@@ -147,7 +146,7 @@ public class ExpenseController {
     /**
      * Removes a participant from an Expense.
      *
-     * @param expenseId The ID of the Expense from which the participant will be removed
+     * @param expenseId     The ID of the Expense from which the participant will be removed
      * @param participantId The ID of the participant to remove
      */
     @DeleteMapping(path = "/expense/{expenseId}/participants/{participantId}")

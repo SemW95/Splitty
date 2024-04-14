@@ -203,7 +203,7 @@ public class OpenDebtsCtrl implements Initializable {
 
     @FXML
     private void clickCurrency() {
-        // TODO
+        mainCtrl.clickSoon(root);
     }
 
     @FXML

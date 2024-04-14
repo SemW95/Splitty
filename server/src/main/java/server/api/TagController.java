@@ -29,8 +29,6 @@ public class TagController {
         this.tagService = tagService;
     }
 
-    //TODO add endpoints below
-
     /**
      * Returns all persons in the database,
      * if no people returns empty list.
