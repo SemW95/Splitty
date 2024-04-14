@@ -2,6 +2,9 @@ package server.api;
 
 import commons.Colour;
 import java.util.List;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,23 +39,26 @@ public class ColourController {
 
     @PostMapping(path = "/colour")
     @ResponseBody
-    public String createColour(@RequestBody Colour colour) throws IllegalStateException {
-        return colourService.createColour(colour);
+    public ResponseEntity<Object> createColour(@RequestBody Colour colour) throws IllegalStateException {
+        colourService.createColour(colour);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PostMapping(path = "/colour/rgb/{red}/{green}/{blue}")
     @ResponseBody
-    public String createColour(
+    public ResponseEntity<String> createColour(
         @PathVariable int red, @PathVariable int green, @PathVariable int blue)
         throws IllegalStateException {
-        return colourService.createColour(red, green, blue);
+        return new ResponseEntity<String>(
+            colourService.createColour(red, green, blue), HttpStatus.CREATED);
     }
 
     @PostMapping(path = "/colour/hex/{hexString}")
     @ResponseBody
-    public String createColour(
+    public ResponseEntity<String> createColour(
         @PathVariable String hexString) {
-        return colourService.createColour(hexString);
+        return new ResponseEntity<String>(
+            colourService.createColour(hexString), HttpStatus.CREATED);
     }
 
     @PutMapping(path = "/colour")
@@ -98,5 +104,12 @@ public class ColourController {
     @ResponseBody
     public String toHexString(@PathVariable String id) {
         return colourService.toHexString(id);
+    }
+
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<Object> handleIllegalStateException(IllegalStateException ex) {
+        // Return a ResponseEntity with the NOT_FOUND status
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

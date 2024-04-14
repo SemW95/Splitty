@@ -33,9 +33,9 @@ public class CurrencyService {
      *
      * @param currency that is to be added
      */
-    public Currency createCurrency(Currency currency) {
+    public void createCurrency(Currency currency) {
         if (currency.getId() == null || !currencyRepository.existsById(currency.getId())) {
-            return currencyRepository.save(currency);
+            currencyRepository.save(currency);
         }
 
         throw new IllegalStateException(

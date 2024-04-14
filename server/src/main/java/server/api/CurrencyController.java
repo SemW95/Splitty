@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URISyntaxException;
 import java.util.List;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,8 +41,9 @@ public class CurrencyController {
      * @param currency that is to be added
      */
     @PostMapping(path = "/currency")
-    public Currency createCurrency(@RequestBody Currency currency) {
-        return currencyService.createCurrency(currency);
+    public ResponseEntity<Object> createCurrency(@RequestBody Currency currency) {
+        currencyService.createCurrency(currency);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     /**
@@ -150,4 +154,9 @@ public class CurrencyController {
     }
 
 
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<Object> handleIllegalStateException(IllegalStateException ex) {
+        // Return a ResponseEntity with the NOT_FOUND status
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }
