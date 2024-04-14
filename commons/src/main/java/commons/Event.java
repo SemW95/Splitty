@@ -436,13 +436,7 @@ public class Event {
         return code;
     }
 
-    /**
-     * TODO updateLastModifiedDateTime messes up tests.
-     *
-     * @param code code to be set
-     */
     public void setCode(String code) {
-        // updateLastModifiedDateTime();
         this.code = code;
     }
 
