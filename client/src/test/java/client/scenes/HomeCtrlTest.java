@@ -19,13 +19,13 @@ package client.scenes;
 import static com.google.inject.Guice.createInjector;
 import static org.testfx.api.FxAssert.verifyThat;
 
+import javafx.scene.text.Text;
+import org.junit.jupiter.api.Test;
+import org.testfx.api.FxRobot;
 import client.MyFXML;
 import client.utils.CsPair;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
