@@ -40,6 +40,7 @@ public class ExpenseManageTest extends FxRobot {
         ResourceBundle bundle = Main.FXML.getBundle();
         clickOn(bundle.getString("home.create-event"));
 
+        sleep(500);
         assertTrue(lookup(bundle.getString("create-event.create-event")).tryQuery().isPresent());
 
         clickOn("#eventName").type(KeyCode.A, KeyCode.B);
@@ -54,6 +55,7 @@ public class ExpenseManageTest extends FxRobot {
         type(KeyCode.SPACE);
         sleep(500);
         type(KeyCode.ESCAPE);
+        sleep(500);
 
 
     }
@@ -67,9 +69,12 @@ public class ExpenseManageTest extends FxRobot {
 
         clickOn(bundle.getString("home.create-event"));
 
+        sleep(500);
         assertTrue(lookup(bundle.getString("create-event.create-event")).tryQuery().isPresent());
 
+        sleep(500);
         doubleClickOn("#eventName").type(KeyCode.A, KeyCode.B);
+        sleep(500);
         doubleClickOn("#eventDescription").type(KeyCode.B, KeyCode.C);
         clickOn("#create");
 
@@ -77,25 +82,33 @@ public class ExpenseManageTest extends FxRobot {
 
         assertTrue(lookup("ab").tryQuery().isPresent());
 
+        sleep(500);
         clickOn("#addExpenseButton");
         clickOn("#expenseNameLabel").type(KeyCode.E, KeyCode.X);
+        sleep(500);
         press(KeyCode.ENTER);
+        sleep(500);
         release(KeyCode.ENTER);
         sleep(500);
         String goal = bundle.getString("manage-expense.changed");
+        sleep(500);
         assertTrue(lookup(goal).tryQuery().isPresent());
 
+        sleep(500);
         type(KeyCode.ESCAPE);
         sleep(500);
         type(KeyCode.SPACE);
         sleep(500);
 
+        sleep(500);
         type(KeyCode.ESCAPE);
         sleep(500);
         type(KeyCode.SPACE);
         sleep(500);
 
+        sleep(500);
         type(KeyCode.ESCAPE);
+        sleep(500);
         type(KeyCode.SPACE);
         sleep(500);
 
@@ -119,20 +132,28 @@ public class ExpenseManageTest extends FxRobot {
         clickOn("#addExpenseButton");
         clickOn("#expenseAmountLabel");
         write("7321");
+        sleep(500);
         press(KeyCode.ENTER);
+        sleep(500);
 
         String goal = bundle.getString("manage-expense.changed");
         assertTrue(lookup(goal).tryQuery().isPresent());
 
+        sleep(500);
         type(KeyCode.ESCAPE);
+        sleep(500);
         type(KeyCode.SPACE);
         sleep(500);
 
+        sleep(500);
         type(KeyCode.ESCAPE);
+        sleep(500);
         type(KeyCode.SPACE);
         sleep(500);
 
+        sleep(500);
         type(KeyCode.ESCAPE);
+        sleep(500);
         type(KeyCode.SPACE);
         sleep(500);
     }
@@ -143,37 +164,52 @@ public class ExpenseManageTest extends FxRobot {
         ResourceBundle bundle = Main.FXML.getBundle();
         clickOn(bundle.getString("home.create-event"));
 
+        sleep(500);
         assertTrue(lookup(bundle.getString("create-event.create-event")).tryQuery().isPresent());
 
         doubleClickOn("#eventName").type(KeyCode.A, KeyCode.B);
         doubleClickOn("#eventDescription").type(KeyCode.B, KeyCode.C);
         clickOn("#create");
 
+        sleep(500);
         assertTrue(lookup("ab").tryQuery().isPresent());
 
         clickOn("#addExpenseButton");
         clickOn("#expenseAmountLabel");
         write("712.five");
+        sleep(500);
         press(KeyCode.ENTER);
+        sleep(500);
 
         String goal = bundle.getString("manage-expense.invalid");
+        sleep(500);
         assertTrue(lookup(goal).tryQuery().isPresent());
 
+        sleep(500);
         press(KeyCode.ENTER);
+        sleep(500);
         doubleClickOn("#expenseAmountLabel");
 
         write("712");
+        sleep(500);
         press(KeyCode.ENTER);
+        sleep(500);
 
+        sleep(500);
         type(KeyCode.ESCAPE);
+        sleep(500);
         type(KeyCode.SPACE);
         sleep(500);
 
+        sleep(500);
         type(KeyCode.ESCAPE);
+        sleep(500);
         type(KeyCode.SPACE);
         sleep(500);
 
+        sleep(500);
         type(KeyCode.ESCAPE);
+        sleep(500);
         type(KeyCode.SPACE);
         sleep(500);
     }
