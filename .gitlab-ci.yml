@@ -122,6 +122,7 @@ coverageReport:
 dry-run:triage:
   image: ruby:3.0
   stage: triage
+  allow_failure: true
   needs: []
   script:
     - gem install gitlab-triage
@@ -134,6 +135,7 @@ dry-run:triage:
 run:triage:
   image: ruby:3.0
   stage: triage
+  allow_failure: true
   needs: []
   script:
     - gem install gitlab-triage
