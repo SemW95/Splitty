@@ -26,10 +26,11 @@ public class InfoPrinter implements CommandLineRunner {
     private void printAdminPassword() {
         String password = adminService.getAdminPassword();
 
+        // Assuming the length of the password is 16
         System.out.println();
-        System.out.println("*******************************");
+        System.out.println("***************************************");
         System.out.println("* Admin password = '" + password + "' *");
-        System.out.println("*******************************");
+        System.out.println("***************************************");
         System.out.println();
     }
 }

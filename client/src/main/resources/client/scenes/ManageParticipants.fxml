@@ -23,11 +23,11 @@
       </AnchorPane>
       <AnchorPane prefHeight="800.0" prefWidth="1100.0" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="54.0">
          <children>
-            <Button fx:id="editParticipant" layoutX="596.0" layoutY="266.0" mnemonicParsing="false" onAction="#editParticipant" prefHeight="29.0" prefWidth="65.0" text="%manage-participants.edit">
+            <Button fx:id="editParticipantButton" layoutX="596.0" layoutY="266.0" mnemonicParsing="false" onAction="#editParticipant" prefHeight="29.0" prefWidth="65.0" text="%manage-participants.edit">
                <font>
                   <Font size="18.0" />
                </font></Button>
-            <Button fx:id="deleteParticipant" layoutX="751.0" layoutY="266.0" mnemonicParsing="false" onAction="#deleteParticipant" prefHeight="36.0" prefWidth="82.0" text="%manage-participants.delete">
+            <Button fx:id="deleteParticipantButton" layoutX="751.0" layoutY="266.0" mnemonicParsing="false" onAction="#deleteParticipant" prefHeight="36.0" prefWidth="82.0" text="%manage-participants.delete">
                <font>
                   <Font size="18.0" />
                </font></Button>

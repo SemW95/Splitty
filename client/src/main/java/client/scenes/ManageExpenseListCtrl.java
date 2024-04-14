@@ -34,9 +34,9 @@ public class ManageExpenseListCtrl implements Initializable {
     @FXML
     private Button backButton;
     @FXML
-    private Button deleteExpense;
+    private Button deleteExpenseButton;
     @FXML
-    private Button editExpense;
+    private Button editExpenseButton;
     private ResourceBundle resources;
     private Event event;
 
@@ -51,7 +51,7 @@ public class ManageExpenseListCtrl implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         this.resources = resources;
         rootAnchorPane.addEventFilter(KeyEvent.KEY_PRESSED,
-                ScreenUtils.exitHandler(resources, this::handleExit));
+            ScreenUtils.exitHandler(resources, this::handleExit));
     }
 
     private void handleExit() {
@@ -61,19 +61,21 @@ public class ManageExpenseListCtrl implements Initializable {
 
     @FXML
     private void editExpense() {
-        Expense seletedExpense = expenseMenu.getValue();
-        mainCtrl.showManageExpensePopup(seletedExpense, event);
+        Expense selectedExpense = expenseMenu.getValue();
+        if (selectedExpense == null) {
+            return;
+        }
+        mainCtrl.showManageExpensePopup(selectedExpense, event);
     }
 
     @FXML
     private void deleteExpense() {
         Expense selectedExpense = expenseMenu.getValue();
-        mainCtrl.showDeleteExpenseConfirmationPopup(() -> {
-            event.getExpenses().remove(selectedExpense);
-            server.updateEvent(event);
-            server.deleteExpense(selectedExpense);
-            server.updateEvent(event);
-        });
+        if (selectedExpense == null) {
+            return;
+        }
+        mainCtrl.showDeleteExpenseConfirmationPopup(
+            () -> server.deleteExpenseFromEvent(selectedExpense, event));
     }
 
 
@@ -90,6 +92,12 @@ public class ManageExpenseListCtrl implements Initializable {
             return;
         }
         List<Expense> expenseList = event.getExpenses();
+
+        // Disable the buttons if there are no expenses
+        deleteExpenseButton.setDisable(expenseList.isEmpty());
+        editExpenseButton.setDisable(expenseList.isEmpty());
+
+        expenseMenu.getSelectionModel().clearSelection();
 
         // Populate expense list
         expenseFlowPane.getChildren().setAll();
@@ -112,9 +120,6 @@ public class ManageExpenseListCtrl implements Initializable {
             }
         });
 
-        for (Expense expense : expenseList) {
-            expenseMenu.getSelectionModel().select(expense);
-        }
         expenseMenu.setButtonCell(new ListCell<>() {
             @Override
             protected void updateItem(Expense expense, boolean empty) {
@@ -126,17 +131,16 @@ public class ManageExpenseListCtrl implements Initializable {
                 }
             }
         });
-
     }
 
     private AnchorPane createExpenseCard(Expense expense) {
         AnchorPane card = new AnchorPane();
         card.setPrefSize(475, 50);
         card.setStyle(
-                "-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;");
+            "-fx-border-color: lightgrey; -fx-border-width: 2px; -fx-border-radius: 5px;");
 
         String expenseRepresentation =
-                expense.getDescription();
+            expense.getDescription();
         Label expenseLabel = new Label(expenseRepresentation);
         Font globalFont = new Font("System Bold", 24);
         expenseLabel.setFont(globalFont);

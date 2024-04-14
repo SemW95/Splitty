@@ -256,9 +256,9 @@ public class EventOverviewCtrl implements Initializable {
     private void handleAddExpenses(ActionEvent actionEvent) {
         Expense expense = new Expense("New expense", new ArrayList<>(), null, BigDecimal.ZERO, null,
             Instant.now());
-        expense = server.createExpense(expense);
-        event.getExpenses().add(expense);
-        server.updateEvent(event);
+        expense = server.createExpenseForEvent(expense, event);
+        event = server.getEventById(event.getId());
+
         mainCtrl.showExpenseOverview(expense, event);
         mainCtrl.showManageExpensePopup(expense, event);
     }
@@ -343,11 +343,7 @@ public class EventOverviewCtrl implements Initializable {
 
     @FXML
     private void handleAddParticipants(ActionEvent actionEvent) {
-        mainCtrl.showAddParticipantPopup((person) -> {
-            person = server.createPerson(person);
-            event.getPeople().add(person);
-            server.updateEvent(event);
-        });
+        mainCtrl.showAddParticipantPopup((person) -> server.createPersonForEvent(person, event));
     }
 
     @FXML
@@ -357,8 +353,7 @@ public class EventOverviewCtrl implements Initializable {
 
     @FXML
     private void handleAddPayments(ActionEvent actionEvent) {
-        Payment payment =
-            new Payment(null, null, BigDecimal.ZERO);
+        Payment payment = new Payment(null, null, BigDecimal.ZERO);
         mainCtrl.showEditPaymentPopup(payment, event);
     }
 
