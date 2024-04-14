@@ -63,15 +63,17 @@ public class ColourService {
         return colourRepository.save(new Colour(red, green, blue)).getId();
     }
 
+    public boolean colourExists(String id) {
+        return colourRepository.existsById(id);
+    }
+
     /** Updates a Colour in the database.
      *
      * @param colour The Colour Object with the updated data
      * @throws IllegalStateException When there isn't a Colour with this id in the database
      */
     public void updateColour(Colour colour) throws IllegalStateException {
-        Optional<Colour> optionalColour = colourRepository.findById(colour.getId());
-
-        if (optionalColour.isEmpty()) {
+        if (!colourExists(colour.getId())) {
             throw new IllegalStateException("Colour not found");
         }
 

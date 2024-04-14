@@ -34,6 +34,11 @@ public class CurrencyController {
         return currencyService.getAllCurrency();
     }
 
+    @GetMapping(path = "/currency/{id}")
+    public Currency getCurrencyById(@PathVariable String id) throws IllegalStateException {
+        return currencyService.getCurrencyById(id);
+    }
+
     /**
      * Adds a Currency object to the database,
      * throws exception if person already exists.

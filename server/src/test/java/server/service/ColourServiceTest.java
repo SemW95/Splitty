@@ -90,7 +90,7 @@ class ColourServiceTest {
     void updateColour() {
         Colour colour = new Colour(255, 0, 0);
         colour.setId("1");
-        when(colourRepository.findById("1")).thenReturn(Optional.of(colour));
+        when(colourService.colourExists("1")).thenReturn(true);
         when(colourRepository.save(colour)).thenReturn(colour);
         assertDoesNotThrow(() -> colourService.updateColour(colour));
         verify(colourRepository).save(colour);

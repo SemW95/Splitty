@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -56,6 +57,29 @@ class CurrencyControllerTest {
         mockMvc.perform(get("/currency"))
             .andExpect(status().isOk())
             .andExpect(content().json(objectMapper.writeValueAsString(expectedCurrencies)));
+    }
+
+    @Test
+    void getCurrencyById() throws Exception {
+        // Setup
+        String currencyId = "1";
+        Currency expectedCurrency = new Currency("Euro", "EUR", '€');
+        expectedCurrency.setId(currencyId);
+
+        // Mocking the service layer
+        when(currencyService.getCurrencyById(currencyId)).thenReturn(expectedCurrency);
+
+        // Perform GET request
+        mockMvc.perform(get("/currency/{id}", currencyId))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.id").value(currencyId))
+            .andExpect(jsonPath("$.name").value("Euro"))
+            .andExpect(jsonPath("$.code").value("EUR"))
+            .andExpect(jsonPath("$.symbol").value("€"));
+
+        // Verify service interactions
+        verify(currencyService).getCurrencyById(currencyId);
     }
 
 
