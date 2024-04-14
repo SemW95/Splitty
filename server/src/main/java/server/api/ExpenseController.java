@@ -44,9 +44,8 @@ public class ExpenseController {
     }
 
     @PostMapping(path = "/expense")
-    public ResponseEntity<Object> createExpense(@RequestBody Expense expense) {
-        expenseService.createExpense(expense);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public Expense createExpense(@RequestBody Expense expense) {
+        return expenseService.createExpense(expense);
     }
 
     @PutMapping(path = "/expense")

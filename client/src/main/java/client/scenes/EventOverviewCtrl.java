@@ -241,7 +241,8 @@ public class EventOverviewCtrl implements Initializable {
      */
     @FXML
     private void handleCurrency() {
-        mainCtrl.clickSoon(root);;
+        mainCtrl.clickSoon(root);
+        ;
     }
 
     @FXML
@@ -278,7 +279,6 @@ public class EventOverviewCtrl implements Initializable {
 
     @FXML
     private void editEventName() {
-        System.out.println("Edit Event Name.");
         eventNameLabel.setVisible(false); // Hide the Label
         eventNameTextField.setVisible(true); // Show the TextField
         eventNameTextField.setText(eventNameLabel.getText()); // Set the initialized text
@@ -309,7 +309,6 @@ public class EventOverviewCtrl implements Initializable {
 
     @FXML
     private void editDescription() {
-        System.out.println("Edit Description.");
         descriptionLabel.setVisible(false); // Hide the Label
         descriptionTextField.setVisible(true); // Show the TextField
         descriptionTextField.setText(descriptionLabel.getText()); // Set the initialized text

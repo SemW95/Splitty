@@ -14,7 +14,7 @@
 
 <AnchorPane fx:id="rootAnchorPane" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.ManageExpenseCtrl">
    <children>
-      <TextField fx:id="expenseNameLabel" layoutX="400.0" layoutY="25.0" onAction="#handleNameChange" prefHeight="35.0" prefWidth="441.0" promptText="%manage-expenses.new-expense" style="-fx-background-color: transparent;" text="Expense Rename Text Field">
+      <TextField fx:id="expenseNameLabel" layoutX="400.0" layoutY="25.0" onAction="#handleNameChange" prefHeight="35.0" prefWidth="441.0" style="-fx-background-color: transparent;">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -97,7 +97,7 @@
       <Label fx:id="confirmDate" layoutX="845.0" layoutY="214.0" />
       <Label fx:id="confirmTag" layoutX="845.0" layoutY="274.0" />
       <Label fx:id="confirmLastDeleted" layoutX="400.0" layoutY="330.0" />
-      <Label layoutX="400.0" layoutY="340.0" text="%manage-expense.enter-clarification">
+      <Label layoutX="400.0" layoutY="310.0" text="%manage-expense.enter-clarification">
          <font>
             <Font size="18.0" />
          </font>

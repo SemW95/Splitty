@@ -198,14 +198,10 @@ public class ManageExpenseCtrl implements Initializable {
         participantsFlowPane.getChildren().setAll();
         if (expense.getReceiver() != null) {
             participantsFlowPane.getChildren().add(createRecipientCard(expense.getReceiver()));
-            System.out.println("Created a recipient card instead of a normal participant card");
         }
 
         for (Person participant : expense.getParticipants()) {
-            System.out.println("HERE");
-            System.out.println(participant);
             participantsFlowPane.getChildren().add(createParticipantCard(participant));
-            System.out.println("Created a regular participant card");
         }
 
         if (rootAnchorPane.getScene().getWindow() != null) {
@@ -229,8 +225,6 @@ public class ManageExpenseCtrl implements Initializable {
 
         String participantRepresentation =
             participant.getFirstName() + " " + participant.getLastName();
-        System.out.println(participant.getId());
-        System.out.println(expense.getReceiver().getId());
         participantRepresentation +=
             " (" + resources.getString("manage-expense.recipient") + ")";
         Label participantLabel = new Label(participantRepresentation);
@@ -271,7 +265,6 @@ public class ManageExpenseCtrl implements Initializable {
 
         String participantRepresentation =
             "Remove " + participant.getFirstName() + " " + participant.getLastName();
-        System.out.println(participant.getId());
         Label participantLabel = new Label(participantRepresentation);
         participantLabel.setFocusTraversable(true);
         Font globalFont = new Font("System Bold", 24);
@@ -462,7 +455,6 @@ public class ManageExpenseCtrl implements Initializable {
 
     private boolean amountHasCorrectSyntax() {
         String s = expenseAmountLabel.getText();
-        System.out.println(s);
         char[] inChars = s.toCharArray();
         for (char c : inChars) {
             if (!Character.isDigit(c) && (c != '.')) {
