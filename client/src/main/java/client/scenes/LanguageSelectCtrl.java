@@ -1,5 +1,6 @@
 package client.scenes;
 
+import client.Main;
 import client.utils.ScreenUtils;
 import com.google.inject.Inject;
 import java.io.File;
@@ -35,14 +36,17 @@ public class LanguageSelectCtrl implements Initializable {
     }
 
     public void setDutch() {
+        Main.configManager.setLanguage("nl");
         mainCtrl.changeLanguage("nl");
     }
 
     public void setEnglish() {
+        Main.configManager.setLanguage("en");
         mainCtrl.changeLanguage("en");
     }
 
     public void setLith() {
+        Main.configManager.setLanguage("lt");
         mainCtrl.changeLanguage("lt");
     }
 
@@ -54,6 +58,10 @@ public class LanguageSelectCtrl implements Initializable {
     private void handleDownload() {
         File templateFile = new File("src/main/resources/template.properties");
         File newFile = mainCtrl.createSaveFile("template.properties");
+        if (newFile == null) {
+            // The user didn't select a file
+            return;
+        }
         try {
             FileCopyUtils.copy(templateFile, newFile);
         } catch (IOException e) {

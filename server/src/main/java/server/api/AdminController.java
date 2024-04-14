@@ -1,5 +1,7 @@
 package server.api;
 
+import commons.Event;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import server.service.AdminService;
 import server.service.EventService;
 
@@ -37,6 +40,19 @@ public class AdminController {
     // All routes for admin operations should ask for the password
 
     /**
+     * Returns all events in the database.
+     *
+     * @return list of all events
+     */
+    @GetMapping(path = "/admin/event")
+    public List<Event> getAllEvents(@RequestParam String password) {
+        if (!adminService.validatePassword(password)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
+        return eventService.getAllEvent();
+    }
+
+    /**
      * Deletes an event with the provided id. Requires the admin password
      *
      * @param id       the id of the event to be deleted
@@ -45,7 +61,7 @@ public class AdminController {
     @DeleteMapping(path = "/admin/event/{id}")
     public void deleteEvent(@PathVariable String id, @RequestParam String password) {
         if (!adminService.validatePassword(password)) {
-            return;
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
         eventService.deleteEvent(id);
     }

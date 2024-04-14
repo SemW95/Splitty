@@ -33,6 +33,7 @@ import java.time.Instant;
 import java.util.Locale;
 import java.util.function.Consumer;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
@@ -71,6 +72,7 @@ public class MainCtrl {
     private CsPair<OpenDebtsCtrl> openDebtsPair;
     private CsPair<ManagePaymentsCtrl> managePaymentsPair;
     private CsPair<EditPaymentCtrl> editPaymentPair;
+    private CsPair<StatisticsCtrl> statisticsPair;
     private Initializable currentCtrl;
     // private Pair<ExpenseCardCtrl, Parent> expenseCard;
     private WebSocketClient websocketClient;
@@ -90,6 +92,7 @@ public class MainCtrl {
     public void initialize(Stage primaryStage, MyFXML fxml) {
         this.primaryStage = primaryStage;
         this.fxml = fxml;
+
         loadAllPairs();
 
         showHome();
@@ -205,6 +208,9 @@ public class MainCtrl {
 
         editPaymentPair =
             fxml.load(EditPaymentCtrl.class, "client", "scenes", "EditPayment.fxml");
+
+        statisticsPair =
+            fxml.load(StatisticsCtrl.class, "client", "scenes", "Statistics.fxml");
     }
 
     /**
@@ -408,12 +414,6 @@ public class MainCtrl {
         popupStage.show();
     }
 
-    //add step 4 here.
-
-    // public Pair<ExpenseCardCtrl, Parent> getExpenseCard() {
-    //     return expenseCard;
-    // }
-
     /**
      * Sets primary stage to the Event overview scene.
      *
@@ -543,6 +543,31 @@ public class MainCtrl {
         popupStage.setScene(editPaymentPair.scene);
         popupStage.setTitle(fxml.getBundle().getString("edit-payment.title"));
         editPaymentPair.ctrl.update(payment, event);
+        popupStage.show();
+    }
+
+    // TODO: not the best way to do this
+    private EventHandler<KeyEvent> statisticsCloseHandler;
+
+    /**
+     * Show the Statistics popup.
+     *
+     * @param event the event
+     */
+    public void showStatisticsPopup(Event event) {
+        popupStage.setScene(statisticsPair.scene);
+        popupStage.setTitle(fxml.getBundle().getString("statistics.title"));
+        statisticsPair.ctrl.update(event);
+
+        // Remove the old event handler if it is already there
+        if (statisticsCloseHandler != null) {
+            popupStage
+                .removeEventHandler(KeyEvent.KEY_PRESSED, statisticsCloseHandler);
+        }
+        statisticsCloseHandler = ScreenUtils.exitHandler(fxml.getBundle(), this::closePopup);
+        popupStage
+            .addEventHandler(KeyEvent.KEY_PRESSED, statisticsCloseHandler);
+
         popupStage.show();
     }
 }

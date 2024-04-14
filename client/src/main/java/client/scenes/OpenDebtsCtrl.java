@@ -82,7 +82,7 @@ public class OpenDebtsCtrl implements Initializable {
         Label payerLabel = new Label(from.getFirstName() + " " + from.getLastName());
         payerLabel.setStyle("-fx-font-weight: bold;");
         Label givesLabel = new Label(resources.getString("open-debts.gives"));
-        Label amountLabel = new Label("€" + payment.getAmount().toPlainString());
+        Label amountLabel = new Label((char) 8364 + payment.getAmount().toPlainString());
         amountLabel.setStyle("-fx-font-weight: bold;");
         String toTranslation = resources.getString("open-debts.to");
         Label toLabel = new Label(toTranslation);

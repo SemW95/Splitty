@@ -47,8 +47,7 @@ public class MyFXML {
      */
     public MyFXML(Injector injector) {
         this.injector = injector;
-        // TODO: get the default locale from the config file
-        Locale locale = Locale.of("en");
+        Locale locale = Locale.of(Main.configManager.getLanguage());
         this.bundle = ResourceBundle.getBundle("client.bundles.Bundle", locale);
     }
 

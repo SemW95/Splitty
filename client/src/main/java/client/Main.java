@@ -29,8 +29,11 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private static final Injector INJECTOR = createInjector(new MyModule());
+    public static final ConfigManager configManager =
+        new ConfigManager("src/main/resources/config.properties");
+
     public static final MyFXML FXML = new MyFXML(INJECTOR);
-    public static final ConfigManager configManager = new ConfigManager();
+
 
     public static void main(String[] args) {
         launch();

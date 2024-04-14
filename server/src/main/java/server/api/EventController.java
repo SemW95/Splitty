@@ -40,18 +40,6 @@ public class EventController {
     }
 
     /**
-     * Returns all persons in the database,
-     * if no people returns empty list.
-     *
-     * @return list of persons
-     */
-    // TODO move this to admin
-    @GetMapping(path = "/event")
-    public List<Event> getAllEvents() {
-        return eventService.getAllEvent();
-    }
-
-    /**
      * Returns an event based on its invite code.
      *
      * @param code the invite code
