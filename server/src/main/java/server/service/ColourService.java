@@ -1,18 +1,21 @@
 package server.service;
 
 import commons.Colour;
-import commons.Currency;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import server.database.ColourRepository;
 
 /**
- * Service for Currency. [CONT -> SERV -> REPO]
+ * Service for Colour. [CONT -> SERV -> REPO]
  */
+@Service
 public class ColourService {
 
     private final ColourRepository colourRepository;
 
+    @Autowired
     public ColourService(ColourRepository colourRepository) {
         this.colourRepository = colourRepository;
     }
@@ -28,13 +31,13 @@ public class ColourService {
      * @return The id of the added Colour
      * @throws IllegalStateException When the Colour already exists
      */
-    public String createCurrency(Colour colour) throws IllegalStateException {
+    public String createColour(Colour colour) throws IllegalStateException {
         if (colour.getId() == null || !colourRepository.existsById(colour.getId())) {
             return colourRepository.save(colour).getId();
         }
 
         throw new IllegalStateException(
-            "There already is a Currency with this id"
+            "There already is a Colour with this id"
         );
     }
 
@@ -44,7 +47,7 @@ public class ColourService {
      * @param hexString a hexadecimal string representing a colour
      * @return The id of the added Colour
      */
-    public String createCurrency(String hexString) {
+    public String createColour(String hexString) {
         return colourRepository.save(new Colour(hexString)).getId();
     }
 
@@ -56,8 +59,23 @@ public class ColourService {
      * @param blue   The blue colour channel
      * @return The id of the added Colour
      */
-    public String createCurrency(int red, int green, int blue) {
+    public String createColour(int red, int green, int blue) {
         return colourRepository.save(new Colour(red, green, blue)).getId();
+    }
+
+    /** Updates a Colour in the database.
+     *
+     * @param colour The Colour Object with the updated data
+     * @throws IllegalStateException When there isn't a Colour with this id in the database
+     */
+    public void updateColour(Colour colour) throws IllegalStateException {
+        Optional<Colour> optionalColour = colourRepository.findById(colour.getId());
+
+        if (optionalColour.isEmpty()) {
+            throw new IllegalStateException("Colour not found");
+        }
+
+        colourRepository.save(colour);
     }
 
     /**
@@ -68,13 +86,13 @@ public class ColourService {
      * @throws IllegalStateException When there doesn't exist a Colour with that id
      */
     public Colour getColourById(String id) throws IllegalStateException {
-        Optional<Colour> optionalCurrency = colourRepository.findById(id);
+        Optional<Colour> optionalColour = colourRepository.findById(id);
 
-        if (optionalCurrency.isEmpty()) {
+        if (optionalColour.isEmpty()) {
             throw new IllegalStateException("Colour not found");
         }
 
-        return optionalCurrency.get();
+        return optionalColour.get();
     }
 
     public int getRed(String id) throws IllegalStateException {
