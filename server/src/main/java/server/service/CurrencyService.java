@@ -36,6 +36,7 @@ public class CurrencyService {
     public void createCurrency(Currency currency) {
         if (currency.getId() == null || !currencyRepository.existsById(currency.getId())) {
             currencyRepository.save(currency);
+            return;
         }
 
         throw new IllegalStateException(

@@ -138,7 +138,7 @@ public class CurrencyController {
      * @throws IllegalStateException When the person with this id doesn't exist
      */
     @DeleteMapping(path = "/currency/{id}")
-    public void deleteCurrency(String id) throws IllegalStateException {
+    public void deleteCurrency(@PathVariable String id) throws IllegalStateException {
         currencyService.deleteCurrency(id);
     }
 
