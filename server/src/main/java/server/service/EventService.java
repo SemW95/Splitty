@@ -127,7 +127,7 @@ public class EventService {
                 Colour green = colourRepository.save(new Colour(147, 196, 125));
                 Colour blue = colourRepository.save(new Colour(74, 134, 232));
 
-                Tag travel = tagRepository.save(new Tag("food", red));
+                Tag travel = tagRepository.save(new Tag("travel", red));
                 Tag food = tagRepository.save(new Tag("food", green));
                 Tag entranceFees = tagRepository.save(new Tag("entrance fees", blue));
 
