@@ -139,6 +139,9 @@ public class MainCtrl {
 
         // Stop the timer thread when the application is closed
         primaryStage.setOnHiding(event -> {
+            // Disconnect the websocket client gracefully
+            websocketClient.disconnnect();
+
             // Not the nicest way to stop the thread but the `server.serverOnline()` blocks,
             // and this was the easiest way to solve the problem
             System.exit(0);

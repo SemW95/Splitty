@@ -507,4 +507,70 @@ public class ServerUtils {
             return null;
         }
     }
+
+    /**
+     * Create a payment and add it to an event.
+     *
+     * @param payment the payment
+     * @param event   the event
+     * @return the created payment
+     */
+    public Payment createPaymentForEvent(Payment payment, Event event) {
+        Event oldEvent = getEventById(event.getId());
+        Payment createdPayment = createPayment(payment);
+        event.getPayments().add(createdPayment);
+
+        undoStack.add(() -> {
+            justUpdateEvent(oldEvent);
+            deletePayment(createdPayment);
+        });
+
+        justUpdateEvent(event);
+
+        return createdPayment;
+    }
+
+    /**
+     * Create an expense and add it to an event.
+     *
+     * @param expense the expense
+     * @param event   the event
+     * @return the created expense
+     */
+    public Expense createExpenseForEvent(Expense expense, Event event) {
+        Event oldEvent = getEventById(event.getId());
+        Expense createdExpense = createExpense(expense);
+        event.getExpenses().add(createdExpense);
+
+        undoStack.add(() -> {
+            justUpdateEvent(oldEvent);
+            deleteExpense(createdExpense);
+        });
+
+        justUpdateEvent(event);
+
+        return createdExpense;
+    }
+
+    /**
+     * Create a person and add it to an event.
+     *
+     * @param person the person
+     * @param event  the event
+     * @return the created person
+     */
+    public Person createPersonForEvent(Person person, Event event) {
+        Event oldEvent = getEventById(event.getId());
+        Person createdPerson = createPerson(person);
+        event.getPeople().add(createdPerson);
+
+        undoStack.add(() -> {
+            justUpdateEvent(oldEvent);
+            deletePerson(person);
+        });
+
+        justUpdateEvent(event);
+
+        return createdPerson;
+    }
 }
