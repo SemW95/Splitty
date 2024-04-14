@@ -254,7 +254,7 @@ public class EventOverviewCtrl implements Initializable {
      */
     @FXML
     private void handleAddExpenses(ActionEvent actionEvent) {
-        Expense expense = new Expense("New expense", new ArrayList<>(), null, BigDecimal.ZERO, null,
+        Expense expense = new Expense(resources.getString("manage-expenses.new-expense"), new ArrayList<>(), null, BigDecimal.ZERO, null,
             Instant.now());
         expense = server.createExpenseForEvent(expense, event);
         event = server.getEventById(event.getId());
