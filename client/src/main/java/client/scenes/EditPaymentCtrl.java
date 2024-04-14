@@ -178,9 +178,7 @@ public class EditPaymentCtrl implements Initializable {
         payment.setPayer(from);
         payment.setReceiver(to);
         if (server.getPaymentById(payment.getId()) == null) {
-            payment = server.createPayment(payment);
-            event.getPayments().add(payment);
-            server.updateEvent(event);
+            server.createPaymentForEvent(payment, event);
         } else {
             server.updatePayment(payment);
         }

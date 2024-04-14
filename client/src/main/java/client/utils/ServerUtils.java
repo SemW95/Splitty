@@ -23,7 +23,6 @@ import commons.Event;
 import commons.Expense;
 import commons.Payment;
 import commons.Person;
-import commons.Tag;
 import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -80,42 +79,21 @@ public class ServerUtils {
         } catch (Exception e) {
             return false;
         }
-
     }
 
-    /**
-     * Gets all persons in the system.
-     *
-     * @return list of persons
-     */
-    public List<Person> getPeople() {
-        /*
-            This method talks to the endpoint by initializing a client and sending
-            a GET request to the requested endpoint and receiving specified type.
-         */
-        return ClientBuilder.newClient(new ClientConfig())
-            .target(server).path("/person")
-            .request(APPLICATION_JSON)
-            .accept(APPLICATION_JSON)
-            .get(new GenericType<>() {
-            });
-
-    }
-
-    /**
-     * Gets all tags in the system.
-     *
-     * @return list of tags
-     */
-    public List<Tag> getTags() {
-        return ClientBuilder.newClient(new ClientConfig())
-            .target(server).path("/tag")
-            .request(APPLICATION_JSON)
-            .accept(APPLICATION_JSON)
-            .get(new GenericType<>() {
-            });
-
-    }
+    // /**
+    //  * Gets all tags in the system.
+    //  *
+    //  * @return list of tags
+    //  */
+    // public List<Tag> getTags() {
+    //     return ClientBuilder.newClient(new ClientConfig())
+    //         .target(server).path("/tag")
+    //         .request(APPLICATION_JSON)
+    //         .accept(APPLICATION_JSON)
+    //         .get(new GenericType<>() {
+    //         });
+    // }
 
     /**
      * Gets all events in the system.
@@ -123,18 +101,19 @@ public class ServerUtils {
      *
      * @return list of events
      */
-    public List<Event> getEvents() {
+    public List<Event> getEvents(String adminPassword) {
         try {
             return ClientBuilder.newClient(new ClientConfig())
-                .target(server).path("/event")
+                .target(server).path("/admin/event")
+                .queryParam("password", adminPassword)
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .get(new GenericType<>() {
                 });
         } catch (Exception e) {
+            System.err.println("Something went wrong: " + e);
             return new ArrayList<>();
         }
-
     }
 
     /**
@@ -175,7 +154,6 @@ public class ServerUtils {
         } catch (Exception e) {
             return null;
         }
-
     }
 
     /**
@@ -216,7 +194,6 @@ public class ServerUtils {
         } catch (Exception e) {
             return null;
         }
-
     }
 
     /**
@@ -265,7 +242,7 @@ public class ServerUtils {
      * @param expense the expense to be created.
      * @return the created expense
      */
-    public Expense createExpense(Expense expense) {
+    private Expense createExpense(Expense expense) {
         try {
             return ClientBuilder.newClient(new ClientConfig())
                 .target(server).path("/expense")
@@ -299,7 +276,6 @@ public class ServerUtils {
         } catch (Exception e) {
             System.err.println("Server did not respond");
         }
-
     }
 
     /**
@@ -308,7 +284,7 @@ public class ServerUtils {
      * @param person the person to create
      * @return the created person with updated fields (id is created)
      */
-    public Person createPerson(Person person) {
+    private Person createPerson(Person person) {
         try {
             return ClientBuilder.newClient(new ClientConfig())
                 .target(server).path("/person")
@@ -359,7 +335,6 @@ public class ServerUtils {
         } catch (Exception e) {
             return null;
         }
-
     }
 
     /**
@@ -367,7 +342,7 @@ public class ServerUtils {
      *
      * @param person the person to delete
      */
-    public void deletePerson(Person person) {
+    private void deletePerson(Person person) {
         try {
             ClientBuilder.newClient(new ClientConfig())
                 .target(server).path("/person/" + person.getId())
@@ -376,7 +351,6 @@ public class ServerUtils {
         } catch (Exception e) {
             System.err.println("Server did not respond");
         }
-
     }
 
     /**
@@ -400,7 +374,7 @@ public class ServerUtils {
      *
      * @param expense the expense to delete
      */
-    public void deleteExpense(Expense expense) {
+    private void deleteExpense(Expense expense) {
         try {
             ClientBuilder.newClient(new ClientConfig())
                 .target(server).path("/expense/" + expense.getId())
@@ -417,7 +391,7 @@ public class ServerUtils {
      * @param payment the payment to create
      * @return the created payment with updated fields (id is created)
      */
-    public Payment createPayment(Payment payment) {
+    private Payment createPayment(Payment payment) {
         try {
             return ClientBuilder.newClient(new ClientConfig())
                 .target(server).path("/payment")
@@ -476,7 +450,7 @@ public class ServerUtils {
      *
      * @param payment the payment to delete
      */
-    public void deletePayment(Payment payment) {
+    private void deletePayment(Payment payment) {
         try {
             ClientBuilder.newClient(new ClientConfig())
                 .target(server).path("/payment/" + payment.getId())
@@ -505,5 +479,137 @@ public class ServerUtils {
             System.err.println("Could not import the event: " + e);
             return null;
         }
+    }
+
+    /**
+     * Create a payment and add it to an event.
+     *
+     * @param payment the payment
+     * @param event   the event
+     * @return the created payment
+     */
+    public Payment createPaymentForEvent(Payment payment, Event event) {
+        Event oldEvent = getEventById(event.getId());
+        Payment createdPayment = createPayment(payment);
+        event.getPayments().add(createdPayment);
+
+        undoStack.add(() -> {
+            justUpdateEvent(oldEvent);
+            deletePayment(createdPayment);
+        });
+
+        justUpdateEvent(event);
+
+        return createdPayment;
+    }
+
+    /**
+     * Create an expense and add it to an event.
+     *
+     * @param expense the expense
+     * @param event   the event
+     * @return the created expense
+     */
+    public Expense createExpenseForEvent(Expense expense, Event event) {
+        Event oldEvent = getEventById(event.getId());
+        Expense createdExpense = createExpense(expense);
+
+        undoStack.add(() -> {
+            justUpdateEvent(oldEvent);
+            deleteExpense(createdExpense);
+        });
+
+        event.getExpenses().add(createdExpense);
+        justUpdateEvent(event);
+
+        return createdExpense;
+    }
+
+    /**
+     * Create a person and add it to an event.
+     *
+     * @param person the person
+     * @param event  the event
+     * @return the created person
+     */
+    public Person createPersonForEvent(Person person, Event event) {
+        Event oldEvent = getEventById(event.getId());
+        Person createdPerson = createPerson(person);
+
+        undoStack.add(() -> {
+            justUpdateEvent(oldEvent);
+            deletePerson(createdPerson);
+        });
+
+        event.getPeople().add(createdPerson);
+        justUpdateEvent(event);
+
+        return createdPerson;
+    }
+
+    /**
+     * Delete a payment from an event.
+     *
+     * @param payment the payment
+     * @param event   the event
+     */
+    public void deletePaymentFromEvent(Payment payment, Event event) {
+        Payment oldPayment = getPaymentById(payment.getId());
+        Event oldEvent = getEventById(event.getId());
+        oldEvent.getPayments().remove(payment);
+
+        undoStack.add(() -> {
+            Payment newPayment = createPayment(oldPayment);
+            oldEvent.getPayments().add(newPayment);
+            justUpdateEvent(oldEvent);
+        });
+
+        event.getPayments().remove(payment);
+        justUpdateEvent(event);
+        deletePayment(payment);
+    }
+
+    /**
+     * Delete an expense from an event.
+     *
+     * @param expense the expense
+     * @param event   the event
+     */
+    public void deleteExpenseFromEvent(Expense expense, Event event) {
+        Expense oldExpense = getExpenseById(expense.getId());
+        Event oldEvent = getEventById(event.getId());
+        oldEvent.getExpenses().remove(expense);
+
+        undoStack.add(() -> {
+            Expense newExpense = createExpense(oldExpense);
+            oldEvent.getExpenses().add(newExpense);
+            justUpdateEvent(oldEvent);
+        });
+
+        event.getExpenses().remove(expense);
+        justUpdateEvent(event);
+        deleteExpense(expense);
+    }
+
+    /**
+     * Delete a person from an event.
+     *
+     * @param person the person
+     * @param event  the event
+     */
+    public void deletePersonFromEvent(Person person, Event event) {
+        Person oldPerson = getPersonById(person.getId());
+        Event oldEvent = getEventById(event.getId());
+        oldEvent.getPeople().remove(person);
+
+        undoStack.add(() -> {
+            Person newPerson = createPerson(oldPerson);
+            oldEvent.getPeople().add(newPerson);
+            justUpdateEvent(oldEvent);
+        });
+
+        event.getPeople().remove(person);
+        justUpdateEvent(event);
+        deletePerson(person);
     }
 }

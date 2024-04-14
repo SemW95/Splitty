@@ -9,13 +9,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class AdminService {
     /**
-     * Randomly generated password, 8 characters long.
+     * Randomly generated password, 16 characters long.
      * It should never be sent to the client.
      */
     private final String adminPassword;
 
     public AdminService() {
-        adminPassword = RandomStringUtils.randomAlphanumeric(8);
+        adminPassword = RandomStringUtils.randomAlphanumeric(16);
     }
 
     public String getAdminPassword() {

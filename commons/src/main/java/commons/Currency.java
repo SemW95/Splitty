@@ -50,7 +50,12 @@ public class Currency {
      * @param otherCurrency The Currency method that it should be converted to.
      * @return conversion rate
      */
-    public BigDecimal getConversionRate(Currency otherCurrency) throws IOException {
+    public BigDecimal getConversionRate(Currency otherCurrency)
+        throws IOException, URISyntaxException {
+        if (this.equals(otherCurrency)) {
+            return BigDecimal.ONE;
+        }
+
         return getConversionRate(otherCurrency, "latest");
     }
 
@@ -63,7 +68,7 @@ public class Currency {
      * @return conversion rate
      */
     public BigDecimal getConversionRate(Currency otherCurrency, String date)
-        throws IOException {
+        throws IOException, URISyntaxException {
         if (this.equals(otherCurrency)) {
             return BigDecimal.ONE;
         }
@@ -76,12 +81,9 @@ public class Currency {
             JsonNode root = new ObjectMapper().readTree(uri.toURL());
 
             return new BigDecimal(root.get("rates").get(otherCurrency.code).asText());
-        } catch (IOException e) {
-            System.err.println("Couldn't get conversion rate from api due to an IOException");
+        } catch (IOException | URISyntaxException e) {
+            System.err.println("Couldn't get conversion rate from api: " + e);
             throw e;
-        } catch (URISyntaxException e) {
-            System.err.println("Couldn't get conversion rate from api due to a URISyntaxException");
-            throw new RuntimeException(e);
         }
     }
 
@@ -129,5 +131,9 @@ public class Currency {
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
