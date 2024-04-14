@@ -1,5 +1,6 @@
 package client.utils;
 
+import java.io.IOException;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -42,6 +43,24 @@ public class WebSocketClient {
             return session != null;
         } catch (Exception e) {
             System.err.println("Could not connect to websocket server: " + e);
+            return false;
+        }
+    }
+
+    /**
+     * Tries to disconnect.
+     *
+     * @return whether the connection was closed successfully
+     */
+    public boolean disconnnect() {
+        if (session == null) {
+            return false;
+        }
+        try {
+            session.close();
+            return true;
+        } catch (IOException e) {
+            System.err.println("Could not close the websocket connection: " + e);
             return false;
         }
     }

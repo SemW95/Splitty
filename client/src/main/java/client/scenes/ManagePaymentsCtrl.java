@@ -113,11 +113,7 @@ public class ManagePaymentsCtrl implements Initializable {
 
             dialog.showAndWait()
                 .filter(response -> response.equals(yesButton))
-                .ifPresent(response -> {
-                    event.getPayments().remove(payment);
-                    server.updateEvent(event);
-                    server.deletePayment(payment);
-                });
+                .ifPresent(response -> server.deletePaymentFromEvent(payment, event));
         });
 
         ImageView deleteImage = new ImageView("client/icons/trashcan.png");
