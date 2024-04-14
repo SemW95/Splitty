@@ -56,7 +56,7 @@ public class CurrencyController {
     @GetMapping("/currency/{id}/rate/{otherCurrency}")
     public BigDecimal getConversionRate(
         @PathVariable String id,
-        @PathVariable Currency otherCurrency) throws IOException, URISyntaxException {
+        @PathVariable String otherCurrency) throws IOException, URISyntaxException {
         return currencyService.getConversionRate(id, otherCurrency);
     }
 
@@ -71,7 +71,7 @@ public class CurrencyController {
     @GetMapping("/currency/{id}/rate/{otherCurrency}/date/{date}")
     public BigDecimal getConversionRate(
         @PathVariable String id,
-        @PathVariable Currency otherCurrency,
+        @PathVariable String otherCurrency,
         @PathVariable String date)
         throws IOException, URISyntaxException {
         return currencyService.getConversionRate(id, otherCurrency, date);
@@ -87,11 +87,12 @@ public class CurrencyController {
         return currencyService.getCode(id);
     }
 
-    @GetMapping(path = "/currency/{id}/symbol")
-    public char getSymbol(@PathVariable String id) {
-        return currencyService.getSymbol(id);
-
+    @GetMapping(path = "/currency/{id}/symbol", produces = "text/plain;charset=UTF-8")
+    public ResponseEntity<String> getSymbol(@PathVariable String id) {
+        char symbol = currencyService.getSymbol(id);
+        return ResponseEntity.ok(String.valueOf(symbol));
     }
+
 
     /** Sets the name for a Currency.
      *
@@ -149,7 +150,7 @@ public class CurrencyController {
      * @throws IllegalStateException When there isn't a Person with this id in the database
      */
     @PutMapping(path = "/currency")
-    public void updateCurrency(Currency person) throws IllegalStateException {
+    public void updateCurrency(@RequestBody Currency person) throws IllegalStateException {
         currencyService.updateCurrency(person);
     }
 

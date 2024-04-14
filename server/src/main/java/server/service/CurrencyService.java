@@ -44,6 +44,10 @@ public class CurrencyService {
         );
     }
 
+    public boolean currencyExist(String id) {
+        return currencyRepository.existsById(id);
+    }
+
     /**
      * Gets a Currency by its id.
      *
@@ -68,9 +72,9 @@ public class CurrencyService {
      * @param otherCurrency The Currency method that it should be converted to.
      * @return conversion rate
      */
-    public BigDecimal getConversionRate(String id, Currency otherCurrency)
+    public BigDecimal getConversionRate(String id, String otherCurrency)
         throws IOException, URISyntaxException {
-        return getCurrencyById(id).getConversionRate(otherCurrency);
+        return getCurrencyById(id).getConversionRate(getCurrencyById(otherCurrency));
     }
 
     /**
@@ -81,9 +85,9 @@ public class CurrencyService {
      * @param date          A date which is of format "YYYY-MM-DD".
      * @return conversion rate
      */
-    public BigDecimal getConversionRate(String id, Currency otherCurrency, String date)
+    public BigDecimal getConversionRate(String id, String otherCurrency, String date)
         throws IOException, URISyntaxException {
-        return getCurrencyById(id).getConversionRate(otherCurrency, date);
+        return getCurrencyById(id).getConversionRate(getCurrencyById(otherCurrency), date);
     }
 
     public String getName(String id) {
@@ -158,21 +162,18 @@ public class CurrencyService {
     }
 
     /**
-     * Updates a Person in the database.
+     * Updates a Currency in the database.
      *
-     * @param person The Person Object with the updated data
-     * @throws IllegalStateException When there isn't a Person with this id in the database
+     * @param currency The Currency Object with the updated data
+     * @throws IllegalStateException When there isn't a Currency with this id in the database
      */
-    public void updateCurrency(Currency person) throws IllegalStateException {
-        Optional<Currency> optionalCurrency = currencyRepository
-            .findById(person.getId());
-
-        if (optionalCurrency.isEmpty()) {
+    public void updateCurrency(Currency currency) throws IllegalStateException {
+        if (!currencyExist(currency.getId())) {
             throw new IllegalStateException(
                 "There is no Currency with this id"
             );
         }
-        currencyRepository.save(person);
+        currencyRepository.save(currency);
 
     }
 }

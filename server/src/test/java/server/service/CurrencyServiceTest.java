@@ -82,9 +82,10 @@ class CurrencyServiceTest {
         Currency currency1 = new Currency("Dollar", "USD", '$');
         Currency currency2 = new Currency("Euro", "EUR", '€');
         when(currencyRepository.findById("1")).thenReturn(Optional.of(currency1));
+        when(currencyRepository.findById("2")).thenReturn(Optional.of(currency2));
         assertEquals(
             currency1.getConversionRate(currency2),
-            currencyService.getConversionRate("1", currency2));
+            currencyService.getConversionRate("1", "2"));
         verify(currencyRepository, times(1)).findById("1"); // Verify findById was called
     }
 
@@ -93,9 +94,10 @@ class CurrencyServiceTest {
         Currency currency1 = new Currency("Dollar", "USD", '$');
         Currency currency2 = new Currency("Euro", "EUR", '€');
         when(currencyRepository.findById("1")).thenReturn(Optional.of(currency1));
+        when(currencyRepository.findById("2")).thenReturn(Optional.of(currency2));
         assertEquals(
             currency1.getConversionRate(currency2, "2024-04-14"),
-            currencyService.getConversionRate("1", currency2, "2024-04-14"));
+            currencyService.getConversionRate("1", "2", "2024-04-14"));
         verify(currencyRepository, times(1)).findById("1"); // Verify findById was called
     }
 
@@ -172,7 +174,7 @@ class CurrencyServiceTest {
     void updateCurrency() {
         Currency currency = new Currency("Dollar", "USD", '$');
         currency.setId("1");
-        when(currencyRepository.findById("1")).thenReturn(Optional.of(currency));
+        when(currencyRepository.existsById("1")).thenReturn(true);
         when(currencyRepository.save(currency)).thenReturn(currency);
         currencyService.updateCurrency(currency);
         verify(currencyRepository, times(1)).save(currency);
