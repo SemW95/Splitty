@@ -104,13 +104,12 @@ public class MainTest extends FxRobot {
         assertTrue(listWindows().size() > 1);
         Optional<Node> languageTextNode = lookup("#languageSelection").tryQuery();
         assertTrue(languageTextNode.isPresent());
-        Label languageSelection = (Label) languageTextNode.get();
 
         // Choose Dutch and check changes
         clickOn("#clickDutch");
         languageTextNode = lookup("#languageSelection").tryQuery();
         assertTrue(languageTextNode.isPresent());
-        languageSelection = (Label) languageTextNode.get();
+        Label languageSelection = (Label) languageTextNode.get();
         String languageDutch = "Selecteer een taal";
         assertEquals(languageDutch, languageSelection.getText());
 

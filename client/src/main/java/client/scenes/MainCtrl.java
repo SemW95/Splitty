@@ -137,12 +137,12 @@ public class MainCtrl {
         });
         timerThread.start();
 
-//        // Stop the timer thread when the application is closed
-//        primaryStage.setOnHiding(event -> {
-//            // Not the nicest way to stop the thread but the `server.serverOnline()` blocks,
-//            // and this was the easiest way to solve the problem
-//            System.exit(0);
-//        });
+        //        // Stop the timer thread when the application is closed
+        //        primaryStage.setOnHiding(event -> {
+        //            // Not the nicest way to stop the thread but `server.serverOnline()` blocks
+        //            // and this was the easiest way to solve the problem
+        //            System.exit(0);
+        //        });
 
         // Add an event listeners for Ctrl+Z
         primaryStage
