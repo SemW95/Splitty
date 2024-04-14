@@ -30,10 +30,10 @@
                         <DropShadow height="26.93" radius="6.2325" width="0.0" />
                     </effect>
                 </Rectangle>
-                <Label layoutX="74.0" layoutY="27.0" style="-fx-font-weight: bold; -fx-font-size: 20;" text="SPLITTY: Going Dutch" />
+                <Label id="logoLabel" layoutX="74.0" layoutY="27.0" style="-fx-font-weight: bold; -fx-font-size: 20;" text="SPLITTY: Going Dutch" />
                 <Button fx:id="currency" layoutX="884.0" layoutY="22.0" mnemonicParsing="false" onAction="#clickCurrency" style="-fx-background-color: transparent;">
                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: transparent;">
+                        <ImageView id="currencyButton" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: transparent;">
                             <image>
                                 <Image url="@/client/icons/currency.png" />
                             </image>
@@ -42,7 +42,7 @@
                 </Button>
                 <Button fx:id="language1" layoutX="934.0" layoutY="23.0" mnemonicParsing="false" onAction="#clickLanguage" style="-fx-background-color: transparent;">
                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView id="languageButton" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@/client/icons/language.png" />
                             </image>
@@ -51,15 +51,15 @@
                 </Button>
             <HBox alignment="CENTER" layoutX="667.0" layoutY="30.0" prefHeight="25.0" prefWidth="200.0">
                <children>
-                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%home.server-status" />
+                      <Text id="serverStatusText" strokeType="OUTSIDE" strokeWidth="0.0" text="%home.server-status" />
                       <Label fx:id="serverStatus" alignment="CENTER" prefHeight="17.0" prefWidth="83.0" style="-fx-background-color: #ffff96;" text="..." textOverrun="WORD_ELLIPSIS" />
                </children>
             </HBox>
             </children>
         </Pane>
         <TextField fx:id="eventCodeTextField" layoutX="483.0" layoutY="110.0" onAction="#joinEvent" promptText="%home.event-code" />
-        <Button layoutX="639.0" layoutY="110.0" mnemonicParsing="false" onAction="#joinEvent" prefHeight="25.0" prefWidth="156.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="%home.join-event" />
-        <Button layoutX="847.0" layoutY="110.0" mnemonicParsing="false" onAction="#createEvent" prefHeight="25.0" prefWidth="139.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="%home.create-event" />
+        <Button id="joinEvent" layoutX="639.0" layoutY="110.0" mnemonicParsing="false" onAction="#joinEvent" prefHeight="25.0" prefWidth="156.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="%home.join-event" />
+        <Button id="createEvent" layoutX="847.0" layoutY="110.0" mnemonicParsing="false" onAction="#createEvent" prefHeight="25.0" prefWidth="139.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-color: rgb(200, 237, 253);" text="%home.create-event" />
         <ScrollPane hbarPolicy="NEVER" hmax="0" layoutX="160.0" layoutY="155.0" prefHeight="445.0" prefWidth="700.0" vbarPolicy="ALWAYS">
             <content>
                 <VBox fx:id="eventList" prefWidth="685.0" />
@@ -67,7 +67,7 @@
         </ScrollPane>
         <Button layoutX="933.0" layoutY="541.0" mnemonicParsing="false" onAction="#clickAdminView" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;">
             <graphic>
-                <ImageView fitHeight="38.0" fitWidth="40.0">
+                <ImageView id="adminButton" fitHeight="38.0" fitWidth="40.0">
                     <image>
                         <Image url="@/client/icons/admin.png" />
                     </image>
