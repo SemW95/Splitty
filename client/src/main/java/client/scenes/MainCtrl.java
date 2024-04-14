@@ -35,7 +35,11 @@ import java.util.function.Consumer;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -44,11 +48,7 @@ import javafx.stage.Stage;
  * This is the main controller, which holds references to all controllers and scenes.
  */
 public class MainCtrl {
-    /*
-    How to insert a new page: (you can use home as reference)
-    Make sure you created a controller and your Page.fxml links:"client.scenes.PageCtrl"
-    TODO
-    */
+
     private Stage primaryStage;
     private Stage popupStage;
     private MyFXML fxml;
@@ -322,6 +322,30 @@ public class MainCtrl {
     }
 
     /**
+     * Logic for the "currency" button on home.
+     */
+    public void clickSoon(Pane rootPane) {
+
+        // Show a modal dialog to inform the user
+        Dialog<String> dialog = new Dialog<>();
+        dialog.initModality(Modality.APPLICATION_MODAL); // Make the dialog modal
+        dialog.initOwner(rootPane.getScene().getWindow()); // Set the owner
+
+        // Customize the dialog appearance
+        dialog.setTitle(fxml.getBundle().getString("home.soon"));
+        dialog.setContentText(fxml.getBundle().getString("home.soon-text"));
+
+        // Adding a custom close button inside the dialog, since default buttons are not used
+        ButtonType closeButton =
+            new ButtonType(fxml.getBundle().getString("manage-expense.understood"),
+                ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().add(closeButton);
+
+        // Handling dialog result to perform actions if needed, but it's informational
+        dialog.showAndWait();
+    }
+
+    /**
      * Closes the primary popup.
      * Should never be called if the primary popup window is not shown.
      */
@@ -549,7 +573,7 @@ public class MainCtrl {
         popupStage.show();
     }
 
-    // TODO: not the best way to do this
+    // TODO: Not best practice to do it like this
     private EventHandler<KeyEvent> statisticsCloseHandler;
 
     /**

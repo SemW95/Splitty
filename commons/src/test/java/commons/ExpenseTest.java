@@ -65,11 +65,6 @@ class ExpenseTest {
         assertEquals(1, expense1.getParticipants().size());
     }
 
-    // TODO when GetShare() has been made
-    @Test
-    void getShare() {
-    }
-
     @Test
     void getParticipants() {
         assertEquals(participants, expense1.getParticipants(), "Incorrect list of participants");
