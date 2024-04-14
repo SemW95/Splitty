@@ -105,9 +105,7 @@ public class OpenDebtsCtrl implements Initializable {
         markReceivedBtn.setPrefWidth(160);
         markReceivedBtn.setOnAction((e) -> {
             // `payment` is the full settlement
-            Payment settlement = server.createPayment(payment);
-            event.getPayments().add(settlement);
-            server.updateEvent(event);
+            server.createPaymentForEvent(payment, event);
         });
 
         Button partialPaymentBtn = new Button(resources.getString("open-debts.partial-payment"));

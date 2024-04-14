@@ -39,9 +39,9 @@ public class ManageParticipantsCtrl implements Initializable {
     @FXML
     private Button backButton;
     @FXML
-    private Button deleteParticipant;
+    private Button deleteParticipantButton;
     @FXML
-    private Button editParticipant;
+    private Button editParticipantButton;
     private ResourceBundle resources;
     private Event event;
 
@@ -61,19 +61,24 @@ public class ManageParticipantsCtrl implements Initializable {
 
     private void handleExit() {
         mainCtrl.showEventOverview(this.event, false);
-
     }
 
 
     @FXML
     private void editParticipant() {
         Person selectedParticipant = participantMenu.getValue();
+        if (selectedParticipant == null) {
+            return;
+        }
         mainCtrl.showEditParticipantPopup(selectedParticipant);
     }
 
     @FXML
     private void deleteParticipant() {
         Person selectedParticipant = participantMenu.getValue();
+        if (selectedParticipant == null) {
+            return;
+        }
         mainCtrl.showDeleteParticipantConfirmationPopup(() -> {
             if (event.getExpenses().stream().anyMatch(ex ->
                 ex.getReceiver().equals(selectedParticipant)
@@ -101,10 +106,7 @@ public class ManageParticipantsCtrl implements Initializable {
 
                 return;
             }
-            event.getPeople().remove(selectedParticipant);
-            server.updateEvent(event);
-            server.deletePerson(selectedParticipant);
-            server.updateEvent(event);
+            server.deletePersonFromEvent(selectedParticipant, event);
         });
 
     }
@@ -122,6 +124,12 @@ public class ManageParticipantsCtrl implements Initializable {
             return;
         }
         List<Person> personList = event.getPeople();
+
+        // Disable the buttons if there are no people
+        deleteParticipantButton.setDisable(personList.isEmpty());
+        deleteParticipantButton.setDisable(personList.isEmpty());
+
+        participantMenu.getSelectionModel().clearSelection();
 
         // Populate participants
         participantsFlowPane.getChildren().setAll();
@@ -144,9 +152,6 @@ public class ManageParticipantsCtrl implements Initializable {
             }
         });
 
-        for (Person person : personList) {
-            participantMenu.getSelectionModel().select(person);
-        }
         participantMenu.setButtonCell(new ListCell<>() {
             @Override
             protected void updateItem(Person person, boolean empty) {
