@@ -39,7 +39,8 @@ public class ColourController {
 
     @PostMapping(path = "/colour")
     @ResponseBody
-    public ResponseEntity<Object> createColour(@RequestBody Colour colour) throws IllegalStateException {
+    public ResponseEntity<Object> createColour(@RequestBody Colour colour)
+        throws IllegalStateException {
         colourService.createColour(colour);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
