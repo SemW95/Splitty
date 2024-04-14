@@ -437,7 +437,7 @@ public class Event {
     }
 
     /**
-     * TODO Causes problems for testing.
+     * TODO updateLastModifiedDateTime messes up tests.
      *
      * @param code code to be set
      */

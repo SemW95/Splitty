@@ -156,7 +156,7 @@ public class ManagePaymentsCtrl implements Initializable {
 
     @FXML
     private void clickCurrency() {
-        // TODO
+        mainCtrl.clickSoon(root);
     }
 
     @FXML

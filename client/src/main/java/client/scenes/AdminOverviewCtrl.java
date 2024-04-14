@@ -17,14 +17,10 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Dialog;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 
 /**
  * Admin overview screen.
@@ -58,14 +54,14 @@ public class AdminOverviewCtrl implements Initializable {
         String creationDate = resources.getString("admin-overview.creation-date");
         String lastModifiedDate = resources.getString("admin-overview.last-modified-date");
         orderByChoiceBox.getItems().addAll(title, creationDate, lastModifiedDate);
-        //TODO: The order choice box gets called on "weird" occasions and creates errors.
-        //orderByChoiceBox.getSelectionModel().selectFirst();
+        //TODO: The order choice box gets called on "weird" occasions.
+        orderByChoiceBox.getSelectionModel().selectFirst();
 
         String ascending = resources.getString("admin-overview.ascending");
         String descending = resources.getString("admin-overview.descending");
         directionChoiceBox.getItems().addAll(ascending, descending);
-        //TODO: The order choice box gets called on "weird" occasions and creates errors.
-        //directionChoiceBox.getSelectionModel().selectFirst();
+        //TODO: The order choice box gets called on "weird" occasions.
+        directionChoiceBox.getSelectionModel().selectFirst();
 
         root.addEventFilter(KeyEvent.KEY_PRESSED,
             ScreenUtils.exitHandler(resources, this::handleExit));

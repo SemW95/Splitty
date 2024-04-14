@@ -48,11 +48,7 @@ import javafx.stage.Stage;
  * This is the main controller, which holds references to all controllers and scenes.
  */
 public class MainCtrl {
-    /*
-    How to insert a new page: (you can use home as reference)
-    Make sure you created a controller and your Page.fxml links:"client.scenes.PageCtrl"
-    TODO
-    */
+
     private Stage primaryStage;
     private Stage popupStage;
     private MyFXML fxml;
@@ -577,7 +573,7 @@ public class MainCtrl {
         popupStage.show();
     }
 
-    // TODO: not the best way to do this
+    // TODO: Not best practice to do it like this
     private EventHandler<KeyEvent> statisticsCloseHandler;
 
     /**
