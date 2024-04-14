@@ -100,6 +100,32 @@ public class TagService {
         tagRepository.save(tag);
     }
 
+    /** Gets the name of the Tag.
+     *
+     * @param id The id of the Tag that is searched
+     * @param hexString The HEX for the Colour for the Tag with the specified id
+     */
+    public void setColour(String id, String hexString) {
+        Tag tag = getTagById(id);
+
+        tag.setColour(new Colour(hexString));
+        tagRepository.save(tag);
+    }
+
+    /** Gets the name of the Tag.
+     *
+     * @param id The id of the Tag that is searched
+     * @param red The red-channel for the Colour for the Tag with the specified id
+     * @param green The green-channel for the Colour for the Tag with the specified id
+     * @param blue The blue-channel for the Colour for the Tag with the specified id
+     */
+    public void setColour(String id, int red, int green, int blue) {
+        Tag tag = getTagById(id);
+
+        tag.setColour(new Colour(red, green, blue));
+        tagRepository.save(tag);
+    }
+
     /** Deletes a Tag from the database.
      *
      * @param id The id of the Tag that should be deleted

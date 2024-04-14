@@ -1,20 +1,48 @@
 image: gradle:8.5.0-jdk21-alpine
 
 stages:
+  - compile
   - checkstyle
-  - build
+  - test
+  - coverageReport
   - triage
+
+compile:
+  stage: compile
+  script:
+    - ./gradlew assemble
+
+
 
 checkstyle:
   stage: checkstyle
+  needs: []
   script:
-    - ./gradlew checkstyleMain
-    - ./gradlew checkstyleTest
+    - ./gradlew $CHECKSTYLE
+  parallel:
+    matrix:
+      - CHECKSTYLE: ['checkstyleMain', 'checkstyleTest']
 
-build:
-  stage: build
+commons:test:
+  stage: test
   needs:
-    - checkstyle
+    - compile
+  script:
+    - ./gradlew :commons:test --tests commons.$TEST_CLASS
+  parallel:
+    matrix:
+      - TEST_CLASS:
+        - "ColourTest"
+        - "CurrencyTest"
+        - "EventTest"
+        - "ExpenseTest"
+        - "PaymentTest"
+        - "PersonTest"
+        - "TagTest"
+
+client:test:
+  stage: test
+  needs: []
   script:
     - apk update
     - apk add xvfb-run
@@ -23,7 +51,64 @@ build:
     - ./gradlew --build-cache bootrun --args='--seed' &   # Start the server as a background process
     - sleep 15  # Adjust the sleep time based on how long it takes for the server to start
     - xvfb-run ./gradlew --build-cache :client:test
-    - ./gradlew --build-cache test
+
+
+server:database:test:
+  stage: test
+  needs:
+    - compile
+  script:
+    - ./gradlew :server:test --tests server.database.$TEST_CLASS
+  parallel:
+    matrix:
+      - TEST_CLASS:
+          - "ColourRepositoryTest"
+          - "CurrencyRepositoryTest"
+          - "EventRepositoryTest"
+          - "ExpenseRepositoryTest"
+          - "PaymentRepositoryTest"
+          - "PersonRepositoryTest"
+          - "TagRepositoryTest"
+
+server:service:test:
+  stage: test
+  needs:
+    - compile
+  script:
+    - ./gradlew :server:test --tests server.service.$TEST_CLASS
+  parallel:
+    matrix:
+      - TEST_CLASS:
+          - "PersonServiceTest"
+          - "PaymentServiceTest"
+          - "ExpenseServiceTest"
+          - "EventServiceTest"
+          - "TagServiceTest"
+
+server:controller:test:
+  stage: test
+  needs:
+    - compile
+  script:
+    - ./gradlew :server:test --tests server.api.$TEST_CLASS
+  parallel:
+    matrix:
+      - TEST_CLASS:
+          - "PersonControllerTest"
+          - "PaymentControllerTest"
+          - "ExpenseControllerTest"
+          - "EventControllerTest"
+          - "TagControllerTest"
+
+coverageReport:
+  stage: coverageReport
+  allow_failure: true
+  needs: []
+  script:
+    - apk add xvfb-run
+    - apk add gtk+3.0
+    - ./gradlew --build-cache bootrun --args='--seed' &   # Start the server as a background process
+    - sleep 15  # Adjust the sleep time based on how long it takes for the server to start
     - ./gradlew --build-cache compileTestJava
     - ./gradlew --build-cache AggregateJacocoReport
     - mv build/reports/jacoco/aggregate/html ./coverage
@@ -37,6 +122,8 @@ build:
 dry-run:triage:
   image: ruby:3.0
   stage: triage
+  allow_failure: true
+  needs: []
   script:
     - gem install gitlab-triage
     - gitlab-triage --help
@@ -48,6 +135,8 @@ dry-run:triage:
 run:triage:
   image: ruby:3.0
   stage: triage
+  allow_failure: true
+  needs: []
   script:
     - gem install gitlab-triage
     - gitlab-triage --token j4Sr_UUUmsJ96xkkbs4y --host-url $CI_SERVER_URL --source projects --source-id $CI_PROJECT_PATH

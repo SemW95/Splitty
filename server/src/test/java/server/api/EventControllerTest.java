@@ -9,6 +9,7 @@ import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -103,8 +104,7 @@ class EventControllerTest {
         mockMvc.perform(post("/event")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(inputEvent)))
-            .andExpect(status().isOk())
-            .andExpect(content().string(eventId));
+            .andExpect(status().isCreated());
 
         verify(eventService).createEvent(any(Event.class));
     }
@@ -203,6 +203,8 @@ class EventControllerTest {
                 new ArrayList<>(), new ArrayList<>(), LocalDate.now(), LocalDate.now().plusDays(1),
                 Instant.now());
         // Assuming this is a valid representation of your Event object for an update operation
+
+        doNothing().when(eventService).updateEvent(any(Event.class));
 
         mockMvc.perform(put("/event")
                 .contentType(MediaType.APPLICATION_JSON)

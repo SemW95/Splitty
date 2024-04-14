@@ -45,8 +45,9 @@ public class TagController {
      * @param tag The Tag that should be added
      */
     @PostMapping(path = "/tag")
-    public void addTag(@RequestBody Tag tag) {
+    public ResponseEntity<Object> addTag(@RequestBody Tag tag) {
         tagService.addTag(tag);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     /**
@@ -73,17 +74,6 @@ public class TagController {
         return tagService.getName(id);
     }
 
-    /** Get the colour of a certain Tag.
-     *
-     * @param id The id of the Tag for which the colour should be returned
-     * @return The colour of the specified Tag
-     */
-    @GetMapping(path = "/tag/{id}/colour")
-    @ResponseBody
-    public Colour getColour(@PathVariable(name = "id") String id) {
-        return tagService.getColour(id);
-    }
-
     /** Set the name for a Tag.
      *
      * @param id The id of the Tag for which the name should be set
@@ -97,7 +87,18 @@ public class TagController {
         tagService.setName(id, name);
     }
 
-    @PutMapping(path = "/tag/{id}")
+    /** Get the colour of a certain Tag.
+     *
+     * @param id The id of the Tag for which the colour should be returned
+     * @return The colour of the specified Tag
+     */
+    @GetMapping(path = "/tag/{id}/colour")
+    @ResponseBody
+    public Colour getColour(@PathVariable(name = "id") String id) {
+        return tagService.getColour(id);
+    }
+
+    @PutMapping(path = "/tag/{id}/colour")
     public void setColour(@PathVariable(name = "id") String id, @RequestBody Colour colour) {
         tagService.setColour(id, colour);
     }
@@ -109,14 +110,14 @@ public class TagController {
      * @param green The green value for the Colour that should be set for the specified Tag
      * @param blue The blue value for the Colour that should be set for the specified Tag
      */
-    @PutMapping(path = "/tag/{id}/name/{red}/{green}/{blue}")
+    @PutMapping(path = "/tag/{id}/colour/rgb/{red}/{green}/{blue}")
     public void setColour(
         @PathVariable(name = "id") String id,
         @PathVariable(name = "red") int red,
         @PathVariable(name = "green") int green,
         @PathVariable(name = "blue") int blue
     ) {
-        tagService.setColour(id, new Colour(red, green, blue));
+        tagService.setColour(id, red, green, blue);
     }
 
     /** Set the colour for a Tag.
@@ -124,12 +125,12 @@ public class TagController {
      * @param id The id of the Tag for which the colour should be set
      * @param hexString The hexString value for the Colour that should be set for the specified Tag
      */
-    @PutMapping(path = "/tag/{id}/name/{hex-string}")
+    @PutMapping(path = "/tag/{id}/colour/hex/{hex-string}")
     public void setColour(
         @PathVariable(name = "id") String id,
         @PathVariable(name = "hex-string") String hexString
     ) {
-        tagService.setColour(id, new Colour(hexString));
+        tagService.setColour(id, hexString);
     }
 
     @DeleteMapping(path = "/tag/{id}")

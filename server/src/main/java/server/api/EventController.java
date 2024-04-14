@@ -58,8 +58,9 @@ public class EventController {
 
     @PostMapping(path = "/event")
     @ResponseBody
-    public String createEvent(@RequestBody Event event) {
-        return eventService.createEvent(event);
+    public ResponseEntity<Object> createEvent(@RequestBody Event event) {
+        eventService.createEvent(event);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     /**

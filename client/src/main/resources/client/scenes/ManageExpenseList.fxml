@@ -23,11 +23,11 @@
       </AnchorPane>
       <AnchorPane prefHeight="800.0" prefWidth="1100.0" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="54.0">
          <children>
-            <Button fx:id="editExpenseButton" layoutX="596.0" layoutY="266.0" mnemonicParsing="false" onAction="#editExpense" prefHeight="29.0" prefWidth="65.0" text="%manage-expense-list.edit">
+            <Button fx:id="editExpenseButton" layoutX="552.0" layoutY="266.0" mnemonicParsing="false" onAction="#editExpense" prefHeight="40.0" prefWidth="146.0" text="%manage-expense-list.edit">
                <font>
                   <Font size="18.0" />
                </font></Button>
-            <Button fx:id="deleteExpenseButton" layoutX="751.0" layoutY="266.0" mnemonicParsing="false" onAction="#deleteExpense" prefHeight="36.0" prefWidth="82.0" text="%manage-expense-list.delete">
+            <Button fx:id="deleteExpenseButton" layoutX="734.0" layoutY="266.0" mnemonicParsing="false" onAction="#deleteExpense" prefHeight="40.0" prefWidth="146.0" text="%manage-expense-list.delete">
                <font>
                   <Font size="18.0" />
                </font></Button>
