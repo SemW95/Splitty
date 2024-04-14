@@ -89,7 +89,6 @@ public class ExpenseOverviewCtrl implements Initializable {
         participantsFlowPane.getChildren().setAll();
         if (expense.getReceiver() != null) {
             participantsFlowPane.getChildren().add(createRecipientCard(expense.getReceiver()));
-            System.out.println("Created a recipient card instead of a normal participant card");
         }
         if (expense.getParticipants() != null) {
             int participantAmount =
@@ -97,7 +96,6 @@ public class ExpenseOverviewCtrl implements Initializable {
             participantCountLabel.setText(Integer.toString(participantAmount));
             for (Person participant : expense.getParticipants()) {
                 participantsFlowPane.getChildren().add(createParticipantCard(participant));
-                System.out.println("Created a regular participant card");
             }
         }
     }
@@ -116,8 +114,6 @@ public class ExpenseOverviewCtrl implements Initializable {
 
         String participantRepresentation =
             participant.getFirstName() + " " + participant.getLastName();
-        System.out.println(participant.getId());
-        System.out.println(expense.getReceiver().getId());
         participantRepresentation +=
             " (" + resources.getString("expense-overview.recipient") + ")";
         Label participantLabel = new Label(participantRepresentation);

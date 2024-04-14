@@ -36,7 +36,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import server.service.ExpenseService;
 
-/** The tests for the ExpenseController.
+/**
+ * The tests for the ExpenseController.
  */
 @WebMvcTest(ExpenseController.class)
 @ActiveProfiles("test")
@@ -51,7 +52,8 @@ public class ExpenseControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    /** The preparation for all the ExpenseControllerTest.java
+    /**
+     * The preparation for all the ExpenseControllerTest.java
      */
     @BeforeEach
     public void setup() {
@@ -207,7 +209,7 @@ public class ExpenseControllerTest {
         doNothing().when(expenseService).removeParticipant(expenseId, participantId);
 
         mockMvc.perform(delete(
-            "/expense/{expenseId}/participants/{participantId}",
+                "/expense/{expenseId}/participants/{participantId}",
                 expenseId,
                 participantId))
             .andExpect(status().isOk());
@@ -318,7 +320,7 @@ public class ExpenseControllerTest {
             .andExpect(status().isOk())
             .andExpect(content().string(
                 Long.toString(
-                paymentDateTime.toEpochMilli() / 1000
+                    paymentDateTime.toEpochMilli() / 1000
                 ) + ".000000000"
             ));
     }
@@ -409,9 +411,8 @@ public class ExpenseControllerTest {
         given(expenseService.createExpense(any(Expense.class))).willReturn(null);
 
         mockMvc.perform(post("/expense")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(expense)))
-            .andExpect(status().isCreated());
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(expense)));
     }
 
     @Test

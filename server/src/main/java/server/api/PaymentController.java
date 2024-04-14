@@ -30,9 +30,8 @@ public class PaymentController {
     }
 
     @PostMapping(path = "/payment")
-    public ResponseEntity<Object> addPayment(@RequestBody Payment payment) {
-        paymentService.addPayment(payment);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public Payment addPayment(@RequestBody Payment payment) {
+        return paymentService.addPayment(payment);
     }
 
     // The user should not be able to get all payments for security reasons.

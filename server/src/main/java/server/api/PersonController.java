@@ -208,9 +208,8 @@ public class PersonController {
      * @return the created person
      */
     @PostMapping(path = "/person")
-    public ResponseEntity<Object> createPerson(@RequestBody Person person) {
-        personService.createPerson(person);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public Person createPerson(@RequestBody Person person) {
+        return personService.createPerson(person);
     }
 
     /**

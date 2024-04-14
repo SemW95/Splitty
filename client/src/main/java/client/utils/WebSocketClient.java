@@ -68,7 +68,7 @@ public class WebSocketClient {
     private class MyWebSocketHandler extends AbstractWebSocketHandler {
         @Override
         public void afterConnectionEstablished(WebSocketSession newSession) throws Exception {
-            System.err.println("Websocket connection established");
+            System.out.println("Websocket connection established");
             // Try to run the onUpdate because something could have changed while the socket
             // was offline
             if (onUpdate != null) {
@@ -78,14 +78,13 @@ public class WebSocketClient {
 
         @Override
         public void afterConnectionClosed(WebSocketSession closeSession, CloseStatus status) {
-            System.err.println("Websocket connection was closed. Status: " + status);
+            System.out.println("Websocket connection was closed. Status: " + status);
             session = null;
         }
 
         @Override
         public void handleTextMessage(WebSocketSession currentSession, TextMessage message) {
             String payload = message.getPayload();
-            System.err.println("Got a message from ws. Payload: " + payload);
             if ("update".equals(payload)) {
                 if (onUpdate != null) {
                     onUpdate.run();

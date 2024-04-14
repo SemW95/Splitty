@@ -98,7 +98,6 @@ public class EditParticipantCtrl implements Initializable {
 
     @FXML
     private void editFirstName() {
-        System.out.println("Edit First Name.");
         firstNameLabel.setVisible(false); // Hide the firstNameLabel
         firstNameTextField.setVisible(true); // Show the firstNameTextField
         firstNameTextField.requestFocus(); // Set focus to firstNameTextField
@@ -106,7 +105,6 @@ public class EditParticipantCtrl implements Initializable {
 
     @FXML
     private void editLastName() {
-        System.out.println("Edit Last Name.");
         lastNameLabel.setVisible(false); // Hide the lastNameLabel
         lastNameTextField.setVisible(true); // Show the lastNameTextField
         lastNameTextField.requestFocus(); // Set focus to lastNameTextField
@@ -115,7 +113,6 @@ public class EditParticipantCtrl implements Initializable {
 
     @FXML
     private void editEmail() {
-        System.out.println("Edit Email.");
         emailLabel.setVisible(false); // Hide the emailLabel
         emailTextField.setVisible(true); // Show the emailTextField
         emailTextField.requestFocus(); // Set focus to emailTextField
@@ -123,7 +120,6 @@ public class EditParticipantCtrl implements Initializable {
 
     @FXML
     private void editIban() {
-        System.out.println("Edit IBAN.");
         ibanLabel.setVisible(false); // Hide the ibanLabel
         ibanTextField.setVisible(true); // Show the ibanTextField
         ibanTextField.requestFocus(); // Set focus to ibanTextField
@@ -131,7 +127,6 @@ public class EditParticipantCtrl implements Initializable {
 
     @FXML
     private void editBic() {
-        System.out.println("Edit BIC.");
         bicLabel.setVisible(false); // Hide the bicLabel
         bicTextField.setVisible(true); // Show the bicTextField
         bicTextField.requestFocus(); // Set focus to bicTextField
@@ -139,7 +134,6 @@ public class EditParticipantCtrl implements Initializable {
 
     @FXML
     private void save() {
-        System.out.println("Save.");
         if (firstNameTextField.isVisible()) {
             person.setFirstName(firstNameTextField.getText());
             server.updatePerson(person);

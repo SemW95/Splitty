@@ -50,7 +50,6 @@ public class ServerUtils {
     public void undo() {
         if (!undoStack.isEmpty()) {
             undoStack.pop().run();
-            System.out.println("- UNDID something");
         }
     }
 
@@ -183,14 +182,12 @@ public class ServerUtils {
      */
     public Event createEvent(Event event) {
         try {
-            String newId = ClientBuilder.newClient(new ClientConfig())
+            return ClientBuilder.newClient(new ClientConfig())
                 .target(server).path("/event")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .post(Entity.json(event))
-                .readEntity(String.class);
-            event.setId(newId);
-            return event;
+                .readEntity(Event.class);
         } catch (Exception e) {
             return null;
         }

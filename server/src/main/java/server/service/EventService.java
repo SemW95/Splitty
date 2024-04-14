@@ -118,7 +118,7 @@ public class EventService {
      * @param event the event to be created.
      * @throws IllegalStateException When there already is an Event with this id
      */
-    public String createEvent(Event event) throws IllegalStateException {
+    public Event createEvent(Event event) throws IllegalStateException {
         if (event.getId() == null || !eventRepository.existsById(event.getId())) {
             // Create default tags if there are none
             if (event.getTags().isEmpty() && tagRepository != null) {
@@ -133,7 +133,7 @@ public class EventService {
 
                 event.setTags(List.of(travel, food, entranceFees));
             }
-            return eventRepository.save(event).getId();
+            return eventRepository.save(event);
         }
         throw new IllegalStateException("There already is an Event with this id");
     }

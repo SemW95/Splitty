@@ -152,8 +152,6 @@ public class ExpenseAddParticipantCtrl implements Initializable {
 
         String participantRepresentation =
             participant.getFirstName() + " " + participant.getLastName();
-        System.out.println(participant.getId());
-        System.out.println(expense.getReceiver().getId());
         participantRepresentation +=
             " (" + resources.getString("expense-add-participant.recipient") + ")";
         Label participantLabel = new Label(participantRepresentation);
