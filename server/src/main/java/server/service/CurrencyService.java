@@ -3,6 +3,7 @@ package server.service;
 import commons.Currency;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,8 @@ public class CurrencyService {
         );
     }
 
-    /** Gets a Currency by its id.
+    /**
+     * Gets a Currency by its id.
      *
      * @param id The id of the Currency
      * @return The requested Currency
@@ -65,7 +67,8 @@ public class CurrencyService {
      * @param otherCurrency The Currency method that it should be converted to.
      * @return conversion rate
      */
-    public BigDecimal getConversionRate(String id, Currency otherCurrency) throws IOException {
+    public BigDecimal getConversionRate(String id, Currency otherCurrency)
+        throws IOException, URISyntaxException {
         return getCurrencyById(id).getConversionRate(otherCurrency);
     }
 
@@ -78,7 +81,7 @@ public class CurrencyService {
      * @return conversion rate
      */
     public BigDecimal getConversionRate(String id, Currency otherCurrency, String date)
-        throws IOException {
+        throws IOException, URISyntaxException {
         return getCurrencyById(id).getConversionRate(otherCurrency, date);
     }
 
@@ -94,9 +97,10 @@ public class CurrencyService {
         return getCurrencyById(id).getSymbol();
     }
 
-    /** Sets the name for a Currency.
+    /**
+     * Sets the name for a Currency.
      *
-     * @param id The id of the Currency
+     * @param id   The id of the Currency
      * @param name The new name for the Currency
      */
     public void setName(String id, String name) {
@@ -106,9 +110,10 @@ public class CurrencyService {
         currencyRepository.save(currency);
     }
 
-    /** Sets the code for a Currency.
+    /**
+     * Sets the code for a Currency.
      *
-     * @param id The id of the Currency
+     * @param id   The id of the Currency
      * @param code The new code for the Currency
      */
     public void setCode(String id, String code) {
@@ -118,9 +123,10 @@ public class CurrencyService {
         currencyRepository.save(currency);
     }
 
-    /** Sets the symbol for a Currency.
+    /**
+     * Sets the symbol for a Currency.
      *
-     * @param id The id of the Currency
+     * @param id     The id of the Currency
      * @param symbol The new symbol for the Currency
      */
     public void setSymbol(String id, char symbol) {

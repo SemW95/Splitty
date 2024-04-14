@@ -3,6 +3,7 @@ package server.api;
 import commons.Currency;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.URISyntaxException;
 import java.util.List;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,7 +52,7 @@ public class CurrencyController {
     @GetMapping("/currency/{id}/rate/{otherCurrency}")
     public BigDecimal getConversionRate(
         @PathVariable String id,
-        @PathVariable Currency otherCurrency) throws IOException {
+        @PathVariable Currency otherCurrency) throws IOException, URISyntaxException {
         return currencyService.getConversionRate(id, otherCurrency);
     }
 
@@ -68,7 +69,7 @@ public class CurrencyController {
         @PathVariable String id,
         @PathVariable Currency otherCurrency,
         @PathVariable String date)
-        throws IOException {
+        throws IOException, URISyntaxException {
         return currencyService.getConversionRate(id, otherCurrency, date);
     }
 
