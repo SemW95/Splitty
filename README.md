@@ -16,11 +16,27 @@ Start it without modifying the database:
 
 ## Client
 
-Start the client:
+- Start the client with gradle:
 
 ```bash
 ./gradlew run
 ```
+
+---
+
+- Compile the client into a fat jar file:
+
+```bash
+./gradlew client:jar
+```
+
+- Execute the jar with java:
+
+```bash
+java -jar client/build/libs/client-0.0.1-SNAPSHOT.jar
+```
+
+Note: it will try to find the `config.properties` file in user's current directory.
 
 ## Testing
 

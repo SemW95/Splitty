@@ -12,6 +12,17 @@ javafx {
     modules = ['javafx.controls', 'javafx.fxml']
 }
 
+// Fat jar support: https://openjfx.io/openjfx-docs > Runtime images > Non-Modular project > Gradle
+jar {
+    manifest {
+        attributes 'Main-Class': 'client.Launcher'
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 java {
     sourceCompatibility = '21'
 }
