@@ -58,7 +58,6 @@ public class ManageExpenseCtrl implements Initializable {
     @FXML
     private Label confirmTag;
 
-
     @FXML
     private Label confirmLastDeleted;
 
@@ -477,6 +476,10 @@ public class ManageExpenseCtrl implements Initializable {
             return;
         }
         this.expense = server.getExpenseById(expense.getId());
+        // If the expense was deleted, close the window
+        if (expense == null) {
+            mainCtrl.closePopup();
+        }
         this.event = server.getEventById(event.getId());
         populate();
     }

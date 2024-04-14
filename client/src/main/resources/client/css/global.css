@@ -11,6 +11,13 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 2, 2);
     /*-fx-cursor: hand;*/
 }
+/* Resolve random warnings */
 *.list-cell {
+    -fx-text-fill: inherit;
+}
+*.button {
+    -fx-text-fill: inherit;
+}
+*.label {
     -fx-text-fill: inherit;
 }

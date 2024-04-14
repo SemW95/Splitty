@@ -189,8 +189,11 @@ public class ExpenseOverviewCtrl implements Initializable {
         if (this.expense == null || this.event == null) {
             return;
         }
-
         this.expense = server.getExpenseById(expense.getId());
+        // If the expense was deleted, close the window
+        if (expense == null) {
+            mainCtrl.showEventOverview(event, false);
+        }
         this.event = server.getEventById(event.getId());
         populate();
     }
