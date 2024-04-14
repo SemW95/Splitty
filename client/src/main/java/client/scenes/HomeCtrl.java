@@ -126,24 +126,7 @@ public class HomeCtrl implements Initializable {
      * Logic for the "currency" button on home.
      */
     public void clickCurrency() {
-
-        // Show a modal dialog to inform the user
-        Dialog<String> dialog = new Dialog<>();
-        dialog.initModality(Modality.APPLICATION_MODAL); // Make the dialog modal
-        dialog.initOwner(rootPane.getScene().getWindow()); // Set the owner
-
-        // Customize the dialog appearance
-        dialog.setTitle(resources.getString("home.soon"));
-        dialog.setContentText(resources.getString("home.soon-text"));
-
-        // Adding a custom close button inside the dialog, since default buttons are not used
-        ButtonType closeButton =
-            new ButtonType(resources.getString("manage-expense.understood"),
-                ButtonBar.ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().add(closeButton);
-
-        // Handling dialog result to perform actions if needed, but it's informational
-        dialog.showAndWait();
+        mainCtrl.clickSoon(rootPane);
     }
 
     /**

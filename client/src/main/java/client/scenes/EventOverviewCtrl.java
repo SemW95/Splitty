@@ -241,12 +241,12 @@ public class EventOverviewCtrl implements Initializable {
      */
     @FXML
     private void handleCurrency() {
-        System.out.println("Pressed currency.");
+        mainCtrl.clickSoon(root);;
     }
 
-    // TODO
     @FXML
     private void handleManageTags(ActionEvent actionEvent) {
+        mainCtrl.clickSoon(root);
     }
 
     /**
