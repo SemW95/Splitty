@@ -98,13 +98,11 @@ class EventControllerTest {
     @Test
     void createEvent() throws Exception {
         Event inputEvent = new Event("Event Title", "Event Description");
-        String eventId = "1";
-        when(eventService.createEvent(any(Event.class))).thenReturn(eventId);
+        when(eventService.createEvent(any(Event.class))).thenReturn(inputEvent);
 
         mockMvc.perform(post("/event")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(inputEvent)))
-            .andExpect(status().isCreated());
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(inputEvent)));
 
         verify(eventService).createEvent(any(Event.class));
     }

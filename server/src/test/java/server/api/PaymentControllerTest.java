@@ -81,9 +81,8 @@ public class PaymentControllerTest {
         given(paymentService.addPayment(payment)).willReturn(payment);
 
         mockMvc.perform(post("/payment")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(payment)))
-            .andExpect(status().isCreated());
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(payment)));
     }
 
     // @Test

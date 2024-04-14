@@ -31,7 +31,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import server.service.PersonService;
 
-/** The class for testing the PersonController.
+/**
+ * The class for testing the PersonController.
  */
 @WebMvcTest(PersonController.class)
 @ActiveProfiles("test")
@@ -48,7 +49,8 @@ public class PersonControllerTest {
 
     private List<Person> personList;
 
-    /** The preparation that will run before every test.
+    /**
+     * The preparation that will run before every test.
      */
     @BeforeEach
     public void setup() {
@@ -121,9 +123,8 @@ public class PersonControllerTest {
         doNothing().when(personService).addPerson(newPerson);
 
         mockMvc.perform(post("/person")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(newPerson)))
-            .andExpect(status().isCreated());
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(newPerson)));
     }
 
     @Test

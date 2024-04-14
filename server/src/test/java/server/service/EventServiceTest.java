@@ -88,7 +88,7 @@ class EventServiceTest {
     void createEvent_Event() {
         Event event = new Event("Title", "Description");
         when(eventRepository.save(event)).thenReturn(event);
-        assertEquals(event.getId(), eventService.createEvent(event));
+        assertEquals(event, eventService.createEvent(event));
         verify(eventRepository, times(1)).save(event);
     }
 

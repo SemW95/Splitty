@@ -97,7 +97,8 @@ public class AdminOverviewCtrl implements Initializable {
             case 0 -> events.sort(Comparator.comparing(Event::getTitle));
             case 1 -> events.sort(Comparator.comparing(Event::getStartDate));
             case 2 -> events.sort(Comparator.comparing(Event::getLastModifiedDateTime));
-            default -> {}
+            default -> {
+            }
         }
 
         int directionIndex = directionChoiceBox.getSelectionModel().getSelectedIndex();
