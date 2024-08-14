@@ -1,14 +1,17 @@
-# OOPP Project
+# README OOP Project - Splitty
+An expense manager for a group of friends. You can create events and manage all details and payments surrounding it.
+There is also an administrator screen to manage all events (delete/back-up/import).
 
----
-
-## Rubrics at the bottom of the file
+To start the application open your cmd in the right directory and use the following commands to start the server.
+Then do the same for the client in a different window.
+A password for the administrator will be printed in the cmd after starting the server.
 
 ---
 
 ## Server
 
-Start the server while also resetting and seeding the database:
+
+Start the server while also resetting and seeding the database (recommended):
 
 ```bash
 ./gradlew bootrun --args='--seed'
@@ -46,7 +49,7 @@ Note: it will try to find the `config.properties` file in user's current directo
 
 ## Testing
 
-To test everything the Gitlab pipeline does:
+To run the automated tests:
 
 - Start the server (required for client tests)
 
@@ -72,8 +75,7 @@ To test everything the Gitlab pipeline does:
 
 ---
 
-## Rubric items
-
+## Notable implemented features (for grading):
 - Websockets:
   - [MyWebSocketHandler](server/src/main/java/server/component/MyWebSocketHandler.java)
   - [UpdateInterceptor](server/src/main/java/server/component/UpdateInterceptor.java)
