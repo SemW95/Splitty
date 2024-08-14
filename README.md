@@ -2,6 +2,21 @@
 An expense manager for a group of friends. You can create events and manage all details and payments surrounding it.
 There is also an administrator screen to manage all events (delete/back-up/import).
 
+### What i learned
+- Working with git
+- How an application is developed and its components (Springboot, Gradle, H2, JavaFX)
+- General coding experience in Java front- and back-end (some examples):
+  - Implementing a config manager for properties and data persistance
+  - Implementing long-polling and websockets
+  - Working with dependency injections
+  - Write automated tests
+- Coding with a team and a deadline
+- Agile development (SCRUM, Sprints, Stand-ups)
+
+---
+
+## Getting Started
+
 To start the application open your cmd in the right directory and use the following commands to start the server.
 Then do the same for the client in a different window.
 A password for the administrator will be printed in the cmd after starting the server.
