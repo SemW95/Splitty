@@ -24,7 +24,7 @@ will be added once every few weeks at the end of a meeting.
 
 ## Discuss Code of Conduct draft
 
-The Code of Conduct draft: https://docs.google.com/document/d/1HWI_8tUNYHDYDOodj7TcNYNnLKNWh_OktwJwUrDQRWw \
+The Code of Conduct draft: link was here
 
 Notes: It was decided that Friday 23rd of February is the deadline for the Code of Conduct. During the Friday meeting on
 the 23rd we will discuss the entire Code of Conduct, finish writing the section '10. Consequences', resolve the last
@@ -49,7 +49,7 @@ Notes:
 
 - The base class structure that was made during the meeting on Friday 16th of February was explained again and
   discussed. Changes were made in the document associated with this (named: 'Class
-  Structure' https://docs.google.com/document/d/1iS8_Rl77X6YSTOALcPIyPFSMiH_f3QUbDX8EwFwNX58/edit)
+  Structure' link was here)
 - Agreed that the additional costs of relevant exchange rates are paid by the Payer.
 - TO DO:
     - Ask the lecturer about the User Managment System.
