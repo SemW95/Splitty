@@ -27,7 +27,7 @@ Setup all "stations" (laptop, tablets, notebooks, etc.)
 
 ## Discuss Code of Conduct draft
 
-The Code of Conduct draft: https://docs.google.com/document/d/1HWI_8tUNYHDYDOodj7TcNYNnLKNWh_OktwJwUrDQRWw \
+The Code of Conduct draft: link was here
 All points about the draft of the Code of Conduct could be set up for discussion or questioning at this block.
 
 ### Section 10: Consequences
@@ -44,7 +44,7 @@ Are there any questions on how we're going to use SCRUM in relation to GitLab?
 ## Base class structure
 
 We've started on designing the class structure for the data
-storage: https://docs.google.com/document/d/1iS8_Rl77X6YSTOALcPIyPFSMiH_f3QUbDX8EwFwNX58 \
+storage: link was here
 This needs to be discussed that further and a final base structure has to be decided upon, so it can be implemented.
 
 ## Sprint backlog | week-2
